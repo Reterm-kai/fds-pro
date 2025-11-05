@@ -1,0 +1,11 @@
+# 依赖
+node_modules
+
+# 构建产物
+dist
+*.tsbuildinfo
+
+# 其他
+.idea
+*.log
+pnpm-lock.yaml
