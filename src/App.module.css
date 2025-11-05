@@ -1,0 +1,109 @@
+/* App 组件样式 - 使用 CSS Modules */
+
+.root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  text-align: center;
+}
+
+.logoContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.logo {
+  height: 6em;
+  padding: var(--spacing-lg);
+  will-change: filter;
+  transition: filter var(--transition-slow);
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em var(--color-react));
+}
+
+@keyframes logoSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .logoReactAnimated {
+    animation: logoSpin infinite 20s linear;
+  }
+}
+
+.title {
+  font-size: 3.2em;
+  line-height: 1.1;
+  margin-bottom: var(--spacing-lg);
+}
+
+.card {
+  padding: var(--spacing-xl);
+}
+
+.button {
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: var(--font-weight-medium);
+  font-family: inherit;
+  background-color: var(--color-bg-button-dark);
+  cursor: pointer;
+  transition: border-color var(--transition-normal);
+}
+
+.button:hover {
+  border-color: var(--color-primary);
+}
+
+.button:focus,
+.button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  .button {
+    background-color: var(--color-bg-button-light);
+  }
+}
+
+.description {
+  margin-top: var(--spacing-md);
+}
+
+.readTheDocs {
+  color: var(--color-text-secondary);
+  margin-top: var(--spacing-lg);
+}
+
+.link {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+  text-decoration: inherit;
+  transition: color var(--transition-normal);
+}
+
+.link:hover {
+  color: var(--color-primary-hover);
+}
+
+@media (prefers-color-scheme: light) {
+  .link:hover {
+    color: var(--color-primary-light);
+  }
+}
