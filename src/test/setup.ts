@@ -9,3 +9,21 @@ expect.extend(matchers)
 afterEach(() => {
   cleanup()
 })
+
+/**
+ * 模拟 window.matchMedia
+ * Mantine UI 依赖此 API 进行响应式设计
+ */
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: (query: string) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: () => {}, // 兼容旧版本
+    removeListener: () => {}, // 兼容旧版本
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    dispatchEvent: () => true,
+  }),
+})
