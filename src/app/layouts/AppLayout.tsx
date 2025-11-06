@@ -2,6 +2,7 @@ import { AppShell } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { Outlet } from 'react-router-dom'
 import { AppHeader, AppNavbar } from '@/widgets/app-shell'
+import { ProtectedRoute } from '@/shared/components/ProtectedRoute'
 import type { MenuItem } from '@/shared/navigation/types'
 
 interface AppLayoutProps {
@@ -35,7 +36,9 @@ export function AppLayout({ menuItems }: AppLayoutProps) {
       </AppShell.Navbar>
 
       <AppShell.Main>
-        <Outlet />
+        <ProtectedRoute>
+          <Outlet />
+        </ProtectedRoute>
       </AppShell.Main>
     </AppShell>
   )

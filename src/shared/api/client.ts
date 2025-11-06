@@ -33,6 +33,14 @@ interface RequestOptions extends RequestInit {
 }
 
 /**
+ * 获取认证令牌
+ * 优先从 localStorage 获取，如果不存在则尝试从 sessionStorage 获取
+ */
+function getAuthToken(): string | null {
+  return localStorage.getItem('token') || sessionStorage.getItem('token')
+}
+
+/**
  * 统一的 HTTP 请求函数
  *
  * @param endpoint - API 端点路径
@@ -55,9 +63,15 @@ async function request<T>(
   }
 
   // 默认请求头
-  const headers: HeadersInit = {
+  const headers: Record<string, string> = {
     'Content-Type': 'application/json',
-    ...fetchOptions.headers,
+    ...(fetchOptions.headers as Record<string, string>),
+  }
+
+  // 如果有认证令牌，添加到请求头
+  const token = getAuthToken()
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
   }
 
   try {

@@ -17,16 +17,18 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [Story => (
-    <QueryClientProvider client={queryClient}>
-      <MantineProvider defaultColorScheme="light">
-        <ModalsProvider>
-          <Notifications position="top-right" />
-          <Story />
-        </ModalsProvider>
-      </MantineProvider>
-    </QueryClientProvider>
-  )],
+  decorators: [
+    Story => (
+      <QueryClientProvider client={queryClient}>
+        <MantineProvider defaultColorScheme="light">
+          <ModalsProvider>
+            <Notifications position="top-right" />
+            <Story />
+          </ModalsProvider>
+        </MantineProvider>
+      </QueryClientProvider>
+    ),
+  ],
 }
 
 export default preview

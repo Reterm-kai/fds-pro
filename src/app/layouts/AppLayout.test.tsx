@@ -1,7 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { MantineProvider } from '@mantine/core'
 import { BrowserRouter } from 'react-router-dom'
+import { AuthProvider } from '@/shared/hooks/auth'
 import { AppLayout } from './AppLayout'
+
+// Mock AuthContext
+const AuthProviderWrapper = ({ children }: { children: React.ReactNode }) => (
+  <AuthProvider>{children}</AuthProvider>
+)
 
 describe('AppLayout', () => {
   const mockMenuItems = [
@@ -21,7 +27,9 @@ describe('AppLayout', () => {
     render(
       <MantineProvider>
         <BrowserRouter>
-          <AppLayout menuItems={mockMenuItems} />
+          <AuthProviderWrapper>
+            <AppLayout menuItems={mockMenuItems} />
+          </AuthProviderWrapper>
         </BrowserRouter>
       </MantineProvider>
     )

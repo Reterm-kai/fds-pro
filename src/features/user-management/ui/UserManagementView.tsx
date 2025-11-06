@@ -96,9 +96,7 @@ export function UserManagementView() {
           notifications.show({
             title: '删除失败',
             message:
-              deleteError instanceof Error
-                ? deleteError.message
-                : '操作失败',
+              deleteError instanceof Error ? deleteError.message : '操作失败',
             color: 'red',
           })
         }
@@ -152,12 +150,13 @@ export function UserManagementView() {
       <Table.Td>{user.email}</Table.Td>
       <Table.Td>
         <Badge
-          color=
-            {user.role === 'admin'
+          color={
+            user.role === 'admin'
               ? 'red'
               : user.role === 'user'
                 ? 'blue'
-                : 'gray'}
+                : 'gray'
+          }
         >
           {user.role === 'admin'
             ? '管理员'

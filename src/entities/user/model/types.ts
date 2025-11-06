@@ -9,6 +9,7 @@ export interface User {
   email: string
   role: 'admin' | 'user' | 'guest'
   status: 'active' | 'inactive'
+  avatar?: string
   createdAt: string
   updatedAt?: string
 }
