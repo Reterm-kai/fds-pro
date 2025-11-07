@@ -22,7 +22,7 @@ export function AppProviders() {
           <RouterProvider router={router} />
         </ModalsProvider>
       </MantineProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
+      <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   )
 }

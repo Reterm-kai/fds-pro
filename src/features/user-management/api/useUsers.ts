@@ -1,12 +1,12 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { get, post, put, del } from '@/shared/api/client'
+import {useQuery, useMutation, useQueryClient} from '@tanstack/react-query'
+import {get, post, put, del} from '@/shared/api/client'
 import {
-  userKeys,
-  type User,
-  type UserListParams,
-  type UserListResponse,
-  type CreateUserParams,
-  type UpdateUserParams,
+    userKeys,
+    type User,
+    type UserListParams,
+    type UserListResponse,
+    type CreateUserParams,
+    type UpdateUserParams,
 } from '@/entities/user'
 
 /**
@@ -16,14 +16,14 @@ import {
  * @returns useQuery 返回值
  */
 export function useUserList(params: UserListParams = {}) {
-  return useQuery({
-    queryKey: userKeys.list(params),
-    queryFn: () =>
-      get<UserListResponse>(
-        '/users',
-        params as Record<string, string | number | boolean>
-      ),
-  })
+    return useQuery({
+        queryKey: userKeys.list(params),
+        queryFn: () =>
+            get<UserListResponse>(
+                '/users',
+                params as Record<string, string | number | boolean>
+            ),
+    })
 }
 
 /**
@@ -34,11 +34,11 @@ export function useUserList(params: UserListParams = {}) {
  * @returns useQuery 返回值
  */
 export function useUser(id: number, enabled = true) {
-  return useQuery({
-    queryKey: userKeys.detail(id),
-    queryFn: () => get<User>(`/users/${id}`),
-    enabled: enabled && id > 0,
-  })
+    return useQuery({
+        queryKey: userKeys.detail(id),
+        queryFn: () => get<User>(`/users/${id}`),
+        enabled: enabled && id > 0,
+    })
 }
 
 /**
@@ -47,15 +47,15 @@ export function useUser(id: number, enabled = true) {
  * @returns useMutation 返回值
  */
 export function useCreateUser() {
-  const queryClient = useQueryClient()
+    const queryClient = useQueryClient()
 
-  return useMutation({
-    mutationFn: (data: CreateUserParams) => post<User>('/users', data),
-    onSuccess: () => {
-      // 创建成功后使列表缓存失效,触发重新请求
-      queryClient.invalidateQueries({ queryKey: userKeys.lists() })
-    },
-  })
+    return useMutation({
+        mutationFn: (data: CreateUserParams) => post<User>('/users', data),
+        onSuccess: () => {
+            // 创建成功后使列表缓存失效,触发重新请求
+            queryClient.invalidateQueries({queryKey: userKeys.lists()})
+        },
+    })
 }
 
 /**
@@ -64,17 +64,17 @@ export function useCreateUser() {
  * @returns useMutation 返回值
  */
 export function useUpdateUser() {
-  const queryClient = useQueryClient()
+    const queryClient = useQueryClient()
 
-  return useMutation({
-    mutationFn: ({ id, data }: { id: number; data: UpdateUserParams }) =>
-      put<User>(`/users/${id}`, data),
-    onSuccess: (_, variables) => {
-      // 更新成功后使相关缓存失效
-      queryClient.invalidateQueries({ queryKey: userKeys.lists() })
-      queryClient.invalidateQueries({ queryKey: userKeys.detail(variables.id) })
-    },
-  })
+    return useMutation({
+        mutationFn: ({id, data}: { id: number; data: UpdateUserParams }) =>
+            put<User>(`/users/${id}`, data),
+        onSuccess: (_, variables) => {
+            // 更新成功后使相关缓存失效
+            queryClient.invalidateQueries({queryKey: userKeys.lists()})
+            queryClient.invalidateQueries({queryKey: userKeys.detail(variables.id)})
+        },
+    })
 }
 
 /**
@@ -83,13 +83,13 @@ export function useUpdateUser() {
  * @returns useMutation 返回值
  */
 export function useDeleteUser() {
-  const queryClient = useQueryClient()
+    const queryClient = useQueryClient()
 
-  return useMutation({
-    mutationFn: (id: number) => del<void>(`/users/${id}`),
-    onSuccess: () => {
-      // 删除成功后使列表缓存失效
-      queryClient.invalidateQueries({ queryKey: userKeys.lists() })
-    },
-  })
+    return useMutation({
+        mutationFn: (id: number) => del<void>(`/users/${id}`),
+        onSuccess: () => {
+            // 删除成功后使列表缓存失效
+            void queryClient.invalidateQueries({queryKey: userKeys.lists()})
+        },
+    })
 }
