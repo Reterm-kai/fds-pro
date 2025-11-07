@@ -1,8 +1,15 @@
 /**
  * API 工具函数
  *
- * 提供统一的 HTTP 请求封装,处理错误和响应格式化
+ * 基于 Axios 的统一 HTTP 请求封装,处理认证、错误和响应格式化
  */
+
+import axios, {
+  type AxiosInstance,
+  type AxiosRequestConfig,
+  type AxiosResponse,
+  type InternalAxiosRequestConfig,
+} from 'axios'
 
 /** API 响应统一格式 */
 export interface ApiResponse<T = unknown> {
@@ -25,13 +32,6 @@ export class ApiError extends Error {
 /** 基础 URL 配置 (开发环境可配置为代理或 Mock 服务器) */
 const BASE_URL = import.meta.env.VITE_API_BASE_URL || '/api'
 
-/** 请求配置选项 */
-interface RequestOptions extends RequestInit {
-  params?:
-    | Record<string, string | number | boolean>
-    | { [key: string]: unknown }
-}
-
 /**
  * 获取认证令牌
  * 优先从 localStorage 获取，如果不存在则尝试从 sessionStorage 获取
@@ -41,104 +41,149 @@ function getAuthToken(): string | null {
 }
 
 /**
- * 统一的 HTTP 请求函数
- *
- * @param endpoint - API 端点路径
- * @param options - 请求配置
- * @returns 解析后的响应数据
+ * 清除认证令牌
  */
-async function request<T>(
-  endpoint: string,
-  options: RequestOptions = {}
-): Promise<T> {
-  const { params, ...fetchOptions } = options
+function clearAuthToken(): void {
+  localStorage.removeItem('token')
+  sessionStorage.removeItem('token')
+  localStorage.removeItem('user')
+  sessionStorage.removeItem('user')
+}
 
-  // 构建 URL
-  let url = `${BASE_URL}${endpoint}`
-  if (params) {
-    const searchParams = new URLSearchParams(
-      Object.entries(params).map(([key, value]) => [key, String(value)])
-    )
-    url += `?${searchParams.toString()}`
-  }
-
-  // 默认请求头
-  const headers: Record<string, string> = {
+/**
+ * 创建 Axios 实例
+ */
+const axiosInstance: AxiosInstance = axios.create({
+  baseURL: BASE_URL,
+  timeout: 15000, // 15秒超时
+  headers: {
     'Content-Type': 'application/json',
-    ...(fetchOptions.headers as Record<string, string>),
+  },
+})
+
+/**
+ * 请求拦截器
+ * 在每个请求发送前自动添加 Authorization 头
+ */
+axiosInstance.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    const token = getAuthToken()
+    if (token && config.headers) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  },
+  error => {
+    return Promise.reject(error)
   }
+)
 
-  // 如果有认证令牌，添加到请求头
-  const token = getAuthToken()
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`
-  }
+/**
+ * 响应拦截器
+ * 处理业务错误、HTTP 错误和 401 未授权
+ */
+axiosInstance.interceptors.response.use(
+  (response: AxiosResponse<ApiResponse>) => {
+    const { data } = response
 
-  try {
-    const response = await fetch(url, {
-      ...fetchOptions,
-      headers,
-    })
+    // 业务逻辑成功 (code === 0)
+    if (data.code === 0) {
+      return response
+    }
 
-    // HTTP 错误处理
-    if (!response.ok) {
+    // 业务逻辑错误
+    throw new ApiError(data.code, data.message || '请求失败')
+  },
+  error => {
+    // 处理 HTTP 错误
+    if (axios.isAxiosError(error)) {
+      const status = error.response?.status
+
+      // 401 未授权 - 清除令牌并跳转登录
+      if (status === 401) {
+        clearAuthToken()
+        // 只在非登录页时跳转
+        if (window.location.pathname !== '/login') {
+          window.location.href = '/login'
+        }
+        throw new ApiError(401, '登录已过期，请重新登录')
+      }
+
+      // 403 禁止访问
+      if (status === 403) {
+        throw new ApiError(403, '没有权限访问该资源')
+      }
+
+      // 404 未找到
+      if (status === 404) {
+        throw new ApiError(
+          404,
+          error.response?.data?.message || '请求的资源不存在'
+        )
+      }
+
+      // 500 服务器错误
+      if (status === 500) {
+        throw new ApiError(500, '服务器内部错误，请稍后重试')
+      }
+
+      // 其他 HTTP 错误
       throw new ApiError(
-        response.status,
-        `HTTP ${response.status}: ${response.statusText}`
+        status || -1,
+        error.response?.data?.message || error.message || '网络请求失败'
       )
     }
 
-    // 解析 JSON 响应
-    const result: ApiResponse<T> = await response.json()
-
-    // 业务逻辑错误处理
-    if (result.code !== 0) {
-      throw new ApiError(result.code, result.message || '请求失败')
+    // 网络错误或超时
+    if (error.code === 'ECONNABORTED') {
+      throw new ApiError(-1, '请求超时，请检查网络连接')
     }
 
-    return result.data
-  } catch (error) {
-    // 网络错误或其他异常
-    if (error instanceof ApiError) {
-      throw error
-    }
     throw new ApiError(
       -1,
       error instanceof Error ? error.message : '网络请求失败'
     )
   }
+)
+
+/**
+ * 统一的 HTTP 请求函数
+ *
+ * @param config - Axios 请求配置
+ * @returns 解析后的响应数据
+ */
+async function request<T>(config: AxiosRequestConfig): Promise<T> {
+  const response = await axiosInstance.request<ApiResponse<T>>(config)
+  return response.data.data
 }
 
 /** GET 请求 */
-export function get<T>(endpoint: string, params?: RequestOptions['params']) {
-  return request<T>(endpoint, { method: 'GET', params })
+export function get<T>(
+  url: string,
+  params?: Record<string, string | number | boolean>
+) {
+  return request<T>({ method: 'GET', url, params })
 }
 
 /** POST 请求 */
-export function post<T>(endpoint: string, data?: unknown) {
-  return request<T>(endpoint, {
-    method: 'POST',
-    body: JSON.stringify(data),
-  })
+export function post<T>(url: string, data?: unknown) {
+  return request<T>({ method: 'POST', url, data })
 }
 
 /** PUT 请求 */
-export function put<T>(endpoint: string, data?: unknown) {
-  return request<T>(endpoint, {
-    method: 'PUT',
-    body: JSON.stringify(data),
-  })
+export function put<T>(url: string, data?: unknown) {
+  return request<T>({ method: 'PUT', url, data })
 }
 
 /** DELETE 请求 */
-export function del<T>(endpoint: string) {
-  return request<T>(endpoint, { method: 'DELETE' })
+export function del<T>(url: string) {
+  return request<T>({ method: 'DELETE', url })
 }
 
 /** PATCH 请求 */
-export function patch<T>(endpoint: string, data?: unknown) {
-  return request<T>(endpoint, {
-    method: 'PATCH',
-    body: JSON.stringify(data),
-  })
+export function patch<T>(url: string, data?: unknown) {
+  return request<T>({ method: 'PATCH', url, data })
 }
+
+// 导出 axios 实例供特殊场景使用
+export { axiosInstance as axios }

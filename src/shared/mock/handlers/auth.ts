@@ -25,15 +25,20 @@ function generateToken(userId: number): string {
  * 认证相关 API Mock Handlers
  */
 export const authHandlers = [
-  // 登录
+  // 登录 (支持用户名或邮箱)
   http.post(`${BASE_URL}/auth/login`, async ({ request }) => {
     await delay(500)
 
-    const body = (await request.json()) as { email: string; password: string }
-    const { email, password } = body
+    const body = (await request.json()) as {
+      username: string
+      password: string
+    }
+    const { username, password } = body
 
-    // 查找用户
-    const user = registeredUsers.find(u => u.email === email)
+    // 查找用户 (支持用户名或邮箱)
+    const user = registeredUsers.find(
+      u => u.email === username || u.name === username
+    )
 
     // 模拟验证逻辑
     if (!user) {
@@ -47,8 +52,8 @@ export const authHandlers = [
     }
 
     // 简单的密码验证（实际应该使用加密比对）
-    // 这里为了演示，我们假设密码是 'password123'
-    if (password !== 'password123') {
+    // 这里为了演示，我们假设密码是 '123456'
+    if (password !== '123456') {
       return HttpResponse.json(
         {
           code: 401,

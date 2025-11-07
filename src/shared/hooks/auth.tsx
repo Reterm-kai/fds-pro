@@ -2,6 +2,7 @@
 import { createContext, useEffect, useState, ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { notifications } from '@mantine/notifications'
+import { LoadingOverlay, Box } from '@mantine/core'
 import { User } from '@/entities/user'
 import {
   login as apiLogin,
@@ -14,7 +15,7 @@ import {
 interface AuthContextType {
   user: User | null
   login: (
-    email: string,
+    username: string,
     password: string,
     rememberMe?: boolean
   ) => Promise<void>
@@ -65,9 +66,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [])
 
-  const login = async (email: string, password: string, rememberMe = true) => {
+  const login = async (
+    username: string,
+    password: string,
+    rememberMe = true
+  ) => {
     try {
-      const response = await apiLogin({ email, password })
+      const response = await apiLogin({ username, password })
       setUser(response.user)
 
       // 根据"记住我"选项决定存储方式
@@ -135,8 +140,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     isAuthenticated: !!user,
   }
 
+  // 在初始化期间显示加载指示器
   if (loading) {
-    return null // 或者返回一个加载指示器
+    return (
+      <Box pos="relative" style={{ minHeight: '100vh' }}>
+        <LoadingOverlay
+          visible={true}
+          zIndex={1000}
+          overlayProps={{ radius: 'sm', blur: 2 }}
+          loaderProps={{ type: 'dots' }}
+        />
+      </Box>
+    )
   }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

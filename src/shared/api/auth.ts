@@ -11,7 +11,7 @@ import { User } from '@/entities/user'
  * 登录请求参数
  */
 export interface LoginCredentials {
-  email: string
+  username: string
   password: string
 }
 

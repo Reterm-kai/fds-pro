@@ -3,6 +3,7 @@ import { MantineProvider } from '@mantine/core'
 import { BrowserRouter } from 'react-router-dom'
 import { AuthProvider } from '@/shared/hooks/auth'
 import { AppLayout } from './AppLayout'
+import * as React from 'react'
 
 // Mock AuthContext
 const AuthProviderWrapper = ({ children }: { children: React.ReactNode }) => (

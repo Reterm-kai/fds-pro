@@ -8,7 +8,7 @@ export const mockUsers: User[] = [
   {
     id: 1,
     name: '张三',
-    email: 'zhangsan@example.com',
+    email: 'admin@x.com',
     role: 'admin',
     status: 'active',
     createdAt: '2024-01-15T08:30:00Z',

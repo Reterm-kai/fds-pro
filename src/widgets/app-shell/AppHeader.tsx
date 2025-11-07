@@ -1,14 +1,15 @@
 import {
   Group,
   Burger,
-  Text,
   Avatar,
   Menu,
   UnstyledButton,
   rem,
+  Text,
 } from '@mantine/core'
 import { IconLogout, IconSettings, IconUser } from '@tabler/icons-react'
 import { ThemeToggle } from '@/shared/ui/theme-toggle'
+import { Logo } from '@/shared/ui/logo'
 import { useAuth } from '@/shared/hooks/useAuth'
 
 interface AppHeaderProps {
@@ -32,10 +33,8 @@ export function AppHeader({ opened, toggle }: AppHeaderProps) {
   return (
     <Group h="100%" px="md" justify="space-between">
       <Group>
-        <Burger opened={opened} onClick={toggle} size="sm" />
-        <Text size="xl" fw={700}>
-          FDS Pro
-        </Text>
+        <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
+        <Logo size="sm" withText />
       </Group>
 
       <Group>

@@ -1,67 +1,189 @@
 import {
   IconDashboard,
-  IconUsers,
   IconSettings,
   IconTable,
-  IconChartBar,
+  IconFileText,
+  IconForms,
+  IconChecklist,
+  IconAlertCircle,
+  IconUser,
+  IconChartLine,
 } from '@tabler/icons-react'
 import type { MenuItem } from './types'
 
 /**
  * 菜单配置
- * 定义侧边栏菜单项及其图标
+ * 参考 Arco Design Pro 设计的完整中后台菜单结构
  */
 export const menuItems: MenuItem[] = [
+  // Dashboard 仪表盘
   {
     key: 'dashboard',
     label: '仪表盘',
     icon: <IconDashboard size={20} />,
-    path: '/dashboard',
+    children: [
+      {
+        key: 'dashboard-workplace',
+        label: '工作台',
+        path: '/dashboard',
+      },
+      {
+        key: 'dashboard-monitor',
+        label: '实时监控',
+        path: '/dashboard/monitor',
+      },
+    ],
   },
+
+  // Data Visualization 数据可视化
   {
-    key: 'users',
-    label: '用户管理',
-    icon: <IconUsers size={20} />,
-    path: '/users',
+    key: 'visualization',
+    label: '数据可视化',
+    icon: <IconChartLine size={20} />,
+    children: [
+      {
+        key: 'visualization-analysis',
+        label: '数据分析',
+        path: '/visualization/analysis',
+      },
+      {
+        key: 'visualization-multi',
+        label: '多维分析',
+        path: '/visualization/multi',
+      },
+    ],
   },
+
+  // List 列表页
   {
-    key: 'data',
-    label: '数据管理',
+    key: 'list',
+    label: '列表页',
     icon: <IconTable size={20} />,
     children: [
       {
-        key: 'data-list',
-        label: '数据列表',
-        path: '/data/list',
+        key: 'list-search',
+        label: '查询表格',
+        path: '/list/search-table',
       },
       {
-        key: 'data-import',
-        label: '数据导入',
-        path: '/data/import',
+        key: 'list-card',
+        label: '卡片列表',
+        path: '/list/card',
       },
     ],
   },
+
+  // Form 表单页
   {
-    key: 'analytics',
-    label: '数据分析',
-    icon: <IconChartBar size={20} />,
+    key: 'form',
+    label: '表单页',
+    icon: <IconForms size={20} />,
     children: [
       {
-        key: 'analytics-overview',
-        label: '概览',
-        path: '/analytics/overview',
+        key: 'form-group',
+        label: '分组表单',
+        path: '/form/group',
       },
       {
-        key: 'analytics-reports',
-        label: '报表',
-        path: '/analytics/reports',
+        key: 'form-step',
+        label: '分步表单',
+        path: '/form/step',
       },
     ],
   },
+
+  // Profile 详情页
   {
-    key: 'settings',
-    label: '系统设置',
+    key: 'profile',
+    label: '详情页',
+    icon: <IconFileText size={20} />,
+    children: [
+      {
+        key: 'profile-basic',
+        label: '基础详情页',
+        path: '/profile/basic',
+      },
+    ],
+  },
+
+  // Result 结果页
+  {
+    key: 'result',
+    label: '结果页',
+    icon: <IconChecklist size={20} />,
+    children: [
+      {
+        key: 'result-success',
+        label: '成功页',
+        path: '/result/success',
+      },
+      {
+        key: 'result-error',
+        label: '失败页',
+        path: '/result/error',
+      },
+    ],
+  },
+
+  // Exception 异常页
+  {
+    key: 'exception',
+    label: '异常页',
+    icon: <IconAlertCircle size={20} />,
+    children: [
+      {
+        key: 'exception-403',
+        label: '403',
+        path: '/exception/403',
+      },
+      {
+        key: 'exception-404',
+        label: '404',
+        path: '/exception/404',
+      },
+      {
+        key: 'exception-500',
+        label: '500',
+        path: '/exception/500',
+      },
+    ],
+  },
+
+  // User 个人中心
+  {
+    key: 'user',
+    label: '个人中心',
+    icon: <IconUser size={20} />,
+    children: [
+      {
+        key: 'user-info',
+        label: '个人信息',
+        path: '/user/info',
+      },
+      {
+        key: 'user-settings',
+        label: '个人设置',
+        path: '/user/settings',
+      },
+    ],
+  },
+
+  // System 系统管理
+  {
+    key: 'system',
+    label: '系统管理',
     icon: <IconSettings size={20} />,
-    path: '/settings',
+    children: [
+      {
+        key: 'system-users',
+        label: '用户管理',
+        path: '/users',
+      },
+      {
+        key: 'system-settings',
+        label: '系统设置',
+        path: '/settings',
+      },
+    ],
   },
 ]

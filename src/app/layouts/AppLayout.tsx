@@ -16,12 +16,13 @@ interface AppLayoutProps {
  */
 export function AppLayout({ menuItems }: AppLayoutProps) {
   const [opened, { toggle }] = useDisclosure()
+  const [collapsed, { toggle: toggleCollapsed }] = useDisclosure()
 
   return (
     <AppShell
       header={{ height: 60 }}
       navbar={{
-        width: 280,
+        width: collapsed ? 48 : 280,
         breakpoint: 'sm',
         collapsed: { mobile: !opened },
       }}
@@ -32,7 +33,11 @@ export function AppLayout({ menuItems }: AppLayoutProps) {
       </AppShell.Header>
 
       <AppShell.Navbar>
-        <AppNavbar menuItems={menuItems} />
+        <AppNavbar
+          menuItems={menuItems}
+          collapsed={collapsed}
+          toggleCollapsed={toggleCollapsed}
+        />
       </AppShell.Navbar>
 
       <AppShell.Main>
