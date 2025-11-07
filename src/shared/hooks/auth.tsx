@@ -1,5 +1,4 @@
-/* eslint-disable react-refresh/only-export-components */
-import { createContext, useEffect, useState, ReactNode } from 'react'
+import { useEffect, useState, ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { notifications } from '@mantine/notifications'
 import { LoadingOverlay, Box } from '@mantine/core'
@@ -10,26 +9,7 @@ import {
   logout as apiLogout,
   getCurrentUser,
 } from '@/shared/api/auth'
-
-// 认证上下文类型定义
-interface AuthContextType {
-  user: User | null
-  login: (
-    username: string,
-    password: string,
-    rememberMe?: boolean
-  ) => Promise<void>
-  logout: () => void
-  register: (userData: {
-    name: string
-    email: string
-    password: string
-  }) => Promise<User>
-  isAuthenticated: boolean
-}
-
-// 创建认证上下文
-export const AuthContext = createContext<AuthContextType | undefined>(undefined)
+import { AuthContext } from '@/shared/contexts/auth-context'
 
 // 认证提供者组件
 export const AuthProvider = ({ children }: { children: ReactNode }) => {

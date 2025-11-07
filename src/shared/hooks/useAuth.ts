@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { AuthContext } from './auth'
+import { AuthContext } from '@/shared/contexts/auth-context'
 
 /**
  * 自定义Hook用于访问认证上下文
