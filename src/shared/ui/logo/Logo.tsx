@@ -1,4 +1,4 @@
-import { Group, Text, useMantineColorScheme } from '@mantine/core'
+import { Group, Text } from '@mantine/core'
 import { Rocket } from 'lucide-react'
 
 interface LogoProps {
@@ -13,12 +13,10 @@ interface LogoProps {
  * 使用火箭图标象征创新和前进
  */
 export function Logo({ size = 'md', withText = true }: LogoProps) {
-  const { colorScheme } = useMantineColorScheme()
-
   const sizes = {
-    sm: { icon: 24, text: 'lg' as const },
-    md: { icon: 32, text: 'xl' as const },
-    lg: { icon: 48, text: '2rem' as const },
+    sm: { icon: 24, text: 'lg' as const, padding: '0.375rem' },
+    md: { icon: 32, text: 'xl' as const, padding: '0.5rem' },
+    lg: { icon: 48, text: '2rem' as const, padding: '0.75rem' },
   }
 
   const currentSize = sizes[size]
@@ -27,12 +25,9 @@ export function Logo({ size = 'md', withText = true }: LogoProps) {
     <Group gap="xs" wrap="nowrap">
       <div
         style={{
-          background:
-            colorScheme === 'dark'
-              ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-              : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          borderRadius: '8px',
-          padding: size === 'sm' ? '6px' : size === 'md' ? '8px' : '12px',
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          borderRadius: '0.5rem',
+          padding: currentSize.padding,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -50,10 +45,7 @@ export function Logo({ size = 'md', withText = true }: LogoProps) {
           size={currentSize.text}
           fw={700}
           style={{
-            background:
-              colorScheme === 'dark'
-                ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-                : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',

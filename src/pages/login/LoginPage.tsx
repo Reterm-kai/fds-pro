@@ -75,53 +75,123 @@ export function LoginPage() {
 
   return (
     <Box
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        background:
-          colorScheme === 'dark'
-            ? 'linear-gradient(135deg, #1a1b26 0%, #24283b 100%)'
-            : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      }}
+      mih="100vh"
+      display="flex"
+      bg={
+        colorScheme === 'dark'
+          ? 'linear-gradient(135deg, #1a1b26 0%, #24283b 100%)'
+          : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+      }
     >
       {/* 左侧装饰区域 */}
       <Box
+        flex={1}
+        display="flex"
         style={{
-          flex: 1,
-          display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          padding: '60px',
-          color: 'white',
         }}
+        p={{ base: 'xl', md: '3rem' }}
+        c="white"
         visibleFrom="md"
       >
-        <Logo size="lg" withText />
+        {/* Logo - 使用纯白色显示 */}
+        <Box mb="xl">
+          <div
+            style={{
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(10px)',
+              borderRadius: '1rem',
+              padding: '1.5rem',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '1rem',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+            }}
+          >
+            <div
+              style={{
+                background: 'white',
+                borderRadius: '0.75rem',
+                padding: '0.75rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                style={{ transform: 'rotate(-45deg)' }}
+              >
+                <path
+                  d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                  fill="url(#gradient)"
+                />
+                <defs>
+                  <linearGradient
+                    id="gradient"
+                    x1="2"
+                    y1="2"
+                    x2="22"
+                    y2="21.02"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stopColor="#667eea" />
+                    <stop offset="1" stopColor="#764ba2" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <Text
+              size="2rem"
+              fw={700}
+              c="white"
+              style={{
+                letterSpacing: '0.02em',
+                textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              Fordoes
+            </Text>
+          </div>
+        </Box>
+
         <Title
           order={1}
-          mt="xl"
           mb="md"
-          style={{ color: 'white', textAlign: 'center' }}
+          c="white"
+          ta="center"
+          size="2.5rem"
+          fw={700}
+          style={{
+            textShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+            lineHeight: 1.2,
+          }}
         >
           企业级中后台解决方案
         </Title>
         <Text
-          size="lg"
+          size="xl"
+          c="white"
+          ta="center"
+          maw="28rem"
           style={{
-            color: 'rgba(255,255,255,0.8)',
-            textAlign: 'center',
-            maxWidth: '400px',
+            textShadow: '0 1px 4px rgba(0, 0, 0, 0.15)',
+            lineHeight: 1.6,
+            opacity: 0.95,
           }}
         >
           基于 React 19 + TypeScript + Mantine 构建的现代化前端框架
         </Text>
 
         {/* 装饰性插图 */}
-        <Box
-          mt="xl"
-          style={{ width: '100%', maxWidth: '500px', textAlign: 'center' }}
-        >
+        <Box mt="xl" w="100%" maw="31.25rem" ta="center">
           <svg
             viewBox="0 0 400 300"
             fill="none"
@@ -182,37 +252,58 @@ export function LoginPage() {
 
       {/* 右侧登录表单 */}
       <Box
-        style={{
-          width: '100%',
-          maxWidth: '500px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: colorScheme === 'dark' ? '#1a1b26' : 'white',
-          padding: '40px',
-        }}
+        w="100%"
+        maw="31.25rem"
+        display="flex"
+        style={{ alignItems: 'center', justifyContent: 'center' }}
+        bg={colorScheme === 'dark' ? '#1a1b26' : 'white'}
+        p={{ base: 'xl', md: '2.5rem' }}
       >
         <Container size={420} w="100%">
           <Box mb="xl" hiddenFrom="md" ta="center">
             <Logo size="md" withText />
           </Box>
 
-          <Title order={2} ta="center" mb="sm">
+          <Title
+            order={1}
+            ta="center"
+            mb="xs"
+            size="2rem"
+            fw={700}
+            style={{
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              letterSpacing: '-0.02em',
+            }}
+          >
             登录到 Fordoes
           </Title>
-          <Text c="dimmed" size="sm" ta="center" mb="xl">
+          <Text c="dimmed" size="md" ta="center" mb="2rem">
             输入您的账号信息以继续
           </Text>
 
           <Paper shadow="none" radius="md">
             <form onSubmit={form.onSubmit(handleSubmit)}>
-              <Stack gap="md">
+              <Stack gap="lg">
                 <TextInput
                   label="用户名或邮箱"
                   placeholder="admin@x.com 或 张三"
                   leftSection={<User size={18} />}
-                  size="md"
+                  size="lg"
                   autoComplete="username"
+                  styles={{
+                    label: {
+                      fontSize: '0.875rem',
+                      fontWeight: 500,
+                      marginBottom: '0.5rem',
+                    },
+                    input: {
+                      borderRadius: '0.5rem',
+                      fontSize: '1rem',
+                    },
+                  }}
                   {...form.getInputProps('username')}
                 />
 
@@ -220,8 +311,19 @@ export function LoginPage() {
                   label="密码"
                   placeholder="请输入密码"
                   leftSection={<Lock size={18} />}
-                  size="md"
+                  size="lg"
                   autoComplete="current-password"
+                  styles={{
+                    label: {
+                      fontSize: '0.875rem',
+                      fontWeight: 500,
+                      marginBottom: '0.5rem',
+                    },
+                    input: {
+                      borderRadius: '0.5rem',
+                      fontSize: '1rem',
+                    },
+                  }}
                   {...form.getInputProps('password')}
                 />
 
@@ -240,11 +342,24 @@ export function LoginPage() {
                   type="submit"
                   loading={loading}
                   fullWidth
-                  size="md"
+                  size="lg"
                   mt="md"
-                  style={{
-                    background:
-                      'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                  styles={{
+                    root: {
+                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                      borderRadius: '0.5rem',
+                      fontSize: '1rem',
+                      fontWeight: 600,
+                      height: '3rem',
+                      transition: 'all 0.2s ease',
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 8px 16px rgba(102, 126, 234, 0.4)',
+                      },
+                      '&:active': {
+                        transform: 'translateY(0)',
+                      },
+                    },
                   }}
                 >
                   登录

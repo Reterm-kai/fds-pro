@@ -29,7 +29,7 @@ export function UserCard({ user, onClick }: UserCardProps) {
     >
       <Group>
         <UserAvatar user={user} size="lg" />
-        <Stack gap="xs" style={{ flex: 1 }}>
+        <Stack gap="xs" flex={1}>
           <Text fw={500} size="lg">
             {user.name}
           </Text>

@@ -21,7 +21,7 @@ export function AppLayout({ menuItems }: AppLayoutProps) {
     <AppShell
       header={{ height: 60 }}
       navbar={{
-        width: collapsed ? 48 : 280,
+        width: collapsed ? 48 : 220,
         breakpoint: 'sm',
         collapsed: { mobile: !opened },
       }}

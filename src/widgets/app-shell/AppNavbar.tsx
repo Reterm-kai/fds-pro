@@ -9,7 +9,7 @@ import {
   Tooltip,
 } from '@mantine/core'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, Menu as MenuIcon } from 'lucide-react'
+import { ChevronsLeft, ChevronsRight, ChevronRight } from 'lucide-react'
 import type { MenuItem } from '@/shared/navigation/types'
 
 interface AppNavbarProps {
@@ -99,21 +99,28 @@ export function AppNavbar({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              minHeight: 'var(--mantine-spacing-xl)',
-              padding: 'var(--mantine-spacing-xs)',
-              marginBottom: 'var(--mantine-spacing-xs)',
-              borderRadius: 'var(--mantine-radius-sm)',
+              minHeight: '2.25rem',
+              padding: '0.5rem',
+              marginBottom: '0.25rem',
+              borderRadius: '0.375rem',
+              backgroundColor: active
+                ? 'light-dark(rgba(22, 93, 255, 0.08), rgba(82, 143, 255, 0.15))'
+                : 'transparent',
               '&:hover': {
-                backgroundColor:
-                  'light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-6))',
+                backgroundColor: active
+                  ? 'light-dark(rgba(22, 93, 255, 0.12), rgba(82, 143, 255, 0.2))'
+                  : 'light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08))',
               },
             },
             section: {
               marginInlineEnd: 0,
-              fontSize: 'var(--mantine-font-size-lg)',
+              fontSize: '1.125rem',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              color: active
+                ? 'light-dark(var(--mantine-color-blue-6), var(--mantine-color-blue-4))'
+                : undefined,
             },
           }}
         />
@@ -133,6 +140,7 @@ export function AppNavbar({
     }
 
     // 正常模式
+    const isActiveLeaf = active && !hasChildren
     return (
       <Box key={item.key}>
         <NavLink
@@ -141,43 +149,47 @@ export function AppNavbar({
           rightSection={
             hasChildren ? (
               <ChevronRight
-                size={14}
+                size={12}
                 style={{
                   transform: isOpened ? 'rotate(90deg)' : 'none',
-                  transition: 'transform 200ms ease',
+                  transition: 'transform 0.2s ease',
                 }}
               />
             ) : null
           }
-          active={active && !hasChildren}
+          active={isActiveLeaf}
           onClick={() => handleMenuClick(item)}
           disabled={item.disabled}
           styles={{
             root: {
-              paddingLeft: `calc(${level} * var(--mantine-spacing-md) + var(--mantine-spacing-md))`,
-              paddingRight: 'var(--mantine-spacing-sm)',
-              paddingTop: 'var(--mantine-spacing-xs)',
-              paddingBottom: 'var(--mantine-spacing-xs)',
-              minHeight: 'var(--mantine-spacing-xl)',
-              marginBottom: level === 0 ? 'var(--mantine-spacing-xs)' : 0,
-              borderRadius: 'var(--mantine-radius-sm)',
+              paddingLeft: `calc(${level} * 0.75rem + 1rem)`,
+              paddingRight: '0.75rem',
+              paddingTop: '0.5rem',
+              paddingBottom: '0.5rem',
+              minHeight: '2.25rem',
+              marginBottom: level === 0 ? '0.25rem' : 0,
+              borderRadius: '0.375rem',
+              backgroundColor: isActiveLeaf
+                ? 'light-dark(rgba(22, 93, 255, 0.08), rgba(82, 143, 255, 0.15))'
+                : 'transparent',
               '&:hover': {
-                backgroundColor:
-                  'light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-6))',
+                backgroundColor: isActiveLeaf
+                  ? 'light-dark(rgba(22, 93, 255, 0.12), rgba(82, 143, 255, 0.2))'
+                  : 'light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08))',
               },
             },
             label: {
-              fontSize:
-                level === 0
-                  ? 'var(--mantine-font-size-sm)'
-                  : 'var(--mantine-font-size-xs)',
+              fontSize: level === 0 ? '0.875rem' : '0.8125rem',
               fontWeight: level === 0 ? 500 : 400,
+              color: isActiveLeaf
+                ? 'light-dark(var(--mantine-color-blue-6), var(--mantine-color-blue-4))'
+                : undefined,
             },
             section: {
-              fontSize:
-                level === 0
-                  ? 'var(--mantine-font-size-lg)'
-                  : 'var(--mantine-font-size-md)',
+              fontSize: '1.125rem',
+              color: isActiveLeaf
+                ? 'light-dark(var(--mantine-color-blue-6), var(--mantine-color-blue-4))'
+                : undefined,
             },
           }}
         />
@@ -197,7 +209,7 @@ export function AppNavbar({
       style={{
         display: 'flex',
         flexDirection: 'column',
-        height: 'calc(100vh - 60px)',
+        height: 'calc(100vh - 3.75rem)',
       }}
     >
       {/* 菜单内容区域 - 可滚动 */}
@@ -206,59 +218,61 @@ export function AppNavbar({
         type="scroll"
         styles={{
           viewport: {
-            paddingBottom: collapsed ? '4px' : '8px',
-            paddingTop: collapsed ? '4px' : '8px',
+            paddingBottom: collapsed ? '0.25rem' : '0.5rem',
+            paddingTop: collapsed ? '0.25rem' : '0.5rem',
           },
         }}
       >
-        <Stack gap={0} px={collapsed ? '4px' : 'md'}>
+        <Stack gap={0} px={collapsed ? '0.25rem' : 'md'}>
           {menuItems.map(item => renderMenuItem(item))}
         </Stack>
       </ScrollArea>
 
-      {/* 收缩按钮 - 固定在底部，参考 Ant Design Pro */}
+      {/* 收缩按钮 - 固定在底部，参考 Arco Design Pro */}
       {toggleCollapsed && (
-        <>
-          <Box
-            style={{
-              padding: collapsed ? '8px 0' : '8px 16px',
-            }}
+        <Box
+          style={{
+            borderTop:
+              '0.0625rem solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-5))',
+            padding: '0.75rem',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Tooltip
+            label={collapsed ? '展开侧边栏' : '收起侧边栏'}
+            position="right"
+            withArrow
           >
-            {collapsed ? (
-              <Tooltip label="展开侧边栏" position="right" withArrow>
-                <ActionIcon
-                  onClick={toggleCollapsed}
-                  variant="subtle"
-                  size="sm"
-                  style={{
-                    width: '100%',
-                    height: '24px',
-                  }}
-                >
-                  <MenuIcon size={16} />
-                </ActionIcon>
-              </Tooltip>
-            ) : (
-              <ActionIcon
-                onClick={toggleCollapsed}
-                variant="subtle"
-                size="sm"
-                style={{
-                  width: '24px',
-                  height: '24px',
-                }}
-              >
-                <ChevronLeft size={16} />
-              </ActionIcon>
-            )}
-          </Box>
-          <Box
-            style={{
-              height: '1px',
-              backgroundColor: 'var(--mantine-color-gray-3)',
-            }}
-          />
-        </>
+            <ActionIcon
+              onClick={toggleCollapsed}
+              variant="subtle"
+              size="sm"
+              radius="sm"
+              aria-label={collapsed ? '展开侧边栏' : '收起侧边栏'}
+              styles={{
+                root: {
+                  transition: 'all 0.2s ease',
+                  color:
+                    'light-dark(var(--mantine-color-gray-6), var(--mantine-color-gray-5))',
+                  '&:hover': {
+                    backgroundColor:
+                      'light-dark(rgba(0, 0, 0, 0.04), rgba(255, 255, 255, 0.08))',
+                    color:
+                      'light-dark(var(--mantine-color-gray-9), var(--mantine-color-gray-3))',
+                  },
+                },
+              }}
+            >
+              {collapsed ? (
+                <ChevronsRight size={16} />
+              ) : (
+                <ChevronsLeft size={16} />
+              )}
+            </ActionIcon>
+          </Tooltip>
+        </Box>
       )}
     </Box>
   )

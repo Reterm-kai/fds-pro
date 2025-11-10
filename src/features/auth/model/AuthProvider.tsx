@@ -126,7 +126,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // 在初始化期间显示加载指示器
   if (loading) {
     return (
-      <Box pos="relative" style={{ minHeight: '100vh' }}>
+      <Box pos="relative" mih="100vh">
         <LoadingOverlay
           visible={true}
           zIndex={1000}

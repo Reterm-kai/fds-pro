@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { RouterProvider } from 'react-router-dom'
 import { router } from '@/app/routes/router'
 import { queryClient } from '@/shared/config/queryClient'
+import { theme } from './theme'
 
 /**
  * 应用级 Provider 组合
@@ -14,17 +15,18 @@ import { queryClient } from '@/shared/config/queryClient'
  * 注意:
  * - AuthProvider 已集成在 router 内部，因为它需要访问路由上下文
  * - ColorSchemeScript 在 index.html 中以内联脚本形式引入，避免主题闪烁-暂未用
+ * - 使用自定义主题配置，实现响应式字体和间距系统
  */
 export function AppProviders() {
   return (
     <QueryClientProvider client={queryClient}>
-      <MantineProvider defaultColorScheme="auto">
+      <MantineProvider theme={theme} defaultColorScheme="auto">
         <ModalsProvider>
           <Notifications position="top-right" />
           <RouterProvider router={router} />
         </ModalsProvider>
       </MantineProvider>
-      <ReactQueryDevtools initialIsOpen={true} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   )
 }

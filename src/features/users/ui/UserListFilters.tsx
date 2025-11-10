@@ -34,7 +34,7 @@ export function UserListFilters({
           leftSection={<Search size={16} />}
           value={keyword}
           onChange={event => onKeywordChange(event.target.value)}
-          style={{ flex: 1 }}
+          flex={1}
         />
         <Select
           placeholder="角色"
@@ -47,7 +47,8 @@ export function UserListFilters({
             { value: 'guest', label: '访客' },
           ]}
           clearable
-          style={{ width: 150 }}
+          w={{ base: '100%', sm: '9.375rem' }}
+          miw="7.5rem"
         />
         <Select
           placeholder="状态"
@@ -59,7 +60,8 @@ export function UserListFilters({
             { value: 'inactive', label: '离线' },
           ]}
           clearable
-          style={{ width: 150 }}
+          w={{ base: '100%', sm: '9.375rem' }}
+          miw="7.5rem"
         />
         {hasFilters && (
           <Button
