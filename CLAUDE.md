@@ -4,232 +4,385 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 项目概述
 
-这是一个基于 React 19 + TypeScript + Vite 的现代前端项目，使用 rolldown-vite 作为构建工具以提升性能。
+这是一个基于 **React 19 + TypeScript + Mantine** 的现代前端项目，采用 **Feature-Sliced Design (FSD)** 架构，使用 rolldown-vite 作为构建工具。
+
+## 核心技术栈
+
+- **React**: 19.1.1
+- **TypeScript**: 5.9.3 (严格模式)
+- **构建工具**: rolldown-vite 7.1.14
+- **UI 框架**: Mantine 8.3.6
+- **路由**: React Router 7.9.5
+- **状态管理**: TanStack Query 5.90.7
+- **测试**: Vitest 4.0.7 + Testing Library
+- **代码质量**: ESLint 9.36.0 + Prettier 3.6.2
+- **包管理器**: pnpm
 
 ## 开发命令
 
 ### 核心命令
 
-- `pnpm dev` - 启动开发服务器，支持 HMR（热模块替换）
-- `pnpm build` - 构建生产版本（先执行类型检查 `tsc -b`，再执行 `vite build`）
-- `pnpm preview` - 预览生产构建
+```bash
+pnpm dev              # 启动开发服务器 (HMR)
+pnpm build            # 构建生产版本 (类型检查 + 构建)
+pnpm preview          # 预览生产构建
+```
 
 ### 代码质量
 
-- `pnpm lint` - 运行 ESLint 代码检查
-- `pnpm format` - 格式化所有代码（使用 Prettier）
-- `pnpm format:check` - 检查代码格式是否符合规范（不修改文件）
+```bash
+pnpm lint             # ESLint 代码检查
+pnpm format           # 格式化所有代码
+pnpm format:check     # 检查代码格式
+```
 
 ### 测试
 
-- `pnpm test` - 运行 Vitest 测试（watch 模式）
-- `pnpm test:run` - 运行测试一次（CI 模式）
-- `pnpm test:ui` - 启动 Vitest UI 界面
-- `pnpm test:coverage` - 运行测试并生成覆盖率报告
+```bash
+pnpm test             # 运行测试 (watch 模式)
+pnpm test:run         # 运行测试 (CI 模式)
+pnpm test:ui          # Vitest UI 界面
+pnpm test:coverage    # 生成覆盖率报告
+```
 
 ### Storybook
 
-- `pnpm storybook` - 启动 Storybook 开发服务器（端口 6006）
-- `pnpm build-storybook` - 构建 Storybook 静态文件
+```bash
+pnpm storybook        # 启动 Storybook (端口 6006)
+pnpm build-storybook  # 构建 Storybook 静态文件
+```
 
-### 包管理
+## 项目架构 (FSD)
 
-- 本项目使用 **pnpm** 作为包管理器
-- 安装依赖：`pnpm install`
-
-## 技术栈
-
-- **React**: 19.1.1（最新版本，支持最新特性）
-- **TypeScript**: 5.9.3（严格模式已启用）
-- **构建工具**: rolldown-vite 7.1.14（Vite 的高性能替代品）
-- **代码质量**:
-  - **ESLint**: 9.36.0（Flat Config 配置方式）
-  - **Prettier**: 3.6.2（代码格式化）
-- **测试**:
-  - **Vitest**: 4.0.7（单元测试框架）
-  - **Testing Library**: React 16.3.0（React 组件测试）
-  - **jsdom**: 27.1.0（DOM 环境模拟）
-- **组件开发**:
-  - **Storybook**: 10.0.4（组件文档和开发环境）
-  - **Storybook 插件**: a11y（无障碍检查）、vitest（测试集成）
-
-## 架构特点
-
-### TypeScript 配置
-
-项目使用项目引用（Project References）模式：
-
-- `tsconfig.json` - 根配置，引用子配置
-- `tsconfig.app.json` - 应用代码配置（src/ 目录）
-- `tsconfig.node.json` - Node.js 环境配置（配置文件）
-
-关键编译选项：
-
-- `strict: true` - 启用所有严格类型检查
-- `noUnusedLocals: true` - 禁止未使用的局部变量
-- `noUnusedParameters: true` - 禁止未使用的参数
-- `verbatimModuleSyntax: true` - 强制明确的导入/导出语法
-- `jsx: "react-jsx"` - 使用 React 17+ 的新 JSX 转换
-
-### ESLint 配置
-
-使用 Flat Config 格式（`eslint.config.js`）：
-
-- 扩展了 `@eslint/js` 推荐配置
-- 集成 TypeScript ESLint 推荐规则
-- 启用 React Hooks 最新推荐规则
-- 配置 React Refresh 插件支持 Vite HMR
-- 集成 `eslint-config-prettier` 避免与 Prettier 冲突
-
-### Prettier 配置
-
-代码格式化规则（`.prettierrc`）：
-
-- **单引号**: `singleQuote: true`
-- **无分号**: `semi: false`
-- **2 空格缩进**: `tabWidth: 2`
-- **尾随逗号**: `trailingComma: "es5"`（仅在 ES5 支持的地方）
-- **行宽**: `printWidth: 80`
-- **箭头函数参数**: `arrowParens: "avoid"`（单参数时省略括号）
-- **换行符**: `endOfLine: "lf"`（使用 LF）
-
-ESLint 与 Prettier 已正确集成，避免规则冲突。
-
-### Vitest 配置
-
-测试框架配置（`vitest.config.ts`）：
-
-- **全局 API**: `globals: true`（无需导入 describe、it、expect 等）
-- **测试环境**: `environment: 'jsdom'`（浏览器环境模拟）
-- **设置文件**: `setupFiles: './src/test/setup.ts'`（扩展 Testing Library 断言）
-- **CSS 支持**: `css: true`（支持测试中的 CSS 导入）
-
-测试文件命名约定：
-
-- `*.test.tsx` 或 `*.test.ts` - 单元测试
-- `*.spec.tsx` 或 `*.spec.ts` - 规格测试
-
-### Storybook 配置
-
-组件文档和开发环境（`.storybook/`）：
-
-- **框架**: React + Vite 集成
-- **端口**: 6006（默认）
-- **插件**:
-  - `@storybook/addon-docs` - 自动生成文档
-  - `@storybook/addon-a11y` - 无障碍性检查
-  - `@storybook/addon-vitest` - Vitest 集成
-  - `@storybook/addon-onboarding` - 新手引导
-
-Story 文件命名约定：
-
-- `*.stories.tsx` 或 `*.stories.ts` - 组件故事
-- 放置在 `src/stories/` 或与组件同目录
-
-### 项目结构
+项目采用 **Feature-Sliced Design** 架构，严格遵循 FSD 规范:
 
 ```
 src/
-├── App.tsx          - 主应用组件
-├── App.test.tsx     - App 组件测试
-├── App.stories.tsx  - App 组件 Story
-├── App.css          - 应用样式
-├── main.tsx         - 应用入口（使用 StrictMode）
-├── index.css        - 全局样式
-├── test/
-│   └── setup.ts     - Vitest 测试设置
-├── stories/         - Storybook 示例组件
-└── assets/          - 静态资源
-
-.storybook/          - Storybook 配置
-├── main.ts          - 主配置
-└── preview.ts       - 预览配置
+├── app/              # 应用层 - 全局配置和初始化
+│   ├── providers/    # 全局 Providers (Router, Query, Theme)
+│   ├── layouts/      # 布局组件 (AppLayout, AuthLayout)
+│   └── routes/       # 路由配置
+│
+├── pages/            # 页面层 - 路由页面组合
+│   ├── login/
+│   ├── register/
+│   ├── dashboard/
+│   ├── users/
+│   └── settings/
+│
+├── widgets/          # 组件层 - 复杂业务组件
+│   └── app-shell/    # 应用外壳 (Header, Navbar)
+│
+├── features/         # 特性层 - 用户交互特性
+│   ├── auth/         # 认证特性
+│   │   ├── ui/       # LoginForm, RegisterForm, ProtectedRoute
+│   │   ├── api/      # 登录、注册、登出 API
+│   │   └── model/    # AuthProvider, useAuth
+│   │
+│   └── users/        # 用户管理特性
+│       ├── ui/       # UsersView, UserForm, UserListTable, UserListFilters
+│       └── api/      # useUserList, useCreateUser, useUpdateUser, useDeleteUser
+│
+├── entities/         # 实体层 - 业务实体
+│   └── user/         # 用户实体
+│       ├── ui/       # UserAvatar, UserCard
+│       ├── api/      # 用户基础 API
+│       ├── model/    # 用户类型、Query Keys
+│       └── lib/      # 工具函数 (getRoleLabel, getStatusColor 等)
+│
+└── shared/           # 共享层 - 通用代码 (无业务逻辑)
+    ├── ui/           # Logo, ThemeToggle, Placeholder
+    ├── api/          # API 客户端 (axios)
+    ├── config/       # 全局配置 (queryClient)
+    ├── mock/         # Mock 数据 (MSW)
+    └── navigation/   # 导航配置
 ```
 
-### Vite 配置
+## FSD 核心原则
 
-- 使用 `@vitejs/plugin-react` 插件，支持 Babel 快速刷新
-- rolldown-vite 通过 pnpm overrides 强制替换标准 Vite
-- 配置文件：`vite.config.ts`
+### 1. 分层依赖规则
+
+```
+app → pages → widgets → features → entities → shared
+```
+
+- ✅ 上层可以依赖下层
+- ❌ 下层不能依赖上层
+- ❌ 同层 slice 之间不能相互依赖
+
+### 2. Slice 结构
+
+每个 slice (features/entities) 使用标准 segments:
+
+```
+feature/
+├── ui/       # UI 组件
+├── api/      # API 请求
+├── model/    # 状态管理和类型
+├── lib/      # 辅助函数
+└── index.ts  # Public API (统一导出)
+```
+
+### 3. Public API
+
+每个 slice 通过 `index.ts` 暴露公共接口:
+
+```typescript
+// features/users/index.ts
+export { UsersView } from './ui/UsersView'
+export { useUserList } from './api/useUserList'
+```
+
+外部引用:
+
+```typescript
+import { UsersView, useUserList } from '@/features/users'
+```
+
+## 文件命名规范
+
+| 文件类型       | 命名格式   | 示例                               |
+| -------------- | ---------- | ---------------------------------- |
+| **React 组件** | PascalCase | `UserForm.tsx`, `AuthProvider.tsx` |
+| **Hooks**      | camelCase  | `useAuth.ts`, `useUserList.ts`     |
+| **API/工具**   | camelCase  | `authApi.ts`, `userUtils.ts`       |
+| **类型定义**   | camelCase  | `types.ts`, `userTypes.ts`         |
+| **index 文件** | 固定       | `index.ts`                         |
+
+## 代码规范
+
+### TypeScript
+
+- ✅ 严格模式启用 (`strict: true`)
+- ✅ 禁止 `any` 类型
+- ✅ 禁止未使用的变量和参数
+- ✅ 使用 `verbatimModuleSyntax` 明确导入/导出
+
+### Prettier 配置
+
+```json
+{
+  "singleQuote": true,
+  "semi": false,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 80,
+  "arrowParens": "avoid"
+}
+```
+
+### ESLint
+
+- Flat Config 格式 (`eslint.config.js`)
+- TypeScript ESLint 推荐规则
+- React Hooks 规则
+- 与 Prettier 集成
 
 ## 开发注意事项
 
-### 代码格式化
+### 添加新功能
 
-- 提交代码前运行 `pnpm format` 格式化所有代码
-- 建议配置编辑器自动保存时格式化（如 VS Code 的 "Format On Save"）
-- CI/CD 流程中可使用 `pnpm format:check` 检查格式
+1. **确定所属层级**:
+   - 业务场景 → `features/`
+   - 业务实体 → `entities/`
+   - 通用组件 → `shared/ui/`
 
-### 添加新组件时
+2. **创建标准结构**:
 
-- 使用函数组件和 React Hooks
-- 严格遵守 TypeScript 类型定义，避免使用 `any`
-- 遵循 ESLint 规则，特别是 React Hooks 的依赖数组规则
-- 代码必须符合 Prettier 格式规范
-- 为每个组件编写测试文件（`*.test.tsx`）
-- 为可复用组件创建 Story 文件（`*.stories.tsx`）
+   ```
+   features/new-feature/
+   ├── ui/
+   ├── api/
+   ├── model/
+   └── index.ts
+   ```
+
+3. **遵循命名规范**:
+   - 组件: `PascalCase.tsx`
+   - Hooks: `useXxx.ts`
+   - API: `xxxApi.ts`
+
+4. **导出 Public API**:
+   ```typescript
+   // index.ts
+   export { FeatureView } from './ui/FeatureView'
+   export { useFeature } from './api/useFeature'
+   ```
+
+### 添加新组件
+
+- ✅ 使用函数组件和 Hooks
+- ✅ 严格类型定义
+- ✅ 遵循 ESLint 规则
+- ✅ 编写测试文件 (`*.test.tsx`)
+- ✅ 为可复用组件创建 Story (`*.stories.tsx`)
 
 ### 测试开发
 
-- 使用 Vitest + Testing Library 编写测试
-- 测试应覆盖主要功能和用户交互
-- 使用 `screen` 查询元素（推荐 `getByRole`、`getByText` 等语义化查询）
-- 使用 `userEvent` 模拟用户交互（推荐优于 `fireEvent`）
-- 运行 `pnpm test:ui` 可视化调试测试
+- 使用 Vitest + Testing Library
+- 语义化查询: `getByRole`, `getByText`
+- 用户交互: `userEvent` (优于 `fireEvent`)
+- 运行 `pnpm test:ui` 可视化调试
 
 ### Storybook 开发
 
-- 为每个可复用组件创建 Story
-- 使用 CSF 3.0 格式（Component Story Format）
-- 添加 `autodocs` 标签自动生成文档
-- 利用 a11y 插件检查组件的无障碍性
-- Story 应展示组件的不同状态和用例
+- CSF 3.0 格式
+- 添加 `autodocs` 标签
+- 展示组件不同状态
+- 利用 a11y 插件检查无障碍性
 
-### 样式处理
+## 状态管理
 
-- 支持 CSS 模块和普通 CSS
-- 当前使用常规 CSS 文件（`.css`）
+使用 **TanStack Query** 进行服务端状态管理:
 
-### 类型安全
+```typescript
+// 查询
+const { data, isLoading } = useUserList({ page: 1 })
 
-- 所有未使用的变量和参数会被编译器报错
-- 使用 `verbatimModuleSyntax` 确保导入/导出语法明确
-- 启用了 `noUncheckedSideEffectImports` 防止副作用导入问题
+// 变更
+const createUser = useCreateUser()
+await createUser.mutateAsync(userData)
+```
 
-### 构建优化
+Query Keys 管理:
 
-- rolldown-vite 提供更快的构建速度和更好的性能
-- 生产构建前会先运行 TypeScript 类型检查（`tsc -b`）
+```typescript
+// entities/user/model/keys.ts
+export const userKeys = {
+  all: ['users'] as const,
+  lists: () => [...userKeys.all, 'list'] as const,
+  list: (params: UserListParams) => [...userKeys.lists(), params] as const,
+  detail: (id: number) => [...userKeys.all, 'detail', id] as const,
+}
+```
 
-## 扩展建议
+## Mock 数据 (MSW)
 
-### ESLint 增强（来自 README）
+使用 Mock Service Worker 模拟 API:
 
-生产环境建议启用类型感知的 lint 规则：
+```typescript
+// shared/mock/handlers/users.ts
+export const usersHandlers = [
+  http.get('/users', ({ request }) => {
+    // 返回 mock 数据
+  }),
+]
+```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
+启用 Mock:
+
+```typescript
+// main.tsx
+if (import.meta.env.DEV) {
+  import('./shared/mock/browser').then(({ worker }) => {
+    worker.start()
+  })
+}
+```
+
+## 路由配置
+
+使用 React Router 7:
+
+```typescript
+// app/routes/router.tsx
+export const router = createBrowserRouter([
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      tseslint.configs.recommendedTypeChecked,
-      // 或使用更严格的规则
-      tseslint.configs.strictTypeChecked,
-      // 可选：样式规则
-      tseslint.configs.stylisticTypeChecked,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
+    element: <AuthLayout />,  // 提供认证上下文
+    children: [
+      // 公共路由
+      { path: '/login', element: <LoginPage /> },
+      // 受保护路由
+      {
+        path: '/',
+        element: <ProtectedRoute><AppLayout /></ProtectedRoute>,
+        children: [
+          { path: 'dashboard', element: <DashboardPage /> },
+          { path: 'users', element: <UsersPage /> },
+        ],
       },
-    },
+    ],
   },
 ])
 ```
 
-可选安装 React 专用 lint 插件：
+## UI 框架 (Mantine)
 
-- `eslint-plugin-react-x`
-- `eslint-plugin-react-dom`
+使用 Mantine 8.3.6:
+
+```typescript
+import { Button, TextInput, Stack } from '@mantine/core'
+
+function MyComponent() {
+  return (
+    <Stack gap="md">
+      <TextInput label="姓名" />
+      <Button>提交</Button>
+    </Stack>
+  )
+}
+```
+
+主题配置:
+
+```typescript
+// app/providers/AppProviders.tsx
+<MantineProvider defaultColorScheme="auto">
+  {children}
+</MantineProvider>
+```
+
+## 构建优化
+
+- rolldown-vite 提供更快的构建速度
+- 生产构建前运行类型检查
+- 代码分割警告 (> 500 kB) 可通过 dynamic import 优化
+
+## 最佳实践
+
+### FSD
+
+1. **合理粒度**: feature 应该是完整的用户场景
+2. **就近原则**: 相关代码放在同一目录
+3. **Public API**: 通过 index.ts 暴露接口
+4. **Shared 纯净**: 不包含业务逻辑
+
+### 代码质量
+
+1. **格式化**: 提交前运行 `pnpm format`
+2. **类型安全**: 避免 `any`, 严格类型定义
+3. **测试覆盖**: 为核心功能编写测试
+4. **代码复用**: 优先使用 entities 和 shared 层
+
+### 性能
+
+1. 使用 TanStack Query 缓存
+2. 避免不必要的重渲染
+3. 大列表使用虚拟化
+4. 图片懒加载
+
+## 常见问题
+
+### Q: 新功能应该放在哪里?
+
+- **业务场景** (如用户管理、订单管理) → `features/`
+- **业务实体** (如用户、商品) → `entities/`
+- **通用 UI** (如 Logo、ThemeToggle) → `shared/ui/`
+
+### Q: 何时拆分 feature?
+
+- ✅ 不同的业务场景
+- ✅ 有跨页面复用需求
+- ❌ 同一场景的不同操作 (增删改查应该在一起)
+
+### Q: 如何组织 API?
+
+- 基础 CRUD → `entities/xxx/api/`
+- 业务逻辑 Hook → `features/xxx/api/`
+
+## 参考资料
+
+- [Feature-Sliced Design 官方文档](https://feature-sliced.design/)
+- [React 19 文档](https://react.dev/)
+- [TanStack Query 文档](https://tanstack.com/query/latest)
+- [Mantine 文档](https://mantine.dev/)
