@@ -13,7 +13,7 @@ import { queryClient } from '@/shared/config/queryClient'
  *
  * 注意:
  * - AuthProvider 已集成在 router 内部，因为它需要访问路由上下文
- * - ColorSchemeScript 在 index.html 中以内联脚本形式引入，避免主题闪烁
+ * - ColorSchemeScript 在 index.html 中以内联脚本形式引入，避免主题闪烁-暂未用
  */
 export function AppProviders() {
   return (
