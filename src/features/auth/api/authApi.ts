@@ -4,7 +4,7 @@
  * 包含登录、注册、登出等操作
  */
 
-import { post, get, del } from './client'
+import { post, get, del } from '@/shared/api/client'
 import { User } from '@/entities/user'
 
 /**

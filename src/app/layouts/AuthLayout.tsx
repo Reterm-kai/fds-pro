@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom'
-import { AuthProvider } from '@/shared/hooks/auth'
+import { AuthProvider } from '@/features/auth'
 
 /**
  * AuthLayout 包装组件

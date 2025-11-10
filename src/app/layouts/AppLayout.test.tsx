@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { MantineProvider } from '@mantine/core'
 import { BrowserRouter } from 'react-router-dom'
-import { AuthProvider } from '@/shared/hooks/auth'
+import { AuthProvider } from '@/features/auth'
 import { AppLayout } from './AppLayout'
 import * as React from 'react'
 

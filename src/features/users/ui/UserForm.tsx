@@ -2,10 +2,8 @@ import { useEffect } from 'react'
 import { Modal, TextInput, Select, Button, Group, Stack } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { notifications } from '@mantine/notifications'
-import {
-  useCreateUser,
-  useUpdateUser,
-} from '@/features/user-management/api/useUsers'
+import { useCreateUser } from '../api/useCreateUser'
+import { useUpdateUser } from '../api/useUpdateUser'
 import type { User, CreateUserParams } from '@/entities/user'
 
 interface UserFormProps {

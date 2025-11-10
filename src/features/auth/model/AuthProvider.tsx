@@ -8,10 +8,13 @@ import {
   register as apiRegister,
   logout as apiLogout,
   getCurrentUser,
-} from '@/shared/api/auth'
-import { AuthContext } from '@/shared/contexts/auth-context'
+} from '../api/authApi'
+import { AuthContext } from './AuthContext'
 
-// 认证提供者组件
+/**
+ * 认证提供者组件
+ * 管理全局认证状态和相关操作
+ */
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)

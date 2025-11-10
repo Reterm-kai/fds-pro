@@ -10,7 +10,7 @@ import {
 import { IconLogout, IconSettings, IconUser } from '@tabler/icons-react'
 import { ThemeToggle } from '@/shared/ui/theme-toggle'
 import { Logo } from '@/shared/ui/logo'
-import { useAuth } from '@/shared/hooks/useAuth'
+import { useAuth } from '@/features/auth'
 
 interface AppHeaderProps {
   /** 菜单展开状态 */

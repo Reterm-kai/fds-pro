@@ -24,7 +24,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { notifications } from '@mantine/notifications'
 import { useForm } from '@mantine/form'
-import { useAuth } from '@/shared/hooks/useAuth'
+import { useAuth } from '@/features/auth'
 
 /**
  * 注册页面组件

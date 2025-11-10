@@ -8,7 +8,7 @@ import LoginPage from '@/pages/login'
 import { RegisterPage } from '@/pages/register'
 import { Placeholder } from '@/shared/ui/placeholder'
 import { menuItems } from '@/shared/navigation/menu'
-import { ProtectedRoute } from '@/shared/components/ProtectedRoute'
+import { ProtectedRoute } from '@/features/auth'
 
 /**
  * 路由配置
