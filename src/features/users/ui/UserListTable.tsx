@@ -11,7 +11,7 @@ import {
   Skeleton,
   Stack,
 } from '@mantine/core'
-import { IconEdit, IconTrash } from '@tabler/icons-react'
+import { Pencil, Trash2 } from 'lucide-react'
 import type { User } from '@/entities/user'
 
 interface UserListTableProps {
@@ -99,7 +99,7 @@ export function UserListTable({
               color="blue"
               onClick={() => onEdit(user)}
             >
-              <IconEdit size={16} />
+              <Pencil size={16} />
             </ActionIcon>
           </Tooltip>
           <Tooltip label="删除">
@@ -108,7 +108,7 @@ export function UserListTable({
               color="red"
               onClick={() => onDelete(user)}
             >
-              <IconTrash size={16} />
+              <Trash2 size={16} />
             </ActionIcon>
           </Tooltip>
         </Group>

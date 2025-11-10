@@ -1,5 +1,5 @@
 import { Card, Group, TextInput, Select, Button } from '@mantine/core'
-import { IconSearch, IconX } from '@tabler/icons-react'
+import { Search, X } from 'lucide-react'
 import type { User } from '@/entities/user'
 
 interface UserListFiltersProps {
@@ -31,7 +31,7 @@ export function UserListFilters({
       <Group gap="md">
         <TextInput
           placeholder="搜索用户名或邮箱"
-          leftSection={<IconSearch size={16} />}
+          leftSection={<Search size={16} />}
           value={keyword}
           onChange={event => onKeywordChange(event.target.value)}
           style={{ flex: 1 }}
@@ -65,7 +65,7 @@ export function UserListFilters({
           <Button
             variant="light"
             color="gray"
-            leftSection={<IconX size={16} />}
+            leftSection={<X size={16} />}
             onClick={onReset}
           >
             重置

@@ -1,14 +1,14 @@
 import {
-  IconDashboard,
-  IconSettings,
-  IconTable,
-  IconFileText,
-  IconForms,
-  IconChecklist,
-  IconAlertCircle,
-  IconUser,
-  IconChartLine,
-} from '@tabler/icons-react'
+  LayoutDashboard,
+  Settings,
+  Table,
+  FileText,
+  FileEdit,
+  ListChecks,
+  AlertCircle,
+  User,
+  TrendingUp,
+} from 'lucide-react'
 import type { MenuItem } from './types'
 
 /**
@@ -20,7 +20,7 @@ export const menuItems: MenuItem[] = [
   {
     key: 'dashboard',
     label: '仪表盘',
-    icon: <IconDashboard size={20} />,
+    icon: <LayoutDashboard size={20} />,
     children: [
       {
         key: 'dashboard-workplace',
@@ -39,7 +39,7 @@ export const menuItems: MenuItem[] = [
   {
     key: 'visualization',
     label: '数据可视化',
-    icon: <IconChartLine size={20} />,
+    icon: <TrendingUp size={20} />,
     children: [
       {
         key: 'visualization-analysis',
@@ -58,7 +58,7 @@ export const menuItems: MenuItem[] = [
   {
     key: 'list',
     label: '列表页',
-    icon: <IconTable size={20} />,
+    icon: <Table size={20} />,
     children: [
       {
         key: 'list-search',
@@ -77,7 +77,7 @@ export const menuItems: MenuItem[] = [
   {
     key: 'form',
     label: '表单页',
-    icon: <IconForms size={20} />,
+    icon: <FileEdit size={20} />,
     children: [
       {
         key: 'form-group',
@@ -96,7 +96,7 @@ export const menuItems: MenuItem[] = [
   {
     key: 'profile',
     label: '详情页',
-    icon: <IconFileText size={20} />,
+    icon: <FileText size={20} />,
     children: [
       {
         key: 'profile-basic',
@@ -110,7 +110,7 @@ export const menuItems: MenuItem[] = [
   {
     key: 'result',
     label: '结果页',
-    icon: <IconChecklist size={20} />,
+    icon: <ListChecks size={20} />,
     children: [
       {
         key: 'result-success',
@@ -129,7 +129,7 @@ export const menuItems: MenuItem[] = [
   {
     key: 'exception',
     label: '异常页',
-    icon: <IconAlertCircle size={20} />,
+    icon: <AlertCircle size={20} />,
     children: [
       {
         key: 'exception-403',
@@ -153,7 +153,7 @@ export const menuItems: MenuItem[] = [
   {
     key: 'user',
     label: '个人中心',
-    icon: <IconUser size={20} />,
+    icon: <User size={20} />,
     children: [
       {
         key: 'user-info',
@@ -172,7 +172,7 @@ export const menuItems: MenuItem[] = [
   {
     key: 'system',
     label: '系统管理',
-    icon: <IconSettings size={20} />,
+    icon: <Settings size={20} />,
     children: [
       {
         key: 'system-users',

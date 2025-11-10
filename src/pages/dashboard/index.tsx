@@ -1,10 +1,5 @@
 import { Title, Text, SimpleGrid, Paper, Group, ThemeIcon } from '@mantine/core'
-import {
-  IconUsers,
-  IconShoppingCart,
-  IconCurrencyDollar,
-  IconTrendingUp,
-} from '@tabler/icons-react'
+import { Users, ShoppingCart, DollarSign, TrendingUp } from 'lucide-react'
 
 /**
  * 仪表盘页面
@@ -12,15 +7,15 @@ import {
  */
 export function DashboardPage() {
   const stats = [
-    { title: '总用户数', value: '13,456', icon: IconUsers, color: 'blue' },
-    { title: '今日订单', value: '573', icon: IconShoppingCart, color: 'green' },
+    { title: '总用户数', value: '13,456', icon: Users, color: 'blue' },
+    { title: '今日订单', value: '573', icon: ShoppingCart, color: 'green' },
     {
       title: '总收入',
       value: '¥1,234,567',
-      icon: IconCurrencyDollar,
+      icon: DollarSign,
       color: 'yellow',
     },
-    { title: '增长率', value: '+23.5%', icon: IconTrendingUp, color: 'teal' },
+    { title: '增长率', value: '+23.5%', icon: TrendingUp, color: 'teal' },
   ]
 
   return (
@@ -42,7 +37,7 @@ export function DashboardPage() {
                 </Text>
               </div>
               <ThemeIcon color={stat.color} size={44} radius="md">
-                <stat.icon size={26} stroke={1.5} />
+                <stat.icon size={26} strokeWidth={1.5} />
               </ThemeIcon>
             </Group>
           </Paper>

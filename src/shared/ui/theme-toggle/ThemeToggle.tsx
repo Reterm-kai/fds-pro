@@ -3,7 +3,7 @@ import {
   useMantineColorScheme,
   useComputedColorScheme,
 } from '@mantine/core'
-import { IconSun, IconMoon } from '@tabler/icons-react'
+import { Sun, Moon } from 'lucide-react'
 
 /**
  * 主题切换组件
@@ -27,11 +27,7 @@ export function ThemeToggle() {
         computedColorScheme === 'dark' ? '切换到亮色主题' : '切换到暗色主题'
       }
     >
-      {computedColorScheme === 'dark' ? (
-        <IconSun size={20} />
-      ) : (
-        <IconMoon size={20} />
-      )}
+      {computedColorScheme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
     </ActionIcon>
   )
 }

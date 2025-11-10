@@ -14,7 +14,7 @@ import {
   Flex,
   useMantineColorScheme,
 } from '@mantine/core'
-import { IconUser, IconLock } from '@tabler/icons-react'
+import { User, Lock } from 'lucide-react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { notifications } from '@mantine/notifications'
 import { useForm } from '@mantine/form'
@@ -210,7 +210,7 @@ export function LoginPage() {
                 <TextInput
                   label="用户名或邮箱"
                   placeholder="admin@x.com 或 张三"
-                  leftSection={<IconUser size={18} />}
+                  leftSection={<User size={18} />}
                   size="md"
                   autoComplete="username"
                   {...form.getInputProps('username')}
@@ -219,7 +219,7 @@ export function LoginPage() {
                 <PasswordInput
                   label="密码"
                   placeholder="请输入密码"
-                  leftSection={<IconLock size={18} />}
+                  leftSection={<Lock size={18} />}
                   size="md"
                   autoComplete="current-password"
                   {...form.getInputProps('password')}

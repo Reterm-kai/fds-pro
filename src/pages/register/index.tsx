@@ -14,13 +14,7 @@ import {
   Divider,
   Center,
 } from '@mantine/core'
-import {
-  IconBrandGoogle,
-  IconBrandGithub,
-  IconAt,
-  IconLock,
-  IconUser,
-} from '@tabler/icons-react'
+import { Mail, Lock, User, Github } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { notifications } from '@mantine/notifications'
 import { useForm } from '@mantine/form'
@@ -113,14 +107,14 @@ export function RegisterPage() {
             <TextInput
               label="姓名"
               placeholder="请输入您的姓名"
-              leftSection={<IconUser size={16} />}
+              leftSection={<User size={16} />}
               {...form.getInputProps('name')}
             />
 
             <TextInput
               label="邮箱"
               placeholder="请输入您的邮箱"
-              leftSection={<IconAt size={16} />}
+              leftSection={<Mail size={16} />}
               type="email"
               {...form.getInputProps('email')}
             />
@@ -128,14 +122,14 @@ export function RegisterPage() {
             <PasswordInput
               label="密码"
               placeholder="请输入您的密码"
-              leftSection={<IconLock size={16} />}
+              leftSection={<Lock size={16} />}
               {...form.getInputProps('password')}
             />
 
             <PasswordInput
               label="确认密码"
               placeholder="请再次输入密码"
-              leftSection={<IconLock size={16} />}
+              leftSection={<Lock size={16} />}
               {...form.getInputProps('confirmPassword')}
             />
 
@@ -155,14 +149,31 @@ export function RegisterPage() {
         <Group grow>
           <Button
             variant="default"
-            leftSection={<IconBrandGoogle />}
+            leftSection={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                <line x1="9" x2="9.01" y1="9" y2="9" />
+                <line x1="15" x2="15.01" y1="9" y2="9" />
+              </svg>
+            }
             onClick={() => handleSocialRegister('Google')}
           >
             Google
           </Button>
           <Button
             variant="default"
-            leftSection={<IconBrandGithub />}
+            leftSection={<Github size={16} />}
             onClick={() => handleSocialRegister('GitHub')}
           >
             GitHub

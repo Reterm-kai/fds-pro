@@ -1,5 +1,5 @@
 import { Group, Text, useMantineColorScheme } from '@mantine/core'
-import { IconRocket } from '@tabler/icons-react'
+import { Rocket } from 'lucide-react'
 
 interface LogoProps {
   /** Logo 大小 */
@@ -38,9 +38,9 @@ export function Logo({ size = 'md', withText = true }: LogoProps) {
           justifyContent: 'center',
         }}
       >
-        <IconRocket
+        <Rocket
           size={currentSize.icon}
-          stroke={2}
+          strokeWidth={2}
           color="white"
           style={{ transform: 'rotate(-45deg)' }}
         />

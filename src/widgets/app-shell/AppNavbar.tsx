@@ -1,19 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import {
-  NavLink,
-  Stack,
-  Collapse,
-  Box,
-  Tooltip,
-  ScrollArea,
   ActionIcon,
+  Box,
+  Collapse,
+  NavLink,
+  ScrollArea,
+  Stack,
+  Tooltip,
 } from '@mantine/core'
-import { useNavigate, useLocation } from 'react-router-dom'
-import {
-  IconChevronRight,
-  IconChevronLeft,
-  IconMenuDeep,
-} from '@tabler/icons-react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { ChevronLeft, ChevronRight, Menu as MenuIcon } from 'lucide-react'
 import type { MenuItem } from '@/shared/navigation/types'
 
 interface AppNavbarProps {
@@ -55,8 +51,7 @@ export function AppNavbar({
 
     findActiveParent(menuItems)
     setOpenedKeys(prev => {
-      const newKeys = [...new Set([...prev, ...activeKeys])]
-      return newKeys
+      return [...new Set([...prev, ...activeKeys])]
     })
   }, [location.pathname, menuItems])
 
@@ -140,7 +135,7 @@ export function AppNavbar({
           leftSection={item.icon}
           rightSection={
             hasChildren ? (
-              <IconChevronRight
+              <ChevronRight
                 size={14}
                 style={{
                   transform: isOpened ? 'rotate(90deg)' : 'none',
@@ -223,7 +218,7 @@ export function AppNavbar({
                     height: '24px',
                   }}
                 >
-                  <IconMenuDeep size={16} />
+                  <MenuIcon size={16} />
                 </ActionIcon>
               </Tooltip>
             ) : (
@@ -236,7 +231,7 @@ export function AppNavbar({
                   height: '24px',
                 }}
               >
-                <IconChevronLeft size={16} />
+                <ChevronLeft size={16} />
               </ActionIcon>
             )}
           </Box>

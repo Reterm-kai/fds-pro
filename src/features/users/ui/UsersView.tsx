@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Title, Alert, Stack, Group, Button, Text } from '@mantine/core'
-import { IconAlertCircle, IconPlus } from '@tabler/icons-react'
+import { AlertCircle, Plus } from 'lucide-react'
 import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
 import type { User } from '@/entities/user'
@@ -98,7 +98,7 @@ export function UsersView() {
   if (isError) {
     return (
       <Alert
-        icon={<IconAlertCircle size={16} />}
+        icon={<AlertCircle size={16} />}
         title="加载失败"
         color="red"
         variant="light"
@@ -114,7 +114,7 @@ export function UsersView() {
     <Stack gap="md">
       <Group justify="space-between" align="center">
         <Title order={2}>用户管理</Title>
-        <Button leftSection={<IconPlus size={16} />} onClick={handleCreate}>
+        <Button leftSection={<Plus size={16} />} onClick={handleCreate}>
           创建用户
         </Button>
       </Group>
