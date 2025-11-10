@@ -7,7 +7,9 @@ import { Sun, Moon } from 'lucide-react'
 
 /**
  * 主题切换组件
- * 提供明暗主题切换功能
+ * 在亮色和暗色主题之间切换
+ *
+ * 注意：首次访问默认使用 auto 模式（跟随系统），用户切换后在 light/dark 间切换
  */
 export function ThemeToggle() {
   const { setColorScheme } = useMantineColorScheme()

@@ -11,7 +11,9 @@ import { queryClient } from '@/shared/config/queryClient'
  * 应用级 Provider 组合
  * 负责注入状态管理、UI 主题及全局路由
  *
- * 注意: AuthProvider 已集成在 router 内部，因为它需要访问路由上下文
+ * 注意:
+ * - AuthProvider 已集成在 router 内部，因为它需要访问路由上下文
+ * - ColorSchemeScript 在 index.html 中以内联脚本形式引入，避免主题闪烁
  */
 export function AppProviders() {
   return (
