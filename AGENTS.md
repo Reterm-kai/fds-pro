@@ -183,9 +183,9 @@ import { UsersView, useUserList } from '@/features/users'
 ### 添加新功能
 
 1. **确定所属层级**:
-    - 业务场景 → `features/`
-    - 业务实体 → `entities/`
-    - 通用组件 → `shared/ui/`
+   - 业务场景 → `features/`
+   - 业务实体 → `entities/`
+   - 通用组件 → `shared/ui/`
 
 2. **创建标准结构**:
 
@@ -198,9 +198,9 @@ import { UsersView, useUserList } from '@/features/users'
    ```
 
 3. **遵循命名规范**:
-    - 组件: `PascalCase.tsx`
-    - Hooks: `useXxx.ts`
-    - API: `xxxApi.ts`
+   - 组件: `PascalCase.tsx`
+   - Hooks: `useXxx.ts`
+   - API: `xxxApi.ts`
 
 4. **导出 Public API**:
    ```typescript

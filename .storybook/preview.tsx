@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/react-vite'
+import type { Preview, Decorator } from '@storybook/react'
 import { MantineProvider } from '@mantine/core'
 import { ModalsProvider } from '@mantine/modals'
 import { Notifications } from '@mantine/notifications'
@@ -7,6 +7,17 @@ import '@mantine/core/styles.css'
 import '@mantine/notifications/styles.css'
 
 const queryClient = new QueryClient()
+
+const withProviders: Decorator = Story => (
+  <QueryClientProvider client={queryClient}>
+    <MantineProvider defaultColorScheme="light">
+      <ModalsProvider>
+        <Notifications position="top-right" />
+        <Story />
+      </ModalsProvider>
+    </MantineProvider>
+  </QueryClientProvider>
+)
 
 const preview: Preview = {
   parameters: {
@@ -17,18 +28,7 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [
-    Story => (
-      <QueryClientProvider client={queryClient}>
-        <MantineProvider defaultColorScheme="light">
-          <ModalsProvider>
-            <Notifications position="top-right" />
-            <Story />
-          </ModalsProvider>
-        </MantineProvider>
-      </QueryClientProvider>
-    ),
-  ],
+  decorators: [withProviders],
 }
 
 export default preview

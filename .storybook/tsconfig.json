@@ -1,10 +1,13 @@
 {
   "extends": "../tsconfig.app.json",
   "compilerOptions": {
-    "types": ["node", "@storybook/react"]
+    "types": ["node", "@storybook/react"],
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": false
   },
   "include": [
     "*.ts",
+    "*.tsx",
     "../src/**/*.stories.tsx",
     "../src/**/*.stories.ts",
     "../src/stories/**/*"
