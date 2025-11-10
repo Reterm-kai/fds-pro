@@ -26,5 +26,13 @@
     }
   },
   "include": ["src/**/*", "src/**/*.d.ts"],
-  "exclude": ["src/**/*.stories.tsx", "src/**/*.stories.ts", "src/stories"]
+  "exclude": [
+    "src/**/*.stories.tsx",
+    "src/**/*.stories.ts",
+    "src/stories",
+    "node_modules",
+    "dist",
+    "dist-ssr",
+    "storybook-static"
+  ]
 }

@@ -1,0 +1,49 @@
+# Claude Code 忽略配置
+# 此文件控制 Claude Code 在索引和搜索时忽略的文件和目录
+
+# 依赖和包管理
+node_modules/
+.pnp/
+.pnp.js
+
+# 构建产物
+dist/
+dist-ssr/
+build/
+out/
+*.tsbuildinfo
+
+# 测试覆盖率
+coverage/
+.nyc_output/
+
+# Storybook
+storybook-static/
+
+# 缓存和临时文件
+.cache/
+.temp/
+.tmp/
+*.log
+
+# 编辑器和 IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# 环境变量
+.env.local
+.env.*.local
+*.local
+
+# Git
+.git/
+
+# 其他构建工具产物
+.next/
+.nuxt/
+.vuepress/dist/
+.serverless/

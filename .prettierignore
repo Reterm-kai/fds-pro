@@ -3,9 +3,16 @@ node_modules
 
 # 构建产物
 dist
+dist-ssr
 *.tsbuildinfo
+storybook-static
+
+# 配置目录
+.storybook
 
 # 其他
 .idea
+.git
 *.log
 pnpm-lock.yaml
+coverage
