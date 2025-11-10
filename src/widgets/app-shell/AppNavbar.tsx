@@ -94,21 +94,26 @@ export function AppNavbar({
           active={active}
           onClick={() => handleMenuClick(item)}
           disabled={item.disabled}
-          style={{
-            padding: '8px 0',
-            justifyContent: 'center',
-            minHeight: '40px',
-            marginBottom: '4px',
-            borderRadius: '4px',
-          }}
           styles={{
             root: {
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              minHeight: 'var(--mantine-spacing-xl)',
+              padding: 'var(--mantine-spacing-xs)',
+              marginBottom: 'var(--mantine-spacing-xs)',
+              borderRadius: 'var(--mantine-radius-sm)',
               '&:hover': {
-                backgroundColor: 'var(--mantine-color-gray-1)',
+                backgroundColor:
+                  'light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-6))',
               },
             },
             section: {
-              fontSize: '18px',
+              marginInlineEnd: 0,
+              fontSize: 'var(--mantine-font-size-lg)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             },
           }}
         />
@@ -147,20 +152,32 @@ export function AppNavbar({
           active={active && !hasChildren}
           onClick={() => handleMenuClick(item)}
           disabled={item.disabled}
-          style={{
-            paddingLeft: `${level * 16 + 16}px`,
-            marginBottom: level === 0 ? '4px' : '0',
-            borderRadius: '4px',
-          }}
           styles={{
             root: {
+              paddingLeft: `calc(${level} * var(--mantine-spacing-md) + var(--mantine-spacing-md))`,
+              paddingRight: 'var(--mantine-spacing-sm)',
+              paddingTop: 'var(--mantine-spacing-xs)',
+              paddingBottom: 'var(--mantine-spacing-xs)',
+              minHeight: 'var(--mantine-spacing-xl)',
+              marginBottom: level === 0 ? 'var(--mantine-spacing-xs)' : 0,
+              borderRadius: 'var(--mantine-radius-sm)',
               '&:hover': {
-                backgroundColor: 'var(--mantine-color-gray-1)',
+                backgroundColor:
+                  'light-dark(var(--mantine-color-gray-1), var(--mantine-color-dark-6))',
               },
             },
             label: {
-              fontSize: level === 0 ? '14px' : '13px',
+              fontSize:
+                level === 0
+                  ? 'var(--mantine-font-size-sm)'
+                  : 'var(--mantine-font-size-xs)',
               fontWeight: level === 0 ? 500 : 400,
+            },
+            section: {
+              fontSize:
+                level === 0
+                  ? 'var(--mantine-font-size-lg)'
+                  : 'var(--mantine-font-size-md)',
             },
           }}
         />
