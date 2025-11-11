@@ -5,17 +5,17 @@
  * 所有字体配置都应该引用这里的值
  *
  * 设计原则：
- * 1. 基于 16px 的根字体大小
+ * 1. 基于 Arco Design 的 14px 根字体大小
  * 2. 使用 rem 单位确保可访问性
  * 3. 使用 clamp() 实现流体排版
- * 4. 与 Mantine 主题系统集成
+ * 4. 与 Mantine 主题系统集成，但遵循 Arco Design 规范
  */
 
 /**
- * 基础字体大小（px）@
- * 用于计算 rem 值
+ * 基础字体大小（px）
+ * Arco Design 标准：14px
  */
-export const BASE_FONT_SIZE = 16
+export const BASE_FONT_SIZE = 14
 
 /**
  * 响应式字体配置
@@ -53,34 +53,36 @@ export const FLUID_FONT_SIZES = {
 
 /**
  * 固定字体大小（rem）
+ * 基于 Arco Design 14px 基准
  * 用于 Mantine 主题和需要固定大小的场景
  */
 export const FIXED_FONT_SIZES = {
-  xxs: 0.75, // 12px
-  xs: 0.875, // 14px
-  sm: 1, // 16px
-  md: 1.125, // 18px - 提升基础字体大小
-  lg: 1.25, // 20px
-  xl: 1.5, // 24px
-  '2xl': 1.75, // 28px
-  '3xl': 2.25, // 36px
-  '4xl': 3, // 48px
+  xxs: 0.857, // 12px (12/14)
+  xs: 1, // 14px (14/14) - Arco Design 基础字号
+  sm: 1.143, // 16px (16/14)
+  md: 1.286, // 18px (18/14)
+  lg: 1.429, // 20px (20/14)
+  xl: 1.714, // 24px (24/14)
+  '2xl': 2, // 28px (28/14)
+  '3xl': 2.286, // 32px (32/14)
+  '4xl': 2.571, // 36px (36/14)
 } as const
 
 /**
  * 字体大小（像素值）
+ * 基于 Arco Design 规范
  * 用于需要像素值的场景（如图标大小）
  */
 export const FONT_SIZES_PX = {
   xxs: 12,
-  xs: 14,
+  xs: 14, // Arco Design 基础字号
   sm: 16,
-  md: 18, // 提升基础字体大小
+  md: 18,
   lg: 20,
   xl: 24,
   '2xl': 28,
-  '3xl': 36,
-  '4xl': 48,
+  '3xl': 32,
+  '4xl': 36,
 } as const
 
 /**

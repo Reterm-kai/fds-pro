@@ -1,166 +1,175 @@
-/* ========================================
-   CSS 变量设计系统
-   ======================================== */
+/* Global Styles - Arco Design Specification */
+
+/* Root element - Arco Design base font size */
 :root {
-  /* 颜色系统 */
-  --color-primary: #646cff;
-  --color-primary-hover: #535bf2;
-  --color-primary-light: #747bff;
-  --color-react: #61dafb;
-
-  /* 文本颜色 */
-  --color-text-primary: rgba(255, 255, 255, 0.87);
-  --color-text-secondary: #888;
-  --color-text-light: #213547;
-
-  /* 背景颜色 */
-  --color-bg-dark: #242424;
-  --color-bg-light: #ffffff;
-  --color-bg-button-dark: #1a1a1a;
-  --color-bg-button-light: #f9f9f9;
-
-  /* 响应式断点（与 Mantine 默认断点一致） */
-  --breakpoint-xs: 36em; /* 576px */
-  --breakpoint-sm: 48em; /* 768px */
-  --breakpoint-md: 62em; /* 992px */
-  --breakpoint-lg: 75em; /* 1200px */
-  --breakpoint-xl: 88em; /* 1408px */
-
-  /* 响应式字体系统（流体排版）- 与 typography.ts 保持同步 */
-  --font-size-xxs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem); /* 12-14px */
-  --font-size-xs: clamp(0.875rem, 0.8rem + 0.375vw, 1rem); /* 14-16px */
-  --font-size-sm: clamp(1rem, 0.9rem + 0.5vw, 1.125rem); /* 16-18px */
-  --font-size-md: clamp(
-    1rem,
-    0.95rem + 0.5vw,
-    1.25rem
-  ); /* 16-20px - 基础字体 */
-  --font-size-base: var(--font-size-md);
-  --font-size-lg: clamp(1.125rem, 1.05rem + 0.625vw, 1.375rem); /* 18-22px */
-  --font-size-xl: clamp(1.25rem, 1.15rem + 0.75vw, 1.5rem); /* 20-24px */
-  --font-size-2xl: clamp(1.625rem, 1.45rem + 1.125vw, 2rem); /* 26-32px */
-  --font-size-3xl: clamp(2.125rem, 1.75rem + 2vw, 2.625rem); /* 34-42px */
-  --font-size-4xl: clamp(2.625rem, 2.125rem + 2.5vw, 3.25rem); /* 42-52px */
-
-  /* 字体系统 */
-  --font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --font-weight-normal: 400;
-  --font-weight-medium: 500;
-  --font-weight-bold: 700;
-
-  /* 行高系统 */
-  --line-height-tight: 1.2;
-  --line-height-normal: 1.5;
-  --line-height-relaxed: 1.75;
-
-  /* 响应式间距系统（基于 em，相对于字体大小）*/
-  --spacing-xs: 0.25em; /* 相对于当前字体大小的 0.25 倍 */
-  --spacing-sm: 0.5em; /* 相对于当前字体大小的 0.5 倍 */
-  --spacing-md: 1em; /* 相对于当前字体大小 */
-  --spacing-lg: 1.5em; /* 相对于当前字体大小的 1.5 倍 */
-  --spacing-xl: 2em; /* 相对于当前字体大小的 2 倍 */
-  --spacing-2xl: 3em; /* 相对于当前字体大小的 3 倍 */
-
-  /* 固定间距系统（基于 rem，用于布局）*/
-  --spacing-fixed-xs: 0.25rem; /* 4px */
-  --spacing-fixed-sm: 0.5rem; /* 8px */
-  --spacing-fixed-md: 1rem; /* 16px */
-  --spacing-fixed-lg: 1.5rem; /* 24px */
-  --spacing-fixed-xl: 2rem; /* 32px */
-  --spacing-fixed-2xl: 3rem; /* 48px */
-
-  /* 圆角系统（使用 em 实现响应式）*/
-  --radius-sm: 0.25em;
-  --radius-md: 0.5em;
-  --radius-lg: 0.75em;
-
-  /* 过渡动画 */
-  --transition-fast: 150ms;
-  --transition-normal: 250ms;
-  --transition-slow: 300ms;
-
-  /* 阴影系统 */
-  --shadow-sm: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 0.625rem 0.9375rem rgba(0, 0, 0, 0.1);
-
-  /* 应用主题颜色 */
-  color-scheme: light dark;
-  color: var(--color-text-primary);
-  background-color: var(--color-bg-dark);
-  /* 保持根字体为 16px，确保 rem 单位计算正确 */
-  font-size: 16px;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: var(--color-text-light);
-    background-color: var(--color-bg-light);
-  }
-}
-
-/* ========================================
-   现代 CSS Reset
-   ======================================== */
-
-/* Box sizing 统一 */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* 移除默认 margin */
-* {
-  margin: 0;
-}
-
-/* Body 基础设置 */
-body {
-  margin: 0;
-  min-width: 320px;
-  min-height: 100vh;
-  font-family: var(--font-family);
-  font-weight: var(--font-weight-normal);
-  line-height: 1.5;
-
-  /* 字体渲染优化 */
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  font-size: 14px;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #1d2129;
+  background-color: #ffffff;
+  line-height: 1.5;
 }
 
-/* 图片响应式处理 */
-img,
-picture,
-video,
-canvas,
-svg {
-  display: block;
-  max-width: 100%;
+/* Global text styles */
+body {
+  margin: 0;
+  padding: 0;
+  color: #1d2129; /* Arco Gray 10 - Primary text */
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-/* 表单元素字体继承 */
-input,
-button,
-textarea,
-select {
-  font: inherit;
+/* Secondary text */
+.text-secondary {
+  color: #86909c; /* Arco Gray 6 */
 }
 
-/* 文本换行优化 */
-p,
+/* Disabled text */
+.text-disabled {
+  color: #c9cdd4; /* Arco Gray 4 */
+}
+
+/* Placeholder text */
+.text-placeholder {
+  color: #a9aeb8; /* Arco Gray 5 */
+}
+
+/* Link styles */
+a {
+  color: #14c9c9; /* Arco Cyan 6 - Link color */
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #0da5aa; /* Arco Cyan 7 */
+}
+
+/* Heading styles - Arco Design specification */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  overflow-wrap: break-word;
+  color: #1d2129; /* Arco Gray 10 */
+  font-weight: 600; /* Arco Design heading font weight */
+  line-height: 1.2;
+  margin: 0;
 }
 
-/* Root 容器 */
-#root {
-  isolation: isolate;
+h1 {
+  font-size: 32px;
+}
+h2 {
+  font-size: 28px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 20px;
+}
+h5 {
+  font-size: 18px;
+}
+h6 {
+  font-size: 16px;
+}
+
+/* Border colors - Arco Design specification */
+* {
+  --border-color-default: #e5e6eb; /* Arco Gray 3 - Default border */
+  --border-color-hover: #a9aeb8; /* Arco Gray 5 - Hover border */
+  --border-color-focus: #165dff; /* Arco Blue 6 - Focus border */
+}
+
+/* Scrollbar styles - Arco Design style */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f7f8fa; /* Arco Gray 1 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c9cdd4; /* Arco Gray 4 */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a9aeb8; /* Arco Gray 5 */
+}
+
+/* Selection styles */
+::selection {
+  background: #bedaff; /* Arco Blue 2 */
+  color: #1d2129;
+}
+
+/* Placeholder styles */
+::placeholder {
+  color: #a9aeb8; /* Arco Gray 5 */
+  opacity: 1;
+}
+
+/* Code styles */
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  background-color: #f2f3f5; /* Arco Gray 2 */
+  color: #f53f3f; /* Arco Red 6 */
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 0.9em;
+}
+
+pre {
+  background-color: #f7f8fa; /* Arco Gray 1 */
+  border: 1px solid #e5e6eb; /* Arco Gray 3 */
+  border-radius: 4px;
+  padding: 12px;
+  overflow-x: auto;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+  color: #1d2129;
+}
+
+/* Disabled state */
+[disabled],
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Focus outline - Arco Design style */
+*:focus-visible {
+  outline: 2px solid #bedaff; /* Arco Blue 2 */
+  outline-offset: 2px;
+}
+
+/* Button reset */
+button {
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* Table border - Arco Design style */
+table {
+  border-color: #e5e6eb; /* Arco Gray 3 */
+}
+
+/* HR divider */
+hr {
+  border: none;
+  border-top: 1px solid #e5e6eb; /* Arco Gray 3 */
+  margin: 16px 0;
 }

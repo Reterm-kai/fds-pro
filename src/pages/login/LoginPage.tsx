@@ -293,17 +293,6 @@ export function LoginPage() {
                   leftSection={<User size={18} />}
                   size="lg"
                   autoComplete="username"
-                  styles={{
-                    label: {
-                      fontSize: '0.875rem',
-                      fontWeight: 500,
-                      marginBottom: '0.5rem',
-                    },
-                    input: {
-                      borderRadius: '0.5rem',
-                      fontSize: '1rem',
-                    },
-                  }}
                   {...form.getInputProps('username')}
                 />
 
@@ -313,17 +302,6 @@ export function LoginPage() {
                   leftSection={<Lock size={18} />}
                   size="lg"
                   autoComplete="current-password"
-                  styles={{
-                    label: {
-                      fontSize: '0.875rem',
-                      fontWeight: 500,
-                      marginBottom: '0.5rem',
-                    },
-                    input: {
-                      borderRadius: '0.5rem',
-                      fontSize: '1rem',
-                    },
-                  }}
                   {...form.getInputProps('password')}
                 />
 
@@ -344,23 +322,7 @@ export function LoginPage() {
                   fullWidth
                   size="lg"
                   mt="md"
-                  styles={{
-                    root: {
-                      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                      borderRadius: '0.5rem',
-                      fontSize: '1rem',
-                      fontWeight: 600,
-                      height: '3rem',
-                      transition: 'all 0.2s ease',
-                      '&:hover': {
-                        transform: 'translateY(-2px)',
-                        boxShadow: '0 8px 16px rgba(102, 126, 234, 0.4)',
-                      },
-                      '&:active': {
-                        transform: 'translateY(0)',
-                      },
-                    },
-                  }}
+                  color="arcoblue"
                 >
                   登录
                 </Button>
