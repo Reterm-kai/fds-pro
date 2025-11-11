@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Title, Alert, Stack, Group, Button, Text } from '@mantine/core'
+import {  Alert, Stack, Group, Button, Text } from '@mantine/core'
 import { AlertCircle, Plus } from 'lucide-react'
 import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'
@@ -113,7 +113,6 @@ export function UsersView() {
   return (
     <Stack gap="md">
       <Group justify="space-between" align="center">
-        <Title order={2}>用户管理</Title>
         <Button leftSection={<Plus size={16} />} onClick={handleCreate}>
           创建用户
         </Button>
