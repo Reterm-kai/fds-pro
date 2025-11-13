@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import {  Alert, Stack, Group, Button, Text } from '@mantine/core'
+import { Alert, Stack, Group, Button, Text } from '@mantine/core'
 import { AlertCircle, Plus } from 'lucide-react'
 import { modals } from '@mantine/modals'
 import { notifications } from '@mantine/notifications'

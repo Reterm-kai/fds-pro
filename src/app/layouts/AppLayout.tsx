@@ -2,6 +2,7 @@ import { AppShell } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { Outlet } from 'react-router-dom'
 import { AppHeader, AppNavbar } from '@/widgets/app-shell'
+import { useUIStore, selectNavbarCollapse } from '@/shared/model'
 import type { MenuItem } from '@/shared/navigation/types'
 
 interface AppLayoutProps {
@@ -12,10 +13,20 @@ interface AppLayoutProps {
 /**
  * 应用主布局组件
  * 使用 Mantine AppShell 实现响应式布局,包含顶部导航栏、侧边菜单和主内容区域
+ *
+ * 状态管理：
+ * - opened: 移动端侧边栏展开状态（本地状态，不持久化）
+ * - navbarCollapse: 桌面端导航栏收起状态（全局状态，持久化）
  */
 export function AppLayout({ menuItems }: AppLayoutProps) {
+  // 移动端侧边栏状态（本地，不持久化）
   const [opened, { toggle }] = useDisclosure()
-  const [collapsed, { toggle: toggleCollapsed }] = useDisclosure()
+
+  // 桌面端导航栏收起状态（全局，持久化）
+  const navbarCollapse = useUIStore(selectNavbarCollapse)
+  const toggleNavbarCollapse = useUIStore(state => state.toggleNavbarCollapse)
+
+  const collapsed = navbarCollapse === 'collapsed'
 
   return (
     <AppShell
@@ -35,7 +46,7 @@ export function AppLayout({ menuItems }: AppLayoutProps) {
         <AppNavbar
           menuItems={menuItems}
           collapsed={collapsed}
-          toggleCollapsed={toggleCollapsed}
+          toggleCollapsed={toggleNavbarCollapse}
         />
       </AppShell.Navbar>
 

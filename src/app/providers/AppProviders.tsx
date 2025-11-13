@@ -4,9 +4,8 @@ import { Notifications } from '@mantine/notifications'
 import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { RouterProvider } from 'react-router-dom'
-import { router } from '@/app/routes/router'
+import { router } from '@/app/routes'
 import { queryClient } from '@/shared/config/queryClient'
-import { theme } from './theme'
 
 /**
  * 应用级 Provider 组合
@@ -20,7 +19,7 @@ import { theme } from './theme'
 export function AppProviders() {
   return (
     <QueryClientProvider client={queryClient}>
-      <MantineProvider theme={theme} defaultColorScheme="auto">
+      <MantineProvider defaultColorScheme="auto">
         <ModalsProvider>
           <Notifications position="top-right" />
           <RouterProvider router={router} />

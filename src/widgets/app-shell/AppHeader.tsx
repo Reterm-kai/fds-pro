@@ -4,10 +4,10 @@ import {
   Avatar,
   Menu,
   UnstyledButton,
-  rem,
   Text,
 } from '@mantine/core'
 import { LogOut, Settings, User } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { ThemeToggle } from '@/shared/ui/theme-toggle'
 import { Logo } from '@/shared/ui/logo'
 import { useAuth } from '@/features/auth'
@@ -25,9 +25,11 @@ interface AppHeaderProps {
  */
 export function AppHeader({ opened, toggle }: AppHeaderProps) {
   const { user, logout } = useAuth()
+  const navigate = useNavigate()
 
-  const handleLogout = () => {
-    logout()
+  const handleLogout = async () => {
+    await logout()
+    navigate('/login', { replace: true })
   }
 
   return (
@@ -52,18 +54,8 @@ export function AppHeader({ opened, toggle }: AppHeaderProps) {
 
             <Menu.Dropdown>
               <Menu.Label>用户中心</Menu.Label>
-              <Menu.Item
-                leftSection={
-                  <User style={{ width: rem(14), height: rem(14) }} />
-                }
-              >
-                个人资料
-              </Menu.Item>
-              <Menu.Item
-                leftSection={
-                  <Settings style={{ width: rem(14), height: rem(14) }} />
-                }
-              >
+              <Menu.Item leftSection={<User size={14} />}>个人资料</Menu.Item>
+              <Menu.Item leftSection={<Settings size={14} />}>
                 系统设置
               </Menu.Item>
 
@@ -71,9 +63,7 @@ export function AppHeader({ opened, toggle }: AppHeaderProps) {
 
               <Menu.Item
                 color="red"
-                leftSection={
-                  <LogOut style={{ width: rem(14), height: rem(14) }} />
-                }
+                leftSection={<LogOut size={14} />}
                 onClick={handleLogout}
               >
                 退出登录

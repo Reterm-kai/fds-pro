@@ -141,6 +141,8 @@ import { UsersView, useUserList } from '@/features/users'
 
 ## 文件命名规范
 
+### 文件名约定
+
 | 文件类型       | 命名格式   | 示例                               |
 | -------------- | ---------- | ---------------------------------- |
 | **React 组件** | PascalCase | `UserForm.tsx`, `AuthProvider.tsx` |
@@ -148,6 +150,43 @@ import { UsersView, useUserList } from '@/features/users'
 | **API/工具**   | camelCase  | `authApi.ts`, `userUtils.ts`       |
 | **类型定义**   | camelCase  | `types.ts`, `userTypes.ts`         |
 | **index 文件** | 固定       | `index.ts`                         |
+
+### 目录命名约定
+
+| 目录类型         | 命名格式    | 示例                     | 说明                             |
+| ---------------- | ----------- | ------------------------ | -------------------------------- |
+| **Feature/Entity** | kebab-case | `app-shell`, `user-profile` | features/ 和 entities/ 下的目录 |
+| **Pages**        | kebab-case  | `login`, `dashboard`, `user-settings` | pages/ 下的目录                |
+| **UI 组件目录**  | kebab-case  | `theme-toggle`, `logo`   | shared/ui/ 下的组件目录          |
+| **Segment 目录** | 固定名称    | `ui`, `api`, `model`, `lib` | FSD slice 内部的标准目录        |
+
+### Pages 目录规范
+
+**标准模式**: 所有页面组件必须直接在 `index.tsx` 中定义
+
+```
+pages/
+├── login/
+│   └── index.tsx          ✅ 直接定义 LoginPage 组件
+├── dashboard/
+│   └── index.tsx          ✅ 直接定义 DashboardPage 组件
+└── users/
+    └── index.tsx          ✅ 直接定义 UsersPage 组件
+```
+
+❌ **错误示例** (不允许):
+```
+pages/
+└── login/
+    ├── LoginPage.tsx      ❌ 不要创建单独的组件文件
+    └── index.tsx          ❌ 不要用 index.ts 仅做 re-export
+```
+
+**原因**:
+- 保持一致性,减少认知负担
+- 简化导入路径 (`@/pages/login` 直接指向组件)
+- 符合 FSD 的"就近原则"
+- 避免不必要的文件层级
 
 ## 代码规范
 

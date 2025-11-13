@@ -7,6 +7,7 @@ import {
   ScrollArea,
   Stack,
   Tooltip,
+  Flex,
 } from '@mantine/core'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { ChevronsLeft, ChevronsRight, ChevronRight } from 'lucide-react'
@@ -148,13 +149,16 @@ export function AppNavbar({
           leftSection={item.icon}
           rightSection={
             hasChildren ? (
-              <ChevronRight
-                size={12}
+              <Box
+                component="span"
+                display="inline-block"
                 style={{
                   transform: isOpened ? 'rotate(90deg)' : 'none',
                   transition: 'transform 0.2s ease',
                 }}
-              />
+              >
+                <ChevronRight size={12} />
+              </Box>
             ) : null
           }
           active={isActiveLeaf}
@@ -205,13 +209,7 @@ export function AppNavbar({
   }
 
   return (
-    <Box
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: 'calc(100vh - 3.75rem)',
-      }}
-    >
+    <Flex direction="column" h="calc(100vh - 3.75rem)">
       {/* 菜单内容区域 - 可滚动 */}
       <ScrollArea
         flex={1}
@@ -230,14 +228,13 @@ export function AppNavbar({
 
       {/* 收缩按钮 - 固定在底部，参考 Arco Design Pro */}
       {toggleCollapsed && (
-        <Box
+        <Flex
+          p="0.75rem"
+          justify="center"
+          align="center"
           style={{
             borderTop:
               '0.0625rem solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-5))',
-            padding: '0.75rem',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
           }}
         >
           <Tooltip
@@ -272,8 +269,8 @@ export function AppNavbar({
               )}
             </ActionIcon>
           </Tooltip>
-        </Box>
+        </Flex>
       )}
-    </Box>
+    </Flex>
   )
 }

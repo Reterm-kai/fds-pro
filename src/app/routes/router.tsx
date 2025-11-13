@@ -1,6 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom'
-import { AuthLayout } from '@/app/layouts/AuthLayout'
-import { AppLayout } from '@/app/layouts/AppLayout'
+import { AuthLayout, AppLayout } from '@/app/layouts'
 import { DashboardPage } from '@/pages/dashboard'
 import { UsersPage } from '@/pages/users'
 import { SettingsPage } from '@/pages/settings'

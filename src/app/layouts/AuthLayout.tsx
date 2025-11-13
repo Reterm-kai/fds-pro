@@ -1,14 +1,14 @@
 import { Outlet } from 'react-router-dom'
-import { AuthProvider } from '@/features/auth'
+import { AuthInitializer } from '@/features/auth'
 
 /**
  * AuthLayout 包装组件
- * 为所有路由提供认证上下文
+ * 初始化认证状态（使用 Zustand，无需 Provider）
  */
 export function AuthLayout() {
   return (
-    <AuthProvider>
+    <AuthInitializer>
       <Outlet />
-    </AuthProvider>
+    </AuthInitializer>
   )
 }

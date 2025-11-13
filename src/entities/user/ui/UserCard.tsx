@@ -26,6 +26,7 @@ export function UserCard({ user, onClick }: UserCardProps) {
       withBorder
       style={{ cursor: onClick ? 'pointer' : 'default' }}
       onClick={onClick}
+      component={onClick ? 'button' : 'div'}
     >
       <Group>
         <UserAvatar user={user} size="lg" />
