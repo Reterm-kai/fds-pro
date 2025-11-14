@@ -12,8 +12,6 @@ import {
   Checkbox,
   Box,
   Flex,
-  useMantineColorScheme,
-  Group,
 } from '@mantine/core'
 import { User, Lock } from 'lucide-react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
@@ -21,6 +19,7 @@ import { notifications } from '@mantine/notifications'
 import { useForm } from '@mantine/form'
 import { useAuth } from '@/features/auth'
 import { Logo } from '@/shared/ui/logo'
+import classes from './Login.module.css'
 
 /**
  * 登录页面组件
@@ -32,7 +31,6 @@ export default function LoginPage() {
   const navigate = useNavigate()
   const location = useLocation()
   const { login } = useAuth()
-  const { colorScheme } = useMantineColorScheme()
 
   // 从路由状态获取重定向路径
   const from = location.state?.from?.pathname || '/dashboard'
@@ -75,217 +73,118 @@ export default function LoginPage() {
   }
 
   return (
-    <Flex
-      mih="100vh"
-      bg={
-        colorScheme === 'dark'
-          ? 'linear-gradient(135deg, #1a1b26 0%, #24283b 100%)'
-          : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
-      }
-    >
+    <Flex className={classes.container}>
+      {/* 泡泡动画背景 */}
+      <Box className={classes.bubbles}>
+        <Box className={classes.bubble} />
+        <Box className={classes.bubble} />
+        <Box className={classes.bubble} />
+        <Box className={classes.bubble} />
+        <Box className={classes.bubble} />
+        <Box className={classes.bubble} />
+        <Box className={classes.bubble} />
+        <Box className={classes.bubble} />
+      </Box>
+
       {/* 左侧装饰区域 */}
-      <Flex
-        flex={1}
-        direction="column"
-        justify="center"
-        align="center"
-        p={{ base: 'xl', md: '3rem' }}
-        c="white"
-        visibleFrom="md"
-      >
-        {/* Logo - 使用纯白色显示 */}
-        <Box mb="xl">
-          <Paper
-            bg="rgba(255, 255, 255, 0.15)"
-            p="1.5rem"
-            radius="1rem"
-            style={{
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
-            }}
-          >
-            <Group gap="1rem" wrap="nowrap">
-              <Flex
-                bg="white"
-                p="0.75rem"
-                align="center"
-                justify="center"
-                style={{ borderRadius: '0.75rem' }}
-              >
-                <Box
-                  component="span"
-                  display="inline-block"
-                  style={{ transform: 'rotate(-45deg)' }}
-                >
-                  <svg
-                    width="40"
-                    height="40"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
-                      fill="url(#gradient)"
-                    />
-                    <defs>
-                      <linearGradient
-                        id="gradient"
-                        x1="2"
-                        y1="2"
-                        x2="22"
-                        y2="21.02"
-                        gradientUnits="userSpaceOnUse"
-                      >
-                        <stop stopColor="#667eea" />
-                        <stop offset="1" stopColor="#764ba2" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </Box>
-              </Flex>
-              <Text
-                size="2rem"
-                fw={700}
-                c="white"
-                style={{
-                  letterSpacing: '0.02em',
-                  textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                }}
-              >
-                Fordoes
-              </Text>
-            </Group>
-          </Paper>
+      <Flex className={classes.leftSection}>
+        {/* Logo */}
+        <Box className={classes.logoWrapper}>
+          <Logo className={classes.logo} />
         </Box>
 
-        <Title
-          order={1}
-          mb="md"
-          c="white"
-          ta="center"
-          size="2.5rem"
-          fw={700}
-          lh={1.2}
-          style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.2)' }}
-        >
-          企业级中后台解决方案
-        </Title>
-        <Text
-          size="xl"
-          c="white"
-          ta="center"
-          maw="28rem"
-          lh={1.6}
-          opacity={0.95}
-          style={{ textShadow: '0 1px 4px rgba(0, 0, 0, 0.15)' }}
-        >
-          基于 React 19 + TypeScript + Mantine 构建的现代化前端框架
+        <Title className={classes.mainTitle}>企业级中后台解决方案</Title>
+        <Text className={classes.subtitle}>
+          开箱即用的高质量模板，助力团队提升开发效率
         </Text>
 
-        {/* 装饰性插图 */}
-        <Box mt="xl" w="100%" maw="31.25rem" ta="center">
+        {/* 现代化装饰性插图 */}
+        <Box className={classes.illustration}>
           <svg
             viewBox="0 0 400 300"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <rect
-              x="50"
-              y="50"
-              width="300"
-              height="200"
-              rx="10"
-              fill="rgba(255,255,255,0.1)"
-              stroke="rgba(255,255,255,0.3)"
-              strokeWidth="2"
-            />
-            <rect
-              x="70"
-              y="70"
-              width="120"
-              height="80"
-              rx="5"
-              fill="rgba(255,255,255,0.15)"
-            />
-            <rect
-              x="210"
-              y="70"
-              width="120"
-              height="80"
-              rx="5"
-              fill="rgba(255,255,255,0.15)"
-            />
-            <rect
-              x="70"
-              y="170"
-              width="260"
-              height="60"
-              rx="5"
-              fill="rgba(255,255,255,0.15)"
-            />
+            <defs>
+              {/* 主渐变 */}
+              <linearGradient id="mainGradient" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="rgba(255, 255, 255, 0.25)" />
+                <stop offset="100%" stopColor="rgba(255, 255, 255, 0.05)" />
+              </linearGradient>
+              {/* 光晕效果 */}
+              <radialGradient id="glowGradient">
+                <stop offset="0%" stopColor="rgba(255, 255, 255, 0.4)" />
+                <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
+              </radialGradient>
+            </defs>
+
+            {/* 背景大圆 - 创建层次感 */}
             <circle
               cx="200"
               cy="150"
-              r="30"
-              fill="rgba(255,255,255,0.2)"
-              stroke="rgba(255,255,255,0.4)"
-              strokeWidth="2"
+              r="140"
+              fill="url(#glowGradient)"
+              opacity="0.3"
             />
+
+            {/* 主要卡片 1 - 浮动效果 */}
+            <rect
+              x="100"
+              y="80"
+              width="180"
+              height="100"
+              rx="16"
+              fill="url(#mainGradient)"
+              className={classes.floatingCard1}
+            />
+
+            {/* 主要卡片 2 - 浮动效果 */}
+            <rect
+              x="130"
+              y="120"
+              width="180"
+              height="100"
+              rx="16"
+              fill="url(#mainGradient)"
+              className={classes.floatingCard2}
+            />
+
+            {/* 装饰小圆点 */}
+            <circle cx="120" cy="100" r="6" fill="rgba(255,255,255,0.5)" />
+            <circle cx="280" cy="140" r="8" fill="rgba(255,255,255,0.4)" />
+            <circle cx="150" cy="200" r="5" fill="rgba(255,255,255,0.6)" />
+            <circle cx="300" cy="180" r="7" fill="rgba(255,255,255,0.3)" />
+
+            {/* 装饰线条 - 数据可视化风格 */}
             <path
-              d="M190 150 L200 160 L220 140"
-              stroke="white"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              d="M 120 130 Q 160 110, 200 130 T 280 140"
+              stroke="rgba(255,255,255,0.3)"
+              strokeWidth="2"
+              fill="none"
+              className={classes.animatedPath}
             />
           </svg>
         </Box>
       </Flex>
 
       {/* 右侧登录表单 */}
-      <Flex
-        w="100%"
-        maw="31.25rem"
-        align="center"
-        justify="center"
-        bg={colorScheme === 'dark' ? '#1a1b26' : 'white'}
-        p={{ base: 'xl', md: '2.5rem' }}
-      >
+      <Flex className={classes.rightSection}>
         <Container size={420} w="100%">
-          <Box mb="xl" hiddenFrom="md" ta="center">
-            <Logo style={{ width: 150, height: 'auto', margin: '0 auto' }} />
+          <Box className={classes.mobileLogo}>
+            <Logo style={{ width: 120, height: 'auto' }} />
           </Box>
 
-          <Title
-            order={1}
-            ta="center"
-            mb="xs"
-            size="2rem"
-            fw={700}
-            bg="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-            style={{
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              letterSpacing: '-0.02em',
-            }}
-          >
-            登录到 Fordoes
-          </Title>
-          <Text c="dimmed" size="md" ta="center" mb="2rem">
-            输入您的账号信息以继续
-          </Text>
+          <Title className={classes.formTitle}>登录 Fordoes</Title>
+          <Text className={classes.formDescription}>登录 Fordoes</Text>
 
-          <Paper shadow="none" radius="md">
+          <Paper className={classes.formContainer}>
             <form onSubmit={form.onSubmit(handleSubmit)}>
               <Stack gap="lg">
                 <TextInput
-                  label="用户名或邮箱"
-                  placeholder="admin@x.com 或 张三"
+                  label="用户名"
+                  placeholder="admin 或 admin@x.com"
                   leftSection={<User size={18} />}
-                  size="lg"
+                  size="md"
                   autoComplete="username"
                   {...form.getInputProps('username')}
                 />
@@ -294,19 +193,19 @@ export default function LoginPage() {
                   label="密码"
                   placeholder="请输入密码"
                   leftSection={<Lock size={18} />}
-                  size="lg"
+                  size="md"
                   autoComplete="current-password"
                   {...form.getInputProps('password')}
                 />
 
-                <Flex justify="space-between" align="center">
+                <Flex className={classes.rememberRow}>
                   <Checkbox
-                    label="记住我"
+                    label="记住密码"
                     checked={rememberMe}
                     onChange={e => setRememberMe(e.currentTarget.checked)}
                   />
                   <Anchor component="button" type="button" size="sm">
-                    忘记密码?
+                    忘记密码
                   </Anchor>
                 </Flex>
 
@@ -314,48 +213,26 @@ export default function LoginPage() {
                   type="submit"
                   loading={loading}
                   fullWidth
-                  size="lg"
-                  mt="md"
-                  h="3rem"
-                  bg="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
-                  style={{
-                    borderRadius: '0.5rem',
-                    transition: 'all 0.2s ease',
-                  }}
-                  styles={{
-                    root: {
-                      '&:hover': {
-                        transform: 'translateY(-2px)',
-                        boxShadow: '0 8px 16px rgba(102, 126, 234, 0.4)',
-                      },
-                      '&:active': {
-                        transform: 'translateY(0)',
-                      },
-                    },
-                  }}
+                  size="md"
+                  className={classes.submitButton}
                 >
                   登录
                 </Button>
+
+                <Text className={classes.registerLink}>
+                  还没有账户?{' '}
+                  <Anchor component={Link} to="/register" fw={500}>
+                    注册账号
+                  </Anchor>
+                </Text>
               </Stack>
             </form>
-
-            <Text ta="center" mt="xl" size="sm">
-              还没有账户?{' '}
-              <Anchor component={Link} to="/register" fw={500}>
-                立即注册
-              </Anchor>
-            </Text>
           </Paper>
 
           {/* 提示信息 */}
-          <Paper
-            withBorder
-            mt="xl"
-            p="md"
-            bg={colorScheme === 'dark' ? 'dark.7' : 'gray.0'}
-          >
-            <Text size="xs" c="dimmed" ta="center">
-              💡 测试账号: admin@x.com 或 张三 / 密码: 123456
+          <Paper className={classes.hintCard}>
+            <Text className={classes.hintText}>
+              💡 测试账号: admin 或 admin@x.com / 密码: 123456
             </Text>
           </Paper>
         </Container>

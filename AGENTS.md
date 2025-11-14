@@ -317,8 +317,8 @@ background: var(--mantine-color-body); /* 背景色 */
 
 /* 灰度色（支持深色模式） */
 background: light-dark(
-  var(--mantine-color-gray-2),
-  /* 浅色模式 */ var(--mantine-color-dark-6) /* 深色模式 */
+var(--mantine-color-gray-2),
+/* 浅色模式 */ var(--mantine-color-dark-6) /* 深色模式 */
 );
 
 /* 主题色阶 */
@@ -444,8 +444,8 @@ transition: all 0.3s ease; /* 平滑过渡 */
 
 /* 多属性过渡 */
 transition:
-  background-color 0.15s ease,
-  color 0.15s ease;
+background-color 0.15s ease,
+                     color 0.15s ease;
 ```
 
 **推荐时长**：
@@ -467,36 +467,36 @@ transition: all 100ms ease; /* 使用秒而非毫秒 */
 
 ```css
 .navbar {
-  height: 100%;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  transition: all 0.3s ease;
+   height: 100%;
+   padding: 0;
+   display: flex;
+   flex-direction: column;
+   transition: all 0.3s ease;
 }
 
 .navbarItem {
-  padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
-  font-size: var(--mantine-font-size-sm);
-  color: var(--mantine-color-text);
-  border-radius: var(--mantine-radius-sm);
-  transition: background-color 0.15s ease;
-  min-height: rem(42px);
+   padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+   font-size: var(--mantine-font-size-sm);
+   color: var(--mantine-color-text);
+   border-radius: var(--mantine-radius-sm);
+   transition: background-color 0.15s ease;
+   min-height: rem(42px);
 
-  &:hover {
-    background-color: light-dark(
-      var(--mantine-color-gray-2),
-      var(--mantine-color-dark-6)
-    );
-  }
+   &:hover {
+      background-color: light-dark(
+              var(--mantine-color-gray-2),
+              var(--mantine-color-dark-6)
+      );
+   }
 }
 
 .button {
-  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
-  border: rem(1px) solid
-    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-  border-radius: var(--mantine-radius-md);
-  box-shadow: var(--mantine-shadow-sm);
-  z-index: var(--mantine-z-index-app);
+   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+   border: rem(1px) solid
+   light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+   border-radius: var(--mantine-radius-md);
+   box-shadow: var(--mantine-shadow-sm);
+   z-index: var(--mantine-z-index-app);
 }
 ```
 
@@ -688,12 +688,12 @@ export const router = createBrowserRouter([
 import { Button, TextInput, Stack } from '@mantine/core'
 
 function MyComponent() {
-   return (
-           <Stack gap="md">
-           <TextInput label="姓名" />
-                   <Button>提交</Button>
-                   </Stack>
-   )
+  return (
+    <Stack gap="md">
+      <TextInput label="姓名" />
+      <Button>提交</Button>
+    </Stack>
+  )
 }
 ```
 

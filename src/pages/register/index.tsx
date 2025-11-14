@@ -3,7 +3,6 @@ import {
   TextInput,
   PasswordInput,
   Button,
-  Group,
   Title,
   Text,
   Anchor,
@@ -12,13 +11,17 @@ import {
   Stack,
   Checkbox,
   Divider,
-  Center,
+  Box,
+  Flex,
+  Group,
 } from '@mantine/core'
 import { Mail, Lock, User, Github } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { notifications } from '@mantine/notifications'
 import { useForm } from '@mantine/form'
 import { useAuth } from '@/features/auth'
+import { Logo } from '@/shared/ui/logo'
+import classes from './Register.module.css'
 
 /**
  * 注册页面组件
@@ -89,105 +92,213 @@ export function RegisterPage() {
   }
 
   return (
-    <Container size={420} my={40}>
-      <Center>
-        <div>
-          <Title ta="center" mb="lg">
-            创建账户
-          </Title>
-          <Text c="dimmed" size="sm" ta="center" mb="xl">
-            请填写以下信息开始使用
-          </Text>
-        </div>
-      </Center>
+    <Flex className={classes.container}>
+      {/* 泡泡动画背景 */}
+      <Box className={classes.bubbles}>
+        <Box className={classes.bubble} />
+        <Box className={classes.bubble} />
+        <Box className={classes.bubble} />
+        <Box className={classes.bubble} />
+        <Box className={classes.bubble} />
+        <Box className={classes.bubble} />
+        <Box className={classes.bubble} />
+        <Box className={classes.bubble} />
+      </Box>
 
-      <Paper withBorder shadow="md" p={30} mt={0} radius="md">
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-          <Stack>
-            <TextInput
-              label="姓名"
-              placeholder="请输入您的姓名"
-              leftSection={<User size={16} />}
-              {...form.getInputProps('name')}
-            />
+      {/* 左侧装饰区域 */}
+      <Flex className={classes.leftSection}>
+        {/* Logo */}
+        <Box className={classes.logoWrapper}>
+          <Logo className={classes.logo} />
+        </Box>
 
-            <TextInput
-              label="邮箱"
-              placeholder="请输入您的邮箱"
-              leftSection={<Mail size={16} />}
-              type="email"
-              {...form.getInputProps('email')}
-            />
-
-            <PasswordInput
-              label="密码"
-              placeholder="请输入您的密码"
-              leftSection={<Lock size={16} />}
-              {...form.getInputProps('password')}
-            />
-
-            <PasswordInput
-              label="确认密码"
-              placeholder="请再次输入密码"
-              leftSection={<Lock size={16} />}
-              {...form.getInputProps('confirmPassword')}
-            />
-
-            <Checkbox
-              label="我同意用户条款和服务协议"
-              {...form.getInputProps('agreeTerms', { type: 'checkbox' })}
-            />
-
-            <Button type="submit" loading={loading} fullWidth mt="xl">
-              注册
-            </Button>
-          </Stack>
-        </form>
-
-        <Divider label="或" labelPosition="center" my="lg" />
-
-        <Group grow>
-          <Button
-            variant="default"
-            leftSection={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="12" cy="12" r="10" />
-                <path d="M8 14s1.5 2 4 2 4-2 4-2" />
-                <line x1="9" x2="9.01" y1="9" y2="9" />
-                <line x1="15" x2="15.01" y1="9" y2="9" />
-              </svg>
-            }
-            onClick={() => handleSocialRegister('Google')}
-          >
-            Google
-          </Button>
-          <Button
-            variant="default"
-            leftSection={<Github size={16} />}
-            onClick={() => handleSocialRegister('GitHub')}
-          >
-            GitHub
-          </Button>
-        </Group>
-
-        <Text ta="center" mt="md">
-          已有账户？{' '}
-          <Anchor<'a'> href="/login" fw={500}>
-            立即登录
-          </Anchor>
+        <Title className={classes.mainTitle}>开启您的开发之旅</Title>
+        <Text className={classes.subtitle}>
+          现代化的企业级中后台解决方案，助力团队高效协作
         </Text>
-      </Paper>
-    </Container>
+
+        {/* 现代化装饰性插图 */}
+        <Box className={classes.illustration}>
+          <svg
+            viewBox="0 0 400 300"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              {/* 主渐变 */}
+              <linearGradient id="regMainGradient" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stopColor="rgba(255, 255, 255, 0.25)" />
+                <stop offset="100%" stopColor="rgba(255, 255, 255, 0.05)" />
+              </linearGradient>
+              {/* 光晕效果 */}
+              <radialGradient id="regGlowGradient">
+                <stop offset="0%" stopColor="rgba(255, 255, 255, 0.4)" />
+                <stop offset="100%" stopColor="rgba(255, 255, 255, 0)" />
+              </radialGradient>
+            </defs>
+
+            {/* 背景大圆 - 创建层次感 */}
+            <circle
+              cx="200"
+              cy="150"
+              r="140"
+              fill="url(#regGlowGradient)"
+              opacity="0.3"
+            />
+
+            {/* 主要卡片 1 - 浮动效果 */}
+            <rect
+              x="100"
+              y="80"
+              width="180"
+              height="100"
+              rx="16"
+              fill="url(#regMainGradient)"
+              className={classes.floatingCard1}
+            />
+
+            {/* 主要卡片 2 - 浮动效果 */}
+            <rect
+              x="130"
+              y="120"
+              width="180"
+              height="100"
+              rx="16"
+              fill="url(#regMainGradient)"
+              className={classes.floatingCard2}
+            />
+
+            {/* 装饰小圆点 */}
+            <circle cx="120" cy="100" r="6" fill="rgba(255,255,255,0.5)" />
+            <circle cx="280" cy="140" r="8" fill="rgba(255,255,255,0.4)" />
+            <circle cx="150" cy="200" r="5" fill="rgba(255,255,255,0.6)" />
+            <circle cx="300" cy="180" r="7" fill="rgba(255,255,255,0.3)" />
+
+            {/* 装饰线条 - 数据可视化风格 */}
+            <path
+              d="M 120 130 Q 160 110, 200 130 T 280 140"
+              stroke="rgba(255,255,255,0.3)"
+              strokeWidth="2"
+              fill="none"
+              className={classes.animatedPath}
+            />
+          </svg>
+        </Box>
+      </Flex>
+
+      {/* 右侧注册表单 */}
+      <Flex className={classes.rightSection}>
+        <Container size={420} w="100%">
+          <Box className={classes.mobileLogo}>
+            <Logo style={{ width: 120, height: 'auto' }} />
+          </Box>
+
+          <Title className={classes.formTitle}>注册 Fordoes</Title>
+          <Text className={classes.formDescription}>注册 Fordoes</Text>
+
+          <Paper className={classes.formContainer}>
+            <form onSubmit={form.onSubmit(handleSubmit)}>
+              <Stack gap="lg">
+                <TextInput
+                  label="姓名"
+                  placeholder="请输入您的姓名"
+                  leftSection={<User size={18} />}
+                  size="md"
+                  {...form.getInputProps('name')}
+                />
+
+                <TextInput
+                  label="邮箱"
+                  placeholder="请输入您的邮箱"
+                  leftSection={<Mail size={18} />}
+                  type="email"
+                  size="md"
+                  {...form.getInputProps('email')}
+                />
+
+                <PasswordInput
+                  label="密码"
+                  placeholder="请输入您的密码"
+                  leftSection={<Lock size={18} />}
+                  size="md"
+                  {...form.getInputProps('password')}
+                />
+
+                <PasswordInput
+                  label="确认密码"
+                  placeholder="请再次输入密码"
+                  leftSection={<Lock size={18} />}
+                  size="md"
+                  {...form.getInputProps('confirmPassword')}
+                />
+
+                <Checkbox
+                  label="我同意用户条款和服务协议"
+                  {...form.getInputProps('agreeTerms', { type: 'checkbox' })}
+                />
+
+                <Button
+                  type="submit"
+                  loading={loading}
+                  fullWidth
+                  size="md"
+                  className={classes.submitButton}
+                >
+                  注册
+                </Button>
+
+                <Text className={classes.loginLink}>
+                  已有账户?{' '}
+                  <Anchor component={Link} to="/login" fw={500}>
+                    立即登录
+                  </Anchor>
+                </Text>
+              </Stack>
+            </form>
+
+            <Divider
+              label="或使用第三方账号注册"
+              labelPosition="center"
+              className={classes.divider}
+            />
+
+            <Group grow className={classes.socialButtons}>
+              <Button
+                variant="default"
+                leftSection={
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+                    <line x1="9" x2="9.01" y1="9" y2="9" />
+                    <line x1="15" x2="15.01" y1="9" y2="9" />
+                  </svg>
+                }
+                onClick={() => handleSocialRegister('Google')}
+              >
+                Google
+              </Button>
+              <Button
+                variant="default"
+                leftSection={<Github size={16} />}
+                onClick={() => handleSocialRegister('GitHub')}
+              >
+                GitHub
+              </Button>
+            </Group>
+          </Paper>
+        </Container>
+      </Flex>
+    </Flex>
   )
 }
 
