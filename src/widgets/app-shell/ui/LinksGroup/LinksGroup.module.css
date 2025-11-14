@@ -9,8 +9,10 @@
   border-radius: var(--mantine-radius-sm);
   transition:
     background-color 0.15s ease,
-    color 0.15s ease;
-  height: rem(42px);
+    color 0.15s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+  min-height: calc(var(--mantine-spacing-xl) * 1.4);
 
   @mixin hover {
     background-color: light-dark(
@@ -18,11 +20,13 @@
       var(--mantine-color-dark-6)
     );
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+    box-shadow: var(--mantine-shadow-sm);
+    transform: translateY(calc(var(--mantine-spacing-xs) * -0.25));
   }
 
   /* 禁用点击时的默认效果 */
   &:active {
-    transform: none;
+    transform: translateY(0);
     background-color: transparent;
   }
 }
@@ -35,33 +39,38 @@
     var(--mantine-color-gray-2),
     var(--mantine-color-dark-5)
   );
+  box-shadow: var(--mantine-shadow-md);
 }
 
-/* 展开模式激活状态 hover 效果 - 保持不变 */
+/* 展开模式激活状态 hover 效果 - 增强阴影 */
 .control.active:hover,
 .control[data-active]:hover {
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
   background-color: light-dark(
-    var(--mantine-color-gray-2),
+    var(--mantine-color-gray-3),
     var(--mantine-color-dark-5)
   );
+  box-shadow: var(--mantine-shadow-lg);
+  transform: translateY(calc(var(--mantine-spacing-xs) * -0.35));
 }
 
-/* 展开模式激活状态点击效果 - 保持不变 */
+/* 展开模式激活状态点击效果 - 保持阴影效果 */
 .control.active:active,
 .control[data-active]:active {
   background-color: light-dark(
     var(--mantine-color-gray-2),
     var(--mantine-color-dark-5)
   );
+  box-shadow: var(--mantine-shadow-md);
+  transform: translateY(0);
 }
 
 .collapsedControl {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: rem(48px);
-  height: rem(48px);
+  width: calc(var(--mantine-spacing-xl) * 1.6);
+  height: calc(var(--mantine-spacing-xl) * 1.6);
   padding: 0;
   margin-bottom: var(--mantine-spacing-sm);
   border-radius: var(--mantine-radius-md);
@@ -77,9 +86,7 @@
       var(--mantine-color-gray-2),
       var(--mantine-color-dark-6)
     );
-    box-shadow:
-      0 2px 6px light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.25)),
-      0 1px 3px light-dark(rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.20));
+    box-shadow: var(--mantine-shadow-sm);
     transform: translateY(calc(var(--mantine-spacing-xs) * -0.25));
   }
 
@@ -97,9 +104,7 @@
     var(--mantine-color-dark-5)
   );
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  box-shadow:
-    0 4px 10px light-dark(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.35)),
-    0 2px 6px light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.25));
+  box-shadow: var(--mantine-shadow-md);
 }
 
 /* 收缩模式激活状态 hover 效果 - 增强阴影 */
@@ -110,9 +115,7 @@
     var(--mantine-color-dark-5)
   );
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  box-shadow:
-    0 8px 16px light-dark(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.45)),
-    0 4px 8px light-dark(rgba(0, 0, 0, 0.10), rgba(0, 0, 0, 0.30));
+  box-shadow: var(--mantine-shadow-lg);
   transform: translateY(calc(var(--mantine-spacing-xs) * -0.35));
 }
 
@@ -124,9 +127,7 @@
     var(--mantine-color-dark-5)
   );
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  box-shadow:
-    0 4px 10px light-dark(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.35)),
-    0 2px 6px light-dark(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.25));
+  box-shadow: var(--mantine-shadow-md);
   transform: translateY(0);
 }
 
@@ -141,8 +142,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: rem(28px);
-  height: rem(28px);
+  width: calc(var(--mantine-spacing-lg) * 1.17);
+  height: calc(var(--mantine-spacing-lg) * 1.17);
   color: var(--mantine-color-text);
   transition: color 0.15s ease;
 }
@@ -163,12 +164,12 @@
   margin-left: var(--mantine-spacing-xl);
   font-size: var(--mantine-font-size-sm);
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
-  border-left: rem(1px) solid
+  border-left: calc(var(--mantine-spacing-xs) * 0.125) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
   transition:
     background-color 0.15s ease,
     color 0.15s ease;
-  min-height: rem(36px);
+  min-height: calc(var(--mantine-spacing-xl) * 1.2);
 
   @mixin hover {
     background-color: light-dark(
@@ -272,7 +273,7 @@
 .popoverTitle {
   padding-bottom: var(--mantine-spacing-xs);
   margin-bottom: var(--mantine-spacing-xs);
-  border-bottom: rem(1px) solid
+  border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 }
 

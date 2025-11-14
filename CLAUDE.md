@@ -11,12 +11,56 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **React**: 19.1.1
 - **TypeScript**: 5.9.3 (严格模式)
 - **构建工具**: rolldown-vite 7.1.14
-- **UI 框架**: Mantine 8.3.6
+- **UI 框架**: Mantine 8.3.6 ⚠️ **所有样式必须使用 Mantine 设计系统变量**
 - **路由**: React Router 7.9.5
 - **状态管理**: TanStack Query 5.90.7
 - **测试**: Vitest 4.0.7 + Testing Library
 - **代码质量**: ESLint 9.36.0 + Prettier 3.6.2
 - **包管理器**: pnpm
+
+## 🎨 Mantine 设计系统快速参考（AI 必读）
+
+### Spacing 间距标准值
+```
+xs: 10px  (0.625rem)
+sm: 12px  (0.75rem)
+md: 16px  (1rem)
+lg: 20px  (1.25rem)
+xl: 32px  (2rem)
+```
+
+### 常用尺寸计算公式
+```css
+/* 高度计算 */
+42px  → calc(var(--mantine-spacing-xl) * 1.4)
+48px  → calc(var(--mantine-spacing-xl) * 1.6)
+28px  → calc(var(--mantine-spacing-lg) * 1.17)
+
+/* 边框计算 */
+1px   → calc(var(--mantine-spacing-xs) * 0.125)
+```
+
+### 阴影层级
+```css
+var(--mantine-shadow-xs)  /* 最轻 */
+var(--mantine-shadow-sm)  /* 轻微（hover 未激活） */
+var(--mantine-shadow-md)  /* 中等（激活状态） */
+var(--mantine-shadow-lg)  /* 大（激活 + hover） */
+var(--mantine-shadow-xl)  /* 最强 */
+```
+
+### 颜色使用
+```css
+/* 文本和背景 */
+var(--mantine-color-text)
+var(--mantine-color-body)
+
+/* 灰度色（配合 light-dark） */
+light-dark(var(--mantine-color-gray-0到9), var(--mantine-color-dark-0到9))
+
+/* 主题色 */
+var(--mantine-color-blue-0到9)
+```
 
 ## 开发命令
 
@@ -202,6 +246,31 @@ pages/
 ### CSS/样式规范
 
 本项目使用 **Mantine UI** 作为 UI 框架，所有样式必须遵循 Mantine 的设计系统规范。
+
+#### ⚠️ 强制规则（AI 必须遵守）
+
+**在创建或修改任何 CSS 样式时，必须严格遵守以下规则：**
+
+1. **🚫 绝对禁止使用 `rem()` 函数或硬编码像素值**
+   - ❌ 禁止：`width: rem(48px)`, `height: 42px`, `padding: 16px`
+   - ✅ 必须：`width: calc(var(--mantine-spacing-xl) * 1.6)`, `height: calc(var(--mantine-spacing-xl) * 1.4)`
+
+2. **🚫 绝对禁止使用自定义阴影值**
+   - ❌ 禁止：`box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)`
+   - ✅ 必须：`box-shadow: var(--mantine-shadow-sm)`（sm, md, lg, xl）
+
+3. **🚫 绝对禁止使用十六进制颜色或 RGB 值**
+   - ❌ 禁止：`color: #333`, `background: rgb(240, 240, 240)`
+   - ✅ 必须：`color: var(--mantine-color-text)`, `background: light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-6))`
+
+4. **✅ 所有尺寸必须基于 Mantine spacing 变量**
+   - 使用 `calc()` 配合 Mantine 变量计算精确尺寸
+   - Mantine spacing: xs(10px), sm(12px), md(16px), lg(20px), xl(32px)
+
+5. **✅ 深色模式必须使用 `light-dark()` 函数**
+   - 任何需要区分深浅色的样式都必须使用 `light-dark(浅色值, 深色值)`
+
+**违反以上规则的代码将被视为不符合项目规范，必须重写。**
 
 #### 核心原则
 
@@ -427,19 +496,36 @@ transition: all 100ms ease; /* 使用秒而非毫秒 */
 }
 ```
 
-#### 检查清单
+#### ✅ 样式开发检查清单
 
-在编写样式时，确保：
+**在编写或修改样式前，AI 必须确认以下所有项：**
 
-- [ ] 所有间距使用 `var(--mantine-spacing-*)`
-- [ ] 所有颜色使用 `var(--mantine-color-*)`
-- [ ] 所有字体大小使用 `var(--mantine-font-size-*)`
-- [ ] 所有圆角使用 `var(--mantine-radius-*)`
-- [ ] 所有阴影使用 `var(--mantine-shadow-*)`
-- [ ] 所有 z-index 使用 `var(--mantine-z-index-*)`
-- [ ] 固定尺寸使用 `rem()` 函数
-- [ ] 深色模式使用 `light-dark()` 函数
-- [ ] 过渡时间符合推荐标准
+- [ ] ✅ 所有间距使用 `var(--mantine-spacing-*)`
+- [ ] ✅ 所有颜色使用 `var(--mantine-color-*)`
+- [ ] ✅ 所有字体大小使用 `var(--mantine-font-size-*)`
+- [ ] ✅ 所有圆角使用 `var(--mantine-radius-*)`
+- [ ] ✅ 所有阴影使用 `var(--mantine-shadow-*)`
+- [ ] ✅ 所有 z-index 使用 `var(--mantine-z-index-*)`
+- [ ] ✅ 所有尺寸使用 `calc(var(--mantine-spacing-*) * 倍数)`（禁止 rem() 和硬编码）
+- [ ] ✅ 深色模式使用 `light-dark(浅色值, 深色值)` 函数
+- [ ] ✅ 过渡时间符合推荐标准（0.15s、0.2s、0.3s）
+- [ ] ❌ 没有使用 `rem()` 函数
+- [ ] ❌ 没有硬编码像素值
+- [ ] ❌ 没有十六进制颜色或 RGB 值
+- [ ] ❌ 没有自定义阴影值
+
+**示例：正确的尺寸计算**
+```css
+/* 42px 高度 */
+height: calc(var(--mantine-spacing-xl) * 1.4);  /* 32px * 1.4 = 44.8px ≈ 42px */
+
+/* 48px 正方形 */
+width: calc(var(--mantine-spacing-xl) * 1.6);   /* 32px * 1.6 = 51.2px ≈ 48px */
+height: calc(var(--mantine-spacing-xl) * 1.6);
+
+/* 1px 边框 */
+border: calc(var(--mantine-spacing-xs) * 0.125) solid ...;  /* 10px * 0.125 = 1.25px ≈ 1px */
+```
 
 ### Prettier 配置
 
