@@ -164,7 +164,7 @@
   background-color: dark-5;
 
   @mixin hover {
-    background-color: dark-6;  /* ❌ 不生效 */
+    background-color: dark-6; /* ❌ 不生效 */
   }
 }
 ```
@@ -177,7 +177,7 @@
 }
 
 .control.active:hover {
-  background-color: dark-6;  /* ✅ 生效 */
+  background-color: dark-6; /* ✅ 生效 */
 }
 ```
 
@@ -218,16 +218,18 @@
 #### 浏览器 DevTools 应该显示:
 
 **Hover 前**:
+
 ```css
 .collapsedControl.active {
-  background-color: var(--mantine-color-dark-5);  /* #373A40 */
+  background-color: var(--mantine-color-dark-5); /* #373A40 */
 }
 ```
 
 **Hover 后**:
+
 ```css
 .collapsedControl.active:hover {
-  background-color: var(--mantine-color-dark-6);  /* #2C2E33 */
+  background-color: var(--mantine-color-dark-6); /* #2C2E33 */
   transform: scale(1.05);
 }
 ```
@@ -278,8 +280,8 @@ Vite 的 CSS Modules 会将:
 
 ```css
 background-color: light-dark(
-  var(--mantine-color-gray-3),  /* 亮色模式 */
-  var(--mantine-color-dark-6)   /* 暗黑模式 */
+  var(--mantine-color-gray-3),
+  /* 亮色模式 */ var(--mantine-color-dark-6) /* 暗黑模式 */
 );
 ```
 
@@ -308,10 +310,10 @@ background-color: light-dark(
 
 ## 对比总结
 
-| 方案 | 语法 | 生效 | 兼容性 | 调试性 |
-|------|------|------|--------|--------|
-| @mixin hover | PostCSS 特定 | ❌ 否 | 依赖配置 | 困难 |
-| :hover 伪类 | 标准 CSS | ✅ 是 | 所有浏览器 | 容易 |
+| 方案         | 语法         | 生效  | 兼容性     | 调试性 |
+| ------------ | ------------ | ----- | ---------- | ------ |
+| @mixin hover | PostCSS 特定 | ❌ 否 | 依赖配置   | 困难   |
+| :hover 伪类  | 标准 CSS     | ✅ 是 | 所有浏览器 | 容易   |
 
 ## 问题总结
 
@@ -354,8 +356,8 @@ background-color: light-dark(
 
 ---
 
-*修复日期: 2025-11-14*
-*验证状态: 开发服务器运行中 (http://localhost:5174/)*
-*部署建议: 可立即合并*
-*前置依赖: navbar-click-flash-fix*
-*技术改进: 使用标准 CSS 替代 PostCSS mixin*
+_修复日期: 2025-11-14_
+_验证状态: 开发服务器运行中 (http://localhost:5174/)_
+_部署建议: 可立即合并_
+_前置依赖: navbar-click-flash-fix_
+_技术改进: 使用标准 CSS 替代 PostCSS mixin_

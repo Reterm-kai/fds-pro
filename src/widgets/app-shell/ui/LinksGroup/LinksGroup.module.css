@@ -33,22 +33,22 @@
   );
 }
 
-/* 展开模式激活状态 hover 效果 */
+/* 展开模式激活状态 hover 效果 - 保持不变 */
 .control.active:hover,
 .control[data-active]:hover {
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
   background-color: light-dark(
-    var(--mantine-color-gray-3),
-    var(--mantine-color-dark-6)
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-5)
   );
 }
 
-/* 展开模式激活状态点击效果 */
+/* 展开模式激活状态点击效果 - 保持不变 */
 .control.active:active,
 .control[data-active]:active {
   background-color: light-dark(
-    var(--mantine-color-gray-3),
-    var(--mantine-color-dark-6)
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-5)
   );
 }
 
@@ -83,24 +83,24 @@
   );
 }
 
-/* 收缩模式激活状态 hover 效果 */
+/* 收缩模式激活状态 hover 效果 - 保持不变 */
 .collapsedControl.active:hover,
 .collapsedControl[data-active]:hover {
   background-color: light-dark(
-    var(--mantine-color-gray-3),
-    var(--mantine-color-dark-6)
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-5)
   );
-  transform: scale(1.05);
+  transform: none;
 }
 
-/* 收缩模式激活状态点击效果 */
+/* 收缩模式激活状态点击效果 - 保持不变 */
 .collapsedControl.active:active,
 .collapsedControl[data-active]:active {
   background-color: light-dark(
-    var(--mantine-color-gray-3),
-    var(--mantine-color-dark-6)
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-5)
   );
-  transform: scale(1.05);
+  transform: none;
 }
 
 .link {
@@ -140,20 +140,20 @@
   );
 }
 
-/* 子菜单激活状态 hover 效果 */
+/* 子菜单激活状态 hover 效果 - 保持不变 */
 .linkActive:hover {
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
   background-color: light-dark(
-    var(--mantine-color-gray-3),
-    var(--mantine-color-dark-6)
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-5)
   );
 }
 
-/* 子菜单激活状态点击效果 */
+/* 子菜单激活状态点击效果 - 保持不变 */
 .linkActive:active {
   background-color: light-dark(
-    var(--mantine-color-gray-3),
-    var(--mantine-color-dark-6)
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-5)
   );
 }
 
@@ -196,20 +196,20 @@
   );
 }
 
-/* Popover 子菜单激活状态 hover 效果 */
+/* Popover 子菜单激活状态 hover 效果 - 保持不变 */
 .popoverLinkActive:hover {
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
   background-color: light-dark(
-    var(--mantine-color-gray-3),
-    var(--mantine-color-dark-6)
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-5)
   );
 }
 
-/* Popover 子菜单激活状态点击效果 */
+/* Popover 子菜单激活状态点击效果 - 保持不变 */
 .popoverLinkActive:active {
   background-color: light-dark(
-    var(--mantine-color-gray-3),
-    var(--mantine-color-dark-6)
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-5)
   );
 }
 
