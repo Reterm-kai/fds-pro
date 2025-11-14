@@ -9,28 +9,31 @@ import { Navbar } from '@/widgets/app-shell/ui/Navbar'
  * 使用 Mantine AppShell 实现响应式布局,包含顶部导航栏、侧边菜单和主内容区域
  *
  * 状态管理：
- * - opened: 移动端侧边栏展开状态（本地状态，不持久化）
+ * - mobileOpened: 移动端侧边栏展开状态（本地状态，不持久化）
+ * - desktopCollapsed: 桌面端侧边栏收缩状态（本地状态，不持久化）
  */
 export function AppLayout() {
   // 移动端侧边栏状态（本地，不持久化）
-  const [opened, { toggle }] = useDisclosure()
+  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure()
+  // 桌面端侧边栏收缩状态（本地，不持久化）
+  const [desktopCollapsed, { toggle: toggleDesktop }] = useDisclosure()
 
   return (
     <AppShell
       header={{ height: 60 }}
       navbar={{
-        width: 240,
+        width: desktopCollapsed ? 64 : 240,
         breakpoint: 'sm',
-        collapsed: { mobile: !opened },
+        collapsed: { mobile: !mobileOpened, desktop: false },
       }}
       padding="md"
     >
       <AppShell.Header>
-        <Header opened={opened} toggle={toggle} />
+        <Header opened={mobileOpened} toggle={toggleMobile} />
       </AppShell.Header>
 
       <AppShell.Navbar>
-        <Navbar />
+        <Navbar collapsed={desktopCollapsed} onToggleCollapse={toggleDesktop} />
       </AppShell.Navbar>
 
       <AppShell.Main>

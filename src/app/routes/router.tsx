@@ -18,7 +18,6 @@ import {
   IconAlertCircle,
   IconUser,
   IconSettings,
-  IconDatabase,
 } from '@tabler/icons-react'
 import type { Icon as TablerIcon } from '@tabler/icons-react'
 
@@ -223,36 +222,26 @@ export const protectedRoutes: AppRouteObject[] = [
           icon: IconUser,
           initiallyOpened: true,
         },
+      },
+      {
+        path: '',
+        meta: {
+          title: '系统管理',
+          icon: IconSettings,
+          initiallyOpened: false,
+        },
         children: [
           {
-            path: 'info',
-            element: <Placeholder title="个人信息" />,
-            meta: { title: '个人信息' },
+            path: 'users',
+            element: <UsersPage />,
+            meta: { title: '用户管理' },
           },
           {
             path: 'settings',
-            element: <Placeholder title="个人设置" />,
-            meta: { title: '个人设置' },
+            element: <SettingsPage />,
+            meta: { title: '系统设置' },
           },
         ],
-      },
-      {
-        path: 'users',
-        element: <UsersPage />,
-        meta: {
-          title: '用户管理',
-          icon: IconDatabase,
-          hideInMenu: false,
-        },
-      },
-      {
-        path: 'settings',
-        element: <SettingsPage />,
-        meta: {
-          title: '系统设置',
-          icon: IconSettings,
-          hideInMenu: false,
-        },
       },
     ],
   },

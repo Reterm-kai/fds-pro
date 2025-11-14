@@ -5,13 +5,96 @@
   padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
   color: var(--mantine-color-text);
   font-size: var(--mantine-font-size-sm);
+  border-radius: var(--mantine-radius-sm);
+  transition: background-color 0.15s ease;
 
   @mixin hover {
     background-color: light-dark(
-      var(--mantine-color-gray-0),
-      var(--mantine-color-dark-7)
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-6)
     );
-    color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  }
+
+  /* 禁用点击时的默认效果 */
+  &:active {
+    transform: none;
+    background-color: transparent;
+  }
+}
+
+.control.active,
+.control[data-active] {
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+  font-weight: 600;
+  background-color: light-dark(
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-5)
+  );
+
+  /* 悬停时保持激活状态的颜色和背景，不变化 */
+  @mixin hover {
+    color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-5)
+    );
+  }
+
+  /* 点击时保持激活状态颜色，避免闪烁 */
+  &:active {
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-5)
+    );
+  }
+}
+
+.collapsedControl {
+  display: block;
+  width: 100%;
+  padding: calc(var(--mantine-spacing-xs) * 0.6);
+  margin-bottom: calc(var(--mantine-spacing-xs) * 0.4);
+  border-radius: var(--mantine-radius-sm);
+  transition: all 0.2s ease;
+
+  @mixin hover {
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-6)
+    );
+    transform: scale(1.05);
+  }
+
+  /* 禁用点击时的默认效果 */
+  &:active {
+    transform: none;
+    background-color: transparent;
+  }
+}
+
+.collapsedControl.active,
+.collapsedControl[data-active] {
+  background-color: light-dark(
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-5)
+  );
+
+  /* 悬停时保持激活状态的背景，不变化 */
+  @mixin hover {
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-5)
+    );
+    transform: none;
+  }
+
+  /* 点击时保持激活状态颜色，避免闪烁 */
+  &:active {
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-5)
+    );
   }
 }
 
@@ -26,16 +109,108 @@
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
   border-left: 1px solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  transition: background-color 0.15s ease;
 
   @mixin hover {
     background-color: light-dark(
-      var(--mantine-color-gray-0),
-      var(--mantine-color-dark-7)
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-6)
     );
-    color: light-dark(var(--mantine-color-black), var(--mantine-color-dark-0));
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  }
+
+  /* 禁用点击时的默认效果 */
+  &:active {
+    transform: none;
+    background-color: transparent;
+  }
+}
+
+.linkActive {
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+  font-weight: 600;
+  background-color: light-dark(
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-5)
+  );
+
+  /* 悬停时保持激活状态的颜色和背景，不变化 */
+  @mixin hover {
+    color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-5)
+    );
+  }
+
+  /* 点击时保持激活状态颜色，避免闪烁 */
+  &:active {
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-5)
+    );
   }
 }
 
 .chevron {
   transition: transform 200ms ease;
+}
+
+/* Popover 子菜单样式 */
+.popoverLink {
+  font-weight: 500;
+  display: block;
+  text-decoration: none;
+  padding: calc(var(--mantine-spacing-xs) * 0.7) var(--mantine-spacing-sm);
+  font-size: var(--mantine-font-size-sm);
+  color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
+  border-radius: var(--mantine-radius-sm);
+  transition: all 0.15s ease;
+
+  @mixin hover {
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-6)
+    );
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+  }
+
+  /* 禁用点击时的默认效果 */
+  &:active {
+    transform: none;
+    background-color: transparent;
+  }
+}
+
+.popoverLinkActive {
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+  font-weight: 600;
+  background-color: light-dark(
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-5)
+  );
+
+  /* 悬停时保持激活状态的颜色和背景，不变化 */
+  @mixin hover {
+    color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-5)
+    );
+  }
+
+  /* 点击时保持激活状态颜色，避免闪烁 */
+  &:active {
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-5)
+    );
+  }
+}
+
+.popoverTitle {
+  padding-bottom: calc(var(--mantine-spacing-xs) * 0.5);
+  margin-bottom: calc(var(--mantine-spacing-xs) * 0.4);
+  border-bottom: 1px solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 }

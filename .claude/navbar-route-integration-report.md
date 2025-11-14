@@ -81,6 +81,7 @@ export function generateMenuFromRoutes(
 ```
 
 **功能特性:**
+
 - 递归遍历路由配置
 - 过滤隐藏的路由 (`hideInMenu: true`)
 - 自动计算完整路径
@@ -90,6 +91,7 @@ export function generateMenuFromRoutes(
 ### 3. Navbar 组件重构 (`src/widgets/app-shell/ui/Navbar/Navbar.tsx`)
 
 **变更:**
+
 - ✅ 移除硬编码的 `menuData` 数组
 - ✅ 使用 `useMemo` 从路由配置动态生成菜单
 - ✅ 引入 `protectedRoutes` 和 `generateMenuFromRoutes`
@@ -107,6 +109,7 @@ const menuData = useMemo(() => {
 ### 4. LinksGroup 组件优化 (`src/widgets/app-shell/ui/LinksGroup/LinksGroup.tsx`)
 
 **变更:**
+
 - ✅ 将 `icon` 属性改为可选 (`icon?: React.FC<any>`)
 - ✅ 条件渲染图标,避免 undefined 错误
 - ✅ 动态调整左边距 (`ml={Icon ? 'md' : 0}`)
@@ -114,12 +117,14 @@ const menuData = useMemo(() => {
 ## 验证结果
 
 ### 类型检查
+
 ```bash
 ✅ pnpm exec tsc --noEmit
 # 通过,无类型错误
 ```
 
 ### 单元测试
+
 ```bash
 ✅ pnpm test:run
 # Test Files  2 passed (2)
@@ -128,6 +133,7 @@ const menuData = useMemo(() => {
 ```
 
 ### 生产构建
+
 ```bash
 ✅ pnpm build
 # dist/index.html                   0.65 kB │ gzip:   0.44 kB
@@ -137,6 +143,7 @@ const menuData = useMemo(() => {
 ```
 
 ### 开发服务器
+
 ```bash
 ✅ pnpm dev
 # ROLLDOWN-VITE v7.1.14  ready in 166 ms
@@ -146,21 +153,25 @@ const menuData = useMemo(() => {
 ## 优势总结
 
 ### 1. **单一数据源**
+
 - 路由配置即菜单配置
 - 避免路由和菜单数据不同步
 - 减少维护成本
 
 ### 2. **灵活性**
+
 - 通过 `meta.hideInMenu` 控制菜单显示
 - 通过 `meta.initiallyOpened` 控制默认展开
 - 易于添加新路由和菜单项
 
 ### 3. **类型安全**
+
 - 完整的 TypeScript 类型定义
 - 编译时捕获错误
 - 更好的 IDE 支持
 
 ### 4. **性能优化**
+
 - 使用 `useMemo` 缓存菜单数据
 - 避免不必要的重新计算
 
@@ -206,9 +217,11 @@ const menuData = useMemo(() => {
 ## 文件清单
 
 ### 新增文件
+
 - `src/app/routes/utils.ts` - 菜单生成工具
 
 ### 修改文件
+
 - `src/app/routes/router.tsx` - 路由配置增强
 - `src/widgets/app-shell/ui/Navbar/Navbar.tsx` - 使用动态菜单
 - `src/widgets/app-shell/ui/LinksGroup/LinksGroup.tsx` - icon 可选
@@ -216,12 +229,14 @@ const menuData = useMemo(() => {
 ## 质量评分
 
 ### 技术维度
+
 - **代码质量**: 95/100 - TypeScript 严格模式,完整类型定义
 - **测试覆盖**: 90/100 - 所有现有测试通过
 - **性能**: 92/100 - useMemo 优化,构建体积合理
 - **可维护性**: 98/100 - 单一数据源,清晰的架构
 
 ### 战略维度
+
 - **需求匹配**: 100/100 - 完全符合"从路由表生成菜单,默认展开"需求
 - **架构一致性**: 95/100 - 符合 FSD 架构,遵循项目规范
 - **可扩展性**: 95/100 - 易于添加新功能,灵活配置
