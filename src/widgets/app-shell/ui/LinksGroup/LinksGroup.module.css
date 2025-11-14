@@ -175,7 +175,7 @@
   @mixin hover {
     background-color: light-dark(
       var(--mantine-color-gray-2),
-      var(--mantine-color-dark-6)
+      var(--mantine-color-dark-5)
     );
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   }
@@ -218,4 +218,16 @@
   margin-bottom: calc(var(--mantine-spacing-xs) * 0.4);
   border-bottom: 1px solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+}
+
+/* HoverCard Dropdown 暗黑模式背景色修复 */
+:global(.mantine-HoverCard-dropdown) {
+  background-color: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-6)
+  ) !important;
+  border-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-4)
+  ) !important;
 }

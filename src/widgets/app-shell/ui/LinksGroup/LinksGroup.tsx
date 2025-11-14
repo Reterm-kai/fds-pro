@@ -8,7 +8,6 @@ import {
   Text,
   ThemeIcon,
   UnstyledButton,
-  Popover,
   HoverCard,
   Stack,
   Center,
@@ -79,20 +78,32 @@ export function LinksGroup({
     // 收缩模式下:本身激活或子菜单有激活项都显示激活状态
     const isCollapsedActive = isActive || hasActiveChild
 
-    const iconButton = (
-      <UnstyledButton
-        component={!hasLinks && link ? Link : 'button'}
-        to={!hasLinks && link ? link : undefined}
-        className={`${classes.collapsedControl} ${isCollapsedActive ? classes.active : ''}`}
-        data-active={isCollapsedActive || undefined}
-      >
-        <Center>
-          <ThemeIcon variant="light" size="lg">
-            <Icon style={{ width: '70%', height: '70%' }} />
-          </ThemeIcon>
-        </Center>
-      </UnstyledButton>
-    )
+    const iconButton =
+      !hasLinks && link ? (
+        <UnstyledButton
+          component={Link}
+          to={link}
+          className={`${classes.collapsedControl} ${isCollapsedActive ? classes.active : ''}`}
+          data-active={isCollapsedActive || undefined}
+        >
+          <Center>
+            <ThemeIcon variant="light" size="lg">
+              <Icon style={{ width: '70%', height: '70%' }} />
+            </ThemeIcon>
+          </Center>
+        </UnstyledButton>
+      ) : (
+        <UnstyledButton
+          className={`${classes.collapsedControl} ${isCollapsedActive ? classes.active : ''}`}
+          data-active={isCollapsedActive || undefined}
+        >
+          <Center>
+            <ThemeIcon variant="light" size="lg">
+              <Icon style={{ width: '70%', height: '70%' }} />
+            </ThemeIcon>
+          </Center>
+        </UnstyledButton>
+      )
 
     // 如果有子菜单,使用 HoverCard (hover 触发)
     if (hasLinks) {
