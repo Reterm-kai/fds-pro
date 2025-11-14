@@ -1,6 +1,8 @@
 import { Burger, Container, Group } from '@mantine/core'
 import { Logo } from '@/shared/ui/logo'
 import { ThemeToggle } from '@/shared/ui/theme-toggle'
+import { NotificationButton } from '../NotificationButton'
+import { UserMenu } from '../UserMenu'
 import classes from './Header.module.css'
 
 interface HeaderProps {
@@ -19,6 +21,8 @@ export function Header({ opened, toggle }: HeaderProps) {
 
         <Group gap="md">
           <ThemeToggle />
+          <NotificationButton />
+          <UserMenu />
         </Group>
       </Container>
     </header>

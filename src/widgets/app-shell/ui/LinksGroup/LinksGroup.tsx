@@ -152,9 +152,7 @@ export function LinksGroup({
   // 正常模式
   const buttonContent = (
     <>
-      <Box className={classes.iconWrapper}>
-        {Icon && <Icon size={20} />}
-      </Box>
+      <Box className={classes.iconWrapper}>{Icon && <Icon size={20} />}</Box>
       <Box className={classes.labelWrapper} ml={Icon ? 'sm' : 0}>
         {label}
       </Box>

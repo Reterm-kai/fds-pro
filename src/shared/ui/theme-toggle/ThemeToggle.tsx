@@ -22,7 +22,8 @@ export function ThemeToggle() {
   return (
     <ActionIcon
       onClick={toggleColorScheme}
-      variant="default"
+      variant="subtle"
+      color="gray"
       size="lg"
       aria-label="切换主题"
       title={

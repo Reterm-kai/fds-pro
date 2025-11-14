@@ -11,6 +11,7 @@ export const mockUsers: User[] = [
     email: 'admin@x.com',
     role: 'admin',
     status: 'active',
+    avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=zhangsan',
     createdAt: '2024-01-15T08:30:00Z',
     updatedAt: '2024-11-01T10:20:00Z',
   },

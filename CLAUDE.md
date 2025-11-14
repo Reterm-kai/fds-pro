@@ -21,6 +21,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 🎨 Mantine 设计系统快速参考（AI 必读）
 
 ### Spacing 间距标准值
+
 ```
 xs: 10px  (0.625rem)
 sm: 12px  (0.75rem)
@@ -30,6 +31,7 @@ xl: 32px  (2rem)
 ```
 
 ### 常用尺寸计算公式
+
 ```css
 /* 高度计算 */
 42px  → calc(var(--mantine-spacing-xl) * 1.4)
@@ -41,6 +43,7 @@ xl: 32px  (2rem)
 ```
 
 ### 阴影层级
+
 ```css
 var(--mantine-shadow-xs)  /* 最轻 */
 var(--mantine-shadow-sm)  /* 轻微（hover 未激活） */
@@ -50,6 +53,7 @@ var(--mantine-shadow-xl)  /* 最强 */
 ```
 
 ### 颜色使用
+
 ```css
 /* 文本和背景 */
 var(--mantine-color-text)
@@ -515,16 +519,17 @@ transition: all 100ms ease; /* 使用秒而非毫秒 */
 - [ ] ❌ 没有自定义阴影值
 
 **示例：正确的尺寸计算**
+
 ```css
 /* 42px 高度 */
-height: calc(var(--mantine-spacing-xl) * 1.4);  /* 32px * 1.4 = 44.8px ≈ 42px */
+height: calc(var(--mantine-spacing-xl) * 1.4); /* 32px * 1.4 = 44.8px ≈ 42px */
 
 /* 48px 正方形 */
-width: calc(var(--mantine-spacing-xl) * 1.6);   /* 32px * 1.6 = 51.2px ≈ 48px */
+width: calc(var(--mantine-spacing-xl) * 1.6); /* 32px * 1.6 = 51.2px ≈ 48px */
 height: calc(var(--mantine-spacing-xl) * 1.6);
 
 /* 1px 边框 */
-border: calc(var(--mantine-spacing-xs) * 0.125) solid ...;  /* 10px * 0.125 = 1.25px ≈ 1px */
+border: calc(var(--mantine-spacing-xs) * 0.125) solid...; /* 10px * 0.125 = 1.25px ≈ 1px */
 ```
 
 ### Prettier 配置
