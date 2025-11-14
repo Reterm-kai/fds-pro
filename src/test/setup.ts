@@ -27,3 +27,13 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: () => true,
   }),
 })
+
+/**
+ * 模拟 ResizeObserver
+ * Mantine ScrollArea 组件依赖此 API
+ */
+globalThis.ResizeObserver = class ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}

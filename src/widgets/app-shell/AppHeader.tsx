@@ -36,7 +36,7 @@ export function AppHeader({ opened, toggle }: AppHeaderProps) {
     <Group h="100%" px="md" justify="space-between">
       <Group>
         <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" />
-        <Logo size="sm" withText />
+        <Logo style={{ width: 100, height: 'auto' }} />
       </Group>
 
       <Group>

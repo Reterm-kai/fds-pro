@@ -255,7 +255,7 @@ export default function LoginPage() {
       >
         <Container size={420} w="100%">
           <Box mb="xl" hiddenFrom="md" ta="center">
-            <Logo size="md" withText />
+            <Logo style={{ width: 150, height: 'auto', margin: '0 auto' }} />
           </Box>
 
           <Title

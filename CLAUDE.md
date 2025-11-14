@@ -153,12 +153,12 @@ import { UsersView, useUserList } from '@/features/users'
 
 ### 目录命名约定
 
-| 目录类型         | 命名格式    | 示例                     | 说明                             |
-| ---------------- | ----------- | ------------------------ | -------------------------------- |
-| **Feature/Entity** | kebab-case | `app-shell`, `user-profile` | features/ 和 entities/ 下的目录 |
-| **Pages**        | kebab-case  | `login`, `dashboard`, `user-settings` | pages/ 下的目录                |
-| **UI 组件目录**  | kebab-case  | `theme-toggle`, `logo`   | shared/ui/ 下的组件目录          |
-| **Segment 目录** | 固定名称    | `ui`, `api`, `model`, `lib` | FSD slice 内部的标准目录        |
+| 目录类型           | 命名格式   | 示例                                  | 说明                            |
+| ------------------ | ---------- | ------------------------------------- | ------------------------------- |
+| **Feature/Entity** | kebab-case | `app-shell`, `user-profile`           | features/ 和 entities/ 下的目录 |
+| **Pages**          | kebab-case | `login`, `dashboard`, `user-settings` | pages/ 下的目录                 |
+| **UI 组件目录**    | kebab-case | `theme-toggle`, `logo`                | shared/ui/ 下的组件目录         |
+| **Segment 目录**   | 固定名称   | `ui`, `api`, `model`, `lib`           | FSD slice 内部的标准目录        |
 
 ### Pages 目录规范
 
@@ -175,6 +175,7 @@ pages/
 ```
 
 ❌ **错误示例** (不允许):
+
 ```
 pages/
 └── login/
@@ -183,6 +184,7 @@ pages/
 ```
 
 **原因**:
+
 - 保持一致性,减少认知负担
 - 简化导入路径 (`@/pages/login` 直接指向组件)
 - 符合 FSD 的"就近原则"

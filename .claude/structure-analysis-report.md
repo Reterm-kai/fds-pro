@@ -1,9 +1,11 @@
 # 项目结构分析报告
 
 ## 执行时间
+
 2025-11-13
 
 ## 概览
+
 本报告对 `/Users/gp3/web/fds-pro/src` 目录结构进行了全面分析，识别了命名不一致、FSD 结构问题和优化机会。
 
 ---
@@ -13,9 +15,11 @@
 ### 一、命名不一致问题
 
 #### 1.1 Pages 目录混乱（高优先级）
+
 **问题描述**：pages 目录下混合使用两种文件命名模式
 
 **现状**：
+
 ```
 src/pages/
 ├── login/
@@ -32,16 +36,19 @@ src/pages/
 ```
 
 **分析**：
+
 - `login` 目录采用 `LoginPage.tsx + index.tsx` 模式（不一致）
 - 其他页面直接在 `index.tsx` 中定义（一致）
 - 混乱原因：`LoginPage.tsx` 是 10KB 的大型组件，拆分了页面逻辑
 
 **影响**：
+
 - 导入路径不一致
 - 新增页面时易犯错
 - 违反 FSD 的一致性原则
 
 **建议方案**：
+
 - 选择标准：**优先使用 `index.tsx` 模式**（简洁一致）
 - 处理方案：
   - 若页面逻辑复杂（>300行），拆分为 `PageName.tsx` + `index.tsx`
@@ -50,16 +57,18 @@ src/pages/
 ---
 
 #### 1.2 目录命名不规范（中优先级）
+
 **问题描述**：部分目录命名使用 kebab-case，但 FSD 文档推荐 camelCase
 
 **现状分析**：
+
 ```
 共享层命名：
 ✅ src/shared/ui/          (kebab-case 组件子目录)
    ├── logo/                (✅ kebab-case)
    ├── placeholder/         (✅ kebab-case)
    ├── theme-toggle/        (✅ kebab-case)
-   
+
 ✅ src/shared/api/         (camelCase)
 ✅ src/shared/config/      (camelCase)
 ✅ src/shared/model/       (camelCase)
@@ -74,22 +83,27 @@ src/pages/
 ```
 
 **问题**：
+
 - UI 组件子目录使用 `kebab-case`（logo, placeholder, theme-toggle）
 - 其他目录使用 `camelCase`
 - 项目 CLAUDE.md 未明确规定约定
 
 **影响**：
+
 - 目录命名没有单一真实来源
 - 不符合 JavaScript/TypeScript 约定（通常文件系统用 kebab-case，逻辑用 camelCase）
 
 **建议**：
+
 - **规范化为 kebab-case**（更符合 web 惯例）
 - 或统一为 **camelCase**（与 JS 变量命名一致）
 
 ---
 
 #### 1.3 UI 组件命名规范性（低优先级）
+
 **现状**：
+
 ```
 ✅ src/shared/ui/logo/Logo.tsx
 ✅ src/shared/ui/placeholder/Placeholder.tsx
@@ -104,6 +118,7 @@ src/pages/
 ```
 
 **评价**：
+
 - **遵循 PascalCase 规范** ✅
 - 组件名称清晰，易于识别
 - 无需优化
@@ -113,25 +128,31 @@ src/pages/
 ### 二、FSD 结构问题
 
 #### 2.1 空的 lib 目录（高优先级）
+
 **问题**：
+
 ```
 src/features/auth/lib/     ❌ 空目录（无任何文件）
 src/features/users/model/  ❌ 空目录（无任何文件）
 ```
 
 **现状**：
+
 - `features/auth/lib/` 存在但为空
 - `features/users/model/` 存在但为空
 
 **FSD 要求**：
+
 - 不应创建预留空目录
 - 有用处才创建，边界不模糊
 
 **建议**：
+
 - 删除这两个空目录
 - 若未来需要，再重新创建
 
 **删除命令**：
+
 ```bash
 rmdir src/features/auth/lib
 rmdir src/features/users/model
@@ -142,6 +163,7 @@ rmdir src/features/users/model
 #### 2.2 缺失的 index.ts 导出文件（中优先级）
 
 **检查结果**：
+
 ```
 ✅ src/app/providers/index.ts           存在
 ✅ src/app/layouts/index.ts             不存在 ❌
@@ -155,18 +177,22 @@ rmdir src/features/users/model
 ```
 
 **问题分析**：
+
 - `app/layouts/` 目录缺少 `index.ts` 导出文件
 - 当前导入方式：`import { AppLayout } from '@/app/layouts/AppLayout'`
 - 应该是：`import { AppLayout } from '@/app/layouts'`
 
 **FSD 要求**：
+
 - 每个 slice 必须提供 public API
 - 通过 `index.ts` 统一暴露接口
 
 **建议**：
+
 - 为 `src/app/layouts/` 创建 `index.ts`
 
 **内容范例**：
+
 ```typescript
 // src/app/layouts/index.ts
 export { AppLayout } from './AppLayout'
@@ -178,16 +204,19 @@ export { AuthLayout } from './AuthLayout'
 #### 2.3 routes 目录结构不规范（低优先级）
 
 **现状**：
+
 ```
 src/app/routes/
 └── router.tsx
 ```
 
 **问题**：
+
 - `router.tsx` 直接放在目录中，未通过 `index.ts` 导出
 - 违反 FSD 每个 slice 提供 public API 的原则
 
 **建议**：
+
 - 创建 `src/app/routes/index.ts`
 - 统一导出路由配置
 
@@ -199,15 +228,16 @@ src/app/routes/
 
 **分析结果**：
 
-| 页面 | 文件结构 | 代码行数 | 复杂度 |
-|------|--------|--------|------|
-| login | LoginPage.tsx + index.tsx | 365 | 高 |
-| register | index.tsx | 194 | 中 |
-| dashboard | index.tsx | 48 | 低 |
-| users | index.tsx | 9 | 低 |
-| settings | index.tsx | 52 | 低 |
+| 页面      | 文件结构                  | 代码行数 | 复杂度 |
+| --------- | ------------------------- | -------- | ------ |
+| login     | LoginPage.tsx + index.tsx | 365      | 高     |
+| register  | index.tsx                 | 194      | 中     |
+| dashboard | index.tsx                 | 48       | 低     |
+| users     | index.tsx                 | 9        | 低     |
+| settings  | index.tsx                 | 52       | 低     |
 
 **问题**：
+
 1. **login 页面** (365 行)
    - 过于庞大，包含完整的登录表单 UI 和逻辑
    - 应该分离到 `features/auth` 层
@@ -228,9 +258,9 @@ src/app/routes/
    - 虽然可以分离，但复杂度低，可接受
 
 **建议**：
+
 - **login 页面**：重命名为 `LoginPage.tsx`，逻辑保持不变
   - 等待后续重构将表单逻辑提取到 `features/auth/ui/LoginForm.tsx`
-  
 - **register 页面**：重命名为 `RegisterPage.tsx`
   - 等待后续重构将表单逻辑提取到 `features/auth/ui/RegisterForm.tsx`
 
@@ -241,6 +271,7 @@ src/app/routes/
 #### 4.1 模块内的段（segments）组织✅
 
 **features/users 分析**：
+
 ```
 src/features/users/
 ├── ui/
@@ -258,6 +289,7 @@ src/features/users/
 ```
 
 **评价**：
+
 - UI 和 API 组织清晰
 - 应删除空的 `model/` 目录
 
@@ -281,6 +313,7 @@ src/entities/user/
 ```
 
 **评价**：
+
 - 结构完整规范
 - 提供了完整的 public API
 - 无优化需要
@@ -306,6 +339,7 @@ src/app/
 ```
 
 **评价**：
+
 - 文件组织清晰
 - 缺少两个 index.ts 导出文件
 
@@ -314,6 +348,7 @@ src/app/
 ## 优化优先级排序
 
 ### 高优先级（必做）
+
 1. **统一 pages 目录命名模式**
    - 问题：login 目录混合使用 `LoginPage.tsx + index.tsx`
    - 解决：统一为 `index.tsx` 或 `PageName.tsx + index.tsx`
@@ -325,6 +360,7 @@ src/app/
    - 估时：5 分钟
 
 ### 中优先级（应做）
+
 3. **添加缺失的 index.ts 文件**
    - `src/app/layouts/index.ts`
    - `src/app/routes/index.ts`
@@ -337,6 +373,7 @@ src/app/
    - 估时：45 分钟
 
 ### 低优先级（可做）
+
 5. **页面层重构规划**
    - login/register 页面过于复杂
    - 提取表单组件到 features/auth/ui/
@@ -347,14 +384,14 @@ src/app/
 
 ## 总体评分
 
-| 维度 | 评分 | 说明 |
-|------|------|------|
-| **FSD 遵循度** | 7.5/10 | 大体遵循，有小的偏差 |
-| **命名一致性** | 7/10 | pages 混乱，目录约定不明 |
-| **代码组织** | 8/10 | segment 划分清晰，有空目录 |
-| **模块化** | 8.5/10 | public API 设计良好 |
-| **规范性** | 7/10 | 缺少约定文档化 |
-| **可维护性** | 7.5/10 | 需要规范化和清理 |
+| 维度           | 评分   | 说明                       |
+| -------------- | ------ | -------------------------- |
+| **FSD 遵循度** | 7.5/10 | 大体遵循，有小的偏差       |
+| **命名一致性** | 7/10   | pages 混乱，目录约定不明   |
+| **代码组织**   | 8/10   | segment 划分清晰，有空目录 |
+| **模块化**     | 8.5/10 | public API 设计良好        |
+| **规范性**     | 7/10   | 缺少约定文档化             |
+| **可维护性**   | 7.5/10 | 需要规范化和清理           |
 
 **综合评分：7.5/10**
 
@@ -363,16 +400,19 @@ src/app/
 ## 建议行动计划
 
 ### 第一阶段（即刻）
+
 - [ ] 删除 2 个空目录
 - [ ] 添加 2 个缺失的 index.ts
 - [ ] 统一 pages 命名模式
 
 ### 第二阶段（本周）
+
 - [ ] 统一目录命名约定
 - [ ] 更新 CLAUDE.md 文件命名规范章节
 - [ ] 更新导入路径
 
 ### 第三阶段（下周）
+
 - [ ] 页面层重构规划
 - [ ] 提取 login/register 表单到 features 层
 - [ ] 补充 routes 层的测试
@@ -382,18 +422,21 @@ src/app/
 ## 文件清单
 
 ### 需要删除
+
 ```
 src/features/auth/lib/          # 空目录
 src/features/users/model/       # 空目录
 ```
 
 ### 需要创建
+
 ```
 src/app/layouts/index.ts
 src/app/routes/index.ts
 ```
 
 ### 需要修改
+
 ```
 src/pages/login/index.tsx        # 明确导出规范
 src/pages/register/index.tsx     # 明确导出规范
@@ -402,6 +445,7 @@ CLAUDE.md                        # 更新命名约定
 ```
 
 ### 需要考虑重构
+
 ```
 src/pages/login/LoginPage.tsx    # 抽取表单到 features/auth/ui/LoginForm.tsx
 src/pages/register/index.tsx     # 抽取表单到 features/auth/ui/RegisterForm.tsx
@@ -412,6 +456,7 @@ src/pages/register/index.tsx     # 抽取表单到 features/auth/ui/RegisterForm
 ## 附录
 
 ### A. 完整目录树
+
 ```
 src/
 ├── app/
@@ -523,12 +568,14 @@ src/
 ### B. 命名约定总结
 
 **当前实际情况**：
+
 - 目录：混用 kebab-case 和 camelCase
 - 组件文件：PascalCase ✅
 - 工具/API 文件：camelCase ✅
 - pages：混合模式 (不一致)
 
 **建议标准化**：
+
 ```
 目录规范：kebab-case (logo, placeholder, app-shell)
 组件文件：PascalCase (Logo.tsx, UserCard.tsx)
@@ -557,4 +604,3 @@ src/
    - 增强测试覆盖
 
 **建议立即执行前两项，为第三项奠定基础。**
-
