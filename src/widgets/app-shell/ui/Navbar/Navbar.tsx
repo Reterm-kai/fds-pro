@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
-import { ScrollArea, ActionIcon, Tooltip, Stack } from '@mantine/core'
+import { ScrollArea, ActionIcon, Tooltip } from '@mantine/core'
 import {
-  IconChevronLeft,
-  IconChevronRight,
+  IconLayoutSidebarLeftCollapse,
+  IconLayoutSidebarLeftExpand,
   IconMail,
 } from '@tabler/icons-react'
 import { LinksGroup } from '../LinksGroup'
@@ -42,42 +42,34 @@ export function Navbar({ collapsed = false, onToggleCollapse }: NavbarProps) {
       </ScrollArea>
 
       <div className={classes.footer}>
-        <Stack gap={collapsed ? 'xs' : 'sm'}>
-          {/* 联系我们按钮 */}
-          {collapsed ? (
-            <Tooltip label="联系我们" position="right">
-              <ActionIcon
-                variant="gradient"
-                gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-                size="lg"
-                className={classes.contactIconButton}
-              >
-                <IconMail size={18} />
-              </ActionIcon>
-            </Tooltip>
-          ) : (
-            <ContactButton />
-          )}
-
-          {/* 收缩/展开切换按钮 */}
-          <Tooltip
-            label={collapsed ? '展开侧边栏' : '收缩侧边栏'}
-            position="right"
+        {/* 收缩/展开切换按钮 - 固定在分界线上 */}
+          <ActionIcon
+            onClick={onToggleCollapse}
+            variant="subtle"
+            size="lg"
+            className={classes.toggleButton}
           >
+            {collapsed ? (
+              <IconLayoutSidebarLeftExpand size={18} />
+            ) : (
+              <IconLayoutSidebarLeftCollapse size={18} />
+            )}
+          </ActionIcon>
+        {/* 联系我们按钮 */}
+        {collapsed ? (
+          <Tooltip label="联系我们" position="right">
             <ActionIcon
-              onClick={onToggleCollapse}
-              variant="subtle"
+              variant="gradient"
+              gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
               size="lg"
-              className={classes.toggleButton}
+              className={classes.contactIconButton}
             >
-              {collapsed ? (
-                <IconChevronRight size={18} />
-              ) : (
-                <IconChevronLeft size={18} />
-              )}
+              <IconMail size={18} />
             </ActionIcon>
           </Tooltip>
-        </Stack>
+        ) : (
+          <ContactButton />
+        )}
       </div>
     </nav>
   )
