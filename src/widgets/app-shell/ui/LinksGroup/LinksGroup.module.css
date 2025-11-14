@@ -31,23 +31,25 @@
     var(--mantine-color-gray-2),
     var(--mantine-color-dark-5)
   );
+}
 
-  /* 悬停时保持激活状态的颜色和背景，不变化 */
-  @mixin hover {
-    color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-    background-color: light-dark(
-      var(--mantine-color-gray-2),
-      var(--mantine-color-dark-5)
-    );
-  }
+/* 展开模式激活状态 hover 效果 */
+.control.active:hover,
+.control[data-active]:hover {
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+  background-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-6)
+  );
+}
 
-  /* 点击时保持激活状态颜色，避免闪烁 */
-  &:active {
-    background-color: light-dark(
-      var(--mantine-color-gray-2),
-      var(--mantine-color-dark-5)
-    );
-  }
+/* 展开模式激活状态点击效果 */
+.control.active:active,
+.control[data-active]:active {
+  background-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-6)
+  );
 }
 
 .collapsedControl {
@@ -79,23 +81,26 @@
     var(--mantine-color-gray-2),
     var(--mantine-color-dark-5)
   );
+}
 
-  /* 悬停时保持激活状态的背景，不变化 */
-  @mixin hover {
-    background-color: light-dark(
-      var(--mantine-color-gray-2),
-      var(--mantine-color-dark-5)
-    );
-    transform: none;
-  }
+/* 收缩模式激活状态 hover 效果 */
+.collapsedControl.active:hover,
+.collapsedControl[data-active]:hover {
+  background-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-6)
+  );
+  transform: scale(1.05);
+}
 
-  /* 点击时保持激活状态颜色，避免闪烁 */
-  &:active {
-    background-color: light-dark(
-      var(--mantine-color-gray-2),
-      var(--mantine-color-dark-5)
-    );
-  }
+/* 收缩模式激活状态点击效果 */
+.collapsedControl.active:active,
+.collapsedControl[data-active]:active {
+  background-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-6)
+  );
+  transform: scale(1.05);
 }
 
 .link {
@@ -133,23 +138,23 @@
     var(--mantine-color-gray-2),
     var(--mantine-color-dark-5)
   );
+}
 
-  /* 悬停时保持激活状态的颜色和背景，不变化 */
-  @mixin hover {
-    color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-    background-color: light-dark(
-      var(--mantine-color-gray-2),
-      var(--mantine-color-dark-5)
-    );
-  }
+/* 子菜单激活状态 hover 效果 */
+.linkActive:hover {
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+  background-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-6)
+  );
+}
 
-  /* 点击时保持激活状态颜色，避免闪烁 */
-  &:active {
-    background-color: light-dark(
-      var(--mantine-color-gray-2),
-      var(--mantine-color-dark-5)
-    );
-  }
+/* 子菜单激活状态点击效果 */
+.linkActive:active {
+  background-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-6)
+  );
 }
 
 .chevron {
@@ -189,23 +194,23 @@
     var(--mantine-color-gray-2),
     var(--mantine-color-dark-5)
   );
+}
 
-  /* 悬停时保持激活状态的颜色和背景，不变化 */
-  @mixin hover {
-    color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-    background-color: light-dark(
-      var(--mantine-color-gray-2),
-      var(--mantine-color-dark-5)
-    );
-  }
+/* Popover 子菜单激活状态 hover 效果 */
+.popoverLinkActive:hover {
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+  background-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-6)
+  );
+}
 
-  /* 点击时保持激活状态颜色，避免闪烁 */
-  &:active {
-    background-color: light-dark(
-      var(--mantine-color-gray-2),
-      var(--mantine-color-dark-5)
-    );
-  }
+/* Popover 子菜单激活状态点击效果 */
+.popoverLinkActive:active {
+  background-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-6)
+  );
 }
 
 .popoverTitle {
