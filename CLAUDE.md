@@ -199,6 +199,248 @@ pages/
 - ✅ 禁止未使用的变量和参数
 - ✅ 使用 `verbatimModuleSyntax` 明确导入/导出
 
+### CSS/样式规范
+
+本项目使用 **Mantine UI** 作为 UI 框架，所有样式必须遵循 Mantine 的设计系统规范。
+
+#### 核心原则
+
+1. **优先使用 Mantine Design Tokens**：所有样式值必须使用 Mantine 提供的 CSS 变量
+2. **禁止硬编码值**：不允许使用具体的像素值、颜色代码等
+3. **统一设计语言**：确保整个应用的视觉一致性
+
+#### Mantine Design Tokens 使用规范
+
+##### 1. 间距 (Spacing)
+
+✅ **正确用法**：
+
+```css
+padding: var(--mantine-spacing-xs); /* 超小间距 */
+padding: var(--mantine-spacing-sm); /* 小间距 */
+padding: var(--mantine-spacing-md); /* 中间距（默认） */
+padding: var(--mantine-spacing-lg); /* 大间距 */
+padding: var(--mantine-spacing-xl); /* 超大间距 */
+
+/* 计算值（需要时） */
+padding: calc(var(--mantine-spacing-md) * 1.5);
+```
+
+❌ **错误用法**：
+
+```css
+padding: 8px; /* 不要使用固定像素值 */
+padding: 12px; /* 不要使用固定像素值 */
+```
+
+##### 2. 颜色 (Colors)
+
+✅ **正确用法**：
+
+```css
+/* 主题色 */
+color: var(--mantine-color-text); /* 文本颜色 */
+background: var(--mantine-color-body); /* 背景色 */
+
+/* 灰度色（支持深色模式） */
+background: light-dark(
+  var(--mantine-color-gray-2),
+  /* 浅色模式 */ var(--mantine-color-dark-6) /* 深色模式 */
+);
+
+/* 主题色阶 */
+color: var(--mantine-color-blue-7); /* 蓝色-7阶 */
+color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+
+/* 白色/黑色 */
+color: var(--mantine-color-white);
+color: var(--mantine-color-black);
+```
+
+❌ **错误用法**：
+
+```css
+color: #333; /* 不要使用十六进制颜色 */
+background: #f0f0f0; /* 不要使用十六进制颜色 */
+```
+
+##### 3. 字体大小 (Font Size)
+
+✅ **正确用法**：
+
+```css
+font-size: var(--mantine-font-size-xs); /* 超小字体 */
+font-size: var(--mantine-font-size-sm); /* 小字体 */
+font-size: var(--mantine-font-size-md); /* 中字体（默认） */
+font-size: var(--mantine-font-size-lg); /* 大字体 */
+font-size: var(--mantine-font-size-xl); /* 超大字体 */
+```
+
+❌ **错误用法**：
+
+```css
+font-size: 14px; /* 不要使用固定像素值 */
+font-size: 16px; /* 不要使用固定像素值 */
+```
+
+##### 4. 圆角 (Border Radius)
+
+✅ **正确用法**：
+
+```css
+border-radius: var(--mantine-radius-xs); /* 超小圆角 */
+border-radius: var(--mantine-radius-sm); /* 小圆角 */
+border-radius: var(--mantine-radius-md); /* 中圆角（默认） */
+border-radius: var(--mantine-radius-lg); /* 大圆角 */
+border-radius: var(--mantine-radius-xl); /* 超大圆角 */
+border-radius: 50%; /* 圆形（特殊情况） */
+```
+
+❌ **错误用法**：
+
+```css
+border-radius: 4px; /* 不要使用固定像素值 */
+border-radius: 8px; /* 不要使用固定像素值 */
+```
+
+##### 5. 阴影 (Shadows)
+
+✅ **正确用法**：
+
+```css
+box-shadow: var(--mantine-shadow-xs); /* 超小阴影 */
+box-shadow: var(--mantine-shadow-sm); /* 小阴影 */
+box-shadow: var(--mantine-shadow-md); /* 中阴影（默认） */
+box-shadow: var(--mantine-shadow-lg); /* 大阴影 */
+box-shadow: var(--mantine-shadow-xl); /* 超大阴影 */
+```
+
+❌ **错误用法**：
+
+```css
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 不要自定义阴影 */
+```
+
+##### 6. 尺寸单位 (rem 函数)
+
+对于需要精确尺寸的场景，使用 Mantine 的 `rem()` 函数：
+
+✅ **正确用法**：
+
+```css
+min-height: rem(42px); /* 转换为 rem 单位 */
+border: rem(1px) solid; /* 边框宽度 */
+width: rem(240px); /* 固定宽度 */
+```
+
+❌ **错误用法**：
+
+```css
+min-height: 42px; /* 不要直接使用像素值 */
+border: 1px solid; /* 边框可以接受，但建议使用 rem() */
+```
+
+##### 7. z-index (层级)
+
+✅ **正确用法**：
+
+```css
+z-index: var(--mantine-z-index-app); /* 应用层级 */
+z-index: var(--mantine-z-index-modal); /* 模态框层级 */
+z-index: var(--mantine-z-index-popover); /* 弹出层级 */
+z-index: var(--mantine-z-index-overlay); /* 遮罩层级 */
+z-index: var(--mantine-z-index-max); /* 最高层级 */
+```
+
+❌ **错误用法**：
+
+```css
+z-index: 10; /* 不要使用具体数字 */
+z-index: 999; /* 不要使用具体数字 */
+```
+
+##### 8. 过渡动画 (Transitions)
+
+✅ **正确用法**：
+
+```css
+/* 标准过渡时间 */
+transition: all 0.15s ease; /* 快速交互 */
+transition: all 0.2s ease; /* 标准过渡 */
+transition: all 0.3s ease; /* 平滑过渡 */
+
+/* 多属性过渡 */
+transition:
+  background-color 0.15s ease,
+  color 0.15s ease;
+```
+
+**推荐时长**：
+
+- `0.15s` - 快速反馈（hover、按钮点击）
+- `0.2s` - 标准过渡（颜色变化）
+- `0.3s` - 平滑展开（布局变化、宽度调整）
+
+❌ **错误用法**：
+
+```css
+transition: all 0.5s ease; /* 太慢，影响用户体验 */
+transition: all 100ms ease; /* 使用秒而非毫秒 */
+```
+
+#### 样式文件示例
+
+✅ **完整的良好示例**：
+
+```css
+.navbar {
+  height: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.navbarItem {
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-text);
+  border-radius: var(--mantine-radius-sm);
+  transition: background-color 0.15s ease;
+  min-height: rem(42px);
+
+  &:hover {
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-6)
+    );
+  }
+}
+
+.button {
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border: rem(1px) solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  border-radius: var(--mantine-radius-md);
+  box-shadow: var(--mantine-shadow-sm);
+  z-index: var(--mantine-z-index-app);
+}
+```
+
+#### 检查清单
+
+在编写样式时，确保：
+
+- [ ] 所有间距使用 `var(--mantine-spacing-*)`
+- [ ] 所有颜色使用 `var(--mantine-color-*)`
+- [ ] 所有字体大小使用 `var(--mantine-font-size-*)`
+- [ ] 所有圆角使用 `var(--mantine-radius-*)`
+- [ ] 所有阴影使用 `var(--mantine-shadow-*)`
+- [ ] 所有 z-index 使用 `var(--mantine-z-index-*)`
+- [ ] 固定尺寸使用 `rem()` 函数
+- [ ] 深色模式使用 `light-dark()` 函数
+- [ ] 过渡时间符合推荐标准
+
 ### Prettier 配置
 
 ```json

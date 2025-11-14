@@ -43,18 +43,18 @@ export function Navbar({ collapsed = false, onToggleCollapse }: NavbarProps) {
 
       <div className={classes.footer}>
         {/* 收缩/展开切换按钮 - 固定在分界线上 */}
-          <ActionIcon
-            onClick={onToggleCollapse}
-            variant="subtle"
-            size="lg"
-            className={classes.toggleButton}
-          >
-            {collapsed ? (
-              <IconLayoutSidebarLeftExpand size={18} />
-            ) : (
-              <IconLayoutSidebarLeftCollapse size={18} />
-            )}
-          </ActionIcon>
+        <ActionIcon
+          onClick={onToggleCollapse}
+          variant="subtle"
+          size="lg"
+          className={classes.toggleButton}
+        >
+          {collapsed ? (
+            <IconLayoutSidebarLeftExpand size={18} />
+          ) : (
+            <IconLayoutSidebarLeftCollapse size={18} />
+          )}
+        </ActionIcon>
         {/* 联系我们按钮 */}
         {collapsed ? (
           <Tooltip label="联系我们" position="right">

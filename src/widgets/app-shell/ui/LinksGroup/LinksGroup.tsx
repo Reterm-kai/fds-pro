@@ -4,9 +4,7 @@ import type { Icon as TablerIcon } from '@tabler/icons-react'
 import {
   Box,
   Collapse,
-  Group,
   Text,
-  ThemeIcon,
   UnstyledButton,
   HoverCard,
   Stack,
@@ -87,9 +85,7 @@ export function LinksGroup({
           data-active={isCollapsedActive || undefined}
         >
           <Center>
-            <ThemeIcon variant="light" size="lg">
-              <Icon style={{ width: '70%', height: '70%' }} />
-            </ThemeIcon>
+            <Icon size={24} />
           </Center>
         </UnstyledButton>
       ) : (
@@ -98,9 +94,7 @@ export function LinksGroup({
           data-active={isCollapsedActive || undefined}
         >
           <Center>
-            <ThemeIcon variant="light" size="lg">
-              <Icon style={{ width: '70%', height: '70%' }} />
-            </ThemeIcon>
+            <Icon size={24} />
           </Center>
         </UnstyledButton>
       )
@@ -157,24 +151,24 @@ export function LinksGroup({
 
   // 正常模式
   const buttonContent = (
-    <Group justify="space-between" gap={0}>
-      <Box style={{ display: 'flex', alignItems: 'center' }}>
-        {Icon && (
-          <ThemeIcon variant="light" size={30}>
-            <Icon size={18} />
-          </ThemeIcon>
-        )}
-        <Box ml={Icon ? 'md' : 0}>{label}</Box>
+    <>
+      <Box className={classes.iconWrapper}>
+        {Icon && <Icon size={20} />}
+      </Box>
+      <Box className={classes.labelWrapper} ml={Icon ? 'sm' : 0}>
+        {label}
       </Box>
       {hasLinks && (
-        <IconChevronRight
-          className={classes.chevron}
-          stroke={1.5}
-          size={16}
-          style={{ transform: opened ? 'rotate(-90deg)' : 'none' }}
-        />
+        <Box ml="auto">
+          <IconChevronRight
+            className={classes.chevron}
+            stroke={1.5}
+            size={16}
+            style={{ transform: opened ? 'rotate(-90deg)' : 'none' }}
+          />
+        </Box>
       )}
-    </Group>
+    </>
   )
 
   return (
