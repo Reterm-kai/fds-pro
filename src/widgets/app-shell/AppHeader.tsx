@@ -8,8 +8,7 @@ import {
 } from '@mantine/core'
 import { LogOut, Settings, User } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { ThemeToggle } from '@/shared/ui/theme-toggle'
-import { Logo } from '@/shared/ui/logo'
+import { Logo, ThemeToggle } from '@/shared/ui'
 import { useAuth } from '@/features/auth'
 
 interface AppHeaderProps {

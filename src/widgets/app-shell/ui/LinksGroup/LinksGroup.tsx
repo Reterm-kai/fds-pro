@@ -20,6 +20,7 @@ interface LinksGroupProps {
   link?: string
   links?: { label: string; link: string }[]
   collapsed?: boolean
+  onLinkClick?: () => void
 }
 
 export function LinksGroup({
@@ -29,6 +30,7 @@ export function LinksGroup({
   link,
   links,
   collapsed = false,
+  onLinkClick,
 }: LinksGroupProps) {
   const location = useLocation()
   const hasLinks = Array.isArray(links)
@@ -50,6 +52,7 @@ export function LinksGroup({
         className={`${classes.link} ${isSubLinkActive ? classes.linkActive : ''}`}
         to={subLink.link}
         key={subLink.label}
+        onClick={onLinkClick}
       >
         {subLink.label}
       </Text>
@@ -65,6 +68,7 @@ export function LinksGroup({
         className={`${classes.popoverLink} ${isSubLinkActive ? classes.popoverLinkActive : ''}`}
         to={subLink.link}
         key={subLink.label}
+        onClick={onLinkClick}
       >
         {subLink.label}
       </Text>
@@ -83,6 +87,7 @@ export function LinksGroup({
           to={link}
           className={`${classes.collapsedControl} ${isCollapsedActive ? classes.active : ''}`}
           data-active={isCollapsedActive || undefined}
+          onClick={onLinkClick}
         >
           <Center>
             <Icon size={24} />
@@ -177,6 +182,7 @@ export function LinksGroup({
           to={link}
           className={`${classes.control} ${isActive ? classes.active : ''}`}
           data-active={isActive || undefined}
+          onClick={onLinkClick}
         >
           {buttonContent}
         </UnstyledButton>

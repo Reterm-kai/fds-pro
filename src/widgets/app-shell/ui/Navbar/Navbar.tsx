@@ -1,5 +1,11 @@
 import { useMemo } from 'react'
-import { ScrollArea, ActionIcon, Tooltip } from '@mantine/core'
+import {
+  ActionIcon,
+  ScrollArea,
+  Tooltip,
+  useMantineTheme,
+} from '@mantine/core'
+import { useMediaQuery } from '@mantine/hooks'
 import {
   IconLayoutSidebarLeftCollapse,
   IconLayoutSidebarLeftExpand,
@@ -14,16 +20,23 @@ import classes from './Navbar.module.css'
 interface NavbarProps {
   collapsed?: boolean
   onToggleCollapse?: () => void
+  onLinkClick?: () => void
 }
 
 /**
  * 应用导航栏组件
- * 从路由配置动态生成菜单,支持收缩/展开
+ * 从路由配置动态生成菜单，桌面端支持收缩/展开
  */
-export function Navbar({ collapsed = false, onToggleCollapse }: NavbarProps) {
+export function Navbar({
+  collapsed = false,
+  onToggleCollapse,
+  onLinkClick,
+}: NavbarProps) {
+  const theme = useMantineTheme()
+  const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
+
   // 从路由配置生成菜单数据
   const menuData = useMemo(() => {
-    // 获取 AppLayout 的子路由
     const appLayoutRoute = protectedRoutes[0]
     if (!appLayoutRoute?.children) {
       return []
@@ -32,7 +45,12 @@ export function Navbar({ collapsed = false, onToggleCollapse }: NavbarProps) {
   }, [])
 
   const links = menuData.map(item => (
-    <LinksGroup {...item} key={item.label} collapsed={collapsed} />
+    <LinksGroup
+      {...item}
+      key={item.label}
+      collapsed={collapsed}
+      onLinkClick={onLinkClick}
+    />
   ))
 
   return (
@@ -42,19 +60,22 @@ export function Navbar({ collapsed = false, onToggleCollapse }: NavbarProps) {
       </ScrollArea>
 
       <div className={classes.footer}>
-        {/* 收缩/展开切换按钮 - 固定在分界线上 */}
-        <ActionIcon
-          onClick={onToggleCollapse}
-          variant="subtle"
-          size="lg"
-          className={classes.toggleButton}
-        >
-          {collapsed ? (
-            <IconLayoutSidebarLeftExpand size={18} />
-          ) : (
-            <IconLayoutSidebarLeftCollapse size={18} />
-          )}
-        </ActionIcon>
+        {/* 收缩/展开切换按钮 - 固定在分界线，仅桌面端显示 */}
+        {!isMobile && (
+          <ActionIcon
+            onClick={onToggleCollapse}
+            variant="subtle"
+            size="lg"
+            className={classes.toggleButton}
+          >
+            {collapsed ? (
+              <IconLayoutSidebarLeftExpand size={18} />
+            ) : (
+              <IconLayoutSidebarLeftCollapse size={18} />
+            )}
+          </ActionIcon>
+        )}
+
         {/* 联系我们按钮 */}
         {collapsed ? (
           <Tooltip label="联系我们" position="right">
@@ -74,3 +95,4 @@ export function Navbar({ collapsed = false, onToggleCollapse }: NavbarProps) {
     </nav>
   )
 }
+

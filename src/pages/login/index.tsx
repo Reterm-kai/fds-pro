@@ -18,7 +18,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { notifications } from '@mantine/notifications'
 import { useForm } from '@mantine/form'
 import { useAuth } from '@/features/auth'
-import { Logo } from '@/shared/ui/logo'
+import { Logo } from '@/shared/ui'
 import classes from './Login.module.css'
 
 /**

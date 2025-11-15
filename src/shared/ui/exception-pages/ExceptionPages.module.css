@@ -1,0 +1,38 @@
+.root {
+  /* 近似减去 Header 高度 + 自身上下 padding，避免出现多余的纵向滚动条 */
+  min-height: calc(100vh - calc(var(--mantine-spacing-xl) * 4));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--mantine-spacing-xl);
+  background: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-dark-8)
+  );
+}
+
+.inner {
+  max-width: calc(var(--mantine-spacing-xl) * 22);
+  text-align: center;
+}
+
+.code {
+  font-size: calc(var(--mantine-font-size-xl) * 2.5);
+  font-weight: 700;
+  letter-spacing: calc(var(--mantine-spacing-xs) * 0.15);
+  color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-3));
+  margin-bottom: var(--mantine-spacing-md);
+}
+
+.title {
+  font-size: calc(var(--mantine-font-size-xl) * 1.4);
+  font-weight: 600;
+  color: var(--mantine-color-text);
+  margin-bottom: var(--mantine-spacing-sm);
+}
+
+.description {
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-dimmed);
+  margin-bottom: var(--mantine-spacing-xl);
+}

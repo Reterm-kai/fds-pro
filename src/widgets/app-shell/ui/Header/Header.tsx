@@ -1,6 +1,5 @@
 import { Burger, Container, Group } from '@mantine/core'
-import { Logo } from '@/shared/ui/logo'
-import { ThemeToggle } from '@/shared/ui/theme-toggle'
+import { Logo, ThemeToggle } from '@/shared/ui'
 import { NotificationButton } from '../NotificationButton'
 import { UserMenu } from '../UserMenu'
 import classes from './Header.module.css'

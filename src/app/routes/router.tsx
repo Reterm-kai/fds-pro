@@ -6,7 +6,12 @@ import { UsersPage } from '@/pages/users'
 import { SettingsPage } from '@/pages/settings'
 import LoginPage from '@/pages/login'
 import { RegisterPage } from '@/pages/register'
-import { Placeholder } from '@/shared/ui/placeholder'
+import {
+  Exception403,
+  Exception404,
+  Exception500,
+  Placeholder,
+} from '@/shared/ui'
 import { ProtectedRoute } from '@/features/auth'
 import {
   IconGauge,
@@ -200,17 +205,17 @@ export const protectedRoutes: AppRouteObject[] = [
         children: [
           {
             path: '403',
-            element: <Placeholder title="403" />,
+            element: <Exception403 />,
             meta: { title: '403' },
           },
           {
             path: '404',
-            element: <Placeholder title="404" />,
+            element: <Exception404 />,
             meta: { title: '404' },
           },
           {
             path: '500',
-            element: <Placeholder title="500" />,
+            element: <Exception500 />,
             meta: { title: '500' },
           },
         ],

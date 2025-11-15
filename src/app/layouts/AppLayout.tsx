@@ -14,7 +14,8 @@ import { Navbar } from '@/widgets/app-shell/ui/Navbar'
  */
 export function AppLayout() {
   // 移动端侧边栏状态（本地，不持久化）
-  const [mobileOpened, { toggle: toggleMobile }] = useDisclosure()
+  const [mobileOpened, { toggle: toggleMobile, close: closeMobile }] =
+    useDisclosure()
   // 桌面端侧边栏收缩状态（本地，不持久化）
   const [desktopCollapsed, { toggle: toggleDesktop }] = useDisclosure()
 
@@ -33,7 +34,11 @@ export function AppLayout() {
       </AppShell.Header>
 
       <AppShell.Navbar>
-        <Navbar collapsed={desktopCollapsed} onToggleCollapse={toggleDesktop} />
+        <Navbar
+          collapsed={desktopCollapsed}
+          onToggleCollapse={toggleDesktop}
+          onLinkClick={closeMobile}
+        />
       </AppShell.Navbar>
 
       <AppShell.Main>
