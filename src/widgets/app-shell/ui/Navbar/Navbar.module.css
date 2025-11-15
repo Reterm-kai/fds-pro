@@ -4,6 +4,9 @@
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
+  background-color: var(--mantine-color-body);
+  border-top: calc(var(--mantine-spacing-xs) * 0.125) solid
+    light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-3));
 }
 
 .navbar.collapsed .linksInner {
@@ -23,8 +26,8 @@
 }
 
 .footer {
-  border-top: 1px solid
-    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  border-top: calc(var(--mantine-spacing-xs) * 0.125) solid
+    light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-3));
   padding: var(--mantine-spacing-md);
   display: flex;
   justify-content: center;

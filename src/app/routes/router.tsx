@@ -11,6 +11,8 @@ import {
   Exception404,
   Exception500,
   Placeholder,
+  ResultError,
+  ResultSuccess,
 } from '@/shared/ui'
 import { ProtectedRoute } from '@/features/auth'
 import {
@@ -185,12 +187,12 @@ export const protectedRoutes: AppRouteObject[] = [
         children: [
           {
             path: 'success',
-            element: <Placeholder title="成功页" />,
+            element: <ResultSuccess />,
             meta: { title: '成功页' },
           },
           {
             path: 'error',
-            element: <Placeholder title="失败页" />,
+            element: <ResultError />,
             meta: { title: '失败页' },
           },
         ],

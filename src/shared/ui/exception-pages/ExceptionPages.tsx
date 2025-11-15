@@ -14,7 +14,7 @@ interface BaseExceptionPageProps {
 
 /**
  * 通用异常页布局组件，参考 Mantine Error pages 设计
- * 用于 403 / 404 / 500 等异常场景
+ * 用于 403 / 404 / 500 等通用异常场景
  */
 function BaseExceptionPage({
   code,
@@ -29,8 +29,7 @@ function BaseExceptionPage({
   }
 
   const handleRefresh = () => {
-    // 500 页主操作：刷新当前页面
-    // 使用浏览器刷新以确保重新加载所有资源
+    // 刷新当前页面，确保重新加载所有资源（用于 500 服务异常场景）
     window.location.reload()
   }
 
@@ -49,10 +48,7 @@ function BaseExceptionPage({
 
         <Group justify="center">
           {variant === 'refresh' && (
-            <Button
-              leftSection={<IconRefresh />}
-              onClick={handleRefresh}
-            >
+            <Button leftSection={<IconRefresh />} onClick={handleRefresh}>
               刷新页面
             </Button>
           )}
