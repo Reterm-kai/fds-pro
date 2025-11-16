@@ -113,7 +113,8 @@ export const theme = createTheme({
   components: {
     Text: {
       defaultProps: {
-        size: 'sm',
+        // 默认正文字号：md ≈ 16px，更适合长文阅读
+        size: 'md',
       },
     },
     Button: {

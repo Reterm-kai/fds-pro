@@ -1,5 +1,5 @@
-import { Title, Text, SimpleGrid, Paper, Group, ThemeIcon } from '@mantine/core'
-import { Users, ShoppingCart, DollarSign, TrendingUp } from 'lucide-react'
+import { Group, Paper, SimpleGrid, Text, ThemeIcon } from '@mantine/core'
+import { DollarSign, ShoppingCart, TrendingUp, Users } from 'lucide-react'
 
 /**
  * 仪表盘页面
@@ -20,10 +20,6 @@ export function DashboardPage() {
 
   return (
     <div>
-      <Title order={2} mb="xl">
-        仪表盘
-      </Title>
-
       <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="lg">
         {stats.map(stat => (
           <Paper key={stat.title} p="md" radius="md" withBorder>

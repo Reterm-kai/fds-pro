@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Title, Text, Paper, Stack, Switch } from '@mantine/core'
+import { Paper, Stack, Switch, Text } from '@mantine/core'
 
 /**
  * 系统设置页面
@@ -12,10 +12,6 @@ export function SettingsPage() {
 
   return (
     <div>
-      <Title order={2} mb="xl">
-        系统设置
-      </Title>
-
       <Paper p="xl" radius="md" withBorder>
         <Stack gap="lg">
           <div>
