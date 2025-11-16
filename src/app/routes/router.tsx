@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+﻿import { createBrowserRouter, Navigate } from 'react-router-dom'
 import type { RouteObject } from 'react-router-dom'
 import { AuthLayout, AppLayout } from '@/app/layouts'
 import { DashboardPage } from '@/pages/dashboard'
@@ -28,23 +28,21 @@ import {
 } from '@tabler/icons-react'
 import type { Icon as TablerIcon } from '@tabler/icons-react'
 import { ProfileBasicPage } from '@/pages/profile-basic'
+import { FormGroupPage } from '@/pages/form-group'
+import { FormStepPage } from '@/pages/form-step'
 
 /**
- * 路由元信息接口
+ * Route meta information
  */
 export interface RouteMeta {
-  /** 菜单显示标题 */
   title?: string
-  /** 菜单图标组件 */
   icon?: TablerIcon
-  /** 是否在菜单中隐藏 */
   hideInMenu?: boolean
-  /** 是否默认展开(有子菜单时) */
   initiallyOpened?: boolean
 }
 
 /**
- * 扩展的路由对象接口
+ * Extended route object with meta and strongly typed children
  */
 export interface AppRouteObject extends Omit<RouteObject, 'children'> {
   meta?: RouteMeta
@@ -52,21 +50,21 @@ export interface AppRouteObject extends Omit<RouteObject, 'children'> {
 }
 
 /**
- * 公共路由（不需要认证）
+ * Public routes (do not require auth)
  */
 const publicRoutes: AppRouteObject[] = [
   {
     path: '/login',
-    element: <LoginPage />,
+    element: <LoginPage />, 
   },
   {
     path: '/register',
-    element: <RegisterPage />,
+    element: <RegisterPage />, 
   },
 ]
 
 /**
- * 需要认证的路由（带菜单元信息）
+ * Protected routes (require auth, with menu meta)
  */
 export const protectedRoutes: AppRouteObject[] = [
   {
@@ -79,7 +77,7 @@ export const protectedRoutes: AppRouteObject[] = [
     children: [
       {
         index: true,
-        element: <Navigate to="/dashboard" replace />,
+        element: <Navigate to="/dashboard" replace />, 
         meta: { hideInMenu: true },
       },
       {
@@ -92,12 +90,12 @@ export const protectedRoutes: AppRouteObject[] = [
         children: [
           {
             index: true,
-            element: <DashboardPage />,
+            element: <DashboardPage />, 
             meta: { title: '工作台' },
           },
           {
             path: 'monitor',
-            element: <Placeholder title="实时监控" />,
+            element: <Placeholder title="实时监控" />, 
             meta: { title: '实时监控' },
           },
         ],
@@ -112,12 +110,12 @@ export const protectedRoutes: AppRouteObject[] = [
         children: [
           {
             path: 'analysis',
-            element: <Placeholder title="数据分析" />,
+            element: <Placeholder title="数据分析" />, 
             meta: { title: '数据分析' },
           },
           {
             path: 'multi',
-            element: <Placeholder title="多维分析" />,
+            element: <Placeholder title="多维分析" />, 
             meta: { title: '多维分析' },
           },
         ],
@@ -131,13 +129,13 @@ export const protectedRoutes: AppRouteObject[] = [
         },
         children: [
           {
-            path: 'search-table',
-            element: <Placeholder title="查询表格" />,
-            meta: { title: '查询表格' },
+            path: 'basic',
+            element: <Placeholder title="基础列表" />, 
+            meta: { title: '基础列表' },
           },
           {
             path: 'card',
-            element: <Placeholder title="卡片列表" />,
+            element: <Placeholder title="卡片列表" />, 
             meta: { title: '卡片列表' },
           },
         ],
@@ -152,12 +150,12 @@ export const protectedRoutes: AppRouteObject[] = [
         children: [
           {
             path: 'group',
-            element: <Placeholder title="分组表单" />,
+            element: <FormGroupPage />, 
             meta: { title: '分组表单' },
           },
           {
             path: 'step',
-            element: <Placeholder title="分步表单" />,
+            element: <FormStepPage />, 
             meta: { title: '分步表单' },
           },
         ],
@@ -172,8 +170,8 @@ export const protectedRoutes: AppRouteObject[] = [
         children: [
           {
             path: 'basic',
-            element: <ProfileBasicPage />,
-            meta: { title: '基础详情页' },
+            element: <ProfileBasicPage />, 
+            meta: { title: '基础详情' },
           },
         ],
       },
@@ -187,12 +185,12 @@ export const protectedRoutes: AppRouteObject[] = [
         children: [
           {
             path: 'success',
-            element: <ResultSuccess />,
+            element: <ResultSuccess />, 
             meta: { title: '成功页' },
           },
           {
             path: 'error',
-            element: <ResultError />,
+            element: <ResultError />, 
             meta: { title: '失败页' },
           },
         ],
@@ -207,17 +205,17 @@ export const protectedRoutes: AppRouteObject[] = [
         children: [
           {
             path: '403',
-            element: <Exception403 />,
+            element: <Exception403 />, 
             meta: { title: '403' },
           },
           {
             path: '404',
-            element: <Exception404 />,
+            element: <Exception404 />, 
             meta: { title: '404' },
           },
           {
             path: '500',
-            element: <Exception500 />,
+            element: <Exception500 />, 
             meta: { title: '500' },
           },
         ],
@@ -240,12 +238,12 @@ export const protectedRoutes: AppRouteObject[] = [
         children: [
           {
             path: 'users',
-            element: <UsersPage />,
+            element: <UsersPage />, 
             meta: { title: '用户管理' },
           },
           {
             path: 'settings',
-            element: <SettingsPage />,
+            element: <SettingsPage />, 
             meta: { title: '系统设置' },
           },
         ],
@@ -255,13 +253,11 @@ export const protectedRoutes: AppRouteObject[] = [
 ]
 
 /**
- * 根路由配置
- * 使用 AuthLayout 包装以提供认证上下文
+ * Root router configuration
  */
 export const router = createBrowserRouter([
   {
-    element: <AuthLayout />,
+    element: <AuthLayout />, 
     children: [...publicRoutes, ...protectedRoutes] as RouteObject[],
   },
 ])
-

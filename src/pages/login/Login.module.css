@@ -1,6 +1,6 @@
-/* 登录页面样式 - 简洁设计，完全遵循 Mantine 设计规范 */
+﻿/* 鐧诲綍椤甸潰鏍峰紡 - 绠€娲佽璁★紝瀹屽叏閬靛惊 Mantine 璁捐瑙勮寖 */
 
-/* 主容器 - 全屏布局 */
+/* 涓诲鍣?- 鍏ㄥ睆甯冨眬 */
 .container {
   min-height: 100vh;
   display: flex;
@@ -20,7 +20,7 @@
   overflow: hidden;
 }
 
-/* 泡泡动画容器 */
+/* 娉℃场鍔ㄧ敾瀹瑰櫒 */
 .bubbles {
   position: absolute;
   top: 0;
@@ -32,7 +32,7 @@
   z-index: 0;
 }
 
-/* 单个泡泡 */
+/* 鍗曚釜娉℃场 */
 .bubble {
   position: absolute;
   bottom: calc(var(--mantine-spacing-xl) * -3.125);
@@ -106,7 +106,7 @@
   animation-delay: 5s;
 }
 
-/* 泡泡上升动画 */
+/* 娉℃场涓婂崌鍔ㄧ敾 */
 @keyframes rise {
   0% {
     bottom: calc(var(--mantine-spacing-xl) * -3.125);
@@ -126,7 +126,7 @@
   }
 }
 
-/* 左侧装饰区域 */
+/* 宸︿晶瑁呴グ鍖哄煙 */
 .leftSection {
   flex: 1;
   display: flex;
@@ -145,7 +145,7 @@
   }
 }
 
-/* Logo 容器 - 简化设计 */
+/* Logo 瀹瑰櫒 - 绠€鍖栬璁?*/
 .logoWrapper {
   position: absolute;
   top: var(--mantine-spacing-xl);
@@ -156,10 +156,10 @@
 .logo {
   width: auto;
   height: calc(var(--mantine-spacing-xl) * 1.5);
-  /* 移除滤镜，显示原始 Mantine Logo */
+  /* 绉婚櫎婊ら暅锛屾樉绀哄師濮?Mantine Logo */
 }
 
-/* 主标题和副标题 */
+/* 涓绘爣棰樺拰鍓爣棰?*/
 .mainTitle {
   margin-bottom: var(--mantine-spacing-md);
   color: var(--mantine-color-white);
@@ -180,14 +180,14 @@
   margin-bottom: calc(var(--mantine-spacing-xl) * 1.5);
 }
 
-/* 装饰性插图 - 简化 */
+/* 瑁呴グ鎬ф彃鍥?- 绠€鍖?*/
 .illustration {
   margin-top: var(--mantine-spacing-xl);
   width: 100%;
   max-width: calc(var(--mantine-spacing-xl) * 12.5);
 }
 
-/* 浮动卡片动画 */
+/* 娴姩鍗＄墖鍔ㄧ敾 */
 .floatingCard1 {
   animation: float1 6s ease-in-out infinite;
 }
@@ -239,7 +239,7 @@
   }
 }
 
-/* 右侧表单区域 */
+/* 鍙充晶琛ㄥ崟鍖哄煙 */
 .rightSection {
   width: 100%;
   max-width: calc(var(--mantine-spacing-xl) * 15.625);
@@ -261,13 +261,13 @@
   }
 }
 
-/* 移动端 Logo */
+/* 绉诲姩绔?Logo */
 .mobileLogo {
   margin-bottom: calc(var(--mantine-spacing-xl) * 1.5);
   text-align: center;
 }
 
-/* 表单标题 */
+/* 琛ㄥ崟鏍囬 */
 .formTitle {
   text-align: center;
   margin-bottom: var(--mantine-spacing-xs);
@@ -283,7 +283,7 @@
   margin-bottom: calc(var(--mantine-spacing-xl) * 1.5);
 }
 
-/* 表单容器 */
+/* 琛ㄥ崟瀹瑰櫒 */
 .formContainer {
   box-shadow: none;
   border-radius: 0;
@@ -291,14 +291,14 @@
   padding: 0;
 }
 
-/* 记住我和忘记密码 */
+/* 璁颁綇鎴戝拰蹇樿瀵嗙爜 */
 .rememberRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* 登录按钮 */
+/* 鐧诲綍鎸夐挳 */
 .submitButton {
   height: calc(var(--mantine-spacing-xl) * 1.25);
   background: var(--mantine-color-blue-5);
@@ -315,7 +315,7 @@
   transform: translateY(calc(var(--mantine-spacing-xs) * 0.125));
 }
 
-/* 注册链接 */
+/* 娉ㄥ唽閾炬帴 */
 .registerLink {
   text-align: center;
   font-size: var(--mantine-font-size-sm);
@@ -323,7 +323,7 @@
   margin-top: var(--mantine-spacing-md);
 }
 
-/* 提示信息 */
+/* 鎻愮ず淇℃伅 */
 .hintCard {
   border: calc(var(--mantine-spacing-xs) * 0.125) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
@@ -342,7 +342,7 @@
   text-align: center;
 }
 
-/* 响应式 - 隐藏左侧装饰区域 */
+/* 鍝嶅簲寮?- 闅愯棌宸︿晶瑁呴グ鍖哄煙 */
 @media (max-width: 768px) {
   .leftSection {
     display: none;
@@ -352,13 +352,13 @@
     max-width: 100%;
   }
 
-  /* 移动端隐藏泡泡动画以提升性能 */
+  /* 绉诲姩绔殣钘忔场娉″姩鐢讳互鎻愬崌鎬ц兘 */
   .bubbles {
     display: none;
   }
 }
 
-/* 响应式 - 显示移动端 Logo */
+/* 鍝嶅簲寮?- 鏄剧ず绉诲姩绔?Logo */
 @media (min-width: 768px) {
   .mobileLogo {
     display: none;

@@ -1,0 +1,44 @@
+.root {
+  min-height: calc(100vh - calc(var(--mantine-spacing-xl) * 4));
+  padding: var(--mantine-spacing-xl);
+  background: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-dark-8)
+  );
+}
+
+.inner {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.header {
+  margin-bottom: var(--mantine-spacing-xl);
+}
+
+.headerTitle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-xs);
+}
+
+.sectionHeader {
+  margin-bottom: var(--mantine-spacing-lg);
+}
+
+.sectionTitle {
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 500;
+  color: var(--mantine-color-text);
+}
+
+.sectionDescription {
+  margin-top: calc(var(--mantine-spacing-xs) * 0.4);
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-dimmed);
+}
+
+.footer {
+  margin-top: var(--mantine-spacing-xl);
+}
+

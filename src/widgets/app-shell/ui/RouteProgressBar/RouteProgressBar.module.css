@@ -1,0 +1,54 @@
+﻿.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* Thin progress bar at the very top */
+  height: calc(var(--mantine-spacing-xs) * 0.3);
+  pointer-events: none;
+  z-index: var(--mantine-z-index-max);
+}
+
+.bar {
+  width: 100%;
+  height: 100%;
+  transform-origin: left;
+  /* Use theme gradient so the bar is visible but not too strong */
+  background: linear-gradient(
+    to right,
+    var(--mantine-color-blue-4),
+    var(--mantine-color-blue-7)
+  );
+  background-size: 200% 100%;
+}
+
+.barHidden {
+  opacity: 0;
+}
+
+.barActive {
+  /* 0.5s: quick overall, with a short pause around 10% and smooth finish */
+  animation: route-progress-bar 0.5s ease-out forwards;
+}
+
+@keyframes route-progress-bar {
+  0% {
+    transform: scaleX(0);
+    background-position: 0 0;
+  }
+  /* Quickly reach ~10% */
+  15% {
+    transform: scaleX(0.12);
+    background-position: 15% 0;
+  }
+  /* Short pause around 10% (hold the same length a bit) */
+  30% {
+    transform: scaleX(0.12);
+    background-position: 20% 0;
+  }
+  /* Then smoothly accelerate to 100% */
+  100% {
+    transform: scaleX(1);
+    background-position: 100% 0;
+  }
+}

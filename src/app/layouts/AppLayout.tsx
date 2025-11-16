@@ -3,6 +3,7 @@ import { useDisclosure } from '@mantine/hooks'
 import { Outlet } from 'react-router-dom'
 import { Header } from '@/widgets/app-shell/ui/Header'
 import { Navbar } from '@/widgets/app-shell/ui/Navbar'
+import { RouteProgressBar } from '@/widgets/app-shell/ui/RouteProgressBar'
 
 /**
  * 应用主布局组件
@@ -20,7 +21,9 @@ export function AppLayout() {
   const [desktopCollapsed, { toggle: toggleDesktop }] = useDisclosure()
 
   return (
-    <AppShell
+    <>
+      <RouteProgressBar />
+      <AppShell
       header={{ height: 60 }}
       navbar={{
         width: desktopCollapsed ? 64 : 240,
@@ -45,5 +48,6 @@ export function AppLayout() {
         <Outlet />
       </AppShell.Main>
     </AppShell>
+    </>
   )
 }
