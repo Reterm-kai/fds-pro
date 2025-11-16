@@ -27,6 +27,7 @@ import {
   IconSettings,
 } from '@tabler/icons-react'
 import type { Icon as TablerIcon } from '@tabler/icons-react'
+import { ProfileBasicPage } from '@/pages/profile-basic'
 
 /**
  * 路由元信息接口
@@ -51,12 +52,9 @@ export interface AppRouteObject extends Omit<RouteObject, 'children'> {
 }
 
 /**
- * 路由配置
- * 使用 React Router v7 的 createBrowserRouter
+ * 公共路由（不需要认证）
  */
-
-// 公共路由（不需要认证）
-const publicRoutes = [
+const publicRoutes: AppRouteObject[] = [
   {
     path: '/login',
     element: <LoginPage />,
@@ -67,7 +65,9 @@ const publicRoutes = [
   },
 ]
 
-// 需要认证的路由(带菜单元信息)
+/**
+ * 需要认证的路由（带菜单元信息）
+ */
 export const protectedRoutes: AppRouteObject[] = [
   {
     path: '/',
@@ -172,7 +172,7 @@ export const protectedRoutes: AppRouteObject[] = [
         children: [
           {
             path: 'basic',
-            element: <Placeholder title="基础详情页" />,
+            element: <ProfileBasicPage />,
             meta: { title: '基础详情页' },
           },
         ],
@@ -254,10 +254,14 @@ export const protectedRoutes: AppRouteObject[] = [
   },
 ]
 
-// 合并所有路由，使用 AuthLayout 包装以提供认证上下文
+/**
+ * 根路由配置
+ * 使用 AuthLayout 包装以提供认证上下文
+ */
 export const router = createBrowserRouter([
   {
     element: <AuthLayout />,
     children: [...publicRoutes, ...protectedRoutes] as RouteObject[],
   },
 ])
+

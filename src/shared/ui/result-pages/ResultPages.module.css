@@ -1,5 +1,4 @@
 .root {
-  /* 与异常页保持一致的高度和背景处理，避免额外滚动条 */
   min-height: calc(100vh - calc(var(--mantine-spacing-xl) * 4));
   display: flex;
   align-items: center;
@@ -13,7 +12,7 @@
 
 .inner {
   width: 100%;
-  max-width: calc(var(--mantine-spacing-xl) * 22);
+  max-width: calc(var(--mantine-spacing-xl) * 32);
 }
 
 .card {
@@ -49,3 +48,34 @@
 .actions {
   margin-top: var(--mantine-spacing-lg);
 }
+
+.progressCard {
+  margin-top: var(--mantine-spacing-xl);
+  padding: var(--mantine-spacing-xl);
+  background-color: var(--mantine-color-body);
+  border-radius: var(--mantine-radius-md);
+  box-shadow: var(--mantine-shadow-xs);
+}
+
+.progressHeader {
+  margin-bottom: var(--mantine-spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.progressTitle {
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 500;
+  color: var(--mantine-color-text);
+}
+
+.progressExtra {
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-dimmed);
+}
+
+.stepper {
+  padding-inline: calc(var(--mantine-spacing-xl) * 0.5);
+}
+

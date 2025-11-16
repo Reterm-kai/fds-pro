@@ -1,4 +1,14 @@
-import { Button, Container, Group, Paper, Text, ThemeIcon, Title } from '@mantine/core'
+import type { ReactNode } from 'react'
+import {
+  Button,
+  Container,
+  Group,
+  Paper,
+  Stepper,
+  Text,
+  ThemeIcon,
+  Title,
+} from '@mantine/core'
 import {
   IconArrowLeft,
   IconArrowRight,
@@ -15,10 +25,11 @@ interface BaseResultPageProps {
   status: ResultStatus
   title: string
   description: string
+  footer?: ReactNode
 }
 
 // 基础结果页布局（成功 / 失败共用）
-function BaseResultPage({ status, title, description }: BaseResultPageProps) {
+function BaseResultPage({ status, title, description, footer }: BaseResultPageProps) {
   const navigate = useNavigate()
   const isSuccess = status === 'success'
   const Icon = isSuccess ? IconCircleCheck : IconCircleX
@@ -38,7 +49,7 @@ function BaseResultPage({ status, title, description }: BaseResultPageProps) {
 
   return (
     <div className={classes.root}>
-      <Container size="md" className={classes.inner}>
+      <Container size="lg" className={classes.inner}>
         <Paper withBorder radius="lg" className={classes.card}>
           <Group justify="center" className={classes.header}>
             <ThemeIcon
@@ -48,7 +59,7 @@ function BaseResultPage({ status, title, description }: BaseResultPageProps) {
               color={color}
               className={classes.icon}
             >
-              <Icon size={28} />
+              <Icon size={32} />
             </ThemeIcon>
           </Group>
 
@@ -98,17 +109,44 @@ function BaseResultPage({ status, title, description }: BaseResultPageProps) {
             )}
           </Group>
         </Paper>
+
+        {footer}
       </Container>
     </div>
   )
 }
 
 export function ResultSuccess() {
+  const activeStepIndex = 1
+
   return (
     <BaseResultPage
       status="success"
       title="提交成功"
-      description="表单已成功提交，可以在列表或详情中查看结果。"
+      description="表单已成功提交，系统已完成处理。你可以在项目列表或详情页中查看本次操作结果。"
+      footer={
+        <Paper withBorder radius="md" className={classes.progressCard}>
+          <Group justify="space-between" className={classes.progressHeader}>
+            <Text className={classes.progressTitle}>当前进度</Text>
+            <Text className={classes.progressExtra}>
+              提交时间：2024-10-10 14:00:39
+            </Text>
+          </Group>
+
+          <Stepper
+            active={activeStepIndex}
+            color="blue"
+            size="sm"
+            className={classes.stepper}
+          >
+            <Stepper.Step label="提交申请" description="已完成" />
+            <Stepper.Step label="直属领导审核" description="进行中" />
+            <Stepper.Step label="购买证书" description="未开始" />
+            <Stepper.Step label="安全测试" description="未开始" />
+            <Stepper.Step label="正式上线" description="未开始" />
+          </Stepper>
+        </Paper>
+      }
     />
   )
 }
@@ -118,7 +156,7 @@ export function ResultError() {
     <BaseResultPage
       status="error"
       title="提交失败"
-      description="处理请求时出现问题，请重试或联系管理员。"
+      description="处理请求时出现问题，请稍后重试或联系管理员。"
     />
   )
 }
