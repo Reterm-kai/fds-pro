@@ -1,5 +1,4 @@
 .control {
-  font-weight: 500;
   display: flex;
   align-items: center;
   width: 100%;
@@ -34,7 +33,6 @@
 .control.active,
 .control[data-active] {
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  font-weight: 600;
   background-color: light-dark(
     var(--mantine-color-gray-2),
     var(--mantine-color-dark-5)
@@ -188,7 +186,6 @@
 
 .linkActive {
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  font-weight: 600;
   background-color: light-dark(
     var(--mantine-color-gray-2),
     var(--mantine-color-dark-5)
@@ -246,7 +243,6 @@
 
 .popoverLinkActive {
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  font-weight: 600;
   background-color: light-dark(
     var(--mantine-color-gray-2),
     var(--mantine-color-dark-5)
