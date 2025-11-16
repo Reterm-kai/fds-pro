@@ -42,14 +42,22 @@ export function StatsGrid({ data = defaultData }: StatsGridProps) {
     return (
       <Paper withBorder p="md" radius="md" key={stat.title}>
         <Group justify="space-between">
-          <Text size="xs" c="dimmed" className={classes.title}>
+          <Text
+            size="xs"
+            c="dimmed"
+            tt="uppercase"
+            fw={700}
+            className={classes.title}
+          >
             {stat.title}
           </Text>
           <Icon className={classes.icon} size={22} stroke={1.5} />
         </Group>
 
         <Group align="flex-end" gap="xs" mt={25}>
-          <Text className={classes.value}>{stat.value}</Text>
+          <Text size="xl" fw={700} className={classes.value}>
+            {stat.value}
+          </Text>
           <Text
             c={stat.diff > 0 ? 'teal' : 'red'}
             fz="sm"
@@ -74,3 +82,4 @@ export function StatsGrid({ data = defaultData }: StatsGridProps) {
     </div>
   )
 }
+

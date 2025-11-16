@@ -3,8 +3,6 @@
 }
 
 .value {
-  font-size: var(--mantine-font-size-xl);
-  font-weight: 700;
   line-height: 1;
 }
 
@@ -19,6 +17,5 @@
 }
 
 .title {
-  font-weight: 700;
-  text-transform: uppercase;
+  /* 其余字体属性由组件 props 控制（size / fw / tt） */
 }

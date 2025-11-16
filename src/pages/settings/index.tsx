@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { Paper, Stack, Switch, Text } from '@mantine/core'
+import { Paper, Stack, Switch, Text, Title } from '@mantine/core'
 
 /**
  * 系统设置页面
- * 提供各种系统配置选项
+ * 提供常用系统与个性化配置选项
  */
 export function SettingsPage() {
   const [notifications, setNotifications] = useState(true)
@@ -12,6 +12,10 @@ export function SettingsPage() {
 
   return (
     <div>
+      <Title order={1} mb="xl">
+        系统设置
+      </Title>
+
       <Paper p="xl" radius="md" withBorder>
         <Stack gap="lg">
           <div>
@@ -46,3 +50,4 @@ export function SettingsPage() {
     </div>
   )
 }
+

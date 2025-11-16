@@ -27,15 +27,15 @@ interface DetailItem {
 
 /**
  * 基础详情页
- * 用于展示单个对象的关键信息和操作记录
+ * 展示单条业务数据的关键信息和操作记录
  */
 export function ProfileBasicPage() {
   const navigate = useNavigate()
 
   const basicInfo: DetailItem[] = [
     { label: '订单编号', value: 'DD2024-0001' },
-    { label: '创建人', value: '张三' },
-    { label: '所属项目', value: '内容审核系统升级' },
+    { label: '创建人', value: '王小明' },
+    { label: '所属项目', value: '企业中台管理系统' },
     { label: '创建时间', value: '2024-10-10 14:00:39' },
     { label: '最近更新', value: '2024-10-11 09:21:15' },
     {
@@ -53,25 +53,19 @@ export function ProfileBasicPage() {
       <div className={classes.inner}>
         <Group justify="space-between" className={classes.header}>
           <div>
-            <Title order={2} mb="xs">
-              基础详情页
+            <Title order={1} mb="xs">
+              基础详情
             </Title>
             <Text size="sm" c="dimmed">
-              用于展示单个对象的关键信息和最近操作记录，适合订单、任务等详情场景。
+              用于展示单条业务数据的关键信息和操作记录，适合作为审批单、工单等详情页面模板。
             </Text>
           </div>
 
           <Group gap="xs">
-            <Button
-              variant="default"
-              leftSection={<IconPrinter size={16} />}
-            >
-              导出详情
+            <Button variant="default" leftSection={<IconPrinter size={16} />}>
+              打印
             </Button>
-            <Button
-              variant="outline"
-              leftSection={<IconEdit size={16} />}
-            >
+            <Button variant="outline" leftSection={<IconEdit size={16} />}>
               编辑
             </Button>
             <Button
@@ -92,11 +86,11 @@ export function ProfileBasicPage() {
             </Group>
             <Group gap="xs">
               <Text size="sm" c="dimmed">
-                责任人
+                当前负责人
               </Text>
               <Group gap="xs">
                 <IconUser size={16} />
-                <Text size="sm">张三</Text>
+                <Text size="sm">王小明</Text>
               </Group>
             </Group>
           </Group>
@@ -123,10 +117,10 @@ export function ProfileBasicPage() {
               </Text>
               <Stack gap="sm">
                 <Text size="sm">
-                  本订单用于演示基础详情页的布局，展示一个典型业务对象在提交、审核、完成等阶段的关键信息。
+                  这里展示的是基础详情页的示例文案，可用于说明当前订单或任务的背景、业务场景和重要信息摘要。
                 </Text>
                 <Text size="sm">
-                  实际项目中，你可以在这里放置富文本说明、字段分组、附件列表等内容，保持信息结构清晰，让阅读体验更加顺畅。
+                  在真实项目中，你可以根据实际业务字段，扩展更多描述内容，例如风险提示、关联资源、备注说明等，帮助使用者快速理解当前记录。
                 </Text>
               </Stack>
             </Paper>
@@ -138,26 +132,23 @@ export function ProfileBasicPage() {
                 操作记录
               </Text>
               <Timeline active={2} bulletSize={18} lineWidth={2}>
-                <Timeline.Item
-                  title="提交申请"
-                  bullet={<IconUser size={12} />}
-                >
+                <Timeline.Item title="提交申请" bullet={<IconUser size={12} />}>
                   <Text size="sm" c="dimmed">
-                    张三 提交订单
+                    王小明 发起审批
                   </Text>
                   <Text size="xs" c="dimmed">
                     2024-10-10 14:00:39
                   </Text>
                 </Timeline.Item>
-                <Timeline.Item title="主管审核">
+                <Timeline.Item title="审批通过">
                   <Text size="sm" c="dimmed">
-                    李四 审核通过
+                    李主管 审批通过
                   </Text>
                   <Text size="xs" c="dimmed">
                     2024-10-10 15:32:10
                   </Text>
                 </Timeline.Item>
-                <Timeline.Item title="流程完成">
+                <Timeline.Item title="归档完成">
                   <Text size="sm" c="dimmed">
                     系统 自动归档
                   </Text>

@@ -22,8 +22,8 @@ import { Logo } from '@/shared/ui'
 import classes from './Login.module.css'
 
 /**
- * 登录页面组件
- * 参考 Arco Design Pro 设计,支持用户名或邮箱登录
+ * 登录页面
+ * 参考 Arco Design Pro 设计，支持用户名或邮箱登录
  */
 export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(true)
@@ -44,14 +44,12 @@ export default function LoginPage() {
     validate: {
       username: value =>
         value.trim().length >= 2 ? null : '请输入用户名或邮箱',
-      password: value => (value.length >= 6 ? null : '密码至少需要6个字符'),
+      password: value =>
+        value.length >= 6 ? null : '密码至少需要 6 个字符',
     },
   })
 
-  const handleSubmit = async (values: {
-    username: string
-    password: string
-  }) => {
+  const handleSubmit = async (values: { username: string; password: string }) => {
     setLoading(true)
 
     try {
@@ -59,14 +57,14 @@ export default function LoginPage() {
 
       notifications.show({
         title: '登录成功',
-        message: '欢迎回来！',
+        message: '欢迎回来',
         color: 'green',
       })
 
       // 导航到之前的页面或默认的仪表盘
       navigate(from, { replace: true })
     } catch {
-      // 错误处理已在auth.tsx中完成
+      // 错误处理已在 auth 模块中完成
     } finally {
       setLoading(false)
     }
@@ -95,10 +93,10 @@ export default function LoginPage() {
 
         <Title className={classes.mainTitle}>企业级中后台解决方案</Title>
         <Text className={classes.subtitle}>
-          开箱即用的高质量模板，助力团队提升开发效率
+          开箱即用的高质量模板，助力团队提升开发效率。
         </Text>
 
-        {/* 现代化装饰性插图 */}
+        {/* 现代化装饰性插画 */}
         <Box className={classes.illustration}>
           <svg
             viewBox="0 0 400 300"
@@ -175,13 +173,15 @@ export default function LoginPage() {
           </Box>
 
           <Title className={classes.formTitle}>登录 Fordoes</Title>
-          <Text className={classes.formDescription}>登录 Fordoes</Text>
+          <Text className={classes.formDescription}>
+            使用账号登录 Fordoes 管理后台
+          </Text>
 
           <Paper className={classes.formContainer}>
             <form onSubmit={form.onSubmit(handleSubmit)}>
               <Stack gap="lg">
                 <TextInput
-                  label="用户名"
+                  label="用户名 / 邮箱"
                   placeholder="admin 或 admin@x.com"
                   leftSection={<User size={18} />}
                   size="md"
@@ -220,7 +220,7 @@ export default function LoginPage() {
                 </Button>
 
                 <Text className={classes.registerLink}>
-                  还没有账户?{' '}
+                  还没有账户？{' '}
                   <Anchor component={Link} to="/register" fw={500}>
                     注册账号
                   </Anchor>
@@ -232,7 +232,7 @@ export default function LoginPage() {
           {/* 提示信息 */}
           <Paper className={classes.hintCard}>
             <Text className={classes.hintText}>
-              💡 测试账号: admin 或 admin@x.com / 密码: 123456
+              💡 测试账号：admin / admin@x.com，密码：123456
             </Text>
           </Paper>
         </Container>
@@ -240,3 +240,4 @@ export default function LoginPage() {
     </Flex>
   )
 }
+

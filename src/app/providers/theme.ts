@@ -8,7 +8,7 @@ import {
 
 /**
  * Mantine theme configuration
- * Central place for spacing / radius / typography so the UI stays consistent.
+ * 集中管理 spacing / radius / typography，保证全局一致性。
  */
 export const theme = createTheme({
   // Base scale and rendering
@@ -21,7 +21,7 @@ export const theme = createTheme({
   // Global font family
   fontFamily: FONT_FAMILIES.sans,
 
-  // Breakpoints (kept from original config)
+  // Breakpoints（保持原有配置）
   breakpoints: {
     xs: '36em', // 576px
     sm: '48em', // 768px
@@ -31,12 +31,13 @@ export const theme = createTheme({
   },
 
   // Font sizes derived from FIXED_FONT_SIZES
+  // 约束：正文 14px，组件字号最大 16px（标题单独控制）
   fontSizes: {
-    xs: `${FIXED_FONT_SIZES.xs}rem`,
-    sm: `${FIXED_FONT_SIZES.sm}rem`,
-    md: `${FIXED_FONT_SIZES.md}rem`,
-    lg: `${FIXED_FONT_SIZES.lg}rem`,
-    xl: `${FIXED_FONT_SIZES.xl}rem`,
+    xs: `${FIXED_FONT_SIZES.xs}rem`, // 13px
+    sm: `${FIXED_FONT_SIZES.sm}rem`, // 14px（默认正文）
+    md: `${FIXED_FONT_SIZES.md}rem`, // 16px（组件最大字号）
+    lg: `${FIXED_FONT_SIZES.md}rem`, // 收敛到 16px
+    xl: `${FIXED_FONT_SIZES.md}rem`, // 收敛到 16px
   },
 
   // Line heights
@@ -57,7 +58,7 @@ export const theme = createTheme({
     xl: rem(32),
   },
 
-  // Radius system (slightly lighter to reduce visual heaviness)
+  // Radius system（稍微轻一点，避免太重）
   radius: {
     xs: rem(2),
     sm: rem(4),
@@ -77,39 +78,45 @@ export const theme = createTheme({
     xl: '0 0.75rem 1.5rem rgba(0, 0, 0, 0.16)',
   },
 
-  // Heading styles
+  // Heading styles：正文 14px，主标题 18px，其它标题按层级递减
   headings: {
     fontFamily: FONT_FAMILIES.sans,
     fontWeight: String(FONT_WEIGHTS.semibold),
     sizes: {
       h1: {
-        fontSize: rem(FIXED_FONT_SIZES['3xl']),
-        lineHeight: String(LINE_HEIGHTS.tight),
+        // 内容页主标题：18px（全局最大）
+        fontSize: `${FIXED_FONT_SIZES.lg}rem`, // 18px
+        lineHeight: String(LINE_HEIGHTS.normal),
       },
       h2: {
-        fontSize: rem(FIXED_FONT_SIZES['2xl']),
-        lineHeight: '1.3',
-      },
-      h3: {
-        fontSize: rem(FIXED_FONT_SIZES.xl),
+        // 二级标题：16px
+        fontSize: `${FIXED_FONT_SIZES.md}rem`, // 16px
         lineHeight: '1.35',
       },
+      h3: {
+        // 三级标题：14px
+        fontSize: `${FIXED_FONT_SIZES.sm}rem`, // 14px
+        lineHeight: '1.4',
+      },
       h4: {
-        fontSize: rem(FIXED_FONT_SIZES.lg),
+        // 四级标题：13px
+        fontSize: `${FIXED_FONT_SIZES.xs}rem`, // 13px
         lineHeight: '1.4',
       },
       h5: {
-        fontSize: rem(FIXED_FONT_SIZES.md),
+        // 五级标题：12px
+        fontSize: `${FIXED_FONT_SIZES.xxs}rem`, // 12px
         lineHeight: String(LINE_HEIGHTS.normal),
       },
       h6: {
-        fontSize: rem(FIXED_FONT_SIZES.sm),
+        // 六级标题：12px（与 h5 一致，用得很少）
+        fontSize: `${FIXED_FONT_SIZES.xxs}rem`, // 12px
         lineHeight: String(LINE_HEIGHTS.normal),
       },
     },
   },
 
-  // Component-level defaults to make the overall UI more compact by default
+  // Component-level defaults：整体偏紧凑
   components: {
     Text: {
       defaultProps: {

@@ -97,7 +97,7 @@ export function FormGroupPage() {
         <Group justify="space-between" className={classes.header}>
           <div className={classes.headerTitle}>
             <Group gap="xs">
-              <Title order={2}>分组表单</Title>
+              <Title order={1}>分组表单</Title>
               <Badge color="blue" variant="light">
                 新建项目
               </Badge>
@@ -125,9 +125,9 @@ export function FormGroupPage() {
             </Button>
             <Button
               color="blue"
-              leftSection={<IconSend size={16} />}
               type="submit"
               form="group-form"
+              leftSection={<IconSend size={16} />}
               loading={submitting}
             >
               提交
@@ -141,9 +141,9 @@ export function FormGroupPage() {
               <Stack gap="xl">
                 <Paper withBorder radius="md" p="xl">
                   <div className={classes.sectionHeader}>
-                    <Text className={classes.sectionTitle}>基本信息</Text>
+                    <Text className={classes.sectionTitle}>基础信息</Text>
                     <Text className={classes.sectionDescription}>
-                      填写项目的基础信息，用于在列表、详情页中进行展示和检索。
+                      填写项目的基础属性，用于在列表和详情页中快速识别。
                     </Text>
                   </div>
 

@@ -1,6 +1,6 @@
 /**
  * Typography configuration
- * Single source of truth for font sizes / line heights / weights.
+ * Single source of truth for font sizes, line heights and font weights.
  * All theme and component typography should reference values from here.
  */
 
@@ -12,17 +12,18 @@ export const BASE_FONT_SIZE = 16
 /**
  * Fluid font sizes using CSS clamp()
  * Format: clamp(min, preferred, max)
+ * Approximate ranges are based on BASE_FONT_SIZE = 16px.
  */
 export const FLUID_FONT_SIZES = {
-  xxs: 'clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem)', // 12–14px
-  xs: 'clamp(0.875rem, 0.8rem + 0.375vw, 1rem)', // 14–16px
-  sm: 'clamp(1rem, 0.9rem + 0.5vw, 1.125rem)', // 16–18px
-  md: 'clamp(1rem, 0.95rem + 0.5vw, 1.25rem)', // 16–20px
-  lg: 'clamp(1.125rem, 1.05rem + 0.625vw, 1.375rem)', // 18–22px
-  xl: 'clamp(1.25rem, 1.15rem + 0.75vw, 1.5rem)', // 20–24px
-  '2xl': 'clamp(1.625rem, 1.45rem + 1.125vw, 2rem)', // 26–32px
-  '3xl': 'clamp(2.125rem, 1.75rem + 2vw, 2.625rem)', // 34–42px
-  '4xl': 'clamp(2.625rem, 2.125rem + 2.5vw, 3.25rem)', // 42–52px
+  xxs: 'clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem)', // ~12-14px
+  xs: 'clamp(0.875rem, 0.8rem + 0.375vw, 1rem)', // ~14-16px
+  sm: 'clamp(1rem, 0.9rem + 0.5vw, 1.125rem)', // ~16-18px
+  md: 'clamp(1rem, 0.95rem + 0.5vw, 1.25rem)', // ~16-20px
+  lg: 'clamp(1.125rem, 1.05rem + 0.625vw, 1.375rem)', // ~18-22px
+  xl: 'clamp(1.25rem, 1.15rem + 0.75vw, 1.5rem)', // ~20-24px
+  '2xl': 'clamp(1.625rem, 1.45rem + 1.125vw, 2rem)', // ~26-32px
+  '3xl': 'clamp(2.125rem, 1.75rem + 2vw, 2.625rem)', // ~34-42px
+  '4xl': 'clamp(2.625rem, 2.125rem + 2.5vw, 3.25rem)', // ~42-52px
 } as const
 
 /**

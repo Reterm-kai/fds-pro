@@ -99,7 +99,7 @@ export function FormStepPage() {
       <div className={classes.inner}>
         <Group justify="space-between" className={classes.header}>
           <div className={classes.headerTitle}>
-            <Title order={2}>分步表单</Title>
+            <Title order={1}>分步表单</Title>
             <Text size="sm" c="dimmed">
               使用分步表单将复杂流程拆解为多个阶段，引导用户按步骤完成填写，
               降低单屏信息密度，提升可用性。
@@ -128,7 +128,10 @@ export function FormStepPage() {
                 label="发布配置"
                 description="确认发布参数"
               />
-              <Stepper.Completed>完成</Stepper.Completed>
+              <Stepper.Step
+                label="完成"
+                description="等待审核结果"
+              />
             </Stepper>
           </div>
 

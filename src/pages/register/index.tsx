@@ -24,7 +24,7 @@ import { Logo } from '@/shared/ui'
 import classes from './Register.module.css'
 
 /**
- * 注册页面组件
+ * 注册页面
  * 提供用户注册功能，包含表单验证和第三方注册选项
  */
 export function RegisterPage() {
@@ -42,10 +42,12 @@ export function RegisterPage() {
       agreeTerms: false,
     },
     validate: {
-      name: value => (value.length >= 2 ? null : '姓名至少需要2个字符'),
+      name: value =>
+        value.trim().length >= 2 ? null : '姓名至少需要 2 个字符',
       email: value =>
         /^\S+@\S+\.\S+$/.test(value) ? null : '请输入有效的邮箱地址',
-      password: value => (value.length >= 6 ? null : '密码至少需要6个字符'),
+      password: value =>
+        value.length >= 6 ? null : '密码至少需要 6 个字符',
       confirmPassword: (value, values) =>
         value === values.password ? null : '两次输入的密码不一致',
       agreeTerms: value => (value ? null : '请同意用户条款和服务协议'),
@@ -76,7 +78,7 @@ export function RegisterPage() {
       // 注册成功后跳转到登录页面
       navigate('/login')
     } catch {
-      // 错误处理已在auth.tsx中完成
+      // 错误处理已在 auth 模块中完成
     } finally {
       setLoading(false)
     }
@@ -86,7 +88,7 @@ export function RegisterPage() {
   const handleSocialRegister = (provider: string) => {
     notifications.show({
       title: '提示',
-      message: `正在使用${provider}注册（模拟功能）`,
+      message: `正在使用 ${provider} 注册（模拟功能）`,
       color: 'blue',
     })
   }
@@ -114,10 +116,10 @@ export function RegisterPage() {
 
         <Title className={classes.mainTitle}>开启您的开发之旅</Title>
         <Text className={classes.subtitle}>
-          现代化的企业级中后台解决方案，助力团队高效协作
+          现代化的企业级中后台解决方案，助力团队高效协作。
         </Text>
 
-        {/* 现代化装饰性插图 */}
+        {/* 现代化装饰性插画 */}
         <Box className={classes.illustration}>
           <svg
             viewBox="0 0 400 300"
@@ -137,7 +139,7 @@ export function RegisterPage() {
               </radialGradient>
             </defs>
 
-            {/* 背景大圆 - 创建层次感 */}
+            {/* 背景大圆 */}
             <circle
               cx="200"
               cy="150"
@@ -146,7 +148,7 @@ export function RegisterPage() {
               opacity="0.3"
             />
 
-            {/* 主要卡片 1 - 浮动效果 */}
+            {/* 主要卡片 1 */}
             <rect
               x="100"
               y="80"
@@ -157,7 +159,7 @@ export function RegisterPage() {
               className={classes.floatingCard1}
             />
 
-            {/* 主要卡片 2 - 浮动效果 */}
+            {/* 主要卡片 2 */}
             <rect
               x="130"
               y="120"
@@ -174,7 +176,7 @@ export function RegisterPage() {
             <circle cx="150" cy="200" r="5" fill="rgba(255,255,255,0.6)" />
             <circle cx="300" cy="180" r="7" fill="rgba(255,255,255,0.3)" />
 
-            {/* 装饰线条 - 数据可视化风格 */}
+            {/* 装饰线条 */}
             <path
               d="M 120 130 Q 160 110, 200 130 T 280 140"
               stroke="rgba(255,255,255,0.3)"
@@ -194,7 +196,9 @@ export function RegisterPage() {
           </Box>
 
           <Title className={classes.formTitle}>注册 Fordoes</Title>
-          <Text className={classes.formDescription}>注册 Fordoes</Text>
+          <Text className={classes.formDescription}>
+            创建一个新账户以体验完整功能
+          </Text>
 
           <Paper className={classes.formContainer}>
             <form onSubmit={form.onSubmit(handleSubmit)}>
@@ -248,7 +252,7 @@ export function RegisterPage() {
                 </Button>
 
                 <Text className={classes.loginLink}>
-                  已有账户?{' '}
+                  已有账户？{' '}
                   <Anchor component={Link} to="/login" fw={500}>
                     立即登录
                   </Anchor>
@@ -303,3 +307,4 @@ export function RegisterPage() {
 }
 
 export default RegisterPage
+

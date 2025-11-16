@@ -13,8 +13,8 @@ interface BaseExceptionPageProps {
 }
 
 /**
- * 通用异常页布局组件，参考 Mantine Error pages 设计
- * 用于 403 / 404 / 500 等通用异常场景
+ * 通用异常页布局组件（403 / 404 / 500 等）
+ * 参考 Mantine Error pages，统一异常页视觉与交互
  */
 function BaseExceptionPage({
   code,
@@ -29,7 +29,7 @@ function BaseExceptionPage({
   }
 
   const handleRefresh = () => {
-    // 刷新当前页面，确保重新加载所有资源（用于 500 服务异常场景）
+    // 刷新当前页面，重新加载所有资源（用于 500 服务异常场景）
     window.location.reload()
   }
 
@@ -71,7 +71,7 @@ export function Exception403() {
     <BaseExceptionPage
       code="403"
       title="抱歉，您暂无权限访问该页面"
-      description="请检查您的账户权限，或联系管理员为您分配访问权限。"
+      description="请检查您的账户权限，或联系管理员为您分配相应的访问权限。"
       variant="home-only"
     />
   )

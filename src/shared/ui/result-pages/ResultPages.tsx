@@ -218,10 +218,10 @@ export function ResultError() {
 
               <div>
                 <Text className={classes.errorItemTitle}>
-                  当前操作不符合业务审批流程
+                  当前操作不符合业务审批流
                 </Text>
                 <Text className={classes.errorItemDescription}>
-                  请确认流程配置是否最新，或与业务负责人确认审批路径。
+                  请确认流程配置是否为最新版本，或与业务负责人确认审批路径后再尝试。
                 </Text>
               </div>
             </Group>
@@ -246,7 +246,7 @@ export function ResultError() {
                   提交内容包含不合法参数
                 </Text>
                 <Text className={classes.errorItemDescription}>
-                  请检查表单字段是否填写完整、格式是否正确（如手机号、邮箱等）。
+                  请检查表单字段是否填写完整、格式是否正确（例如手机号、邮箱等），再重新提交。
                 </Text>
               </div>
             </Group>
