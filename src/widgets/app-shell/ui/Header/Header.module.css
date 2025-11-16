@@ -1,17 +1,15 @@
 .header {
   background-color: var(--mantine-color-body);
-  border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
-    light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-3));
-  min-height: calc(var(--mantine-spacing-xl) * 1.875);
+  height: 100%;
 }
 
 .inner {
-  min-height: calc(var(--mantine-spacing-xl) * 1.875);
+  height: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: var(--mantine-spacing-md);
-  padding-right: var(--mantine-spacing-md);
+  padding-left: var(--mantine-spacing-xl);
+  padding-right: var(--mantine-spacing-xl);
 }
 
 @media (max-width: 30rem) {

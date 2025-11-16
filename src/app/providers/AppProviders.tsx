@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { RouterProvider } from 'react-router-dom'
 import { router } from '@/app/routes'
 import { queryClient } from '@/shared/config/queryClient'
+import { theme } from './theme'
 
 /**
  * 应用级 Provider 组合
@@ -19,7 +20,7 @@ import { queryClient } from '@/shared/config/queryClient'
 export function AppProviders() {
   return (
     <QueryClientProvider client={queryClient}>
-      <MantineProvider defaultColorScheme="auto">
+      <MantineProvider theme={theme} defaultColorScheme="auto">
         <ModalsProvider>
           <Notifications position="top-right" />
           <RouterProvider router={router} />
