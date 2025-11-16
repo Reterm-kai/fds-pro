@@ -1,18 +1,15 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { devtools } from 'zustand/middleware'
-import { User } from '@/entities/user'
+import { notifications } from '@mantine/notifications'
+import type { User } from '@/entities/user'
 import {
   login as apiLogin,
   register as apiRegister,
   logout as apiLogout,
   getCurrentUser,
 } from '../api/authApi'
-import { notifications } from '@mantine/notifications'
 
-/**
- * 认证状态接口
- */
 interface AuthState {
   user: User | null
   isAuthenticated: boolean
@@ -32,10 +29,6 @@ interface AuthState {
   initialize: () => Promise<void>
 }
 
-/**
- * 认证 Store
- * 使用 Zustand 管理全局认证状态
- */
 export const useAuthStore = create<AuthState>()(
   devtools(
     persist(
@@ -45,11 +38,16 @@ export const useAuthStore = create<AuthState>()(
         isInitialized: false,
 
         setUser: user =>
-          set({ user, isAuthenticated: !!user }, false, 'auth/setUser'),
+          set(
+            { user, isAuthenticated: Boolean(user) },
+            false,
+            'auth/setUser'
+          ),
 
         login: async (username, password, rememberMe = true) => {
           try {
             const response = await apiLogin({ username, password })
+
             set(
               {
                 user: response.user,
@@ -59,22 +57,23 @@ export const useAuthStore = create<AuthState>()(
               'auth/login'
             )
 
-            // 根据 rememberMe 决定持久化行为
-            // 持久化由 persist 中间件自动处理
+            // 记录是否需要持久化登录状态
             if (!rememberMe) {
-              // 如果不记住我,登出时清除存储
+              // 不记住我：通过标记控制后续登出时清理持久化存储
               sessionStorage.setItem('auth-no-persist', 'true')
             } else {
               sessionStorage.removeItem('auth-no-persist')
             }
           } catch (err) {
             const message =
-              err instanceof Error ? err.message : '登录失败,请重试'
+              err instanceof Error ? err.message : '登录失败，请重试'
+
             notifications.show({
               title: '登录失败',
               message,
               color: 'red',
             })
+
             throw err
           }
         },
@@ -82,20 +81,24 @@ export const useAuthStore = create<AuthState>()(
         register: async userData => {
           try {
             const newUser = await apiRegister(userData)
+
             notifications.show({
               title: '注册成功',
-              message: '账户创建成功,请登录',
+              message: '账户创建成功，请登录',
               color: 'green',
             })
+
             return newUser
           } catch (err) {
             const message =
-              err instanceof Error ? err.message : '注册失败,请重试'
+              err instanceof Error ? err.message : '注册失败，请重试'
+
             notifications.show({
               title: '注册失败',
               message,
               color: 'red',
             })
+
             throw err
           }
         },
@@ -104,7 +107,8 @@ export const useAuthStore = create<AuthState>()(
           try {
             await apiLogout()
           } catch {
-            console.warn('登出 API 调用失败,但仍清除本地认证状态')
+            // 接口失败时仍然清理本地状态，保证安全退出
+            console.warn('登出 API 调用失败，但仍清除本地认证状态')
           }
 
           set(
@@ -116,54 +120,71 @@ export const useAuthStore = create<AuthState>()(
             'auth/logout'
           )
 
-          // 如果设置了不持久化标志,清除存储
+          // 如果之前选择了“仅本次登录”，在登出时清除持久化存储
           if (sessionStorage.getItem('auth-no-persist') === 'true') {
             localStorage.removeItem('auth-storage')
             sessionStorage.removeItem('auth-no-persist')
           }
+
+          notifications.show({
+            title: '退出成功',
+            message: '您已安全退出登录。',
+            color: 'green',
+          })
         },
 
         initialize: async () => {
-          // persist 中间件已经自动恢复了状态
-          // 这里只需要验证 token 是否仍然有效(可选)
+          // persist 中间件已恢复本地存储的 user / isAuthenticated
+          // 这里只负责校验当前登录态是否仍然有效
           const currentState = useAuthStore.getState()
 
           if (currentState.user) {
-            // 在开发环境下,由于 MSW 的 sessions 在刷新后会丢失
-            // 我们跳过 token 验证,直接信任 localStorage 中的数据
-            // 生产环境应该验证 token
             if (import.meta.env.DEV) {
-              console.log('[Auth] 开发环境:跳过 token 验证,使用缓存的用户数据')
-              set({ isInitialized: true }, false, 'auth/initialize')
-            } else {
-              // 生产环境:验证 token 是否有效
-              try {
-                const userData = await getCurrentUser()
-                set(
-                  {
-                    user: userData,
-                    isAuthenticated: true,
-                    isInitialized: true,
-                  },
-                  false,
-                  'auth/initialize'
-                )
-              } catch {
-                // Token 无效,清除状态
-                console.warn('[Auth] Token 验证失败,已清除本地状态')
-                set(
-                  {
-                    user: null,
-                    isAuthenticated: false,
-                    isInitialized: true,
-                  },
-                  false,
-                  'auth/initialize'
-                )
-              }
+              // 开发环境下，MSW session 在刷新后会丢失
+              // 为避免频繁退出，这里直接信任本地缓存的用户信息
+              set(
+                { isInitialized: true },
+                false,
+                'auth/initialize/dev-skip-verify'
+              )
+              return
+            }
+
+            try {
+              const userData = await getCurrentUser()
+
+              set(
+                {
+                  user: userData,
+                  isAuthenticated: true,
+                  isInitialized: true,
+                },
+                false,
+                'auth/initialize'
+              )
+            } catch {
+              // Token 无效，清除本地状态
+              console.warn(
+                '[Auth] Token 校验失败，已清除本地认证状态'
+              )
+
+              set(
+                {
+                  user: null,
+                  isAuthenticated: false,
+                  isInitialized: true,
+                },
+                false,
+                'auth/initialize/invalid-token'
+              )
             }
           } else {
-            set({ isInitialized: true }, false, 'auth/initialize')
+            // 本地无用户信息，视为未登录但完成初始化
+            set(
+              { isInitialized: true },
+              false,
+              'auth/initialize/no-user'
+            )
           }
         },
       }),
@@ -180,17 +201,7 @@ export const useAuthStore = create<AuthState>()(
   )
 )
 
-/**
- * 选择器:仅订阅用户信息
- */
 export const selectUser = (state: AuthState) => state.user
-
-/**
- * 选择器:仅订阅认证状态
- */
 export const selectIsAuthenticated = (state: AuthState) => state.isAuthenticated
-
-/**
- * 选择器:仅订阅初始化状态
- */
 export const selectIsInitialized = (state: AuthState) => state.isInitialized
+

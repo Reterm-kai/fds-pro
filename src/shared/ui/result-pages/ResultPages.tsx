@@ -1,13 +1,4 @@
-import {
-  Button,
-  Container,
-  Group,
-  List,
-  Paper,
-  Text,
-  ThemeIcon,
-  Title,
-} from '@mantine/core'
+import { Button, Container, Group, Paper, Text, ThemeIcon, Title } from '@mantine/core'
 import {
   IconArrowLeft,
   IconArrowRight,
@@ -24,16 +15,10 @@ interface BaseResultPageProps {
   status: ResultStatus
   title: string
   description: string
-  details?: string[]
 }
 
-// Base layout for result pages (success / error)
-function BaseResultPage({
-  status,
-  title,
-  description,
-  details,
-}: BaseResultPageProps) {
+// 基础结果页布局（成功 / 失败共用）
+function BaseResultPage({ status, title, description }: BaseResultPageProps) {
   const navigate = useNavigate()
   const isSuccess = status === 'success'
   const Icon = isSuccess ? IconCircleCheck : IconCircleX
@@ -53,7 +38,7 @@ function BaseResultPage({
 
   return (
     <div className={classes.root}>
-      <Container size="sm" className={classes.inner}>
+      <Container size="md" className={classes.inner}>
         <Paper withBorder radius="lg" className={classes.card}>
           <Group justify="center" className={classes.header}>
             <ThemeIcon
@@ -73,47 +58,44 @@ function BaseResultPage({
 
           <Text className={classes.description}>{description}</Text>
 
-          {details && details.length > 0 && (
-            <List
-              spacing="xs"
-              size="sm"
-              className={classes.list}
-              center
-              icon={<IconArrowRight size={16} />}
-            >
-              {details.map(item => (
-                <List.Item key={item}>{item}</List.Item>
-              ))}
-            </List>
-          )}
-
           <Group justify="center" className={classes.actions}>
-            {!isSuccess && (
-              <Button
-                variant="light"
-                color={color}
-                leftSection={<IconRefresh size={16} />}
-                onClick={handleRetry}
-              >
-                Retry
-              </Button>
+            {isSuccess ? (
+              <>
+                <Button
+                  color="blue"
+                  leftSection={<IconArrowRight size={16} />}
+                  onClick={handleGoDashboard}
+                >
+                  返回列表
+                </Button>
+
+                <Button
+                  variant="subtle"
+                  leftSection={<IconArrowLeft size={16} />}
+                  onClick={handleGoBack}
+                >
+                  返回上一页
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  color={color}
+                  leftSection={<IconRefresh size={16} />}
+                  onClick={handleRetry}
+                >
+                  重试
+                </Button>
+
+                <Button
+                  variant="subtle"
+                  leftSection={<IconArrowLeft size={16} />}
+                  onClick={handleGoBack}
+                >
+                  返回上一页
+                </Button>
+              </>
             )}
-
-            <Button
-              variant="outline"
-              leftSection={<IconArrowLeft size={16} />}
-              onClick={handleGoBack}
-            >
-              Back
-            </Button>
-
-            <Button
-              color="blue"
-              leftSection={<IconArrowRight size={16} />}
-              onClick={handleGoDashboard}
-            >
-              Go to dashboard
-            </Button>
           </Group>
         </Paper>
       </Container>
@@ -125,12 +107,8 @@ export function ResultSuccess() {
   return (
     <BaseResultPage
       status="success"
-      title="Operation succeeded"
-      description="The operation has been completed successfully. You can now view the latest data in the corresponding list or dashboard."
-      details={[
-        'The operation log has been recorded for further audit.',
-        'You can go back to the feature page to continue the workflow.',
-      ]}
+      title="提交成功"
+      description="表单已成功提交，可以在列表或详情中查看结果。"
     />
   )
 }
@@ -139,12 +117,8 @@ export function ResultError() {
   return (
     <BaseResultPage
       status="error"
-      title="Operation failed"
-      description="An error occurred while processing your request."
-      details={[
-        'Please check your network connection or try again later.',
-        'If the problem persists, contact the system administrator.',
-      ]}
+      title="提交失败"
+      description="处理请求时出现问题，请重试或联系管理员。"
     />
   )
 }

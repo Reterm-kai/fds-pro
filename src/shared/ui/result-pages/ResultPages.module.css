@@ -33,25 +33,19 @@
 
 .title {
   text-align: center;
-  font-size: calc(var(--mantine-font-size-xl) * 1.2);
+  font-size: calc(var(--mantine-font-size-xl) * 1.35);
   font-weight: 600;
   color: var(--mantine-color-text);
-  margin-bottom: var(--mantine-spacing-xs);
+  margin-bottom: var(--mantine-spacing-sm);
 }
 
 .description {
   text-align: center;
   font-size: var(--mantine-font-size-sm);
   color: var(--mantine-color-dimmed);
-  margin-bottom: var(--mantine-spacing-md);
-}
-
-.list {
-  margin-top: var(--mantine-spacing-sm);
-  margin-bottom: var(--mantine-spacing-lg);
+  margin-bottom: var(--mantine-spacing-xl);
 }
 
 .actions {
   margin-top: var(--mantine-spacing-lg);
 }
-
