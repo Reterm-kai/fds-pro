@@ -10,6 +10,7 @@ import {
   Title,
 } from '@mantine/core'
 import {
+  IconAlertCircle,
   IconArrowLeft,
   IconArrowRight,
   IconCircleCheck,
@@ -28,8 +29,12 @@ interface BaseResultPageProps {
   footer?: ReactNode
 }
 
-// 基础结果页布局（成功 / 失败共用）
-function BaseResultPage({ status, title, description, footer }: BaseResultPageProps) {
+function BaseResultPage({
+  status,
+  title,
+  description,
+  footer,
+}: BaseResultPageProps) {
   const navigate = useNavigate()
   const isSuccess = status === 'success'
   const Icon = isSuccess ? IconCircleCheck : IconCircleX
@@ -156,7 +161,98 @@ export function ResultError() {
     <BaseResultPage
       status="error"
       title="提交失败"
-      description="处理请求时出现问题，请稍后重试或联系管理员。"
+      description="提交未成功，请核对并修改以下信息后，再重新提交。"
+      footer={
+        <Paper withBorder radius="md" className={classes.progressCard}>
+          <Group justify="space-between" className={classes.progressHeader}>
+            <Text className={classes.progressTitle}>失败原因</Text>
+            <Text className={classes.progressExtra}>
+              错误编号：REQ-20241010-0001
+            </Text>
+          </Group>
+
+          <Text className={classes.errorIntro}>
+            您提交的内容有如下错误：
+          </Text>
+
+          <div className={classes.errorList}>
+            <Group
+              align="flex-start"
+              wrap="nowrap"
+              className={classes.errorItem}
+            >
+              <ThemeIcon
+                radius="xl"
+                size="sm"
+                variant="light"
+                color="red"
+                className={classes.errorItemIcon}
+              >
+                <IconAlertCircle size={16} />
+              </ThemeIcon>
+
+              <div>
+                <Text className={classes.errorItemTitle}>
+                  您没有此模块的操作权限
+                </Text>
+                <Text className={classes.errorItemDescription}>
+                  请联系管理员为你分配相应权限后，再重新提交。
+                </Text>
+              </div>
+            </Group>
+
+            <Group
+              align="flex-start"
+              wrap="nowrap"
+              className={classes.errorItem}
+            >
+              <ThemeIcon
+                radius="xl"
+                size="sm"
+                variant="light"
+                color="red"
+                className={classes.errorItemIcon}
+              >
+                <IconAlertCircle size={16} />
+              </ThemeIcon>
+
+              <div>
+                <Text className={classes.errorItemTitle}>
+                  当前操作不符合业务审批流程
+                </Text>
+                <Text className={classes.errorItemDescription}>
+                  请确认流程配置是否最新，或与业务负责人确认审批路径。
+                </Text>
+              </div>
+            </Group>
+
+            <Group
+              align="flex-start"
+              wrap="nowrap"
+              className={classes.errorItem}
+            >
+              <ThemeIcon
+                radius="xl"
+                size="sm"
+                variant="light"
+                color="red"
+                className={classes.errorItemIcon}
+              >
+                <IconAlertCircle size={16} />
+              </ThemeIcon>
+
+              <div>
+                <Text className={classes.errorItemTitle}>
+                  提交内容包含不合法参数
+                </Text>
+                <Text className={classes.errorItemDescription}>
+                  请检查表单字段是否填写完整、格式是否正确（如手机号、邮箱等）。
+                </Text>
+              </div>
+            </Group>
+          </div>
+        </Paper>
+      }
     />
   )
 }

@@ -79,3 +79,36 @@
   padding-inline: calc(var(--mantine-spacing-xl) * 0.5);
 }
 
+.errorIntro {
+  margin-bottom: var(--mantine-spacing-md);
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-text);
+}
+
+.errorList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--mantine-spacing-sm);
+}
+
+.errorItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--mantine-spacing-sm);
+}
+
+.errorItemIcon {
+  margin-top: calc(var(--mantine-spacing-xs) * 0.2);
+}
+
+.errorItemTitle {
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 500;
+  color: var(--mantine-color-text);
+}
+
+.errorItemDescription {
+  margin-top: calc(var(--mantine-spacing-xs) * 0.2);
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-dimmed);
+}
