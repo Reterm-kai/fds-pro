@@ -12,7 +12,6 @@ import {
   Title,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { notifications } from '@mantine/notifications'
 import {
   IconArrowLeft,
   IconArrowRight,
@@ -21,6 +20,7 @@ import {
   IconSettings,
 } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
+import { showSuccessNotification } from '@/shared/ui'
 import classes from './FormStep.module.css'
 
 interface StepFormValues {
@@ -81,10 +81,9 @@ export function FormStepPage() {
     setSubmitting(true)
     window.setTimeout(() => {
       setSubmitting(false)
-      notifications.show({
+      showSuccessNotification({
         title: '提交成功',
-        message: '发布申请已提交，将通知相关负责人进行审核。',
-        color: 'green',
+        message: '发布申请已提交，将通知相关负责人进行审核',
       })
       setActive(2)
     }, 600)
@@ -124,14 +123,8 @@ export function FormStepPage() {
                 label="基础信息"
                 description="填写申请人信息"
               />
-              <Stepper.Step
-                label="发布配置"
-                description="确认发布参数"
-              />
-              <Stepper.Step
-                label="完成"
-                description="等待审核结果"
-              />
+              <Stepper.Step label="发布配置" description="确认发布参数" />
+              <Stepper.Completed>完成</Stepper.Completed>
             </Stepper>
           </div>
 

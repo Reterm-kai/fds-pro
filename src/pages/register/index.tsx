@@ -17,10 +17,9 @@ import {
 } from '@mantine/core'
 import { Mail, Lock, User, Github } from 'lucide-react'
 import { useNavigate, Link } from 'react-router-dom'
-import { notifications } from '@mantine/notifications'
 import { useForm } from '@mantine/form'
 import { useAuth } from '@/features/auth'
-import { Logo } from '@/shared/ui'
+import { Logo, showInfoNotification, showSuccessNotification } from '@/shared/ui'
 import classes from './Register.module.css'
 
 /**
@@ -69,10 +68,9 @@ export function RegisterPage() {
         password: values.password,
       })
 
-      notifications.show({
+      showSuccessNotification({
         title: '注册成功',
         message: '账户创建成功，请登录',
-        color: 'green',
       })
 
       // 注册成功后跳转到登录页面
@@ -86,10 +84,9 @@ export function RegisterPage() {
 
   // 模拟第三方注册功能
   const handleSocialRegister = (provider: string) => {
-    notifications.show({
+    showInfoNotification({
       title: '提示',
       message: `正在使用 ${provider} 注册（模拟功能）`,
-      color: 'blue',
     })
   }
 

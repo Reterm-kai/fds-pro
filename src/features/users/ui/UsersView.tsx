@@ -2,12 +2,15 @@ import { useState } from 'react'
 import { Alert, Stack, Group, Button, Text } from '@mantine/core'
 import { AlertCircle, Plus } from 'lucide-react'
 import { modals } from '@mantine/modals'
-import { notifications } from '@mantine/notifications'
 import type { User } from '@/entities/user'
 import { useUserList } from '@/features/users'
 import { useDeleteUser } from '@/features/users'
 import { UserListFilters } from '@/features/users'
 import { UserListTable } from './UserListTable'
+import {
+  showErrorNotification,
+  showSuccessNotification,
+} from '@/shared/ui'
 import { UserForm } from './UserForm'
 
 /**
@@ -63,17 +66,15 @@ export function UsersView() {
       onConfirm: async () => {
         try {
           await deleteUser.mutateAsync(user.id)
-          notifications.show({
+          showSuccessNotification({
             title: '删除成功',
             message: `用户 ${user.name} 已删除`,
-            color: 'green',
           })
         } catch (deleteError) {
-          notifications.show({
+          showErrorNotification({
             title: '删除失败',
             message:
               deleteError instanceof Error ? deleteError.message : '操作失败',
-            color: 'red',
           })
         }
       },

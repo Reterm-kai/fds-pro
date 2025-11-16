@@ -1,10 +1,13 @@
 import { useEffect } from 'react'
 import { Modal, TextInput, Select, Button, Group, Stack } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { notifications } from '@mantine/notifications'
 import { useCreateUser } from '@/features/users'
 import { useUpdateUser } from '@/features/users'
 import type { User, CreateUserParams } from '@/entities/user'
+import {
+  showErrorNotification,
+  showSuccessNotification,
+} from '@/shared/ui'
 
 interface UserFormProps {
   opened: boolean
@@ -65,10 +68,9 @@ export function UserForm({ opened, onClose, user }: UserFormProps) {
             role: values.role,
           },
         })
-        notifications.show({
+        showSuccessNotification({
           title: '更新成功',
           message: `用户 ${values.name} 已更新`,
-          color: 'green',
         })
       } else {
         // 创建用户
@@ -79,19 +81,17 @@ export function UserForm({ opened, onClose, user }: UserFormProps) {
           password: values.password,
         }
         await createUser.mutateAsync(createData)
-        notifications.show({
+        showSuccessNotification({
           title: '创建成功',
           message: `用户 ${values.name} 已创建`,
-          color: 'green',
         })
       }
       onClose()
       form.reset()
     } catch (error) {
-      notifications.show({
+      showErrorNotification({
         title: isEditing ? '更新失败' : '创建失败',
         message: error instanceof Error ? error.message : '操作失败',
-        color: 'red',
       })
     }
   }

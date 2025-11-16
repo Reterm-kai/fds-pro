@@ -15,10 +15,9 @@ import {
 } from '@mantine/core'
 import { User, Lock } from 'lucide-react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
-import { notifications } from '@mantine/notifications'
 import { useForm } from '@mantine/form'
 import { useAuth } from '@/features/auth'
-import { Logo } from '@/shared/ui'
+import { Logo, showSuccessNotification } from '@/shared/ui'
 import classes from './Login.module.css'
 
 /**
@@ -55,10 +54,9 @@ export default function LoginPage() {
     try {
       await login(values.username, values.password, rememberMe)
 
-      notifications.show({
+      showSuccessNotification({
         title: '登录成功',
         message: '欢迎回来',
-        color: 'green',
       })
 
       // 导航到之前的页面或默认的仪表盘
@@ -240,4 +238,3 @@ export default function LoginPage() {
     </Flex>
   )
 }
-

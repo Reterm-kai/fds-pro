@@ -14,7 +14,6 @@ import {
   Title,
 } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { notifications } from '@mantine/notifications'
 import {
   IconArrowLeft,
   IconDeviceFloppy,
@@ -22,6 +21,10 @@ import {
   IconSettings,
 } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
+import {
+  showInfoNotification,
+  showSuccessNotification,
+} from '@/shared/ui'
 import classes from './FormGroup.module.css'
 
 interface GroupFormValues {
@@ -71,19 +74,17 @@ export function FormGroupPage() {
 
     window.setTimeout(() => {
       setSubmitting(false)
-      notifications.show({
+      showSuccessNotification({
         title: '提交成功',
         message: `项目「${values.projectName || '新项目'}」已创建`,
-        color: 'green',
       })
     }, 600)
   }
 
   const handleSaveDraft = () => {
-    notifications.show({
+    showInfoNotification({
       title: '已保存草稿',
-      message: '当前表单内容已临时保存在浏览器内存中（刷新页面将会丢失）。',
-      color: 'blue',
+      message: '当前表单内容已临时保存在浏览器内存',
     })
   }
 

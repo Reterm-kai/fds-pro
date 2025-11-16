@@ -1,7 +1,10 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { devtools } from 'zustand/middleware'
-import { notifications } from '@mantine/notifications'
+import {
+  showErrorNotification,
+  showSuccessNotification,
+} from '@/shared/ui'
 import type { User } from '@/entities/user'
 import {
   login as apiLogin,
@@ -68,10 +71,9 @@ export const useAuthStore = create<AuthState>()(
             const message =
               err instanceof Error ? err.message : '登录失败，请重试'
 
-            notifications.show({
+            showErrorNotification({
               title: '登录失败',
               message,
-              color: 'red',
             })
 
             throw err
@@ -82,10 +84,9 @@ export const useAuthStore = create<AuthState>()(
           try {
             const newUser = await apiRegister(userData)
 
-            notifications.show({
+            showSuccessNotification({
               title: '注册成功',
               message: '账户创建成功，请登录',
-              color: 'green',
             })
 
             return newUser
@@ -93,10 +94,9 @@ export const useAuthStore = create<AuthState>()(
             const message =
               err instanceof Error ? err.message : '注册失败，请重试'
 
-            notifications.show({
+            showErrorNotification({
               title: '注册失败',
               message,
-              color: 'red',
             })
 
             throw err
@@ -126,10 +126,9 @@ export const useAuthStore = create<AuthState>()(
             sessionStorage.removeItem('auth-no-persist')
           }
 
-          notifications.show({
+          showSuccessNotification({
             title: '退出成功',
-            message: '您已安全退出登录。',
-            color: 'green',
+            message: '您已安全退出登录',
           })
         },
 
