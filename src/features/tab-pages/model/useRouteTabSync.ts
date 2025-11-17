@@ -6,8 +6,12 @@ import { useTabPages } from './useTabPages'
 
 /**
  * 根据路径从菜单配置中查找对应的标题
+ * 支持多级菜单匹配：
+ * 1. 精确匹配：优先查找 path 完全匹配的菜单项
+ * 2. 父级匹配：如果路径是某个父级菜单的子路径，返回父级菜单标题
  */
 function findMenuTitle(items: MenuItem[], path: string): string | null {
+  // 第一遍：精确匹配
   for (const item of items) {
     if (item.path === path) {
       return item.label
@@ -19,6 +23,28 @@ function findMenuTitle(items: MenuItem[], path: string): string | null {
       }
     }
   }
+
+  // 第二遍：检查是否为某个一级菜单的子路径
+  // 例如：路径 /dashboard 应该匹配到 "仪表盘" 菜单下的第一个子菜单
+  for (const item of items) {
+    if (item.children && item.children.length > 0) {
+      // 检查该一级菜单的所有子菜单路径
+      for (const child of item.children) {
+        if (child.path) {
+          // 获取子菜单路径的父级路径
+          const childPathSegments = child.path.split('/').filter(Boolean)
+          if (childPathSegments.length > 0) {
+            const parentPath = '/' + childPathSegments[0]
+            // 如果当前路径与父级路径匹配，使用一级菜单的标题
+            if (path === parentPath) {
+              return item.label
+            }
+          }
+        }
+      }
+    }
+  }
+
   return null
 }
 

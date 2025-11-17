@@ -1,3 +1,29 @@
+.tabBarWrapper {
+  display: flex;
+  align-items: stretch;
+  background-color: var(--mantine-color-body);
+  position: relative;
+}
+
+.scrollButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--mantine-spacing-xl) * 0.8);
+  background-color: var(--mantine-color-body);
+  border: none;
+  border-bottom: calc(var(--mantine-spacing-xs) * 0.1) solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
+  cursor: pointer;
+  transition: color 0.15s ease;
+  flex-shrink: 0;
+}
+
+.scrollButton:hover {
+  color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-dark-0));
+}
+
 .tabBar {
   display: flex;
   align-items: stretch;
@@ -12,6 +38,7 @@
   gap: calc(var(--mantine-spacing-xs) * 0.2);
   user-select: none;
   position: relative;
+  flex: 1;
 
   /* 隐藏滚动条但保持滚动功能 */
   scrollbar-width: none;
@@ -40,8 +67,7 @@
     color 0.15s ease,
     box-shadow 0.15s ease;
   white-space: nowrap;
-  min-width: calc(var(--mantine-spacing-xl) * 2.5);
-  max-width: calc(var(--mantine-spacing-xl) * 5);
+  flex-shrink: 0;
   position: relative;
   border: calc(var(--mantine-spacing-xs) * 0.1) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
@@ -59,7 +85,7 @@
 
 .tabActive {
   background-color: var(--mantine-color-body);
-  color: var(--mantine-color-text);
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
   font-weight: 500;
   border-color: light-dark(
     var(--mantine-color-gray-3),

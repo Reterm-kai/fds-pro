@@ -1,10 +1,14 @@
 import { AppShell, Box } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { Outlet } from 'react-router-dom'
 import { Header } from '@/widgets/app-shell/ui/Header'
 import { Navbar } from '@/widgets/app-shell/ui/Navbar'
 import { RouteProgressBar } from '@/widgets/app-shell/ui/RouteProgressBar'
-import { TabProvider, TabBar, useRouteTabSync } from '@/features/tab-pages'
+import {
+  TabProvider,
+  TabBar,
+  useRouteTabSync,
+  RefreshableOutlet,
+} from '@/features/tab-pages'
 
 /**
  * Tab 同步包装组件
@@ -58,7 +62,7 @@ export function AppLayout() {
           <AppShell.Main>
             <TabBar />
             <Box p="md">
-              <Outlet />
+              <RefreshableOutlet />
             </Box>
           </AppShell.Main>
         </AppShell>

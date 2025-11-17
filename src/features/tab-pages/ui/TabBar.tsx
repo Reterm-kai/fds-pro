@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { X, RefreshCw, XCircle, Trash2 } from 'lucide-react'
+import { X, RefreshCw, XCircle, Trash2, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Box } from '@mantine/core'
 import { useTabPages } from '../model/useTabPages'
 import classes from './TabBar.module.css'
@@ -34,7 +34,55 @@ export function TabBar() {
     tabPath: '',
   })
 
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(false)
+
   const contextMenuRef = useRef<HTMLDivElement>(null)
+  const tabListRef = useRef<HTMLDivElement>(null)
+
+  // 检查滚动状态
+  const checkScrollState = useCallback(() => {
+    const container = tabListRef.current
+    if (!container) return
+
+    const { scrollLeft, scrollWidth, clientWidth } = container
+    setCanScrollLeft(scrollLeft > 0)
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1)
+  }, [])
+
+  // 监听滚动和窗口变化
+  useEffect(() => {
+    const container = tabListRef.current
+    if (!container) return
+
+    checkScrollState()
+    container.addEventListener('scroll', checkScrollState)
+    window.addEventListener('resize', checkScrollState)
+
+    return () => {
+      container.removeEventListener('scroll', checkScrollState)
+      window.removeEventListener('resize', checkScrollState)
+    }
+  }, [checkScrollState])
+
+  // 当 tabs 变化时重新检查滚动状态
+  useEffect(() => {
+    checkScrollState()
+  }, [tabs, checkScrollState])
+
+  // 滚动到左侧
+  const scrollLeft = useCallback(() => {
+    const container = tabListRef.current
+    if (!container) return
+    container.scrollBy({ left: -200, behavior: 'smooth' })
+  }, [])
+
+  // 滚动到右侧
+  const scrollRight = useCallback(() => {
+    const container = tabListRef.current
+    if (!container) return
+    container.scrollBy({ left: 200, behavior: 'smooth' })
+  }, [])
 
   // 处理右键菜单
   const handleContextMenu = useCallback(
@@ -114,25 +162,47 @@ export function TabBar() {
 
   return (
     <>
-      <Box className={classes.tabBar}>
-        {tabs.map(tab => (
-          <div
-            key={tab.path}
-            className={`${classes.tab} ${tab.path === activeTab ? classes.tabActive : ''}`}
-            onClick={() => setActiveTab(tab.path)}
-            onContextMenu={e => handleContextMenu(e, tab.path)}
+      <Box className={classes.tabBarWrapper}>
+        {canScrollLeft && (
+          <button
+            className={classes.scrollButton}
+            onClick={scrollLeft}
+            type="button"
           >
-            <span className={classes.tabLabel}>{tab.title}</span>
-            {tab.closable && (
-              <span
-                className={classes.closeButton}
-                onClick={e => handleCloseClick(e, tab.path)}
-              >
-                <X size={14} />
-              </span>
-            )}
-          </div>
-        ))}
+            <ChevronLeft size={16} />
+          </button>
+        )}
+
+        <div className={classes.tabBar} ref={tabListRef}>
+          {tabs.map(tab => (
+            <div
+              key={tab.path}
+              className={`${classes.tab} ${tab.path === activeTab ? classes.tabActive : ''}`}
+              onClick={() => setActiveTab(tab.path)}
+              onContextMenu={e => handleContextMenu(e, tab.path)}
+            >
+              <span className={classes.tabLabel}>{tab.title}</span>
+              {tab.closable && (
+                <span
+                  className={classes.closeButton}
+                  onClick={e => handleCloseClick(e, tab.path)}
+                >
+                  <X size={14} />
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {canScrollRight && (
+          <button
+            className={classes.scrollButton}
+            onClick={scrollRight}
+            type="button"
+          >
+            <ChevronRight size={16} />
+          </button>
+        )}
       </Box>
 
       {/* 右键菜单 */}
