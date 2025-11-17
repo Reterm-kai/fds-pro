@@ -10,13 +10,7 @@ import axios, {
   type AxiosResponse,
   type InternalAxiosRequestConfig,
 } from 'axios'
-
-/** API 响应统一格式 */
-export interface ApiResponse<T = unknown> {
-  code: number
-  message: string
-  data: T
-}
+import type { ApiResponse } from './types'
 
 /** API 错误类 */
 export class ApiError extends Error {
@@ -92,7 +86,7 @@ axiosInstance.interceptors.response.use(
     }
 
     // 业务逻辑错误
-    throw new ApiError(data.code, data.message || '请求失败')
+    throw new ApiError(data.code, data.msg || '请求失败')
   },
   error => {
     // 处理 HTTP 错误
@@ -118,7 +112,7 @@ axiosInstance.interceptors.response.use(
       if (status === 404) {
         throw new ApiError(
           404,
-          error.response?.data?.message || '请求的资源不存在'
+          error.response?.data?.msg || '请求的资源不存在'
         )
       }
 
@@ -130,7 +124,7 @@ axiosInstance.interceptors.response.use(
       // 其他 HTTP 错误
       throw new ApiError(
         status || -1,
-        error.response?.data?.message || error.message || '网络请求失败'
+        error.response?.data?.msg || error.message || '网络请求失败'
       )
     }
 

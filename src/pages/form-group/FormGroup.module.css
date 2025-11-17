@@ -10,6 +10,7 @@
 .inner {
   width: 100%;
   margin-inline: auto;
+  max-width: calc(var(--mantine-spacing-xl) * 40);
 }
 
 .header {
@@ -42,3 +43,61 @@
   margin-top: var(--mantine-spacing-xl);
 }
 
+.metaBar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(calc(var(--mantine-spacing-xl) * 7), 1fr));
+  gap: var(--mantine-spacing-md);
+  background: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-7));
+  border: calc(var(--mantine-spacing-xs) * 0.125)
+    solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  box-shadow: var(--mantine-shadow-sm);
+  margin-bottom: var(--mantine-spacing-xl);
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--mantine-spacing-md);
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-md);
+  background: light-dark(var(--mantine-color-white), var(--mantine-color-dark-6));
+  border: calc(var(--mantine-spacing-xs) * 0.125)
+    solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
+}
+
+.metaIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--mantine-spacing-xl) * 1.4);
+  height: calc(var(--mantine-spacing-xl) * 1.4);
+  border-radius: var(--mantine-radius-md);
+  background: light-dark(var(--mantine-color-blue-0), var(--mantine-color-dark-5));
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-2));
+}
+
+.metaTexts {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--mantine-spacing-xs) * 0.3);
+  flex: 1;
+  min-width: 0;
+}
+
+.metaTitle {
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-text);
+}
+
+.controlRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--mantine-spacing-md);
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-md);
+  background: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+  border: calc(var(--mantine-spacing-xs) * 0.125)
+    solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
+}

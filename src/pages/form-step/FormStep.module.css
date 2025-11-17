@@ -10,6 +10,7 @@
 .inner {
   width: 100%;
   margin-inline: auto;
+  max-width: calc(var(--mantine-spacing-xl) * 40);
 }
 
 .header {
@@ -30,3 +31,14 @@
   margin-top: var(--mantine-spacing-xl);
 }
 
+.controlRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--mantine-spacing-md);
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-md);
+  background: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
+  border: calc(var(--mantine-spacing-xs) * 0.125)
+    solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
+}

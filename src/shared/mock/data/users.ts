@@ -1,10 +1,10 @@
-import type { User } from '@/entities/user'
+import type { UpdateUserParams, User } from '@/entities/user'
 
 /**
  * Mock 用户数据
  * 用于开发和测试环境
  */
-export const mockUsers: User[] = [
+const mockUsers: User[] = [
   {
     id: 1,
     name: '张三',
@@ -110,21 +110,127 @@ export const mockUsers: User[] = [
 
 let nextId = mockUsers.length + 1
 
+export interface CreateUserRecordInput {
+  name: string
+  email: string
+  role: User['role']
+  status?: User['status']
+  avatar?: string
+}
+
+type FilterUsersParams = {
+  keyword?: string
+  role?: User['role']
+  status?: User['status']
+}
+
 /**
- * 生成新用户 ID
+ * 获取全部用户（引用同一个数据源）
  */
-export function generateUserId(): number {
-  return nextId++
+export function listUsers(): User[] {
+  return mockUsers
+}
+
+/**
+ * 根据 ID 查找用户
+ */
+export function findUserById(id: number): User | undefined {
+  return mockUsers.find(user => user.id === id)
+}
+
+/**
+ * 根据邮箱查找用户（忽略大小写）
+ */
+export function findUserByEmail(email: string): User | undefined {
+  const normalized = email.toLowerCase()
+  return mockUsers.find(user => user.email.toLowerCase() === normalized)
+}
+
+/**
+ * 根据用户名或邮箱查找用户
+ */
+export function findUserByIdentity(identity: string): User | undefined {
+  const normalized = identity.toLowerCase()
+  return mockUsers.find(
+    user =>
+      user.email.toLowerCase() === normalized ||
+      user.name.toLowerCase() === normalized
+  )
+}
+
+/**
+ * 判断邮箱是否被占用
+ */
+export function isEmailTaken(email: string, excludeId?: number): boolean {
+  const normalized = email.toLowerCase()
+  return mockUsers.some(
+    user =>
+      user.email.toLowerCase() === normalized &&
+      (excludeId === undefined || user.id !== excludeId)
+  )
+}
+
+/**
+ * 创建一个新的用户记录
+ */
+export function createUserRecord(
+  input: CreateUserRecordInput
+): User {
+  const timestamp = new Date().toISOString()
+  const user: User = {
+    id: nextId++,
+    name: input.name,
+    email: input.email,
+    role: input.role,
+    status: input.status ?? 'active',
+    avatar: input.avatar,
+    createdAt: timestamp,
+    updatedAt: timestamp,
+  }
+
+  mockUsers.push(user)
+  return user
+}
+
+/**
+ * 更新用户信息
+ */
+export function updateUserRecord(
+  id: number,
+  params: UpdateUserParams
+): User | null {
+  const index = mockUsers.findIndex(user => user.id === id)
+  if (index === -1) {
+    return null
+  }
+
+  const updated: User = {
+    ...mockUsers[index],
+    ...params,
+    updatedAt: new Date().toISOString(),
+  }
+
+  mockUsers[index] = updated
+  return updated
+}
+
+/**
+ * 删除用户
+ */
+export function deleteUserRecord(id: number): boolean {
+  const index = mockUsers.findIndex(user => user.id === id)
+  if (index === -1) {
+    return false
+  }
+
+  mockUsers.splice(index, 1)
+  return true
 }
 
 /**
  * 根据条件筛选用户
  */
-export function filterUsers(params: {
-  keyword?: string
-  role?: User['role']
-  status?: User['status']
-}): User[] {
+export function filterUsers(params: FilterUsersParams): User[] {
   let filtered = [...mockUsers]
 
   if (params.keyword) {

@@ -1,11 +1,15 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   Button,
   Grid,
   Group,
+  List,
   Paper,
+  Select,
+  SegmentedControl,
   Stack,
   Stepper,
+  Switch,
   Text,
   TextInput,
   Textarea,
@@ -15,12 +19,15 @@ import { useForm } from '@mantine/form'
 import {
   IconArrowLeft,
   IconArrowRight,
+  IconClock,
   IconCheck,
   IconFileDescription,
+  IconLink,
   IconSettings,
 } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import { showSuccessNotification } from '@/shared/ui'
+import { useFormStepOptions, type FormStepOptionsResponse } from '@/entities/form-options'
 import classes from './FormStep.module.css'
 
 interface StepFormValues {
@@ -31,12 +38,27 @@ interface StepFormValues {
   repoUrl: string
   branch: string
   remark: string
+  rolloutWindow: string
+  riskLevel: string
+  hasSmokeTest: boolean
+  hasRollbackPlan: boolean
+  rollbackLink: string
+}
+
+const emptyStepOptions: FormStepOptionsResponse = {
+  environments: [],
+  rolloutWindows: [],
 }
 
 export function FormStepPage() {
   const navigate = useNavigate()
   const [active, setActive] = useState(0)
   const [submitting, setSubmitting] = useState(false)
+  const {
+    data: stepOptionsData,
+    isLoading: loadingOptions,
+  } = useFormStepOptions()
+  const stepOptions = stepOptionsData ?? emptyStepOptions
 
   const form = useForm<StepFormValues>({
     initialValues: {
@@ -47,16 +69,52 @@ export function FormStepPage() {
       repoUrl: '',
       branch: 'main',
       remark: '',
+      rolloutWindow: '',
+      riskLevel: 'normal',
+      hasSmokeTest: false,
+      hasRollbackPlan: true,
+      rollbackLink: '',
     },
+    validateInputOnBlur: true,
+    validateInputOnChange: true,
     validate: {
       name: value => (value.trim().length >= 2 ? null : '请输入申请人姓名'),
       email: value =>
         /^\S+@\S+$/.test(value) ? null : '请输入有效的邮箱地址',
       env: value => (value ? null : '请选择目标环境'),
       repoUrl: value =>
-        value.trim().length > 0 ? null : '请输入代码仓库地址',
+        /^https?:\/\/.+/.test(value.trim())
+          ? null
+          : '请输入以 http/https 开头的仓库地址',
+      rolloutWindow: value => (value ? null : '请选择发布窗口'),
+      rollbackLink: (value, values) =>
+        values.hasRollbackPlan && !value.trim()
+          ? '启用回滚方案时需要提供链接'
+          : null,
     },
   })
+
+  const riskLabels: Record<string, string> = {
+    low: '低风险',
+    normal: '正常',
+    high: '高风险',
+  }
+
+  const envLabelMap = useMemo(
+    () =>
+      Object.fromEntries(
+        stepOptions.environments.map(item => [item.value, item.label])
+      ),
+    [stepOptions.environments]
+  )
+
+  const rolloutLabelMap = useMemo(
+    () =>
+      Object.fromEntries(
+        stepOptions.rolloutWindows.map(item => [item.value, item.label])
+      ),
+    [stepOptions.rolloutWindows]
+  )
 
   const nextStep = () => {
     if (active === 0) {
@@ -118,7 +176,12 @@ export function FormStepPage() {
 
         <Paper withBorder radius="md" p="xl">
           <div className={classes.stepperWrapper}>
-            <Stepper active={active} onStepClick={setActive} size="sm">
+            <Stepper
+              active={active}
+              onStepClick={setActive}
+              size="sm"
+              allowNextStepsSelect={false}
+            >
               <Stepper.Step
                 label="基础信息"
                 description="填写申请人信息"
@@ -173,12 +236,38 @@ export function FormStepPage() {
                   </Group>
                   <Grid gutter="lg">
                     <Grid.Col span={{ base: 12, sm: 6 }}>
-                      <TextInput
+                      <Select
                         label="目标环境"
-                        placeholder="如：测试环境 / 预发布环境 / 生产环境"
-                        required
+                        placeholder="请选择环境"
+                        searchable
+                        data={stepOptions.environments}
+                        clearable
+                        disabled={loadingOptions}
                         name="env"
                         {...form.getInputProps('env')}
+                      />
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, sm: 6 }}>
+                      <SegmentedControl
+                        fullWidth
+                        data={[
+                          { label: '低风险', value: 'low' },
+                          { label: '正常', value: 'normal' },
+                          { label: '高风险', value: 'high' },
+                        ]}
+                        value={form.values.riskLevel}
+                        onChange={value => form.setFieldValue('riskLevel', value)}
+                        aria-label="风险等级"
+                      />
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, sm: 6 }}>
+                      <Select
+                        label="发布窗口"
+                        placeholder="请选择时间窗口"
+                        data={stepOptions.rolloutWindows}
+                        name="rolloutWindow"
+                        disabled={loadingOptions}
+                        {...form.getInputProps('rolloutWindow')}
                       />
                     </Grid.Col>
                     <Grid.Col span={{ base: 12, sm: 6 }}>
@@ -188,6 +277,7 @@ export function FormStepPage() {
                         required
                         name="repoUrl"
                         autoComplete="url"
+                        leftSection={<IconLink size={16} />}
                         {...form.getInputProps('repoUrl')}
                       />
                     </Grid.Col>
@@ -197,6 +287,15 @@ export function FormStepPage() {
                         placeholder="main"
                         name="branch"
                         {...form.getInputProps('branch')}
+                      />
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, sm: 6 }}>
+                      <TextInput
+                        label="回滚方案链接"
+                        placeholder="https://your-internal-docs/rollback"
+                        name="rollbackLink"
+                        leftSection={<IconLink size={16} />}
+                        {...form.getInputProps('rollbackLink')}
                       />
                     </Grid.Col>
                     <Grid.Col span={12}>
@@ -217,6 +316,48 @@ export function FormStepPage() {
                     <IconFileDescription size={18} />
                     <Text fw={500}>提交前检查</Text>
                   </Group>
+                  <Grid gutter="md">
+                    <Grid.Col span={{ base: 12, sm: 6 }}>
+                      <div className={classes.controlRow}>
+                        <Stack gap={4}>
+                          <Text size="sm">已完成自测</Text>
+                          <Text size="xs" c="dimmed">
+                            包含单元测试、冒烟测试等基本校验。
+                          </Text>
+                        </Stack>
+                        <Switch
+                          checked={form.values.hasSmokeTest}
+                          onChange={event =>
+                            form.setFieldValue(
+                              'hasSmokeTest',
+                              event.currentTarget.checked
+                            )
+                          }
+                          name="hasSmokeTest"
+                        />
+                      </div>
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, sm: 6 }}>
+                      <div className={classes.controlRow}>
+                        <Stack gap={4}>
+                          <Text size="sm">已准备回滚方案</Text>
+                          <Text size="xs" c="dimmed">
+                            需要回滚文档或 Playbook 链接。
+                          </Text>
+                        </Stack>
+                        <Switch
+                          checked={form.values.hasRollbackPlan}
+                          onChange={event =>
+                            form.setFieldValue(
+                              'hasRollbackPlan',
+                              event.currentTarget.checked
+                            )
+                          }
+                          name="hasRollbackPlan"
+                        />
+                      </div>
+                    </Grid.Col>
+                  </Grid>
                   <Text size="sm" c="dimmed">
                     请确认代码已经完成自测，相关人员已知晓本次发布计划，并在非业务高峰期进行操作。
                   </Text>
@@ -231,6 +372,54 @@ export function FormStepPage() {
                 <Text size="sm" c="dimmed">
                   你可以在基础详情页或结果页中查看审批进度和最终结果。
                 </Text>
+                <Paper withBorder radius="md" p="lg" mt="md" w="100%">
+                  <Grid gutter="md">
+                    <Grid.Col span={{ base: 12, sm: 6 }}>
+                      <Text size="xs" c="dimmed">
+                        目标环境
+                      </Text>
+                      <Text fw={500}>
+                        {envLabelMap[form.values.env] || '未填写'}
+                      </Text>
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, sm: 6 }}>
+                      <Text size="xs" c="dimmed">
+                        发布窗口
+                      </Text>
+                      <Text fw={500}>
+                        {rolloutLabelMap[form.values.rolloutWindow] || '未选择'}
+                      </Text>
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, sm: 6 }}>
+                      <Text size="xs" c="dimmed">
+                        仓库/分支
+                      </Text>
+                      <Text fw={500}>{form.values.repoUrl || '未填写'}</Text>
+                      <Text size="sm" c="dimmed">{form.values.branch}</Text>
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, sm: 6 }}>
+                      <Text size="xs" c="dimmed">
+                        风险/自测/回滚
+                      </Text>
+                      <List
+                        size="sm"
+                        c="dimmed"
+                        spacing={4}
+                        icon={<IconClock size={12} />}
+                      >
+                        <List.Item>
+                          风险：{riskLabels[form.values.riskLevel] || '未设置'}
+                        </List.Item>
+                        <List.Item>
+                          自测：{form.values.hasSmokeTest ? '已完成' : '未完成'}
+                        </List.Item>
+                        <List.Item>
+                          回滚：{form.values.hasRollbackPlan ? '已准备' : '未准备'}
+                        </List.Item>
+                      </List>
+                    </Grid.Col>
+                  </Grid>
+                </Paper>
               </Stack>
             )}
 
@@ -268,4 +457,3 @@ export function FormStepPage() {
     </div>
   )
 }
-

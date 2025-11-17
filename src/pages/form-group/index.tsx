@@ -1,9 +1,13 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   Badge,
   Button,
+  Divider,
+  FileInput,
   Grid,
   Group,
+  MultiSelect,
+  NumberInput,
   Paper,
   Select,
   Stack,
@@ -16,15 +20,24 @@ import {
 import { useForm } from '@mantine/form'
 import {
   IconArrowLeft,
+  IconCloudUpload,
   IconDeviceFloppy,
+  IconClipboardCheck,
+  IconBellRinging,
+  IconShieldLock,
   IconSend,
   IconSettings,
+  IconDownload,
 } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import {
   showInfoNotification,
   showSuccessNotification,
 } from '@/shared/ui'
+import {
+  useFormGroupOptions,
+  type FormGroupOptionsResponse,
+} from '@/entities/form-options'
 import classes from './FormGroup.module.css'
 
 interface GroupFormValues {
@@ -35,14 +48,30 @@ interface GroupFormValues {
   visibility: 'private' | 'internal' | 'public'
   enableAudit: boolean
   enableNotification: boolean
+  allowCrossTeam: boolean
+  requireApproval: boolean
   notifyEmail: string
   notifyWebhook: string
   description: string
+  budget: number
+  headcount: number
+  tags: string[]
+  region: string
+  city: string
+}
+
+const emptyOptions: FormGroupOptionsResponse = {
+  projectTypes: [],
+  tags: [],
+  regions: [],
 }
 
 export function FormGroupPage() {
   const navigate = useNavigate()
   const [submitting, setSubmitting] = useState(false)
+  const [attachment, setAttachment] = useState<File | null>(null)
+  const { data: optionsData, isLoading: loadingOptions } = useFormGroupOptions()
+  const options = optionsData ?? emptyOptions
 
   const form = useForm<GroupFormValues>({
     initialValues: {
@@ -53,10 +82,19 @@ export function FormGroupPage() {
       visibility: 'internal',
       enableAudit: true,
       enableNotification: true,
+      allowCrossTeam: false,
+      requireApproval: true,
       notifyEmail: '',
       notifyWebhook: '',
       description: '',
+      budget: 0,
+      headcount: 3,
+      tags: [],
+      region: '',
+      city: '',
     },
+    validateInputOnBlur: true,
+    validateInputOnChange: true,
     validate: {
       projectName: value =>
         value.trim().length >= 2 ? null : '请输入至少 2 个字符的项目名称',
@@ -66,8 +104,25 @@ export function FormGroupPage() {
         values.enableNotification && !value.trim()
           ? '启用通知时需要填写邮箱'
           : null,
+      budget: value => (value > 0 ? null : '请输入大于 0 的预估预算'),
+      headcount: value =>
+        value >= 1 && value <= 200 ? null : '团队人数需在 1-200 人之间',
+      city: (value, values) =>
+        values.region && !value ? '请选择交付城市' : null,
     },
   })
+
+  const regionOptions = useMemo(
+    () => options.regions.map(({ value, label }) => ({ value, label })),
+    [options.regions]
+  )
+
+  const cityOptions = useMemo(() => {
+    const targetRegion = options.regions.find(
+      item => item.value === form.values.region
+    )
+    return targetRegion?.cities || []
+  }, [form.values.region, options.regions])
 
   const handleSubmit = (values: GroupFormValues) => {
     setSubmitting(true)
@@ -85,6 +140,25 @@ export function FormGroupPage() {
     showInfoNotification({
       title: '已保存草稿',
       message: '当前表单内容已临时保存在浏览器内存',
+    })
+  }
+
+  const handleUpload = (file?: File | null) => {
+    setAttachment(file ?? null)
+
+    if (file) {
+      showSuccessNotification({
+        title: '已添加附件',
+        message: `${file.name} 已关联到当前表单`,
+      })
+    }
+  }
+
+  const handleDownload = () => {
+    const name = attachment?.name || '模板.zip'
+    showInfoNotification({
+      title: '已开始下载',
+      message: `正在准备 ${name}（示例交互，可接后端下载接口）`,
     })
   }
 
@@ -136,7 +210,58 @@ export function FormGroupPage() {
           </Group>
         </Group>
 
-        <form id="group-form" onSubmit={form.onSubmit(handleSubmit)}>
+        <Paper withBorder radius="md" p="md" className={classes.metaBar}>
+          <div className={classes.metaItem}>
+            <div className={classes.metaIcon}>
+              <IconClipboardCheck size={16} />
+            </div>
+            <div className={classes.metaTexts}>
+              <Text className={classes.metaTitle}>表单完整度</Text>
+              <Text size="xs" c="dimmed">
+                基础信息 5/6 已填写，剩余描述可稍后补充
+              </Text>
+            </div>
+            <Badge color="green" variant="light">
+              正常
+            </Badge>
+          </div>
+
+          <div className={classes.metaItem}>
+            <div className={classes.metaIcon}>
+              <IconShieldLock size={16} />
+            </div>
+            <div className={classes.metaTexts}>
+              <Text className={classes.metaTitle}>默认权限</Text>
+              <Text size="xs" c="dimmed">
+                当前为团队可见，可随时切换到组织公开
+              </Text>
+            </div>
+            <Badge color="blue" variant="light">
+              内部
+            </Badge>
+          </div>
+
+          <div className={classes.metaItem}>
+            <div className={classes.metaIcon}>
+              <IconBellRinging size={16} />
+            </div>
+            <div className={classes.metaTexts}>
+              <Text className={classes.metaTitle}>通知通道</Text>
+              <Text size="xs" c="dimmed">
+                邮箱已启用，Webhook 可按需接入
+              </Text>
+            </div>
+            <Badge color="grape" variant="light">
+              2 条
+            </Badge>
+          </div>
+        </Paper>
+
+        <form
+          id="group-form"
+          onSubmit={form.onSubmit(handleSubmit)}
+          noValidate
+        >
           <Grid gutter="xl">
             <Grid.Col span={{ base: 12, md: 8 }}>
               <Stack gap="xl">
@@ -162,13 +287,11 @@ export function FormGroupPage() {
                       <Select
                         label="项目类型"
                         placeholder="请选择项目类型"
-                        data={[
-                          { value: 'internal', label: '内部项目' },
-                          { value: 'external', label: '外部项目' },
-                          { value: 'experiment', label: '实验项目' },
-                        ]}
+                        data={options.projectTypes}
                         required
                         name="projectType"
+                        searchable
+                        disabled={loadingOptions}
                         {...form.getInputProps('projectType')}
                       />
                     </Grid.Col>
@@ -189,6 +312,42 @@ export function FormGroupPage() {
                         {...form.getInputProps('department')}
                       />
                     </Grid.Col>
+                    <Grid.Col span={{ base: 12, sm: 6 }}>
+                      <MultiSelect
+                        label="标签 / 技术栈"
+                        placeholder="可搜索添加标签"
+                        searchable
+                        data={options.tags}
+                        name="tags"
+                        disabled={loadingOptions}
+                        {...form.getInputProps('tags')}
+                      />
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, sm: 6 }}>
+                      <NumberInput
+                        label="预估预算（¥）"
+                        placeholder="请输入预算"
+                        prefix="¥"
+                        thousandSeparator
+                        min={0}
+                        step={1000}
+                        clampBehavior="strict"
+                        name="budget"
+                        {...form.getInputProps('budget')}
+                      />
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, sm: 6 }}>
+                      <NumberInput
+                        label="团队人数"
+                        placeholder="请输入人数"
+                        min={1}
+                        max={200}
+                        step={1}
+                        clampBehavior="strict"
+                        name="headcount"
+                        {...form.getInputProps('headcount')}
+                      />
+                    </Grid.Col>
                     <Grid.Col span={12}>
                       <Textarea
                         label="项目描述"
@@ -200,6 +359,57 @@ export function FormGroupPage() {
                       />
                     </Grid.Col>
                   </Grid>
+                </Paper>
+
+                <Paper withBorder radius="md" p="xl">
+                  <div className={classes.sectionHeader}>
+                    <Text className={classes.sectionTitle}>交付区域与协作</Text>
+                    <Text className={classes.sectionDescription}>
+                      选择主要交付区域和城市，便于资源统筹与协作安排。
+                    </Text>
+                  </div>
+
+                  <Grid gutter="lg">
+                    <Grid.Col span={{ base: 12, sm: 6 }}>
+                      <Select
+                        label="交付区域"
+                        searchable
+                        clearable
+                        withScrollArea
+                        placeholder="请选择区域"
+                        data={regionOptions}
+                        name="region"
+                        disabled={loadingOptions}
+                        {...form.getInputProps('region')}
+                      />
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, sm: 6 }}>
+                      <Select
+                        label="交付城市"
+                        searchable
+                        clearable
+                        placeholder={form.values.region ? '请选择城市' : '请先选择区域'}
+                        data={cityOptions}
+                        name="city"
+                        disabled={!form.values.region || loadingOptions}
+                        {...form.getInputProps('city')}
+                      />
+                    </Grid.Col>
+                  </Grid>
+
+                  <Divider my="md" />
+
+                  <div className={classes.controlRow}>
+                    <Stack gap={4}>
+                      <Text size="sm">区域搜索提示</Text>
+                      <Text size="xs" c="dimmed">
+                        可在区域与城市下拉框内直接输入关键词快速定位。
+                      </Text>
+                    </Stack>
+                    <Badge color="gray" variant="light">
+                      支持搜索
+                    </Badge>
+                  </div>
                 </Paper>
 
                 <Paper withBorder radius="md" p="xl">
@@ -221,7 +431,7 @@ export function FormGroupPage() {
                       name="visibility"
                       {...form.getInputProps('visibility')}
                     />
-                    <Group justify="space-between">
+                    <div className={classes.controlRow}>
                       <Stack gap={4}>
                         <Text size="sm">启用操作审计</Text>
                         <Text size="xs" c="dimmed">
@@ -238,7 +448,45 @@ export function FormGroupPage() {
                         }
                         name="enableAudit"
                       />
-                    </Group>
+                    </div>
+
+                    <div className={classes.controlRow}>
+                      <Stack gap={4}>
+                        <Text size="sm">跨团队协作</Text>
+                        <Text size="xs" c="dimmed">
+                          允许其他团队在受限权限下查看项目信息。
+                        </Text>
+                      </Stack>
+                      <Switch
+                        checked={form.values.allowCrossTeam}
+                        onChange={event =>
+                          form.setFieldValue(
+                            'allowCrossTeam',
+                            event.currentTarget.checked
+                          )
+                        }
+                        name="allowCrossTeam"
+                      />
+                    </div>
+
+                    <div className={classes.controlRow}>
+                      <Stack gap={4}>
+                        <Text size="sm">提交需审批</Text>
+                        <Text size="xs" c="dimmed">
+                          提交改动前触发审批流程，减少误操作风险。
+                        </Text>
+                      </Stack>
+                      <Switch
+                        checked={form.values.requireApproval}
+                        onChange={event =>
+                          form.setFieldValue(
+                            'requireApproval',
+                            event.currentTarget.checked
+                          )
+                        }
+                        name="requireApproval"
+                      />
+                    </div>
                   </Stack>
                 </Paper>
               </Stack>
@@ -257,7 +505,7 @@ export function FormGroupPage() {
                 </div>
 
                 <Stack gap="md">
-                  <Group justify="space-between">
+                  <div className={classes.controlRow}>
                     <Stack gap={4}>
                       <Text size="sm">启用通知</Text>
                       <Text size="xs" c="dimmed">
@@ -274,7 +522,7 @@ export function FormGroupPage() {
                       }
                       name="enableNotification"
                     />
-                  </Group>
+                  </div>
 
                   <TextInput
                     label="通知邮箱"
@@ -292,6 +540,46 @@ export function FormGroupPage() {
                   />
                 </Stack>
               </Paper>
+
+              <Paper withBorder radius="md" p="xl">
+                <div className={classes.sectionHeader}>
+                  <Group gap="xs">
+                    <IconCloudUpload size={18} />
+                    <Text className={classes.sectionTitle}>附件与下载</Text>
+                  </Group>
+                  <Text className={classes.sectionDescription}>
+                    上传相关资料，或下载项目模板/规范文件。
+                  </Text>
+                </div>
+
+                <Stack gap="md">
+                  <FileInput
+                    label="上传附件"
+                    placeholder="选择或拖拽文件"
+                    accept=".pdf,.doc,.docx,.xlsx,.zip,.png,.jpg"
+                    clearable
+                    leftSection={<IconCloudUpload size={16} />}
+                    value={attachment}
+                    onChange={handleUpload}
+                  />
+
+                  <div className={classes.controlRow}>
+                    <Stack gap={4}>
+                      <Text size="sm">最新模板</Text>
+                      <Text size="xs" c="dimmed">
+                        包括需求文档、接口规范、设计交付清单。
+                      </Text>
+                    </Stack>
+                    <Button
+                      variant="light"
+                      leftSection={<IconDownload size={16} />}
+                      onClick={handleDownload}
+                    >
+                      下载
+                    </Button>
+                  </div>
+                </Stack>
+              </Paper>
             </Grid.Col>
           </Grid>
         </form>
@@ -299,4 +587,3 @@ export function FormGroupPage() {
     </div>
   )
 }
-
