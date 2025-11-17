@@ -9,6 +9,19 @@ import tslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 import prettierConfig from 'eslint-config-prettier'
 
+const reactHooksFlatConfig = {
+  plugins: {
+    'react-hooks': reactHooks,
+  },
+  rules: reactHooks.configs.recommended.rules,
+}
+const reactRefreshFlatConfig = {
+  plugins: {
+    'react-refresh': reactRefresh,
+  },
+  rules: reactRefresh.configs.vite.rules,
+}
+
 export default defineConfig([
   globalIgnores([
     'dist',
@@ -19,12 +32,13 @@ export default defineConfig([
     'coverage',
   ]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.{ts,tsx,js,jsx}'],
     extends: [
       js.configs.recommended,
-      tslint.configs.recommended,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
+      ...tslint.configs.recommended,
+      reactHooksFlatConfig,
+      reactRefreshFlatConfig,
+      storybook.configs['flat/recommended'],
       prettierConfig,
     ],
     languageOptions: {

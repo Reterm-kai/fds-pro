@@ -63,12 +63,7 @@ export function TabProvider({ children }: TabProviderProps) {
 
   // 从 localStorage 初始化 Tab 状态
   const [tabs, setTabs] = useState<TabPage[]>(() => loadTabsFromStorage())
-  const [activeTab, setActiveTabState] = useState(location.pathname)
-
-  // 监听路由变化，自动更新激活状态
-  useEffect(() => {
-    setActiveTabState(location.pathname)
-  }, [location.pathname])
+  const activeTab = location.pathname
 
   // 当 tabs 变化时，保存到 localStorage
   useEffect(() => {
@@ -110,7 +105,6 @@ export function TabProvider({ children }: TabProviderProps) {
         const newActiveIndex =
           closedIndex > 0 ? closedIndex - 1 : 0
         const newActivePath = newTabs[newActiveIndex].path
-        setActiveTabState(newActivePath)
         navigate(newActivePath)
       }
     },
@@ -129,7 +123,6 @@ export function TabProvider({ children }: TabProviderProps) {
 
       // 如果当前激活的不在新列表中，切换到指定的 Tab
       if (!newTabs.find(t => t.path === activeTab)) {
-        setActiveTabState(path)
         navigate(path)
       }
     },
@@ -150,7 +143,6 @@ export function TabProvider({ children }: TabProviderProps) {
     // 切换到第一个不可关闭的 Tab
     if (!newTabs.find(t => t.path === activeTab)) {
       const firstTab = newTabs[0]
-      setActiveTabState(firstTab.path)
       navigate(firstTab.path)
     }
   }, [tabs, activeTab, navigate])
@@ -167,7 +159,6 @@ export function TabProvider({ children }: TabProviderProps) {
   // 设置激活的 Tab
   const setActiveTab = useCallback(
     (path: string) => {
-      setActiveTabState(path)
       navigate(path)
     },
     [navigate]

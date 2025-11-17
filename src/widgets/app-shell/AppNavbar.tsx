@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   ActionIcon,
   Box,
@@ -33,16 +33,15 @@ export function AppNavbar({
 }: AppNavbarProps) {
   const navigate = useNavigate()
   const location = useLocation()
-  const [openedKeys, setOpenedKeys] = useState<string[]>([])
+  const [manualOpenedKeys, setManualOpenedKeys] = useState<string[]>([])
 
-  // 自动展开当前激活路径的父菜单
-  useEffect(() => {
-    const activeKeys: string[] = []
+  const activeParentKeys = useMemo(() => {
+    const keys = new Set<string>()
 
     const findActiveParent = (items: MenuItem[], parentKey?: string) => {
       items.forEach(item => {
         if (item.path === location.pathname && parentKey) {
-          activeKeys.push(parentKey)
+          keys.add(parentKey)
         }
         if (item.children) {
           findActiveParent(item.children, item.key)
@@ -51,13 +50,15 @@ export function AppNavbar({
     }
 
     findActiveParent(menuItems)
-    setOpenedKeys(prev => {
-      return [...new Set([...prev, ...activeKeys])]
-    })
+    return Array.from(keys)
   }, [location.pathname, menuItems])
 
+  const openedKeys = useMemo(() => {
+    return Array.from(new Set([...manualOpenedKeys, ...activeParentKeys]))
+  }, [manualOpenedKeys, activeParentKeys])
+
   const toggleSubmenu = (key: string) => {
-    setOpenedKeys(prev =>
+    setManualOpenedKeys(prev =>
       prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key]
     )
   }

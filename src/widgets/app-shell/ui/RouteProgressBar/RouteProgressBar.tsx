@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import classes from './RouteProgressBar.module.css'
 
@@ -8,13 +8,20 @@ import classes from './RouteProgressBar.module.css'
  */
 export function RouteProgressBar() {
   const location = useLocation()
-  const [active, setActive] = useState(false)
+  const barRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    // 路由变化时触发一次进度动画
-    setActive(true)
+    const bar = barRef.current
+    if (!bar) return undefined
+
+    // 重置动画状态后重新触发
+    bar.classList.remove(classes.barActive)
+    // 触发浏览器回流以便重新附着动画
+    void bar.offsetWidth
+    bar.classList.add(classes.barActive)
+
     const timeoutId = window.setTimeout(() => {
-      setActive(false)
+      bar.classList.remove(classes.barActive)
     }, 500)
 
     return () => window.clearTimeout(timeoutId)
@@ -22,12 +29,7 @@ export function RouteProgressBar() {
 
   return (
     <div className={classes.container}>
-      <div
-        className={`${classes.bar} ${
-          active ? classes.barActive : classes.barHidden
-        }`}
-      />
+      <div ref={barRef} className={classes.bar} />
     </div>
   )
 }
-
