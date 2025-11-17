@@ -1,4 +1,4 @@
-﻿import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 import type { RouteObject } from 'react-router-dom'
 import { AuthLayout, AppLayout } from '@/app/layouts'
 import { DashboardPage } from '@/pages/dashboard'
@@ -31,6 +31,7 @@ import type { Icon as TablerIcon } from '@tabler/icons-react'
 import { ProfileBasicPage } from '@/pages/profile-basic'
 import { FormGroupPage } from '@/pages/form-group'
 import { FormStepPage } from '@/pages/form-step'
+import { BasicListPage } from '@/pages/list-basic'
 
 /**
  * Route meta information
@@ -133,7 +134,7 @@ export const protectedRoutes: AppRouteObject[] = [
         children: [
           {
             path: 'basic',
-            element: <Placeholder title="基础列表" />, 
+            element: <BasicListPage />, 
             meta: { title: '基础列表' },
           },
           {
