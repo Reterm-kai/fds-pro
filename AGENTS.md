@@ -444,8 +444,8 @@ transition: all 0.3s ease; /* 平滑过渡 */
 
 /* 多属性过渡 */
 transition:
-background-color 0.15s ease,
-                     color 0.15s ease;
+  background-color 0.15s ease,
+  color 0.15s ease;
 ```
 
 **推荐时长**：
@@ -467,36 +467,36 @@ transition: all 100ms ease; /* 使用秒而非毫秒 */
 
 ```css
 .navbar {
-   height: 100%;
-   padding: 0;
-   display: flex;
-   flex-direction: column;
-   transition: all 0.3s ease;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
 }
 
 .navbarItem {
-   padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
-   font-size: var(--mantine-font-size-sm);
-   color: var(--mantine-color-text);
-   border-radius: var(--mantine-radius-sm);
-   transition: background-color 0.15s ease;
-   min-height: rem(42px);
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-text);
+  border-radius: var(--mantine-radius-sm);
+  transition: background-color 0.15s ease;
+  min-height: rem(42px);
 
-   &:hover {
-      background-color: light-dark(
-              var(--mantine-color-gray-2),
-              var(--mantine-color-dark-6)
-      );
-   }
+  &:hover {
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-6)
+    );
+  }
 }
 
 .button {
-   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
-   border: rem(1px) solid
-   light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-   border-radius: var(--mantine-radius-md);
-   box-shadow: var(--mantine-shadow-sm);
-   z-index: var(--mantine-z-index-app);
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border: rem(1px) solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  border-radius: var(--mantine-radius-md);
+  box-shadow: var(--mantine-shadow-sm);
+  z-index: var(--mantine-z-index-app);
 }
 ```
 
@@ -536,12 +536,12 @@ border: calc(var(--mantine-spacing-xs) * 0.125) solid...; /* 10px * 0.125 = 1.25
 
 ```json
 {
-   "singleQuote": true,
-   "semi": false,
-   "tabWidth": 2,
-   "trailingComma": "es5",
-   "printWidth": 80,
-   "arrowParens": "avoid"
+  "singleQuote": true,
+  "semi": false,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 80,
+  "arrowParens": "avoid"
 }
 ```
 
@@ -623,10 +623,10 @@ Query Keys 管理:
 ```typescript
 // entities/user/model/keys.ts
 export const userKeys = {
-   all: ['users'] as const,
-   lists: () => [...userKeys.all, 'list'] as const,
-   list: (params: UserListParams) => [...userKeys.lists(), params] as const,
-   detail: (id: number) => [...userKeys.all, 'detail', id] as const,
+  all: ['users'] as const,
+  lists: () => [...userKeys.all, 'list'] as const,
+  list: (params: UserListParams) => [...userKeys.lists(), params] as const,
+  detail: (id: number) => [...userKeys.all, 'detail', id] as const,
 }
 ```
 
@@ -637,9 +637,9 @@ export const userKeys = {
 ```typescript
 // shared/mock/handlers/users.ts
 export const usersHandlers = [
-   http.get('/users', ({ request }) => {
-      // 返回 mock 数据
-   }),
+  http.get('/users', ({ request }) => {
+    // 返回 mock 数据
+  }),
 ]
 ```
 
@@ -648,9 +648,9 @@ export const usersHandlers = [
 ```typescript
 // main.tsx
 if (import.meta.env.DEV) {
-   import('./shared/mock/browser').then(({ worker }) => {
-      worker.start()
-   })
+  import('./shared/mock/browser').then(({ worker }) => {
+    worker.start()
+  })
 }
 ```
 
@@ -661,22 +661,22 @@ if (import.meta.env.DEV) {
 ```typescript
 // app/routes/router.tsx
 export const router = createBrowserRouter([
-   {
-      element: <AuthLayout />,  // 提供认证上下文
-      children: [
-         // 公共路由
-         { path: '/login', element: <LoginPage /> },
-         // 受保护路由
-         {
-            path: '/',
-            element: <ProtectedRoute><AppLayout /></ProtectedRoute>,
-            children: [
-               { path: 'dashboard', element: <DashboardPage /> },
-               { path: 'users', element: <UsersPage /> },
-            ],
-         },
-      ],
-   },
+  {
+    element: <AuthLayout />,  // 提供认证上下文
+    children: [
+      // 公共路由
+      { path: '/login', element: <LoginPage /> },
+      // 受保护路由
+      {
+        path: '/',
+        element: <ProtectedRoute><AppLayout /></ProtectedRoute>,
+        children: [
+          { path: 'dashboard', element: <DashboardPage /> },
+          { path: 'users', element: <UsersPage /> },
+        ],
+      },
+    ],
+  },
 ])
 ```
 
