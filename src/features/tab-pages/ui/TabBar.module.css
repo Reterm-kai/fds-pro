@@ -1,0 +1,141 @@
+.tabBar {
+  display: flex;
+  align-items: stretch;
+  background-color: var(--mantine-color-body);
+  border-bottom: calc(var(--mantine-spacing-xs) * 0.1) solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  padding: 0 var(--mantine-spacing-xs);
+  padding-top: calc(var(--mantine-spacing-xs) * 0.6);
+  min-height: calc(var(--mantine-spacing-xl) * 1.1);
+  overflow-x: auto;
+  overflow-y: visible;
+  gap: calc(var(--mantine-spacing-xs) * 0.2);
+  user-select: none;
+  position: relative;
+
+  /* 隐藏滚动条但保持滚动功能 */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tabBar::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--mantine-spacing-xs) * 0.6);
+  padding: calc(var(--mantine-spacing-xs) * 0.5) var(--mantine-spacing-sm);
+  font-size: var(--mantine-font-size-xs);
+  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
+  background-color: light-dark(
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-6)
+  );
+  border-radius: var(--mantine-radius-sm) var(--mantine-radius-sm) 0 0;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease;
+  white-space: nowrap;
+  min-width: calc(var(--mantine-spacing-xl) * 2.5);
+  max-width: calc(var(--mantine-spacing-xl) * 5);
+  position: relative;
+  border: calc(var(--mantine-spacing-xs) * 0.1) solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  border-bottom: none;
+  margin-bottom: calc(var(--mantine-spacing-xs) * -0.1);
+}
+
+.tab:hover:not(.tabActive) {
+  color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-dark-0));
+  background-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-5)
+  );
+}
+
+.tabActive {
+  background-color: var(--mantine-color-body);
+  color: var(--mantine-color-text);
+  font-weight: 500;
+  border-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-4)
+  );
+  border-bottom: calc(var(--mantine-spacing-xs) * 0.1) solid
+    var(--mantine-color-body);
+}
+
+.tabActive:hover {
+  background-color: var(--mantine-color-body);
+}
+
+.tabLabel {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--mantine-spacing-xs) * 0.2);
+  border-radius: var(--mantine-radius-xs);
+  color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.closeButton:hover {
+  background-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-4)
+  );
+  color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-dark-0));
+}
+
+.contextMenu {
+  position: fixed;
+  z-index: var(--mantine-z-index-popover);
+  background-color: var(--mantine-color-body);
+  border: calc(var(--mantine-spacing-xs) * 0.1) solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  border-radius: var(--mantine-radius-sm);
+  box-shadow: var(--mantine-shadow-sm);
+  padding: calc(var(--mantine-spacing-xs) * 0.4);
+  min-width: calc(var(--mantine-spacing-xl) * 3.5);
+}
+
+.contextMenuItem {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--mantine-spacing-xs) * 0.6);
+  padding: calc(var(--mantine-spacing-xs) * 0.4)
+    calc(var(--mantine-spacing-xs) * 0.8);
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-text);
+  border-radius: var(--mantine-radius-xs);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.contextMenuItem:hover {
+  background-color: light-dark(
+    var(--mantine-color-gray-1),
+    var(--mantine-color-dark-6)
+  );
+}
+
+.contextMenuItemDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.contextMenuItemDisabled:hover {
+  background-color: transparent;
+}

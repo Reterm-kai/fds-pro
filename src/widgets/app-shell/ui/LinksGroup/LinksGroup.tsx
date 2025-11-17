@@ -34,14 +34,18 @@ export function LinksGroup({
 }: LinksGroupProps) {
   const location = useLocation()
   const hasLinks = Array.isArray(links)
-  const [opened, setOpened] = useState(initiallyOpened || false)
+
+  // 子菜单中是否有激活项(用于收缩模式的图标高亮和自动展开)
+  const hasActiveChild =
+    hasLinks && links?.some(subLink => location.pathname === subLink.link)
+
+  // 初始化时：如果有子菜单且当前路由匹配子菜单项，自动展开
+  const [opened, setOpened] = useState(
+    initiallyOpened || hasActiveChild || false
+  )
 
   // 精确匹配:只有当前路由完全匹配时才激活
   const isActive = link && location.pathname === link
-
-  // 子菜单中是否有激活项(用于收缩模式的图标高亮)
-  const hasActiveChild =
-    hasLinks && links?.some(subLink => location.pathname === subLink.link)
 
   // 生成普通模式的子菜单项
   const items = (hasLinks ? links : []).map(subLink => {

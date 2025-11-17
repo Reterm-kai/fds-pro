@@ -1,4 +1,4 @@
-﻿import { createBrowserRouter, Navigate } from 'react-router-dom'
+﻿import { createBrowserRouter } from 'react-router-dom'
 import type { RouteObject } from 'react-router-dom'
 import { AuthLayout, AppLayout } from '@/app/layouts'
 import { DashboardPage } from '@/pages/dashboard'
@@ -6,6 +6,7 @@ import { UsersPage } from '@/pages/users'
 import { SettingsPage } from '@/pages/settings'
 import LoginPage from '@/pages/login'
 import { RegisterPage } from '@/pages/register'
+import { HomePage } from '@/pages/home'
 import {
   Exception403,
   Exception404,
@@ -53,13 +54,19 @@ export interface AppRouteObject extends Omit<RouteObject, 'children'> {
  * Public routes (do not require auth)
  */
 const publicRoutes: AppRouteObject[] = [
+  // 首页（不使用 AppLayout，无 Tab 功能）
+  {
+    path: '/',
+    element: <HomePage />,
+    meta: { hideInMenu: true },
+  },
   {
     path: '/login',
-    element: <LoginPage />, 
+    element: <LoginPage />,
   },
   {
     path: '/register',
-    element: <RegisterPage />, 
+    element: <RegisterPage />,
   },
 ]
 
@@ -67,6 +74,7 @@ const publicRoutes: AppRouteObject[] = [
  * Protected routes (require auth, with menu meta)
  */
 export const protectedRoutes: AppRouteObject[] = [
+  // 应用主体（使用 AppLayout，带 Tab 功能）
   {
     path: '/',
     element: (
@@ -75,11 +83,6 @@ export const protectedRoutes: AppRouteObject[] = [
       </ProtectedRoute>
     ),
     children: [
-      {
-        index: true,
-        element: <Navigate to="/dashboard" replace />, 
-        meta: { hideInMenu: true },
-      },
       {
         path: 'dashboard',
         meta: {
@@ -233,7 +236,7 @@ export const protectedRoutes: AppRouteObject[] = [
         meta: {
           title: '系统管理',
           icon: IconSettings,
-          initiallyOpened: false,
+          initiallyOpened: true,
         },
         children: [
           {

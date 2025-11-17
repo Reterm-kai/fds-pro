@@ -1,9 +1,19 @@
-import { AppShell } from '@mantine/core'
+import { AppShell, Box } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { Outlet } from 'react-router-dom'
 import { Header } from '@/widgets/app-shell/ui/Header'
 import { Navbar } from '@/widgets/app-shell/ui/Navbar'
 import { RouteProgressBar } from '@/widgets/app-shell/ui/RouteProgressBar'
+import { TabProvider, TabBar, useRouteTabSync } from '@/features/tab-pages'
+
+/**
+ * Tab 同步包装组件
+ * 用于在 TabProvider 内部调用 useRouteTabSync
+ */
+function TabSyncWrapper({ children }: { children: React.ReactNode }) {
+  useRouteTabSync()
+  return <>{children}</>
+}
 
 /**
  * 应用主布局组件
@@ -21,33 +31,38 @@ export function AppLayout() {
   const [desktopCollapsed, { toggle: toggleDesktop }] = useDisclosure()
 
   return (
-    <>
-      <RouteProgressBar />
-      <AppShell
-      header={{ height: 60 }}
-      navbar={{
-        width: desktopCollapsed ? 64 : 240,
-        breakpoint: 'sm',
-        collapsed: { mobile: !mobileOpened, desktop: false },
-      }}
-      padding="md"
-    >
-      <AppShell.Header>
-        <Header opened={mobileOpened} toggle={toggleMobile} />
-      </AppShell.Header>
+    <TabProvider>
+      <TabSyncWrapper>
+        <RouteProgressBar />
+        <AppShell
+          header={{ height: 60 }}
+          navbar={{
+            width: desktopCollapsed ? 64 : 240,
+            breakpoint: 'sm',
+            collapsed: { mobile: !mobileOpened, desktop: false },
+          }}
+          padding={0}
+        >
+          <AppShell.Header>
+            <Header opened={mobileOpened} toggle={toggleMobile} />
+          </AppShell.Header>
 
-      <AppShell.Navbar>
-        <Navbar
-          collapsed={desktopCollapsed}
-          onToggleCollapse={toggleDesktop}
-          onLinkClick={closeMobile}
-        />
-      </AppShell.Navbar>
+          <AppShell.Navbar>
+            <Navbar
+              collapsed={desktopCollapsed}
+              onToggleCollapse={toggleDesktop}
+              onLinkClick={closeMobile}
+            />
+          </AppShell.Navbar>
 
-      <AppShell.Main>
-        <Outlet />
-      </AppShell.Main>
-    </AppShell>
-    </>
+          <AppShell.Main>
+            <TabBar />
+            <Box p="md">
+              <Outlet />
+            </Box>
+          </AppShell.Main>
+        </AppShell>
+      </TabSyncWrapper>
+    </TabProvider>
   )
 }
