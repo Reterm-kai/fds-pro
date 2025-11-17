@@ -61,9 +61,9 @@ export const menuItems: MenuItem[] = [
     icon: <Table size={20} />,
     children: [
       {
-        key: 'list-search',
-        label: '查询表格',
-        path: '/list/search-table',
+        key: 'list-basic',
+        label: '基础列表',
+        path: '/list/basic',
       },
       {
         key: 'list-card',
