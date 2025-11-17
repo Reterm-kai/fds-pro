@@ -154,6 +154,7 @@ export function FormGroupPage() {
                         label="项目名称"
                         placeholder="请输入项目名称"
                         required
+                        name="projectName"
                         {...form.getInputProps('projectName')}
                       />
                     </Grid.Col>
@@ -167,6 +168,7 @@ export function FormGroupPage() {
                           { value: 'experiment', label: '实验项目' },
                         ]}
                         required
+                        name="projectType"
                         {...form.getInputProps('projectType')}
                       />
                     </Grid.Col>
@@ -175,6 +177,7 @@ export function FormGroupPage() {
                         label="负责人"
                         placeholder="请输入负责人姓名"
                         required
+                        name="owner"
                         {...form.getInputProps('owner')}
                       />
                     </Grid.Col>
@@ -182,6 +185,7 @@ export function FormGroupPage() {
                       <TextInput
                         label="所属部门"
                         placeholder="例如：技术中台部"
+                        name="department"
                         {...form.getInputProps('department')}
                       />
                     </Grid.Col>
@@ -191,6 +195,7 @@ export function FormGroupPage() {
                         placeholder="简要说明项目背景、目标和范围"
                         minRows={3}
                         autosize
+                        name="description"
                         {...form.getInputProps('description')}
                       />
                     </Grid.Col>
@@ -213,6 +218,7 @@ export function FormGroupPage() {
                         { value: 'internal', label: '团队成员可见' },
                         { value: 'public', label: '组织内公开' },
                       ]}
+                      name="visibility"
                       {...form.getInputProps('visibility')}
                     />
                     <Group justify="space-between">
@@ -230,6 +236,7 @@ export function FormGroupPage() {
                             event.currentTarget.checked
                           )
                         }
+                        name="enableAudit"
                       />
                     </Group>
                   </Stack>
@@ -265,18 +272,22 @@ export function FormGroupPage() {
                           event.currentTarget.checked
                         )
                       }
+                      name="enableNotification"
                     />
                   </Group>
 
                   <TextInput
                     label="通知邮箱"
                     placeholder="例如：owner@example.com"
+                    name="notifyEmail"
+                    autoComplete="email"
                     {...form.getInputProps('notifyEmail')}
                   />
 
                   <TextInput
                     label="Webhook 地址"
                     placeholder="可选，用于对接第三方系统"
+                    name="notifyWebhook"
                     {...form.getInputProps('notifyWebhook')}
                   />
                 </Stack>

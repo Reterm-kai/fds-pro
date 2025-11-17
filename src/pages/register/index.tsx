@@ -205,6 +205,9 @@ export function RegisterPage() {
                   placeholder="请输入您的姓名"
                   leftSection={<User size={18} />}
                   size="md"
+                  id="register-name"
+                  name="name"
+                  autoComplete="name"
                   {...form.getInputProps('name')}
                 />
 
@@ -214,6 +217,9 @@ export function RegisterPage() {
                   leftSection={<Mail size={18} />}
                   type="email"
                   size="md"
+                  id="register-email"
+                  name="email"
+                  autoComplete="email"
                   {...form.getInputProps('email')}
                 />
 
@@ -222,6 +228,9 @@ export function RegisterPage() {
                   placeholder="请输入您的密码"
                   leftSection={<Lock size={18} />}
                   size="md"
+                  id="register-password"
+                  name="password"
+                  autoComplete="new-password"
                   {...form.getInputProps('password')}
                 />
 
@@ -230,11 +239,16 @@ export function RegisterPage() {
                   placeholder="请再次输入密码"
                   leftSection={<Lock size={18} />}
                   size="md"
+                  id="register-confirm-password"
+                  name="confirmPassword"
+                  autoComplete="new-password"
                   {...form.getInputProps('confirmPassword')}
                 />
 
                 <Checkbox
                   label="我同意用户条款和服务协议"
+                  id="register-agree-terms"
+                  name="agreeTerms"
                   {...form.getInputProps('agreeTerms', { type: 'checkbox' })}
                 />
 

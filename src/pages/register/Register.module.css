@@ -1,6 +1,6 @@
-﻿/* 娉ㄥ唽椤甸潰鏍峰紡 - 绠€娲佽璁★紝瀹屽叏閬靛惊 Mantine 璁捐瑙勮寖 */
+/* 注册页面样式 - 简洁设计，完全遵循 Mantine 设计规范 */
 
-/* 涓诲鍣?- 鍏ㄥ睆甯冨眬 */
+/* 主容器 - 全屏布局 */
 .container {
   min-height: 100vh;
   display: flex;
@@ -20,7 +20,7 @@
   overflow: hidden;
 }
 
-/* 娉℃场鍔ㄧ敾瀹瑰櫒 */
+/* 泡泡动画容器 */
 .bubbles {
   position: absolute;
   top: 0;
@@ -32,11 +32,14 @@
   z-index: 0;
 }
 
-/* 鍗曚釜娉℃场 */
+/* 单个泡泡 */
 .bubble {
   position: absolute;
   bottom: calc(var(--mantine-spacing-xl) * -3.125);
-  background: light-dark(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  background: light-dark(
+    color-mix(in srgb, var(--mantine-color-white) 10%, transparent),
+    color-mix(in srgb, var(--mantine-color-white) 5%, transparent)
+  );
   border-radius: 50%;
   opacity: 0.6;
   animation: rise 15s infinite ease-in;
@@ -106,7 +109,7 @@
   animation-delay: 5s;
 }
 
-/* 娉℃场涓婂崌鍔ㄧ敾 */
+/* 泡泡上升动画 */
 @keyframes rise {
   0% {
     bottom: calc(var(--mantine-spacing-xl) * -3.125);
@@ -126,7 +129,7 @@
   }
 }
 
-/* 宸︿晶瑁呴グ鍖哄煙 */
+/* 左侧装饰区域 */
 .leftSection {
   flex: 1;
   display: flex;
@@ -139,13 +142,13 @@
   z-index: 1;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48em) {
   .leftSection {
     padding: calc(var(--mantine-spacing-xl) * 1.5);
   }
 }
 
-/* Logo 瀹瑰櫒 - 绠€鍖栬璁?*/
+/* Logo 容器 - 简化设计 */
 .logoWrapper {
   position: absolute;
   top: var(--mantine-spacing-xl);
@@ -156,10 +159,9 @@
 .logo {
   width: auto;
   height: calc(var(--mantine-spacing-xl) * 1.5);
-  /* 绉婚櫎婊ら暅锛屾樉绀哄師濮?Mantine Logo */
 }
 
-/* 涓绘爣棰樺拰鍓爣棰?*/
+/* 主标题和副标题 */
 .mainTitle {
   margin-bottom: var(--mantine-spacing-md);
   color: var(--mantine-color-white);
@@ -180,14 +182,14 @@
   margin-bottom: calc(var(--mantine-spacing-xl) * 1.5);
 }
 
-/* 瑁呴グ鎬ф彃鍥?- 绠€鍖?*/
+/* 装饰性插图 - 简化 */
 .illustration {
   margin-top: var(--mantine-spacing-xl);
   width: 100%;
   max-width: calc(var(--mantine-spacing-xl) * 12.5);
 }
 
-/* 娴姩鍗＄墖鍔ㄧ敾 */
+/* 浮动卡片动画 */
 .floatingCard1 {
   animation: float1 6s ease-in-out infinite;
 }
@@ -239,7 +241,7 @@
   }
 }
 
-/* 鍙充晶琛ㄥ崟鍖哄煙 */
+/* 右侧表单区域 */
 .rightSection {
   width: 100%;
   max-width: calc(var(--mantine-spacing-xl) * 15.625);
@@ -255,19 +257,19 @@
   z-index: 1;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48em) {
   .rightSection {
     padding: calc(var(--mantine-spacing-xl) * 1.25);
   }
 }
 
-/* 绉诲姩绔?Logo */
+/* 移动端 Logo */
 .mobileLogo {
   margin-bottom: calc(var(--mantine-spacing-xl) * 1.5);
   text-align: center;
 }
 
-/* 琛ㄥ崟鏍囬 */
+/* 表单标题 */
 .formTitle {
   text-align: center;
   margin-bottom: var(--mantine-spacing-xs);
@@ -283,7 +285,7 @@
   margin-bottom: calc(var(--mantine-spacing-xl) * 1.5);
 }
 
-/* 琛ㄥ崟瀹瑰櫒 */
+/* 表单容器 */
 .formContainer {
   box-shadow: none;
   border-radius: 0;
@@ -291,7 +293,7 @@
   padding: 0;
 }
 
-/* 娉ㄥ唽鎸夐挳 */
+/* 注册按钮 */
 .submitButton {
   height: calc(var(--mantine-spacing-xl) * 1.25);
   background: var(--mantine-color-blue-5);
@@ -308,7 +310,7 @@
   transform: translateY(calc(var(--mantine-spacing-xs) * 0.125));
 }
 
-/* 鐧诲綍閾炬帴 */
+/* 登录链接 */
 .loginLink {
   text-align: center;
   font-size: var(--mantine-font-size-sm);
@@ -316,19 +318,19 @@
   margin-top: var(--mantine-spacing-md);
 }
 
-/* 鍒嗛殧绾?*/
+/* 分隔线 */
 .divider {
   margin: var(--mantine-spacing-lg) 0;
 }
 
-/* 绀句氦鐧诲綍鎸夐挳缁?*/
+/* 社交登录按钮组 */
 .socialButtons {
   display: flex;
   gap: var(--mantine-spacing-md);
 }
 
-/* 鍝嶅簲寮?- 闅愯棌宸︿晶瑁呴グ鍖哄煙 */
-@media (max-width: 768px) {
+/* 响应式 - 隐藏左侧装饰区域 */
+@media (max-width: 48em) {
   .leftSection {
     display: none;
   }
@@ -337,14 +339,14 @@
     max-width: 100%;
   }
 
-  /* 绉诲姩绔殣钘忔场娉″姩鐢讳互鎻愬崌鎬ц兘 */
+  /* 移动端隐藏泡泡动画以提升性能 */
   .bubbles {
     display: none;
   }
 }
 
-/* 鍝嶅簲寮?- 鏄剧ず绉诲姩绔?Logo */
-@media (min-width: 768px) {
+/* 响应式 - 显示移动端 Logo */
+@media (min-width: 48em) {
   .mobileLogo {
     display: none;
   }

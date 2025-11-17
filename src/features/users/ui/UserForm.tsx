@@ -115,6 +115,8 @@ export function UserForm({ opened, onClose, user }: UserFormProps) {
             label="姓名"
             placeholder="请输入用户姓名"
             required
+            name="name"
+            autoComplete="name"
             {...form.getInputProps('name')}
           />
 
@@ -123,6 +125,8 @@ export function UserForm({ opened, onClose, user }: UserFormProps) {
             placeholder="user@example.com"
             required
             type="email"
+            name="email"
+            autoComplete="email"
             {...form.getInputProps('email')}
           />
 
@@ -130,6 +134,7 @@ export function UserForm({ opened, onClose, user }: UserFormProps) {
             label="角色"
             placeholder="选择角色"
             required
+            name="role"
             data={[
               { value: 'admin', label: '管理员' },
               { value: 'user', label: '用户' },
@@ -144,6 +149,8 @@ export function UserForm({ opened, onClose, user }: UserFormProps) {
               placeholder="请输入密码(至少6位)"
               required
               type="password"
+              name="password"
+              autoComplete="new-password"
               {...form.getInputProps('password')}
             />
           )}

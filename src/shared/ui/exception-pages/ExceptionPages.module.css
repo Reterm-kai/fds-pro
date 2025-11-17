@@ -17,11 +17,12 @@
 }
 
 .code {
-  font-size: var(--mantine-font-size-md);
-  font-weight: 700;
-  letter-spacing: calc(var(--mantine-spacing-xs) * 0.15);
-  color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-3));
-  margin-bottom: var(--mantine-spacing-md);
+  font-size: calc(var(--mantine-spacing-xl) * 4);
+  font-weight: 900;
+  letter-spacing: calc(var(--mantine-spacing-xs) * 0.3);
+  color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  margin-bottom: var(--mantine-spacing-lg);
+  line-height: 1;
 }
 
 .title {

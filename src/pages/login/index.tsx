@@ -183,6 +183,8 @@ export default function LoginPage() {
                   placeholder="admin 或 admin@x.com"
                   leftSection={<User size={18} />}
                   size="md"
+                  id="login-username"
+                  name="username"
                   autoComplete="username"
                   {...form.getInputProps('username')}
                 />
@@ -192,6 +194,8 @@ export default function LoginPage() {
                   placeholder="请输入密码"
                   leftSection={<Lock size={18} />}
                   size="md"
+                  id="login-password"
+                  name="password"
                   autoComplete="current-password"
                   {...form.getInputProps('password')}
                 />
@@ -199,6 +203,8 @@ export default function LoginPage() {
                 <Flex className={classes.rememberRow}>
                   <Checkbox
                     label="记住密码"
+                    id="login-remember-me"
+                    name="remember-me"
                     checked={rememberMe}
                     onChange={e => setRememberMe(e.currentTarget.checked)}
                   />

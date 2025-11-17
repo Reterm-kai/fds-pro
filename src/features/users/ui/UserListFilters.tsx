@@ -35,6 +35,7 @@ export function UserListFilters({
           value={keyword}
           onChange={event => onKeywordChange(event.target.value)}
           flex={1}
+          name="user-search"
         />
         <Select
           placeholder="角色"
@@ -49,6 +50,7 @@ export function UserListFilters({
           clearable
           w={{ base: '100%', sm: '9.375rem' }}
           miw="7.5rem"
+          name="role-filter"
         />
         <Select
           placeholder="状态"
@@ -62,6 +64,7 @@ export function UserListFilters({
           clearable
           w={{ base: '100%', sm: '9.375rem' }}
           miw="7.5rem"
+          name="status-filter"
         />
         {hasFilters && (
           <Button

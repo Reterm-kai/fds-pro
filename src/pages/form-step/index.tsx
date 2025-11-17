@@ -77,7 +77,7 @@ export function FormStepPage() {
     setActive(current => Math.max(current - 1, 0))
   }
 
-  const handleSubmit = (values: StepFormValues) => {
+  const handleSubmit = () => {
     setSubmitting(true)
     window.setTimeout(() => {
       setSubmitting(false)
@@ -136,6 +136,8 @@ export function FormStepPage() {
                     label="申请人姓名"
                     placeholder="请输入姓名"
                     required
+                    name="name"
+                    autoComplete="name"
                     {...form.getInputProps('name')}
                   />
                 </Grid.Col>
@@ -144,6 +146,8 @@ export function FormStepPage() {
                     label="联系邮箱"
                     placeholder="name@example.com"
                     required
+                    name="email"
+                    autoComplete="email"
                     {...form.getInputProps('email')}
                   />
                 </Grid.Col>
@@ -153,6 +157,7 @@ export function FormStepPage() {
                     placeholder="简要说明本次发布的背景和变更内容"
                     minRows={3}
                     autosize
+                    name="description"
                     {...form.getInputProps('description')}
                   />
                 </Grid.Col>
@@ -172,6 +177,7 @@ export function FormStepPage() {
                         label="目标环境"
                         placeholder="如：测试环境 / 预发布环境 / 生产环境"
                         required
+                        name="env"
                         {...form.getInputProps('env')}
                       />
                     </Grid.Col>
@@ -180,6 +186,8 @@ export function FormStepPage() {
                         label="代码仓库地址"
                         placeholder="https://github.com/your-org/your-repo"
                         required
+                        name="repoUrl"
+                        autoComplete="url"
                         {...form.getInputProps('repoUrl')}
                       />
                     </Grid.Col>
@@ -187,6 +195,7 @@ export function FormStepPage() {
                       <TextInput
                         label="分支"
                         placeholder="main"
+                        name="branch"
                         {...form.getInputProps('branch')}
                       />
                     </Grid.Col>
@@ -196,6 +205,7 @@ export function FormStepPage() {
                         placeholder="可选，补充说明特殊注意事项"
                         minRows={3}
                         autosize
+                        name="remark"
                         {...form.getInputProps('remark')}
                       />
                     </Grid.Col>
