@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   /* Thin progress bar at the very top */
-  height: calc(var(--mantine-spacing-xs) * 0.3);
+  height: calc(var(--mantine-spacing-xs) * 0.2);
   pointer-events: none;
   z-index: var(--mantine-z-index-max);
 }
@@ -14,7 +14,7 @@
   height: 100%;
   transform-origin: left;
   opacity: 0;
-  transform: scaleX(0);
+  transition: opacity 0.5s ease; /* 淡出 */
   /* Use theme gradient so the bar is visible but not too strong */
   background: linear-gradient(
     to right,
@@ -25,8 +25,8 @@
 }
 
 .barActive {
-  /* 0.5s: quick overall, with a short pause around 10% and smooth finish */
-  animation: route-progress-bar 0.5s ease-out forwards;
+  opacity: 1;
+  animation: route-progress-bar 0.7s ease-out forwards;
 }
 
 @keyframes route-progress-bar {
@@ -34,19 +34,23 @@
     transform: scaleX(0);
     background-position: 0 0;
   }
-  /* Quickly reach ~10% */
-  15% {
-    transform: scaleX(0.12);
-    background-position: 15% 0;
+
+  /* 推到 10% */
+  10% {
+    transform: scaleX(0.1);
+    background-position: 10% 0;
   }
-  /* Short pause around 10% (hold the same length a bit) */
-  30% {
-    transform: scaleX(0.12);
-    background-position: 20% 0;
+
+  /* 在 10% 停顿 0.2 秒 */
+  38.57% {
+    transform: scaleX(0.1);
+    background-position: 10% 0;
   }
-  /* Then smoothly accelerate to 100% */
+
+  /* 最后 0.5 秒跑完剩余进度 */
   100% {
     transform: scaleX(1);
     background-position: 100% 0;
   }
 }
+
