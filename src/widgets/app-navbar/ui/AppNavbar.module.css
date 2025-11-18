@@ -3,17 +3,72 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
   background-color: var(--mantine-color-body);
+  /* 滑动门效果：边界线滑动 */
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: width;
+  /* 不裁剪超出的内容（切换按钮） */
+  overflow: visible;
+  /* 加强右边界视觉效果 */
+  border-right: calc(var(--mantine-spacing-xs) * 0.125) solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  box-shadow: var(--mantine-shadow-sm);
 }
 
-.navbar.collapsed .linksInner {
-  padding: var(--mantine-spacing-sm);
-  align-items: center;
+/* 为主内容区域添加裁剪 */
+.links,
+.collapsedContent {
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
+/* 收缩状态下隐藏展开内容 */
 .links {
   flex: 1;
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.navbar.collapsed .links {
+  display: none;
+}
+
+/* 收缩状态下显示图标容器 */
+.collapsedContent {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  /* 滚动条样式 */
+  scrollbar-width: thin;
+  scrollbar-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-4)
+    )
+    transparent;
+}
+
+.collapsedContent::-webkit-scrollbar {
+  width: var(--mantine-spacing-xs);
+}
+
+.collapsedContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.collapsedContent::-webkit-scrollbar-thumb {
+  background-color: light-dark(
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-4)
+  );
+  border-radius: var(--mantine-radius-md);
+}
+
+.navbar.collapsed .collapsedContent {
+  display: flex;
+  opacity: 1;
+  transition-delay: 0.25s;
 }
 
 /* 滚动条样式 - 适用于展开和收缩状态 */
@@ -57,9 +112,18 @@
 
 .linksInner {
   padding: var(--mantine-spacing-md);
-  transition: padding 0.3s ease;
   display: flex;
   flex-direction: column;
+}
+
+/* 收缩状态下的图标列表 */
+.collapsedIconsInner {
+  padding: var(--mantine-spacing-sm);
+  padding-top: var(--mantine-spacing-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--mantine-spacing-xs) * 0.5);
 }
 
 .footer {
@@ -69,15 +133,44 @@
   display: flex;
   justify-content: center;
   position: relative;
-  transition: padding 0.3s ease;
+  transition: padding 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  /* 确保切换按钮可见 */
+  overflow: visible;
+  z-index: 1;
 }
 
 .navbar.collapsed .footer {
   padding: var(--mantine-spacing-sm);
 }
 
+/* 展开状态的 footer 内容 */
+.footerExpanded {
+  opacity: 1;
+  transition: opacity 0.25s ease;
+}
+
+.navbar.collapsed .footerExpanded {
+  display: none;
+}
+
+/* 收缩状态的 footer 内容 */
+.footerCollapsed {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.navbar.collapsed .footerCollapsed {
+  display: block;
+  opacity: 1;
+  transition-delay: 0.25s;
+}
+
 .contactIconButton {
-  transition: transform 0.2s ease;
+  /* 优化：添加 opacity 过渡，使切换更平滑 */
+  transition:
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .contactIconButton:hover {
@@ -96,16 +189,25 @@
   border: calc(var(--mantine-spacing-xs) * 0.125) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
   box-shadow: var(--mantine-shadow-sm);
-  transition: all 0.2s ease;
-  z-index: var(--mantine-z-index-app);
+  /* 平滑的按钮动画 */
+  transition:
+    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  /* 提高层级，确保不被遮挡 */
+  z-index: calc(var(--mantine-z-index-app) + 10);
   border-radius: var(--mantine-radius-xl);
 }
 
 .toggleButton:hover {
-  transform: translateY(-50%) scale(1.05);
+  transform: translateY(-50%) scale(1.08);
   border-color: light-dark(
     var(--mantine-color-gray-5),
     var(--mantine-color-dark-3)
   );
   box-shadow: var(--mantine-shadow-md);
+}
+
+.toggleButton:active {
+  transform: translateY(-50%) scale(0.96);
 }

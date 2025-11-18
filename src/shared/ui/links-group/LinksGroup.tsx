@@ -154,12 +154,14 @@ export function LinksGroup({
   // 正常模式
   const buttonContent = (
     <>
-      <Box className={classes.iconWrapper}>{Icon && <Icon size={20} />}</Box>
-      <Box className={classes.labelWrapper} ml={Icon ? 'sm' : 0}>
-        {label}
-      </Box>
+      {Icon && (
+        <Box className={classes.iconWrapper}>
+          <Icon size={20} />
+        </Box>
+      )}
+      <Box className={classes.labelWrapper}>{label}</Box>
       {hasLinks && (
-        <Box ml="auto">
+        <Box className={classes.chevronWrapper}>
           <IconChevronRight
             className={classes.chevron}
             stroke={1.5}
