@@ -82,4 +82,3 @@ export function StatsGrid({ data = defaultData }: StatsGridProps) {
     </div>
   )
 }
-

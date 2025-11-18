@@ -1,9 +1,16 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { X, RefreshCw, XCircle, Trash2, ChevronLeft, ChevronRight } from 'lucide-react'
+import {
+  X,
+  RefreshCw,
+  XCircle,
+  Trash2,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react'
 import { Box } from '@mantine/core'
 import { useTabPages } from '../model/useTabPages'
 import classes from './TabBar.module.css'
-import * as React from "react";
+import * as React from 'react'
 
 interface ContextMenuState {
   visible: boolean
@@ -232,7 +239,10 @@ export function TabBar() {
           )}
 
           {hasOtherClosableTabs ? (
-            <div className={classes.contextMenuItem} onClick={handleCloseOthers}>
+            <div
+              className={classes.contextMenuItem}
+              onClick={handleCloseOthers}
+            >
               <XCircle size={12} />
               <span>关闭其他</span>
             </div>

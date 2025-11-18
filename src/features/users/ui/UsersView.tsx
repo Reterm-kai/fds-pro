@@ -7,10 +7,7 @@ import { useUserList } from '@/features/users'
 import { useDeleteUser } from '@/features/users'
 import { UserListFilters } from '@/features/users'
 import { UserListTable } from './UserListTable'
-import {
-  showErrorNotification,
-  showSuccessNotification,
-} from '@/shared/ui'
+import { showErrorNotification, showSuccessNotification } from '@/shared/ui'
 import { UserForm } from './UserForm'
 
 /**

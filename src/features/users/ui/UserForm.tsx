@@ -4,10 +4,7 @@ import { useForm } from '@mantine/form'
 import { useCreateUser } from '@/features/users'
 import { useUpdateUser } from '@/features/users'
 import type { User, CreateUserParams } from '@/entities/user'
-import {
-  showErrorNotification,
-  showSuccessNotification,
-} from '@/shared/ui'
+import { showErrorNotification, showSuccessNotification } from '@/shared/ui'
 
 interface UserFormProps {
   opened: boolean

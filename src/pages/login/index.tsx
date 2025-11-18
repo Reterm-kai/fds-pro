@@ -43,12 +43,14 @@ export default function LoginPage() {
     validate: {
       username: value =>
         value.trim().length >= 2 ? null : '请输入用户名或邮箱',
-      password: value =>
-        value.length >= 6 ? null : '密码至少需要 6 个字符',
+      password: value => (value.length >= 6 ? null : '密码至少需要 6 个字符'),
     },
   })
 
-  const handleSubmit = async (values: { username: string; password: string }) => {
+  const handleSubmit = async (values: {
+    username: string
+    password: string
+  }) => {
     setLoading(true)
 
     try {

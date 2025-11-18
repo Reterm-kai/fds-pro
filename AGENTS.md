@@ -317,8 +317,8 @@ background: var(--mantine-color-body); /* 背景色 */
 
 /* 灰度色（支持深色模式） */
 background: light-dark(
-var(--mantine-color-gray-2),
-/* 浅色模式 */ var(--mantine-color-dark-6) /* 深色模式 */
+  var(--mantine-color-gray-2),
+  /* 浅色模式 */ var(--mantine-color-dark-6) /* 深色模式 */
 );
 
 /* 主题色阶 */

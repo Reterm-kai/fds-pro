@@ -45,11 +45,17 @@
 
 .metaBar {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(calc(var(--mantine-spacing-xl) * 7), 1fr));
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(calc(var(--mantine-spacing-xl) * 7), 1fr)
+  );
   gap: var(--mantine-spacing-md);
-  background: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-7));
-  border: calc(var(--mantine-spacing-xs) * 0.125)
-    solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  background: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-dark-7)
+  );
+  border: calc(var(--mantine-spacing-xs) * 0.125) solid
+    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
   box-shadow: var(--mantine-shadow-sm);
   margin-bottom: var(--mantine-spacing-xl);
 }
@@ -61,9 +67,12 @@
   gap: var(--mantine-spacing-md);
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
   border-radius: var(--mantine-radius-md);
-  background: light-dark(var(--mantine-color-white), var(--mantine-color-dark-6));
-  border: calc(var(--mantine-spacing-xs) * 0.125)
-    solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
+  background: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-6)
+  );
+  border: calc(var(--mantine-spacing-xs) * 0.125) solid
+    light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
 }
 
 .metaIcon {
@@ -73,7 +82,10 @@
   width: calc(var(--mantine-spacing-xl) * 1.4);
   height: calc(var(--mantine-spacing-xl) * 1.4);
   border-radius: var(--mantine-radius-md);
-  background: light-dark(var(--mantine-color-blue-0), var(--mantine-color-dark-5));
+  background: light-dark(
+    var(--mantine-color-blue-0),
+    var(--mantine-color-dark-5)
+  );
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-2));
 }
 
@@ -97,7 +109,10 @@
   gap: var(--mantine-spacing-md);
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
   border-radius: var(--mantine-radius-md);
-  background: light-dark(var(--mantine-color-gray-0), var(--mantine-color-dark-6));
-  border: calc(var(--mantine-spacing-xs) * 0.125)
-    solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
+  background: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-dark-6)
+  );
+  border: calc(var(--mantine-spacing-xs) * 0.125) solid
+    light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
 }

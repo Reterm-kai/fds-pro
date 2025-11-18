@@ -85,8 +85,7 @@ export const FONT_WEIGHTS = {
  */
 export const FONT_FAMILIES = {
   // 优先使用 Inter，其次系统无衬线和常见中文无衬线字体
-  sans:
-    'Inter, -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Noto Sans", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif',
+  sans: 'Inter, -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Noto Sans", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif',
   mono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
 } as const
 
@@ -108,4 +107,3 @@ export function rem(value: number): string {
 export type FontSizeKey = keyof typeof FIXED_FONT_SIZES
 export type LineHeightKey = keyof typeof LINE_HEIGHTS
 export type FontWeightKey = keyof typeof FONT_WEIGHTS
-

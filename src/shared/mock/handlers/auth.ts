@@ -7,10 +7,7 @@ import {
   findUserByIdentity,
 } from '../data/users'
 import { MOCK_API_BASE_URL } from '../config'
-import {
-  createErrorResponse,
-  createSuccessResponse,
-} from '../lib/response'
+import { createErrorResponse, createSuccessResponse } from '../lib/response'
 import { extractBearerToken } from '../lib/request'
 
 const BASE_URL = MOCK_API_BASE_URL
@@ -90,38 +87,37 @@ export const authHandlers = [
   }),
 
   // 注册
-  http.post<
-    EmptyParams,
-    RegisterRequestBody,
-    ApiResponse<User | null>
-  >(`${BASE_URL}/auth/register`, async ({ request }) => {
-    await delay(500)
+  http.post<EmptyParams, RegisterRequestBody, ApiResponse<User | null>>(
+    `${BASE_URL}/auth/register`,
+    async ({ request }) => {
+      await delay(500)
 
-    const body = (await request.json()) as RegisterRequestBody
-    const name = body.name?.trim()
-    const email = body.email?.trim()
-    const password = body.password?.trim()
+      const body = (await request.json()) as RegisterRequestBody
+      const name = body.name?.trim()
+      const email = body.email?.trim()
+      const password = body.password?.trim()
 
-    if (!name || !email || !password) {
-      return createErrorResponse(400, '姓名、邮箱和密码不能为空')
+      if (!name || !email || !password) {
+        return createErrorResponse(400, '姓名、邮箱和密码不能为空')
+      }
+
+      // 检查邮箱是否已注册
+      if (findUserByEmail(email)) {
+        return createErrorResponse(409, '该邮箱已被注册')
+      }
+
+      // 创建新用户
+      const newUser: User = createUserRecord({
+        name,
+        email,
+        role: 'user',
+        status: 'active',
+        avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}`,
+      })
+
+      return createSuccessResponse<User>(newUser)
     }
-
-    // 检查邮箱是否已注册
-    if (findUserByEmail(email)) {
-      return createErrorResponse(409, '该邮箱已被注册')
-    }
-
-    // 创建新用户
-    const newUser: User = createUserRecord({
-      name,
-      email,
-      role: 'user',
-      status: 'active',
-      avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(name)}`,
-    })
-
-    return createSuccessResponse<User>(newUser)
-  }),
+  ),
 
   // 登出
   http.delete<EmptyParams, undefined, ApiResponse<null>>(

@@ -1,0 +1,26 @@
+.sortableHeader {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease;
+}
+
+.sortableHeader:hover {
+  background-color: light-dark(
+    var(--mantine-color-gray-1),
+    var(--mantine-color-dark-6)
+  );
+}
+
+.sortIcon {
+  display: inline-flex;
+  align-items: center;
+  margin-left: var(--mantine-spacing-xs);
+  transition: transform 0.2s ease;
+}
+
+.actionsCell {
+  display: flex;
+  gap: var(--mantine-spacing-xs);
+  align-items: center;
+  justify-content: center;
+}

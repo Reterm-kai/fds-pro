@@ -171,9 +171,7 @@ export function ResultError() {
             </Text>
           </Group>
 
-          <Text className={classes.errorIntro}>
-            您提交的内容有如下错误：
-          </Text>
+          <Text className={classes.errorIntro}>您提交的内容有如下错误：</Text>
 
           <div className={classes.errorList}>
             <Group
@@ -256,4 +254,3 @@ export function ResultError() {
     />
   )
 }
-

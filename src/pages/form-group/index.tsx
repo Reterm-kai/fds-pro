@@ -30,10 +30,7 @@ import {
   IconDownload,
 } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
-import {
-  showInfoNotification,
-  showSuccessNotification,
-} from '@/shared/ui'
+import { showInfoNotification, showSuccessNotification } from '@/shared/ui'
 import {
   useFormGroupOptions,
   type FormGroupOptionsResponse,
@@ -257,11 +254,7 @@ export function FormGroupPage() {
           </div>
         </Paper>
 
-        <form
-          id="group-form"
-          onSubmit={form.onSubmit(handleSubmit)}
-          noValidate
-        >
+        <form id="group-form" onSubmit={form.onSubmit(handleSubmit)} noValidate>
           <Grid gutter="xl">
             <Grid.Col span={{ base: 12, md: 8 }}>
               <Stack gap="xl">
@@ -388,7 +381,9 @@ export function FormGroupPage() {
                         label="交付城市"
                         searchable
                         clearable
-                        placeholder={form.values.region ? '请选择城市' : '请先选择区域'}
+                        placeholder={
+                          form.values.region ? '请选择城市' : '请先选择区域'
+                        }
                         data={cityOptions}
                         name="city"
                         disabled={!form.values.region || loadingOptions}

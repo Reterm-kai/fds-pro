@@ -102,8 +102,7 @@ export function TabProvider({ children }: TabProviderProps) {
       // 如果关闭的是当前激活的 Tab，切换到上一个 Tab（优先）或下一个
       if (path === activeTab) {
         // 优先切换到上一个标签，如果没有则切换到当前位置的标签（原来的下一个）
-        const newActiveIndex =
-          closedIndex > 0 ? closedIndex - 1 : 0
+        const newActiveIndex = closedIndex > 0 ? closedIndex - 1 : 0
         const newActivePath = newTabs[newActiveIndex].path
         navigate(newActivePath)
       }

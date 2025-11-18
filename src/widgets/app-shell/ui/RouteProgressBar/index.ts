@@ -1,2 +1,1 @@
 export { RouteProgressBar } from './RouteProgressBar'
-

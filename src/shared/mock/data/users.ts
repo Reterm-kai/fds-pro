@@ -173,9 +173,7 @@ export function isEmailTaken(email: string, excludeId?: number): boolean {
 /**
  * 创建一个新的用户记录
  */
-export function createUserRecord(
-  input: CreateUserRecordInput
-): User {
+export function createUserRecord(input: CreateUserRecordInput): User {
   const timestamp = new Date().toISOString()
   const user: User = {
     id: nextId++,

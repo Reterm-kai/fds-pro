@@ -16,10 +16,7 @@ import {
   updateUserRecord,
 } from '../data/users'
 import { MOCK_API_BASE_URL } from '../config'
-import {
-  createErrorResponse,
-  createSuccessResponse,
-} from '../lib/response'
+import { createErrorResponse, createSuccessResponse } from '../lib/response'
 
 const BASE_URL = MOCK_API_BASE_URL
 

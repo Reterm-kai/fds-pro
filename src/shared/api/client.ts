@@ -110,10 +110,7 @@ axiosInstance.interceptors.response.use(
 
       // 404 未找到
       if (status === 404) {
-        throw new ApiError(
-          404,
-          error.response?.data?.msg || '请求的资源不存在'
-        )
+        throw new ApiError(404, error.response?.data?.msg || '请求的资源不存在')
       }
 
       // 500 服务器错误

@@ -1,41 +1,41 @@
 /**
- * 集合（基础列表）相关类型定义
+ * 基础列表相关类型定义
  */
 
-export type CollectionContentType = 'image' | 'template' | 'video' | 'text'
+export type ListContentType = 'image' | 'template' | 'video' | 'text'
 
-export type CollectionStrategy = 'rules' | 'artificial'
+export type ListStrategy = 'rules' | 'artificial'
 
-export type CollectionStatus = 'online' | 'offline'
+export type ListStatus = 'online' | 'offline'
 
-/** 集合实体 */
-export interface Collection {
+/** 列表项 */
+export interface ListItem {
   id: number
   /** 集合编号 */
   code: string
   /** 集合名称 */
   name: string
   /** 内容体裁 */
-  contentType: CollectionContentType
+  contentType: ListContentType
   /** 策略方式 */
-  strategy: CollectionStrategy
+  strategy: ListStrategy
   /** 内容量 */
   contentCount: number
   /** 创建时间 ISO 字符串 */
   createdAt: string
   /** 状态 */
-  status: CollectionStatus
+  status: ListStatus
 }
 
-/** 集合列表查询参数 */
-export interface CollectionListParams {
+/** 列表查询参数 */
+export interface ListParams {
   page?: number
   pageSize?: number
   code?: string
   name?: string
-  contentType?: CollectionContentType
-  strategy?: CollectionStrategy
-  status?: CollectionStatus
+  contentType?: ListContentType
+  strategy?: ListStrategy
+  status?: ListStatus
   /** 创建时间起始（ISO 字符串或日期字符串） */
   createdFrom?: string
   /** 创建时间结束（ISO 字符串或日期字符串） */
@@ -46,9 +46,9 @@ export interface CollectionListParams {
   sortOrder?: 'asc' | 'desc'
 }
 
-/** 集合列表响应 */
-export interface CollectionListResponse {
-  list: Collection[]
+/** 列表响应 */
+export interface ListResponse {
+  list: ListItem[]
   total: number
   page: number
   pageSize: number

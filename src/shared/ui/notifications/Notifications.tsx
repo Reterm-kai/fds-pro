@@ -124,4 +124,3 @@ export function showErrorNotification(options: AppNotificationOptions) {
 export function showInfoNotification(options: AppNotificationOptions) {
   showAppNotification('info', options)
 }
-

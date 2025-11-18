@@ -27,7 +27,10 @@ import {
 } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import { showSuccessNotification } from '@/shared/ui'
-import { useFormStepOptions, type FormStepOptionsResponse } from '@/entities/form-options'
+import {
+  useFormStepOptions,
+  type FormStepOptionsResponse,
+} from '@/entities/form-options'
 import classes from './FormStep.module.css'
 
 interface StepFormValues {
@@ -54,10 +57,8 @@ export function FormStepPage() {
   const navigate = useNavigate()
   const [active, setActive] = useState(0)
   const [submitting, setSubmitting] = useState(false)
-  const {
-    data: stepOptionsData,
-    isLoading: loadingOptions,
-  } = useFormStepOptions()
+  const { data: stepOptionsData, isLoading: loadingOptions } =
+    useFormStepOptions()
   const stepOptions = stepOptionsData ?? emptyStepOptions
 
   const form = useForm<StepFormValues>({
@@ -79,8 +80,7 @@ export function FormStepPage() {
     validateInputOnChange: true,
     validate: {
       name: value => (value.trim().length >= 2 ? null : '请输入申请人姓名'),
-      email: value =>
-        /^\S+@\S+$/.test(value) ? null : '请输入有效的邮箱地址',
+      email: value => (/^\S+@\S+$/.test(value) ? null : '请输入有效的邮箱地址'),
       env: value => (value ? null : '请选择目标环境'),
       repoUrl: value =>
         /^https?:\/\/.+/.test(value.trim())
@@ -182,10 +182,7 @@ export function FormStepPage() {
               size="sm"
               allowNextStepsSelect={false}
             >
-              <Stepper.Step
-                label="基础信息"
-                description="填写申请人信息"
-              />
+              <Stepper.Step label="基础信息" description="填写申请人信息" />
               <Stepper.Step label="发布配置" description="确认发布参数" />
               <Stepper.Completed>完成</Stepper.Completed>
             </Stepper>
@@ -256,7 +253,9 @@ export function FormStepPage() {
                           { label: '高风险', value: 'high' },
                         ]}
                         value={form.values.riskLevel}
-                        onChange={value => form.setFieldValue('riskLevel', value)}
+                        onChange={value =>
+                          form.setFieldValue('riskLevel', value)
+                        }
                         aria-label="风险等级"
                       />
                     </Grid.Col>
@@ -395,7 +394,9 @@ export function FormStepPage() {
                         仓库/分支
                       </Text>
                       <Text fw={500}>{form.values.repoUrl || '未填写'}</Text>
-                      <Text size="sm" c="dimmed">{form.values.branch}</Text>
+                      <Text size="sm" c="dimmed">
+                        {form.values.branch}
+                      </Text>
                     </Grid.Col>
                     <Grid.Col span={{ base: 12, sm: 6 }}>
                       <Text size="xs" c="dimmed">
@@ -414,7 +415,8 @@ export function FormStepPage() {
                           自测：{form.values.hasSmokeTest ? '已完成' : '未完成'}
                         </List.Item>
                         <List.Item>
-                          回滚：{form.values.hasRollbackPlan ? '已准备' : '未准备'}
+                          回滚：
+                          {form.values.hasRollbackPlan ? '已准备' : '未准备'}
                         </List.Item>
                       </List>
                     </Grid.Col>

@@ -1,10 +1,5 @@
 import { useMemo } from 'react'
-import {
-  ActionIcon,
-  ScrollArea,
-  Tooltip,
-  useMantineTheme,
-} from '@mantine/core'
+import { ActionIcon, ScrollArea, Tooltip, useMantineTheme } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import {
   IconLayoutSidebarLeftCollapse,
@@ -95,4 +90,3 @@ export function Navbar({
     </nav>
   )
 }
-

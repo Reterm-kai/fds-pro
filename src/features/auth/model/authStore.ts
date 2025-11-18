@@ -1,10 +1,7 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { devtools } from 'zustand/middleware'
-import {
-  showErrorNotification,
-  showSuccessNotification,
-} from '@/shared/ui'
+import { showErrorNotification, showSuccessNotification } from '@/shared/ui'
 import type { User } from '@/entities/user'
 import {
   login as apiLogin,
@@ -41,11 +38,7 @@ export const useAuthStore = create<AuthState>()(
         isInitialized: false,
 
         setUser: user =>
-          set(
-            { user, isAuthenticated: Boolean(user) },
-            false,
-            'auth/setUser'
-          ),
+          set({ user, isAuthenticated: Boolean(user) }, false, 'auth/setUser'),
 
         login: async (username, password, rememberMe = true) => {
           try {
@@ -163,9 +156,7 @@ export const useAuthStore = create<AuthState>()(
               )
             } catch {
               // Token 无效，清除本地状态
-              console.warn(
-                '[Auth] Token 校验失败，已清除本地认证状态'
-              )
+              console.warn('[Auth] Token 校验失败，已清除本地认证状态')
 
               set(
                 {
@@ -179,11 +170,7 @@ export const useAuthStore = create<AuthState>()(
             }
           } else {
             // 本地无用户信息，视为未登录但完成初始化
-            set(
-              { isInitialized: true },
-              false,
-              'auth/initialize/no-user'
-            )
+            set({ isInitialized: true }, false, 'auth/initialize/no-user')
           }
         },
       }),
@@ -203,4 +190,3 @@ export const useAuthStore = create<AuthState>()(
 export const selectUser = (state: AuthState) => state.user
 export const selectIsAuthenticated = (state: AuthState) => state.isAuthenticated
 export const selectIsInitialized = (state: AuthState) => state.isInitialized
-

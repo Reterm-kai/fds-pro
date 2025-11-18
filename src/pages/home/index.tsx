@@ -1,4 +1,12 @@
-import { Button, Container, Title, Text, Stack, Group, Center } from '@mantine/core'
+import {
+  Button,
+  Container,
+  Title,
+  Text,
+  Stack,
+  Group,
+  Center,
+} from '@mantine/core'
 import { useNavigate } from 'react-router-dom'
 import { LayoutDashboard, LogIn } from 'lucide-react'
 import { Logo, ThemeToggle } from '@/shared/ui'

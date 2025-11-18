@@ -18,15 +18,12 @@ export interface ApiSuccessResponse<T = unknown> extends ApiMeta<0> {
 }
 
 /** 业务失败响应 (data 恒为 null) */
-export interface ApiErrorResponse
-  extends ApiMeta<Exclude<ApiCode, 0>> {
+export interface ApiErrorResponse extends ApiMeta<Exclude<ApiCode, 0>> {
   data: null
 }
 
 /** 统一的 API 返回结构 */
-export type ApiResponse<T = unknown> =
-  | ApiSuccessResponse<T>
-  | ApiErrorResponse
+export type ApiResponse<T = unknown> = ApiSuccessResponse<T> | ApiErrorResponse
 
 /** 分页数据结构 */
 export interface PaginatedData<T> {

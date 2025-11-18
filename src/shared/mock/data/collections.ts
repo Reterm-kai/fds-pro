@@ -1,55 +1,47 @@
 import type {
-  Collection,
-  CollectionContentType,
-  CollectionListParams,
-  CollectionStatus,
-  CollectionStrategy,
-} from '@/entities/collection'
+  ListItem,
+  ListContentType,
+  ListParams,
+  ListStatus,
+  ListStrategy,
+} from '@/features/list-basic'
 
 /**
  * Mock 集合数据
  * 用于基础列表页的分页、筛选、排序示例
  */
-const contentTypes: CollectionContentType[] = [
-  'image',
-  'template',
-  'video',
-  'text',
-]
+const contentTypes: ListContentType[] = ['image', 'template', 'video', 'text']
 
-const strategies: CollectionStrategy[] = ['artificial', 'rules']
+const strategies: ListStrategy[] = ['artificial', 'rules']
 
-const statuses: CollectionStatus[] = ['online', 'offline']
+const statuses: ListStatus[] = ['online', 'offline']
 
 const startDate = new Date('2024-09-01T09:00:00Z').getTime()
 const oneHour = 60 * 60 * 1000
 
-const mockCollections: Collection[] = Array.from(
-  { length: 32 },
-  (_, index) => {
-    const id = index + 1
-    const createdAt = new Date(startDate + index * oneHour).toISOString()
+const mockCollections: ListItem[] = Array.from({ length: 32 }, (_, index) => {
+  const id = index + 1
+  const createdAt = new Date(startDate + index * oneHour).toISOString()
 
-    return {
-      id,
-      code: String(100 + id),
-      name: `COLL_${String.fromCharCode(65 + (id % 26))}${id}`,
-      contentType: contentTypes[index % contentTypes.length],
-      strategy: strategies[index % strategies.length],
-      contentCount: (id * 37) % 1000,
-      createdAt,
-      status: statuses[index % statuses.length],
-    }
+  return {
+    id,
+    code: String(100 + id),
+    name: `COLL_${String.fromCharCode(65 + (id % 26))}${id}`,
+    contentType: contentTypes[index % contentTypes.length],
+    strategy: strategies[index % strategies.length],
+    contentCount: (id * 37) % 1000,
+    createdAt,
+    status: statuses[index % statuses.length],
   }
-)
+})
 
 /** 获取全部集合（浅拷贝以避免外部修改内部数据） */
-export function getAllCollections(): Collection[] {
+export function getAllCollections(): ListItem[] {
   return [...mockCollections]
 }
 
 type FilterCollectionsParams = Pick<
-  CollectionListParams,
+  ListParams,
   | 'code'
   | 'name'
   | 'contentType'
@@ -60,18 +52,9 @@ type FilterCollectionsParams = Pick<
 >
 
 /** 根据查询条件筛选集合 */
-export function filterCollections(
-  params: FilterCollectionsParams
-): Collection[] {
-  const {
-    code,
-    name,
-    contentType,
-    strategy,
-    status,
-    createdFrom,
-    createdTo,
-  } = params
+export function filterCollections(params: FilterCollectionsParams): ListItem[] {
+  const { code, name, contentType, strategy, status, createdFrom, createdTo } =
+    params
 
   let filtered = [...mockCollections]
 
@@ -120,15 +103,15 @@ export function filterCollections(
   return filtered
 }
 
-type CollectionSortField = NonNullable<CollectionListParams['sortField']>
-type CollectionSortOrder = NonNullable<CollectionListParams['sortOrder']>
+type ListSortField = NonNullable<ListParams['sortField']>
+type ListSortOrder = NonNullable<ListParams['sortOrder']>
 
 /** 根据字段排序集合 */
 export function sortCollections(
-  list: Collection[],
-  sortField?: CollectionSortField,
-  sortOrder: CollectionSortOrder = 'asc'
-): Collection[] {
+  list: ListItem[],
+  sortField?: ListSortField,
+  sortOrder: ListSortOrder = 'asc'
+): ListItem[] {
   if (!sortField) {
     return [...list]
   }
@@ -139,9 +122,7 @@ export function sortCollections(
     }
 
     if (sortField === 'createdAt') {
-      return (
-        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      )
+      return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
     }
 
     const valueA = sortField === 'code' ? a.code : a.name
@@ -159,10 +140,10 @@ export function sortCollections(
 
 /** 分页处理 */
 export function paginateCollections(
-  list: Collection[],
+  list: ListItem[],
   page: number = 1,
   pageSize: number = 10
-): Collection[] {
+): ListItem[] {
   const currentPage = page > 0 ? page : 1
   const size = pageSize > 0 ? pageSize : 10
   const start = (currentPage - 1) * size
@@ -170,4 +151,3 @@ export function paginateCollections(
 
   return list.slice(start, end)
 }
-

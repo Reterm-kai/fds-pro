@@ -19,7 +19,11 @@ import { Mail, Lock, User, Github } from 'lucide-react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from '@mantine/form'
 import { useAuth } from '@/features/auth'
-import { Logo, showInfoNotification, showSuccessNotification } from '@/shared/ui'
+import {
+  Logo,
+  showInfoNotification,
+  showSuccessNotification,
+} from '@/shared/ui'
 import classes from './Register.module.css'
 
 /**
@@ -45,8 +49,7 @@ export function RegisterPage() {
         value.trim().length >= 2 ? null : '姓名至少需要 2 个字符',
       email: value =>
         /^\S+@\S+\.\S+$/.test(value) ? null : '请输入有效的邮箱地址',
-      password: value =>
-        value.length >= 6 ? null : '密码至少需要 6 个字符',
+      password: value => (value.length >= 6 ? null : '密码至少需要 6 个字符'),
       confirmPassword: (value, values) =>
         value === values.password ? null : '两次输入的密码不一致',
       agreeTerms: value => (value ? null : '请同意用户条款和服务协议'),
@@ -318,4 +321,3 @@ export function RegisterPage() {
 }
 
 export default RegisterPage
-
