@@ -23,10 +23,15 @@
     transform: translateY(calc(var(--mantine-spacing-xs) * -0.25));
   }
 
-  /* 禁用点击时的默认效果 */
+  /* 点击时立即显示激活效果 */
   &:active {
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-6)
+    );
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+    box-shadow: var(--mantine-shadow-sm);
     transform: translateY(0);
-    background-color: transparent;
   }
 }
 
@@ -38,6 +43,7 @@
     var(--mantine-color-dark-5)
   );
   box-shadow: var(--mantine-shadow-sm);
+  transform: none;
 }
 
 /* 展开模式激活状态 hover 效果 - 增强阴影 */
@@ -71,7 +77,7 @@
   height: calc(var(--mantine-spacing-xl) * 1.25);
   padding: 0;
   margin-bottom: calc(var(--mantine-spacing-xs) * 0.5);
-  border-radius: var(--mantine-radius-md);;
+  border-radius: var(--mantine-radius-md);
   transition:
     background-color 0.15s ease,
     box-shadow 0.15s ease,
@@ -88,10 +94,15 @@
     transform: translateX(calc(var(--mantine-spacing-xs) * -0.25));
   }
 
-  /* 禁用点击时的默认效果 */
+  /* 点击时立即显示激活效果 */
   &:active {
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-6)
+    );
+    color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+    box-shadow: var(--mantine-shadow-sm);
     transform: translateX(0);
-    background-color: transparent;
   }
 }
 
@@ -102,7 +113,8 @@
     var(--mantine-color-dark-5)
   );
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  box-shadow: var(--mantine-shadow-xs);
+  box-shadow: var(--mantine-shadow-sm);
+  transform: none;
 }
 
 /* 收缩模式激活状态 hover 效果 - 增强阴影 */
@@ -113,7 +125,7 @@
     var(--mantine-color-dark-5)
   );
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  box-shadow: var(--mantine-shadow-xs);
+  box-shadow: var(--mantine-shadow-md);
   transform: translateX(calc(var(--mantine-spacing-xs) * -0.35));
 }
 
@@ -125,7 +137,7 @@
     var(--mantine-color-dark-5)
   );
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  box-shadow: var(--mantine-shadow-xs);
+  box-shadow: var(--mantine-shadow-md);
   transform: translateX(0);
 }
 
@@ -183,10 +195,14 @@
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   }
 
-  /* 禁用点击时的默认效果 */
+  /* 点击时立即显示激活效果 */
   &:active {
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-5)
+    );
+    color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
     transform: none;
-    background-color: transparent;
   }
 }
 
@@ -241,10 +257,14 @@
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   }
 
-  /* 禁用点击时的默认效果 */
+  /* 点击时立即显示激活效果 */
   &:active {
+    background-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-5)
+    );
+    color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
     transform: none;
-    background-color: transparent;
   }
 }
 

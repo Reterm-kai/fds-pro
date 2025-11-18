@@ -1,11 +1,6 @@
 import { Burger, Container, Group, useMantineTheme } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
-import {
-  Logo,
-  ThemeToggle,
-  NotificationButton,
-  UserMenu,
-} from '@/shared/ui'
+import { Logo, ThemeToggle, NotificationButton, UserMenu } from '@/shared/ui'
 import classes from './AppHeader.module.css'
 
 interface AppHeaderProps {
