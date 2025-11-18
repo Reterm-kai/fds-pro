@@ -5,7 +5,7 @@
   flex-direction: column;
   background-color: var(--mantine-color-body);
   /* 滑动门效果：边界线滑动 */
-  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: width;
   /* 不裁剪超出的内容（切换按钮） */
   overflow: visible;
@@ -26,7 +26,7 @@
 .links {
   flex: 1;
   opacity: 1;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navbar.collapsed .links {
@@ -39,7 +39,7 @@
   display: none;
   flex-direction: column;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   /* 滚动条样式 */
   scrollbar-width: thin;
   scrollbar-color: light-dark(
@@ -68,7 +68,7 @@
 .navbar.collapsed .collapsedContent {
   display: flex;
   opacity: 1;
-  transition-delay: 0.25s;
+  transition-delay: 0.15s;
 }
 
 /* 滚动条样式 - 适用于展开和收缩状态 */
@@ -133,7 +133,7 @@
   display: flex;
   justify-content: center;
   position: relative;
-  transition: padding 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   /* 确保切换按钮可见 */
   overflow: visible;
   z-index: 1;
@@ -146,7 +146,7 @@
 /* 展开状态的 footer 内容 */
 .footerExpanded {
   opacity: 1;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navbar.collapsed .footerExpanded {
@@ -157,20 +157,20 @@
 .footerCollapsed {
   display: none;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .navbar.collapsed .footerCollapsed {
   display: block;
   opacity: 1;
-  transition-delay: 0.25s;
+  transition-delay: 0.15s;
 }
 
 .contactIconButton {
   /* 优化：添加 opacity 过渡，使切换更平滑 */
   transition:
     transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
-    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .contactIconButton:hover {
@@ -180,7 +180,8 @@
 .toggleButton {
   position: absolute;
   top: 0;
-  right: calc(var(--mantine-spacing-md) * -1.125);
+  /* 使用语义化的计算值：基于 md spacing 的 -1 倍 */
+  right: calc(var(--mantine-spacing-md) * -1);
   transform: translateY(-50%);
   background-color: light-dark(
     var(--mantine-color-white),
@@ -189,13 +190,13 @@
   border: calc(var(--mantine-spacing-xs) * 0.125) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
   box-shadow: var(--mantine-shadow-sm);
-  /* 平滑的按钮动画 */
+  /* 统一过渡时间 */
   transition:
-    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-    border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-    box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  /* 提高层级，确保不被遮挡 */
-  z-index: calc(var(--mantine-z-index-app) + 10);
+    transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  /* 使用语义化的 z-index */
+  z-index: var(--mantine-z-index-overlay);
   border-radius: var(--mantine-radius-xl);
 }
 

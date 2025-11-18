@@ -4,7 +4,8 @@
       "Bash(pnpm format:check:*)",
       "Bash(pnpm lint:*)",
       "Bash(npx tsc --noEmit)",
-      "Bash(pnpm format:*)"
+      "Bash(pnpm format:*)",
+      "Bash(pnpm dev)"
     ],
     "deny": [],
     "ask": []

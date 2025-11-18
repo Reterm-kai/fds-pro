@@ -6,14 +6,19 @@
   color: var(--mantine-color-text);
   font-size: var(--mantine-font-size-sm);
   border-radius: var(--mantine-radius-sm);
-  /* 优化：只保留交互反馈的过渡 */
+  /* 移除 color 过渡，避免激活状态颜色闪烁 */
   transition:
     background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   min-height: calc(var(--mantine-spacing-xl) * 1.4);
   overflow: hidden;
+  /* NavLink 基础样式重置 */
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
 
   @mixin hover {
     background-color: light-dark(
@@ -25,13 +30,13 @@
     transform: translateY(calc(var(--mantine-spacing-xs) * -0.25));
   }
 
-  /* 点击时立即显示激活效果 */
+  /* 点击时立即显示蓝色激活效果 */
   &:active {
     background-color: light-dark(
       var(--mantine-color-gray-2),
       var(--mantine-color-dark-6)
     );
-    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+    color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
     box-shadow: var(--mantine-shadow-sm);
     transform: translateY(0);
   }
@@ -48,6 +53,17 @@
   transform: none;
 }
 
+/* 有子菜单的父项点击时不显示蓝色,仅保持 hover 样式 - 必须在 .control:active 之后以覆盖 */
+.control.controlWithLinks:active {
+  background-color: light-dark(
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-6)
+  );
+  color: var(--mantine-color-text) !important;
+  box-shadow: var(--mantine-shadow-xs);
+  transform: translateY(0);
+}
+
 /* 展开模式激活状态 hover 效果 - 增强阴影 */
 .control.active:hover,
 .control[data-active]:hover {
@@ -60,14 +76,17 @@
   transform: translateY(calc(var(--mantine-spacing-xs) * -0.35));
 }
 
-/* 展开模式激活状态点击效果 - 保持阴影效果 */
+/* 展开模式激活状态点击效果 - 仅回弹动画 */
 .control.active:active,
 .control[data-active]:active {
+  /* 保持 hover 状态的视觉样式 */
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
   background-color: light-dark(
-    var(--mantine-color-gray-2),
+    var(--mantine-color-gray-3),
     var(--mantine-color-dark-5)
   );
   box-shadow: var(--mantine-shadow-md);
+  /* 只有 transform 回弹 */
   transform: translateY(0);
 }
 
@@ -80,13 +99,18 @@
   padding: 0;
   margin-bottom: calc(var(--mantine-spacing-xs) * 0.5);
   border-radius: var(--mantine-radius-md);
-  /* 优化：使用更自然的缓动函数 */
+  /* 移除 color 过渡，避免激活状态颜色闪烁 */
   transition:
     background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
     box-shadow 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    transform 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   color: var(--mantine-color-text);
+  /* NavLink 基础样式重置 */
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
 
   @mixin hover {
     background-color: light-dark(
@@ -132,15 +156,17 @@
   transform: translateX(calc(var(--mantine-spacing-xs) * -0.35));
 }
 
-/* 收缩模式激活状态点击效果 - 保持阴影效果 */
+/* 收缩模式激活状态点击效果 - 仅回弹动画 */
 .collapsedControl.active:active,
 .collapsedControl[data-active]:active {
+  /* 保持 hover 状态的视觉样式 */
   background-color: light-dark(
-    var(--mantine-color-gray-2),
+    var(--mantine-color-gray-3),
     var(--mantine-color-dark-5)
   );
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
   box-shadow: var(--mantine-shadow-md);
+  /* 只有 transform 回弹 */
   transform: translateX(0);
 }
 
@@ -168,8 +194,7 @@
   height: calc(var(--mantine-spacing-lg) * 1.17);
   margin-right: var(--mantine-spacing-sm);
   color: var(--mantine-color-text);
-  /* 优化：协调过渡时间 */
-  transition: color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  /* 移除 color 过渡，避免激活状态图标颜色闪烁 */
 }
 
 /* 激活状态的图标颜色 */
@@ -190,11 +215,16 @@
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
   border-left: calc(var(--mantine-spacing-xs) * 0.125) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-  /* 优化：使用更自然的缓动函数 */
-  transition:
-    background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  /* 移除 color 过渡，避免激活状态颜色闪烁 */
+  transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   min-height: calc(var(--mantine-spacing-xl) * 1.2);
+  /* NavLink 基础样式重置 */
+  cursor: pointer;
+  border-right: none;
+  border-top: none;
+  border-bottom: none;
+  background: none;
+  font-family: inherit;
 
   @mixin hover {
     background-color: light-dark(
@@ -232,8 +262,10 @@
   );
 }
 
-/* 子菜单激活状态点击效果 - 保持不变 */
+/* 子菜单激活状态点击效果 - 无视觉变化 */
 .linkActive:active {
+  /* 保持激活状态的样式，点击时无任何视觉变化 */
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
   background-color: light-dark(
     var(--mantine-color-gray-2),
     var(--mantine-color-dark-5)
@@ -269,10 +301,13 @@
   font-size: var(--mantine-font-size-sm);
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
   border-radius: 0;
-  /* 优化：使用更自然的缓动函数 */
-  transition:
-    background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1),
-    color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  /* 移除 color 过渡，避免激活状态颜色闪烁 */
+  transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  /* NavLink 基础样式重置 */
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
 
   @mixin hover {
     background-color: light-dark(
@@ -310,8 +345,10 @@
   );
 }
 
-/* Popover 子菜单激活状态点击效果 - 保持不变 */
+/* Popover 子菜单激活状态点击效果 - 无视觉变化 */
 .popoverLinkActive:active {
+  /* 保持激活状态的样式，点击时无任何视觉变化 */
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
   background-color: light-dark(
     var(--mantine-color-gray-2),
     var(--mantine-color-dark-5)

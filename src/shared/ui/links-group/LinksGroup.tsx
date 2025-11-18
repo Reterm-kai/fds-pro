@@ -10,7 +10,7 @@ import {
   Stack,
   Center,
 } from '@mantine/core'
-import { Link, useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import classes from './LinksGroup.module.css'
 
 interface LinksGroupProps {
@@ -48,36 +48,32 @@ export function LinksGroup({
   const isActive = link && location.pathname === link
 
   // 生成普通模式的子菜单项
-  const items = (hasLinks ? links : []).map(subLink => {
-    const isSubLinkActive = location.pathname === subLink.link
-    return (
-      <Text<typeof Link>
-        component={Link}
-        className={`${classes.link} ${isSubLinkActive ? classes.linkActive : ''}`}
-        to={subLink.link}
-        key={subLink.label}
-        onClick={onLinkClick}
-      >
-        {subLink.label}
-      </Text>
-    )
-  })
+  const items = (hasLinks ? links : []).map(subLink => (
+    <NavLink
+      to={subLink.link}
+      key={subLink.label}
+      onClick={onLinkClick}
+      className={({ isActive }) =>
+        `${classes.link} ${isActive ? classes.linkActive : ''}`
+      }
+    >
+      {subLink.label}
+    </NavLink>
+  ))
 
   // 生成 Popover 模式的子菜单项
-  const popoverItems = (hasLinks ? links : []).map(subLink => {
-    const isSubLinkActive = location.pathname === subLink.link
-    return (
-      <Text<typeof Link>
-        component={Link}
-        className={`${classes.popoverLink} ${isSubLinkActive ? classes.popoverLinkActive : ''}`}
-        to={subLink.link}
-        key={subLink.label}
-        onClick={onLinkClick}
-      >
-        {subLink.label}
-      </Text>
-    )
-  })
+  const popoverItems = (hasLinks ? links : []).map(subLink => (
+    <NavLink
+      to={subLink.link}
+      key={subLink.label}
+      onClick={onLinkClick}
+      className={({ isActive }) =>
+        `${classes.popoverLink} ${isActive ? classes.popoverLinkActive : ''}`
+      }
+    >
+      {subLink.label}
+    </NavLink>
+  ))
 
   // 收缩模式：仅显示图标
   if (collapsed && Icon) {
@@ -86,17 +82,19 @@ export function LinksGroup({
 
     const iconButton =
       !hasLinks && link ? (
-        <UnstyledButton
-          component={Link}
+        <NavLink
           to={link}
-          className={`${classes.collapsedControl} ${isCollapsedActive ? classes.active : ''}`}
-          data-active={isCollapsedActive || undefined}
           onClick={onLinkClick}
+          className={({ isActive }) =>
+            `${classes.collapsedControl} ${isActive ? classes.active : ''}`
+          }
         >
-          <Center>
-            <Icon size={20} />
-          </Center>
-        </UnstyledButton>
+          {({ isActive }) => (
+            <Center data-active={isActive || undefined}>
+              <Icon size={20} />
+            </Center>
+          )}
+        </NavLink>
       ) : (
         <UnstyledButton
           className={`${classes.collapsedControl} ${isCollapsedActive ? classes.active : ''}`}
@@ -176,19 +174,21 @@ export function LinksGroup({
   return (
     <>
       {!hasLinks && link ? (
-        <UnstyledButton
-          component={Link}
+        <NavLink
           to={link}
-          className={`${classes.control} ${isActive ? classes.active : ''}`}
-          data-active={isActive || undefined}
           onClick={onLinkClick}
+          className={({ isActive }) =>
+            `${classes.control} ${isActive ? classes.active : ''}`
+          }
         >
-          {buttonContent}
-        </UnstyledButton>
+          {({ isActive }) => (
+            <Box data-active={isActive || undefined}>{buttonContent}</Box>
+          )}
+        </NavLink>
       ) : (
         <UnstyledButton
           onClick={() => setOpened(o => !o)}
-          className={`${classes.control} ${isActive ? classes.active : ''}`}
+          className={`${classes.control} ${hasLinks ? classes.controlWithLinks : ''} ${isActive ? classes.active : ''}`}
           data-active={isActive || undefined}
         >
           {buttonContent}

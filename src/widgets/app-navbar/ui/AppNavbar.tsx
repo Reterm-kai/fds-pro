@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { ActionIcon, ScrollArea, Tooltip, useMantineTheme } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
 import {
@@ -7,8 +6,7 @@ import {
   IconMail,
 } from '@tabler/icons-react'
 import { LinksGroup, ContactButton } from '@/shared/ui'
-import { protectedRoutes } from '@/app/routes/router'
-import { generateMenuFromRoutes } from '@/app/routes/utils'
+import { useMenuData } from '../model'
 import classes from './AppNavbar.module.css'
 
 interface AppNavbarProps {
@@ -29,44 +27,30 @@ export function AppNavbar({
   const theme = useMantineTheme()
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
 
-  // 从路由配置生成菜单数据
-  const menuData = useMemo(() => {
-    const appLayoutRoute = protectedRoutes[0]
-    if (!appLayoutRoute?.children) {
-      return []
-    }
-    return generateMenuFromRoutes(appLayoutRoute.children)
-  }, [])
+  // 从 model 层获取菜单数据
+  const menuData = useMenuData()
 
-  const links = menuData.map(item => (
-    <LinksGroup
-      {...item}
-      key={item.label}
-      collapsed={collapsed}
-      onLinkClick={onLinkClick}
-    />
-  ))
-
-  // 收缩状态的图标菜单
-  const collapsedIcons = menuData.map(item => (
-    <LinksGroup
-      {...item}
-      key={item.label}
-      collapsed={true}
-      onLinkClick={onLinkClick}
-    />
-  ))
+  // 渲染菜单项列表
+  const renderMenuItems = (isCollapsed: boolean) =>
+    menuData.map(item => (
+      <LinksGroup
+        {...item}
+        key={item.label}
+        collapsed={isCollapsed}
+        onLinkClick={onLinkClick}
+      />
+    ))
 
   return (
     <nav className={`${classes.navbar} ${collapsed ? classes.collapsed : ''}`}>
       {/* 展开状态的内容 */}
       <ScrollArea className={classes.links}>
-        <div className={classes.linksInner}>{links}</div>
+        <div className={classes.linksInner}>{renderMenuItems(false)}</div>
       </ScrollArea>
 
       {/* 收缩状态的图标 */}
       <div className={classes.collapsedContent}>
-        <div className={classes.collapsedIconsInner}>{collapsedIcons}</div>
+        <div className={classes.collapsedIconsInner}>{renderMenuItems(true)}</div>
       </div>
 
       <div className={classes.footer}>
