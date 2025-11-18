@@ -94,7 +94,7 @@ export function LinksGroup({
           onClick={onLinkClick}
         >
           <Center>
-            <Icon size={24} />
+            <Icon size={20} />
           </Center>
         </UnstyledButton>
       ) : (
@@ -103,7 +103,7 @@ export function LinksGroup({
           data-active={isCollapsedActive || undefined}
         >
           <Center>
-            <Icon size={24} />
+            <Icon size={20} />
           </Center>
         </UnstyledButton>
       )
@@ -132,7 +132,7 @@ export function LinksGroup({
               </Text>
             </Box>
             <Box px="xs" pb="xs">
-              <Stack gap={2}>{popoverItems}</Stack>
+              <Stack className={classes.popoverStack}>{popoverItems}</Stack>
             </Box>
           </HoverCard.Dropdown>
         </HoverCard>

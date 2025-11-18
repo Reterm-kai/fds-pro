@@ -67,11 +67,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(var(--mantine-spacing-xl) * 1.6);
-  height: calc(var(--mantine-spacing-xl) * 1.6);
+  width: calc(var(--mantine-spacing-xl) * 1.25);
+  height: calc(var(--mantine-spacing-xl) * 1.25);
   padding: 0;
-  margin-bottom: var(--mantine-spacing-sm);
-  border-radius: var(--mantine-radius-md);
+  margin-bottom: calc(var(--mantine-spacing-xs) * 0.5);
+  border-radius: var(--mantine-radius-md);;
   transition:
     background-color 0.15s ease,
     box-shadow 0.15s ease,
@@ -85,12 +85,12 @@
       var(--mantine-color-dark-6)
     );
     box-shadow: var(--mantine-shadow-xs);
-    transform: translateY(calc(var(--mantine-spacing-xs) * -0.25));
+    transform: translateX(calc(var(--mantine-spacing-xs) * -0.25));
   }
 
   /* 禁用点击时的默认效果 */
   &:active {
-    transform: translateY(0);
+    transform: translateX(0);
     background-color: transparent;
   }
 }
@@ -102,7 +102,7 @@
     var(--mantine-color-dark-5)
   );
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  box-shadow: var(--mantine-shadow-sm);
+  box-shadow: var(--mantine-shadow-xs);
 }
 
 /* 收缩模式激活状态 hover 效果 - 增强阴影 */
@@ -113,8 +113,8 @@
     var(--mantine-color-dark-5)
   );
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  box-shadow: var(--mantine-shadow-md);
-  transform: translateY(calc(var(--mantine-spacing-xs) * -0.35));
+  box-shadow: var(--mantine-shadow-xs);
+  transform: translateX(calc(var(--mantine-spacing-xs) * -0.35));
 }
 
 /* 收缩模式激活状态点击效果 - 保持阴影效果 */
@@ -125,8 +125,14 @@
     var(--mantine-color-dark-5)
   );
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  box-shadow: var(--mantine-shadow-md);
-  transform: translateY(0);
+  box-shadow: var(--mantine-shadow-xs);
+  transform: translateX(0);
+}
+
+.popoverStack {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .labelWrapper {
@@ -218,10 +224,11 @@
   font-weight: 500;
   display: block;
   text-decoration: none;
-  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
+  padding: calc(var(--mantine-spacing-xs) * 0.5)
+    calc(var(--mantine-spacing-sm) * 0.5);
   font-size: var(--mantine-font-size-sm);
   color: light-dark(var(--mantine-color-gray-7), var(--mantine-color-dark-0));
-  border-radius: var(--mantine-radius-sm);
+  border-radius: 0;
   transition:
     background-color 0.15s ease,
     color 0.15s ease;
@@ -267,8 +274,8 @@
 }
 
 .popoverTitle {
-  padding-bottom: var(--mantine-spacing-xs);
-  margin-bottom: var(--mantine-spacing-xs);
+  padding-bottom: calc(var(--mantine-spacing-xs) * 0.5);
+  margin-bottom: calc(var(--mantine-spacing-xs) * 0.5);
   border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
 }

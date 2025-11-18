@@ -37,11 +37,11 @@ export function AppLayout() {
   return (
     <TabProvider>
       <TabSyncWrapper>
-        <RouteProgressBar />
+          <RouteProgressBar />
         <AppShell
           header={{ height: 60 }}
           navbar={{
-            width: desktopCollapsed ? 64 : 240,
+            width: desktopCollapsed ? 50 : 200,
             breakpoint: 'sm',
             collapsed: { mobile: !mobileOpened, desktop: false },
           }}
