@@ -35,10 +35,14 @@ function renderField<T extends Record<string, any>>(
   const isDisabled =
     loading || (typeof disabled === 'function' ? disabled(values) : disabled)
 
-  const commonProps = {
+  const baseProps = {
     label,
     placeholder,
     disabled: isDisabled,
+  }
+
+  const clearableProps = {
+    ...baseProps,
     clearable: clearable !== false,
   }
 
@@ -46,7 +50,7 @@ function renderField<T extends Record<string, any>>(
     case 'text':
       return (
         <TextInput
-          {...commonProps}
+          {...baseProps}
           value={value || ''}
           onChange={e => onChange(name as keyof T, e.currentTarget.value)}
         />
@@ -55,7 +59,7 @@ function renderField<T extends Record<string, any>>(
     case 'select':
       return (
         <Select
-          {...commonProps}
+          {...clearableProps}
           value={value || null}
           onChange={val => onChange(name as keyof T, val || '')}
           data={options || []}
@@ -65,7 +69,7 @@ function renderField<T extends Record<string, any>>(
     case 'multiSelect':
       return (
         <MultiSelect
-          {...commonProps}
+          {...clearableProps}
           value={value || []}
           onChange={val => onChange(name as keyof T, val)}
           data={options || []}
@@ -75,7 +79,7 @@ function renderField<T extends Record<string, any>>(
     case 'date':
       return (
         <DateInput
-          {...commonProps}
+          {...clearableProps}
           value={value ? new Date(value) : null}
           onChange={date =>
             onChange(name as keyof T, date?.toISOString() || '')
@@ -87,7 +91,7 @@ function renderField<T extends Record<string, any>>(
     case 'dateRange':
       return (
         <DatePickerInput
-          {...commonProps}
+          {...clearableProps}
           type="range"
           value={
             value
@@ -110,7 +114,7 @@ function renderField<T extends Record<string, any>>(
     case 'number':
       return (
         <NumberInput
-          {...commonProps}
+          {...baseProps}
           value={value || ''}
           onChange={val => onChange(name as keyof T, val)}
         />

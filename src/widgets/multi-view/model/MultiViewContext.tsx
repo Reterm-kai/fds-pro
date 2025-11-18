@@ -79,7 +79,6 @@ export function MultiViewProvider({ children }: MultiViewProviderProps) {
         return
       }
 
-      const closedIndex = views.findIndex(v => v.path === path)
       const newViews = views.filter(v => v.path !== path)
       setViews(newViews)
 
@@ -88,13 +87,11 @@ export function MultiViewProvider({ children }: MultiViewProviderProps) {
         return
       }
 
-      if (path === activeView) {
-        const newActiveIndex = closedIndex > 0 ? closedIndex - 1 : 0
-        const newActivePath = newViews[newActiveIndex].path
-        navigate(newActivePath)
-      }
+      // 无论删除哪个视图，总是激活最后一个视图
+      const lastView = newViews[newViews.length - 1]
+      navigate(lastView.path)
     },
-    [views, activeView, navigate]
+    [views, navigate]
   )
 
   // 关闭其他视图

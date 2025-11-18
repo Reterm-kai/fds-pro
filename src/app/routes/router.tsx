@@ -231,6 +231,18 @@ export const protectedRoutes: AppRouteObject[] = [
           icon: IconUser,
           initiallyOpened: true,
         },
+        children: [
+          {
+            path: 'profile',
+            element: <Placeholder title="个人资料" />,
+            meta: { title: '个人资料' },
+          },
+          {
+            path: 'security',
+            element: <Placeholder title="安全设置" />,
+            meta: { title: '安全设置' },
+          },
+        ],
       },
       {
         path: '',
