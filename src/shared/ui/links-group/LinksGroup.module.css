@@ -278,6 +278,8 @@
   margin-bottom: calc(var(--mantine-spacing-xs) * 0.5);
   border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
     light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-text);
 }
 
 /* HoverCard Dropdown 暗黑模式背景色修复 */

@@ -46,6 +46,8 @@ export function AppLayout() {
     flex: 1,
     overflow: 'auto',
     padding: 'var(--mantine-spacing-md)',
+    paddingTop:
+      'calc(var(--mantine-spacing-lg) * 1.85 + var(--mantine-spacing-md))',
   } satisfies CSSProperties
 
   return (

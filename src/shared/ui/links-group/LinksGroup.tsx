@@ -122,14 +122,7 @@ export function LinksGroup({
           <HoverCard.Target>{iconButton}</HoverCard.Target>
           <HoverCard.Dropdown p={0}>
             <Box px="xs" pt="xs" pb={4}>
-              <Text
-                size="sm"
-                fw={600}
-                c="dimmed"
-                className={classes.popoverTitle}
-              >
-                {label}
-              </Text>
+              <Text className={classes.popoverTitle}>{label}</Text>
             </Box>
             <Box px="xs" pb="xs">
               <Stack className={classes.popoverStack}>{popoverItems}</Stack>

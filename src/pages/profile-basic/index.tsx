@@ -102,7 +102,9 @@ export function ProfileBasicPage() {
                   <Text size="xs" c="dimmed">
                     {item.label}
                   </Text>
-                  <Text size="sm">{item.value}</Text>
+                  <Text size="sm" component="span">
+                    {item.value}
+                  </Text>
                 </Stack>
               </Grid.Col>
             ))}

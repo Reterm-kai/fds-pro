@@ -21,11 +21,11 @@ interface ContextMenuState {
   viewPath: string
 }
 
-const DEFAULT_HEIGHT = 'calc(var(--mantine-spacing-lg) * 1.85)'
+const DEFAULT_HEIGHT = 'calc(var(--mantine-spacing-lg) * 1.75)'
 
 interface ViewBarProps {
   /**
-   * Tab 容器高度，默认使用设计约定（约 37px）
+   * Tab 容器高度，默认使用设计约定（约 35px）
    */
   height?: string
 }
