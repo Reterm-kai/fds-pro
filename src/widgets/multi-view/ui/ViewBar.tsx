@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
-import type { MouseEvent } from 'react'
+import type { CSSProperties, MouseEvent } from 'react'
 import {
   X,
   RefreshCw,
@@ -9,7 +9,7 @@ import {
   ChevronRight,
 } from 'lucide-react'
 import { Box } from '@mantine/core'
-import { useMultiView } from '../model/useMultiView'
+import { useMultiView } from '@/widgets/multi-view'
 import classes from './ViewBar.module.css'
 
 const SCROLL_DISTANCE = 200
@@ -21,11 +21,20 @@ interface ContextMenuState {
   viewPath: string
 }
 
+const DEFAULT_HEIGHT = 'calc(var(--mantine-spacing-lg) * 1.85)'
+
+interface ViewBarProps {
+  /**
+   * Tab 容器高度，默认使用设计约定（约 37px）
+   */
+  height?: string
+}
+
 /**
  * 视图标签栏组件
  * 显示所有打开的视图,支持切换、关闭和右键菜单操作
  */
-export function ViewBar() {
+export function ViewBar({ height }: ViewBarProps = {}) {
   const {
     views,
     activeView,
@@ -151,9 +160,14 @@ export function ViewBar() {
     v => v.path !== contextMenu.viewPath && v.closable
   )
 
+  const barHeight = height ?? DEFAULT_HEIGHT
+  const wrapperStyle = {
+    '--view-bar-height': barHeight,
+  } as CSSProperties
+
   return (
     <>
-      <Box className={classes.tabBarWrapper}>
+      <Box className={classes.tabBarWrapper} style={wrapperStyle}>
         {canScrollLeft && (
           <button
             className={classes.scrollButton}

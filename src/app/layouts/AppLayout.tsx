@@ -1,4 +1,5 @@
 import { AppShell, Box } from '@mantine/core'
+import type { CSSProperties } from 'react'
 import { useDisclosure } from '@mantine/hooks'
 import { RouteProgressBar } from '@/shared/ui'
 import { AppHeader } from '@/widgets/app-header'
@@ -34,6 +35,19 @@ export function AppLayout() {
   // 桌面端侧边栏收缩状态（本地，不持久化）
   const [desktopCollapsed, { toggle: toggleDesktop }] = useDisclosure()
 
+  const mainStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100%',
+    overflow: 'hidden',
+  } satisfies CSSProperties
+
+  const contentStyle = {
+    flex: 1,
+    overflow: 'auto',
+    padding: 'var(--mantine-spacing-md)',
+  } satisfies CSSProperties
+
   return (
     <MultiViewProvider>
       <RouteSyncWrapper>
@@ -59,9 +73,9 @@ export function AppLayout() {
             />
           </AppShell.Navbar>
 
-          <AppShell.Main>
+          <AppShell.Main style={mainStyle}>
             <ViewBar />
-            <Box p="md">
+            <Box style={contentStyle}>
               <RefreshableOutlet />
             </Box>
           </AppShell.Main>

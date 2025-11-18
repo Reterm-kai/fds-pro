@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom'
-import { useMultiView } from '../model/useMultiView'
+import { useMultiView } from '@/widgets/multi-view'
 
 /**
  * 可刷新的 Outlet 组件
