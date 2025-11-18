@@ -1,21 +1,21 @@
 import { AppShell, Box } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { Header } from '@/widgets/app-shell/ui/Header'
-import { Navbar } from '@/widgets/app-shell/ui/Navbar'
-import { RouteProgressBar } from '@/widgets/app-shell/ui/RouteProgressBar'
+import { RouteProgressBar } from '@/shared/ui'
+import { AppHeader } from '@/widgets/app-header'
+import { AppNavbar } from '@/widgets/app-navbar'
 import {
-  TabProvider,
-  TabBar,
-  useRouteTabSync,
+  MultiViewProvider,
+  ViewBar,
+  useRouteSync,
   RefreshableOutlet,
-} from '@/features/tab-pages'
+} from '@/widgets/multi-view'
 
 /**
- * Tab 同步包装组件
- * 用于在 TabProvider 内部调用 useRouteTabSync
+ * 路由同步包装组件
+ * 用于在 MultiViewProvider 内部调用 useRouteSync
  */
-function TabSyncWrapper({ children }: { children: React.ReactNode }) {
-  useRouteTabSync()
+function RouteSyncWrapper({ children }: { children: React.ReactNode }) {
+  useRouteSync()
   return <>{children}</>
 }
 
@@ -35,9 +35,9 @@ export function AppLayout() {
   const [desktopCollapsed, { toggle: toggleDesktop }] = useDisclosure()
 
   return (
-    <TabProvider>
-      <TabSyncWrapper>
-          <RouteProgressBar />
+    <MultiViewProvider>
+      <RouteSyncWrapper>
+        <RouteProgressBar />
         <AppShell
           header={{ height: 60 }}
           navbar={{
@@ -48,11 +48,11 @@ export function AppLayout() {
           padding={0}
         >
           <AppShell.Header>
-            <Header opened={mobileOpened} toggle={toggleMobile} />
+            <AppHeader opened={mobileOpened} toggle={toggleMobile} />
           </AppShell.Header>
 
           <AppShell.Navbar>
-            <Navbar
+            <AppNavbar
               collapsed={desktopCollapsed}
               onToggleCollapse={toggleDesktop}
               onLinkClick={closeMobile}
@@ -60,13 +60,13 @@ export function AppLayout() {
           </AppShell.Navbar>
 
           <AppShell.Main>
-            <TabBar />
+            <ViewBar />
             <Box p="md">
               <RefreshableOutlet />
             </Box>
           </AppShell.Main>
         </AppShell>
-      </TabSyncWrapper>
-    </TabProvider>
+      </RouteSyncWrapper>
+    </MultiViewProvider>
   )
 }

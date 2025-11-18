@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { menuItems } from '@/shared/navigation/menu'
 import type { MenuItem } from '@/shared/navigation/types'
-import { useTabPages } from './useTabPages'
+import { useMultiView } from './useMultiView'
 
 /**
  * 根据路径从菜单配置中查找对应的标题
@@ -74,9 +74,9 @@ function generateDefaultTitle(path: string): string {
  * 路由与 Tab 同步 Hook
  * 监听路由变化，自动添加对应的 Tab
  */
-export function useRouteTabSync() {
+export function useRouteSync() {
   const location = useLocation()
-  const { addTab, tabs } = useTabPages()
+  const { addView, views } = useMultiView()
 
   useEffect(() => {
     const currentPath = location.pathname
@@ -95,19 +95,19 @@ export function useRouteTabSync() {
       findMenuTitle(menuItems, currentPath) || generateDefaultTitle(currentPath)
 
     // 检查是否已存在该 Tab
-    const existingTab = tabs.find(tab => tab.path === currentPath)
+    const existingView = views.find(view => view.path === currentPath)
 
-    if (!existingTab) {
+    if (!existingView) {
       // 添加新 Tab（所有 Tab 都可关闭）
-      addTab({
+      addView({
         path: currentPath,
         title,
         closable: true,
       })
     }
 
-    // 注意：不在这里调用 setActiveTab，避免循环导航
-    // activeTab 状态会在 TabContext 中自动更新
+    // 注意：不在这里调用 setActiveView，避免循环导航
+    // activeView 状态会在 MultiViewContext 中自动更新
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname, addTab])
+  }, [location.pathname, addView])
 }

@@ -1,16 +1,23 @@
 import { Burger, Container, Group, useMantineTheme } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
-import { Logo, ThemeToggle } from '@/shared/ui'
-import { NotificationButton } from '../NotificationButton'
-import { UserMenu } from '../UserMenu'
-import classes from './Header.module.css'
+import {
+  Logo,
+  ThemeToggle,
+  NotificationButton,
+  UserMenu,
+} from '@/shared/ui'
+import classes from './AppHeader.module.css'
 
-interface HeaderProps {
+interface AppHeaderProps {
   opened: boolean
   toggle: () => void
 }
 
-export function Header({ opened, toggle }: HeaderProps) {
+/**
+ * 应用顶栏组件
+ * 组合 Logo、主题切换、通知按钮、用户菜单等功能
+ */
+export function AppHeader({ opened, toggle }: AppHeaderProps) {
   const theme = useMantineTheme()
   const isSmallScreen = useMediaQuery(`(max-width: ${theme.breakpoints.xs})`)
 

@@ -6,27 +6,26 @@ import {
   IconLayoutSidebarLeftExpand,
   IconMail,
 } from '@tabler/icons-react'
-import { LinksGroup } from '../LinksGroup'
-import { ContactButton } from '../ContactButton'
+import { LinksGroup, ContactButton } from '@/shared/ui'
 import { protectedRoutes } from '@/app/routes/router'
 import { generateMenuFromRoutes } from '@/app/routes/utils'
-import classes from './Navbar.module.css'
+import classes from './AppNavbar.module.css'
 
-interface NavbarProps {
+interface AppNavbarProps {
   collapsed?: boolean
   onToggleCollapse?: () => void
   onLinkClick?: () => void
 }
 
 /**
- * 应用导航栏组件
- * 从路由配置动态生成菜单，桌面端支持收缩/展开
+ * 应用侧边导航栏组件
+ * 从路由配置动态生成菜单,支持桌面端收缩/展开
  */
-export function Navbar({
+export function AppNavbar({
   collapsed = false,
   onToggleCollapse,
   onLinkClick,
-}: NavbarProps) {
+}: AppNavbarProps) {
   const theme = useMantineTheme()
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
 
@@ -55,7 +54,7 @@ export function Navbar({
       </ScrollArea>
 
       <div className={classes.footer}>
-        {/* 收缩/展开切换按钮 - 固定在分界线，仅桌面端显示 */}
+        {/* 收缩/展开切换按钮 - 固定在分界线,仅桌面端显示 */}
         {!isMobile && (
           <ActionIcon
             onClick={onToggleCollapse}
