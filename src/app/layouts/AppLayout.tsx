@@ -67,7 +67,7 @@ export function AppLayout() {
             <AppHeader opened={mobileOpened} toggle={toggleMobile} />
           </AppShell.Header>
 
-          <AppShell.Navbar>
+          <AppShell.Navbar withBorder={false}>
             <AppNavbar
               collapsed={desktopCollapsed}
               onToggleCollapse={toggleDesktop}
