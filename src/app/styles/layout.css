@@ -1,0 +1,19 @@
+:root {
+  /* 默认沿用浅色，避免 Mantine data 属性尚未准备时颜色闪烁 */
+  --layout-surface-bg: var(--mantine-color-gray-1);
+  --layout-divider-color: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-4)
+  );
+  --layout-surface-shadow: var(--mantine-shadow-sm);
+}
+
+:root[data-mantine-color-scheme='light'] {
+  --layout-surface-bg: var(--mantine-color-gray-1);
+  --layout-divider-color: var(--mantine-color-gray-3);
+}
+
+:root[data-mantine-color-scheme='dark'] {
+  --layout-surface-bg: var(--mantine-color-dark-6);
+  --layout-divider-color: var(--mantine-color-dark-4);
+}

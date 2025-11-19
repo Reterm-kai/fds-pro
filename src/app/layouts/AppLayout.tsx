@@ -1,7 +1,7 @@
-import { AppShell, Box } from '@mantine/core'
+import { AppShell } from '@mantine/core'
 import type { CSSProperties, ReactNode } from 'react'
 import { useDisclosure } from '@mantine/hooks'
-import { RouteProgressBar } from '@/shared/ui'
+import { ContentArea, RouteProgressBar } from '@/shared/ui'
 import { AppHeader } from '@/widgets/app-header'
 import { AppNavbar } from '@/widgets/app-navbar'
 import {
@@ -46,26 +46,24 @@ export function AppLayout() {
   const { user } = useAuth()
   const menuCacheScope = user ? { userId: user.id } : undefined
 
-  const mainStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100%',
+  const appShellStyle = {
+    height: '100vh',
     overflow: 'hidden',
   } satisfies CSSProperties
 
-  const contentStyle = {
-    flex: 1,
-    overflow: 'auto',
-    padding: 'var(--mantine-spacing-md)',
-    paddingTop:
-      'calc(var(--mantine-spacing-xl) * 1.75 + var(--mantine-spacing-md))',
+  const mainStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+    minHeight: 0,
+    overflow: 'hidden',
   } satisfies CSSProperties
 
   const navbarStyle = {
     borderRight:
-      'calc(var(--mantine-spacing-xs) * 0.125) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4))',
-    boxShadow: 'var(--mantine-shadow-sm)',
-    backgroundColor: 'var(--mantine-color-body)',
+      'calc(var(--mantine-spacing-xs) * 0.125) solid var(--layout-divider-color)',
+    boxShadow: 'var(--layout-surface-shadow)',
+    backgroundColor: 'var(--layout-surface-bg)',
   } satisfies CSSProperties
 
   return (
@@ -80,6 +78,7 @@ export function AppLayout() {
             collapsed: { mobile: !mobileOpened, desktop: false },
           }}
           padding={0}
+          style={appShellStyle}
         >
           <AppShell.Header>
             <AppHeader opened={mobileOpened} toggle={toggleMobile} />
@@ -96,9 +95,9 @@ export function AppLayout() {
 
           <AppShell.Main style={mainStyle}>
             <ViewBar />
-            <Box style={contentStyle}>
+            <ContentArea>
               <RefreshableOutlet />
-            </Box>
+            </ContentArea>
           </AppShell.Main>
         </AppShell>
       </RouteSyncWrapper>

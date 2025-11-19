@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import {
-  Container,
   Title,
   Text,
   Stack,
@@ -30,6 +29,7 @@ import {
   showInfoNotification,
   FilterPanel,
   DataTable,
+  PageContainer,
   type FilterFieldConfig,
   type ColumnConfig,
   type TableAction,
@@ -243,7 +243,7 @@ export function BasicListPage() {
 
   if (isError) {
     return (
-      <Container size="xl" py="xl">
+      <PageContainer size="lg" align="center">
         <Alert
           icon={<IconAlertCircle size={16} />}
           title="加载失败"
@@ -252,12 +252,12 @@ export function BasicListPage() {
         >
           {error.message}
         </Alert>
-      </Container>
+      </PageContainer>
     )
   }
 
   return (
-    <Container size="xl" py="xl">
+    <PageContainer size="lg" align="center">
       <Stack gap="lg">
         <Group justify="space-between" align="flex-start">
           <div>
@@ -315,6 +315,6 @@ export function BasicListPage() {
           actions={actions}
         />
       </Stack>
-    </Container>
+    </PageContainer>
   )
 }

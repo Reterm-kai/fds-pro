@@ -7,14 +7,11 @@ import { SettingsPage } from '@/pages/settings'
 import { LoginPage } from '@/pages/login'
 import { RegisterPage } from '@/pages/register'
 import { HomePage } from '@/pages/home'
-import {
-  Exception403,
-  Exception404,
-  Exception500,
-  Placeholder,
-  ResultError,
-  ResultSuccess,
-} from '@/shared/ui'
+import { Placeholder } from '@/shared/ui'
+import { Exception403Page } from '@/pages/exception/403'
+import { Exception404Page } from '@/pages/exception/404'
+import { Exception500Page } from '@/pages/exception/500'
+import { ResultErrorPage, ResultSuccessPage } from '@/pages/result'
 import { ProtectedRoute } from '@/features/auth'
 import {
   IconGauge,
@@ -189,12 +186,12 @@ export const protectedRoutes: AppRouteObject[] = [
         children: [
           {
             path: 'success',
-            element: <ResultSuccess />,
+            element: <ResultSuccessPage />,
             meta: { title: '成功页' },
           },
           {
             path: 'error',
-            element: <ResultError />,
+            element: <ResultErrorPage />,
             meta: { title: '失败页' },
           },
         ],
@@ -209,17 +206,17 @@ export const protectedRoutes: AppRouteObject[] = [
         children: [
           {
             path: '403',
-            element: <Exception403 />,
+            element: <Exception403Page />,
             meta: { title: '403' },
           },
           {
             path: '404',
-            element: <Exception404 />,
+            element: <Exception404Page />,
             meta: { title: '404' },
           },
           {
             path: '500',
-            element: <Exception500 />,
+            element: <Exception500Page />,
             meta: { title: '500' },
           },
         ],

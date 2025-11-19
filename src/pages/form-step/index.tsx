@@ -26,7 +26,7 @@ import {
   IconSettings,
 } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
-import { showSuccessNotification } from '@/shared/ui'
+import { showSuccessNotification, PageContainer } from '@/shared/ui'
 import {
   useFormStepOptions,
   type FormStepOptionsResponse,
@@ -152,7 +152,7 @@ export function FormStepPage() {
   }
 
   return (
-    <div className={classes.root}>
+    <PageContainer size="full" variant="muted">
       <div className={classes.inner}>
         <Group justify="space-between" className={classes.header}>
           <div className={classes.headerTitle}>
@@ -456,6 +456,6 @@ export function FormStepPage() {
           </form>
         </Paper>
       </div>
-    </div>
+    </PageContainer>
   )
 }

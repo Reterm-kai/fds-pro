@@ -10,6 +10,7 @@ import {
   useMantineTheme,
 } from '@mantine/core'
 import { useMediaQuery } from '@mantine/hooks'
+import { useEffect, useState } from 'react'
 import {
   IconLayoutSidebarLeftCollapse,
   IconLayoutSidebarLeftExpand,
@@ -45,11 +46,31 @@ export function AppNavbar({
     data: menuData,
     isLoading,
     isError,
+    isFetching,
     refetch,
   } = useMenu({
     cacheScope: menuCacheScope,
   })
   const items = menuData ?? []
+  const [shouldShowErrorState, setShouldShowErrorState] = useState(false)
+
+  /* eslint-disable react-hooks/set-state-in-effect */
+  useEffect(() => {
+    if (isError) {
+      setShouldShowErrorState(true)
+      return
+    }
+
+    if (!isFetching && !isLoading) {
+      setShouldShowErrorState(false)
+    }
+  }, [isError, isFetching, isLoading])
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  const shouldShowLoadingState = isLoading && !shouldShowErrorState
+  const handleMenuReload = () => {
+    void refetch()
+  }
 
   // 渲染菜单项列表
   const renderMenuItems = (isCollapsed: boolean) =>
@@ -86,19 +107,26 @@ export function AppNavbar({
         variant="light"
         title="菜单加载失败"
       >
-        <Text size="sm">请检查网络后重试</Text>
+        <Text size="sm">
+          {isFetching ? '正在重新加载菜单...' : '请检查网络后重试'}
+        </Text>
       </Alert>
-      <Button size="xs" variant="light" onClick={() => void refetch()}>
+      <Button
+        size="xs"
+        variant="light"
+        loading={isFetching}
+        onClick={handleMenuReload}
+      >
         重新加载
       </Button>
     </Stack>
   )
 
   const renderExpandedContent = () => {
-    if (isLoading) {
+    if (shouldShowLoadingState) {
       return renderLoadingState()
     }
-    if (isError) {
+    if (shouldShowErrorState) {
       return renderErrorState()
     }
     if (items.length === 0) {
@@ -112,7 +140,7 @@ export function AppNavbar({
   }
 
   const renderCollapsedContent = () => {
-    if (isLoading) {
+    if (shouldShowLoadingState) {
       return (
         <div className={classes.collapsedIconsInner}>
           <Stack gap="sm" p="md" align="center" w="100%">
@@ -129,14 +157,19 @@ export function AppNavbar({
       )
     }
 
-    if (isError) {
+    if (shouldShowErrorState) {
       return (
         <div className={classes.collapsedIconsInner}>
-          <Tooltip label="重新加载菜单" position="right">
+          <Tooltip
+            label={isFetching ? '菜单正在重新加载' : '重新加载菜单'}
+            position="right"
+          >
             <ActionIcon
               variant="light"
               size="lg"
-              onClick={() => void refetch()}
+              loading={isFetching}
+              onClick={handleMenuReload}
+              aria-label={isFetching ? '菜单正在重新加载' : '重新加载菜单'}
             >
               <IconRefresh size={18} />
             </ActionIcon>

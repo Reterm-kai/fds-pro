@@ -30,7 +30,11 @@ import {
   IconDownload,
 } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
-import { showInfoNotification, showSuccessNotification } from '@/shared/ui'
+import {
+  showInfoNotification,
+  showSuccessNotification,
+  PageContainer,
+} from '@/shared/ui'
 import {
   useFormGroupOptions,
   type FormGroupOptionsResponse,
@@ -164,7 +168,7 @@ export function FormGroupPage() {
   }
 
   return (
-    <div className={classes.root}>
+    <PageContainer size="full"  variant="muted">
       <div className={classes.inner}>
         <Group justify="space-between" className={classes.header}>
           <div className={classes.headerTitle}>
@@ -579,6 +583,6 @@ export function FormGroupPage() {
           </Grid>
         </form>
       </div>
-    </div>
+    </PageContainer>
   )
 }

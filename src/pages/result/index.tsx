@@ -18,7 +18,8 @@ import {
   IconRefresh,
 } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
-import classes from './ResultPages.module.css'
+import { PageContainer } from '@/shared/ui'
+import classes from './ResultPage.module.css'
 
 type ResultStatus = 'success' | 'error'
 
@@ -53,7 +54,7 @@ function BaseResultPage({
   }
 
   return (
-    <div className={classes.root}>
+    <PageContainer size="full" className={classes.root}>
       <Container size="lg" className={classes.inner}>
         <Paper withBorder radius="lg" className={classes.card}>
           <Group justify="center" className={classes.header}>
@@ -117,11 +118,11 @@ function BaseResultPage({
 
         {footer}
       </Container>
-    </div>
+    </PageContainer>
   )
 }
 
-export function ResultSuccess() {
+export function ResultSuccessPage() {
   const activeStepIndex = 1
 
   return (
@@ -156,7 +157,7 @@ export function ResultSuccess() {
   )
 }
 
-export function ResultError() {
+export function ResultErrorPage() {
   return (
     <BaseResultPage
       status="error"
@@ -174,11 +175,7 @@ export function ResultError() {
           <Text className={classes.errorIntro}>您提交的内容有如下错误：</Text>
 
           <div className={classes.errorList}>
-            <Group
-              align="flex-start"
-              wrap="nowrap"
-              className={classes.errorItem}
-            >
+            <Group align="flex-start" wrap="nowrap" className={classes.errorItem}>
               <ThemeIcon
                 radius="xl"
                 size="sm"
@@ -199,11 +196,7 @@ export function ResultError() {
               </div>
             </Group>
 
-            <Group
-              align="flex-start"
-              wrap="nowrap"
-              className={classes.errorItem}
-            >
+            <Group align="flex-start" wrap="nowrap" className={classes.errorItem}>
               <ThemeIcon
                 radius="xl"
                 size="sm"
@@ -224,11 +217,7 @@ export function ResultError() {
               </div>
             </Group>
 
-            <Group
-              align="flex-start"
-              wrap="nowrap"
-              className={classes.errorItem}
-            >
+            <Group align="flex-start" wrap="nowrap" className={classes.errorItem}>
               <ThemeIcon
                 radius="xl"
                 size="sm"

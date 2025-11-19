@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Paper, Stack, Switch, Text, Title } from '@mantine/core'
+import { PageContainer } from '@/shared/ui'
 
 /**
  * 系统设置页面
@@ -11,7 +12,7 @@ export function SettingsPage() {
   const [autoSave, setAutoSave] = useState(true)
 
   return (
-    <div>
+    <PageContainer size="md" align="center">
       <Title order={1} mb="xl">
         系统设置
       </Title>
@@ -47,6 +48,6 @@ export function SettingsPage() {
           </div>
         </Stack>
       </Paper>
-    </div>
+    </PageContainer>
   )
 }

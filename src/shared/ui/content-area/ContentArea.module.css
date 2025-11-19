@@ -1,0 +1,14 @@
+.root {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: var(--mantine-spacing-md);
+  padding-top: calc(
+    var(--mantine-spacing-xl) * 1.75 + var(--mantine-spacing-md)
+  );
+  background: var(--layout-surface-bg);
+  border-top: calc(var(--mantine-spacing-xs) * 0.125) solid
+    var(--layout-divider-color);
+  box-shadow: var(--layout-surface-shadow);
+  box-sizing: border-box;
+}

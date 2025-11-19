@@ -18,6 +18,7 @@ import { IconArrowUp, IconArrowDown, IconArrowsSort } from '@tabler/icons-react'
 import { EmptyState, Pagination } from '@/shared/ui'
 import type { DataTableProps, ColumnConfig, TableAction } from './types'
 import classes from './DataTable.module.css'
+import * as React from "react";
 
 /**
  * 获取排序图标

@@ -18,6 +18,7 @@ import {
   IconUser,
 } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
+import { PageContainer } from '@/shared/ui'
 import classes from './ProfileBasic.module.css'
 
 interface DetailItem {
@@ -49,7 +50,7 @@ export function ProfileBasicPage() {
   }
 
   return (
-    <div className={classes.root}>
+    <PageContainer size="full" variant="muted">
       <div className={classes.inner}>
         <Group justify="space-between" className={classes.header}>
           <div>
@@ -163,6 +164,6 @@ export function ProfileBasicPage() {
           </Grid.Col>
         </Grid>
       </div>
-    </div>
+    </PageContainer>
   )
 }

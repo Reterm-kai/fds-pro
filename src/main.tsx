@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import '@mantine/core/styles.css'
 import '@mantine/notifications/styles.css'
+import '@/app/styles/layout.css'
 import { AppProviders } from '@/app/providers'
 
 // 在开发环境启动 MSW
