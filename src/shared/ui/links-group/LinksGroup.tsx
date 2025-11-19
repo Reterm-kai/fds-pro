@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IconChevronRight } from '@tabler/icons-react'
 import type { Icon as TablerIcon } from '@tabler/icons-react'
 import {
@@ -44,12 +44,19 @@ export function LinksGroup({
     initiallyOpened || hasActiveChild || false
   )
 
+  useEffect(() => {
+    if (hasActiveChild) {
+      setOpened(true)
+    }
+  }, [hasActiveChild])
+
   // 精确匹配:只有当前路由完全匹配时才激活
   const isActive = link && location.pathname === link
 
   // 生成普通模式的子菜单项
   const items = (hasLinks ? links : []).map(subLink => (
     <NavLink
+      end
       to={subLink.link}
       key={subLink.label}
       onClick={onLinkClick}
@@ -64,6 +71,7 @@ export function LinksGroup({
   // 生成 Popover 模式的子菜单项
   const popoverItems = (hasLinks ? links : []).map(subLink => (
     <NavLink
+      end
       to={subLink.link}
       key={subLink.label}
       onClick={onLinkClick}
@@ -83,6 +91,7 @@ export function LinksGroup({
     const iconButton =
       !hasLinks && link ? (
         <NavLink
+          end
           to={link}
           onClick={onLinkClick}
           className={({ isActive }) =>
@@ -175,6 +184,7 @@ export function LinksGroup({
     <>
       {!hasLinks && link ? (
         <NavLink
+          end
           to={link}
           onClick={onLinkClick}
           className={({ isActive }) =>
@@ -188,8 +198,10 @@ export function LinksGroup({
       ) : (
         <UnstyledButton
           onClick={() => setOpened(o => !o)}
-          className={`${classes.control} ${hasLinks ? classes.controlWithLinks : ''} ${isActive ? classes.active : ''}`}
-          data-active={isActive || undefined}
+          className={`${classes.control} ${hasLinks ? classes.controlWithLinks : ''} ${
+            isActive || hasActiveChild ? classes.active : ''
+          }`}
+          data-active={isActive || hasActiveChild || undefined}
         >
           {buttonContent}
         </UnstyledButton>

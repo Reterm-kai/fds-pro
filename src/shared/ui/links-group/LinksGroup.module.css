@@ -53,6 +53,15 @@
   transform: none;
 }
 
+/* 子菜单激活导致的父级高亮：仅改变文字颜色，不添加背景和阴影 */
+.control.controlWithLinks.active,
+.control.controlWithLinks[data-active] {
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+  background-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
 /* 有子菜单的父项点击时不显示蓝色,仅保持 hover 样式 - 必须在 .control:active 之后以覆盖 */
 .control.controlWithLinks:active {
   background-color: light-dark(
@@ -76,6 +85,14 @@
   transform: translateY(calc(var(--mantine-spacing-xs) * -0.35));
 }
 
+.control.controlWithLinks.active:hover,
+.control.controlWithLinks[data-active]:hover {
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+  background-color: transparent;
+  box-shadow: none;
+  transform: none;
+}
+
 /* 展开模式激活状态点击效果 - 仅回弹动画 */
 .control.active:active,
 .control[data-active]:active {
@@ -88,6 +105,14 @@
   box-shadow: var(--mantine-shadow-md);
   /* 只有 transform 回弹 */
   transform: translateY(0);
+}
+
+.control.controlWithLinks.active:active,
+.control.controlWithLinks[data-active]:active {
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+  background-color: transparent;
+  box-shadow: none;
+  transform: none;
 }
 
 .collapsedControl {
@@ -238,9 +263,9 @@
   &:active {
     background-color: light-dark(
       var(--mantine-color-gray-2),
-      var(--mantine-color-dark-5)
+      var(--mantine-color-dark-6)
     );
-    color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
     transform: none;
   }
 }
@@ -323,7 +348,7 @@
       var(--mantine-color-gray-2),
       var(--mantine-color-dark-5)
     );
-    color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
     transform: none;
   }
 }
