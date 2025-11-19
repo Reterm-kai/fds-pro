@@ -57,7 +57,6 @@ export function AppLayout() {
     height: '100%',
     minHeight: 0,
     overflow: 'hidden',
-    gap: 'var(--mantine-spacing-md)',
   } satisfies CSSProperties
 
   const navbarStyle = {

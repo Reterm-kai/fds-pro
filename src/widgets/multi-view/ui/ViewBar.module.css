@@ -22,8 +22,6 @@
     var(--mantine-color-dark-7)
   );
   border: none;
-  border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
-    var(--layout-divider-color);
   color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
   cursor: pointer;
   transition: color 0.15s ease;
@@ -41,8 +39,6 @@
     var(--mantine-color-white),
     var(--mantine-color-dark-7)
   );
-  border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
-    var(--layout-divider-color);
   padding: 0 var(--mantine-spacing-xs);
   padding-top: calc(var(--mantine-spacing-xs) * 0.7);
   height: var(--view-bar-height, calc(var(--mantine-spacing-lg) * 1.75));
