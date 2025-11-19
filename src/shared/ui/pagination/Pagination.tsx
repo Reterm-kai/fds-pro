@@ -122,7 +122,7 @@ export function Pagination({
           </Text>
           <NumberInput
             value={jumperValue}
-            onChange={setJumperValue}
+            onChange={value => setJumperValue(value as number | '')}
             min={1}
             max={totalPages}
             size="sm"

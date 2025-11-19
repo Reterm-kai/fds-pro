@@ -94,7 +94,5 @@ function transformItem(item: RemoteMenuItem): MenuViewItem | null {
  * 将接口返回的菜单数据转换成导航栏使用的数据结构
  */
 export function transformMenuResponse(data: RemoteMenuItem[]): MenuViewItem[] {
-  return sortByOrder(data)
-    .map(transformItem)
-    .filter(Boolean) as MenuViewItem[]
+  return sortByOrder(data).map(transformItem).filter(Boolean) as MenuViewItem[]
 }

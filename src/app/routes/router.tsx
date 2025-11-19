@@ -4,7 +4,7 @@ import { AuthLayout, AppLayout } from '@/app/layouts'
 import { DashboardPage } from '@/pages/dashboard'
 import { UsersPage } from '@/pages/users'
 import { SettingsPage } from '@/pages/settings'
-import LoginPage from '@/pages/login'
+import { LoginPage } from '@/pages/login'
 import { RegisterPage } from '@/pages/register'
 import { HomePage } from '@/pages/home'
 import {

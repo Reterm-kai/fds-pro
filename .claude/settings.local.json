@@ -5,7 +5,15 @@
       "Bash(pnpm lint:*)",
       "Bash(npx tsc --noEmit)",
       "Bash(pnpm format:*)",
-      "Bash(pnpm dev)"
+      "Bash(pnpm dev)",
+      "Bash(xargs ls:*)",
+      "Bash(for dir in /Users/gp3/web/fds-pro/src/pages/*/)",
+      "Bash(ls:*)",
+      "Bash(done)",
+      "Bash(awk '{print $9, \"\"\"\"(\"\"\"\" $5 \"\"\"\")\"\"\"\"}')",
+      "Bash(pnpm build:*)",
+      "Bash(npx tsc:*)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []

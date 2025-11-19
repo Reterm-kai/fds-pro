@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 import { devtools } from 'zustand/middleware'
 import { showErrorNotification, showSuccessNotification } from '@/shared/ui'
+import { queryClient } from '@/shared/config/queryClient'
 import type { User } from '@/entities/user'
 import {
   login as apiLogin,
@@ -112,6 +113,9 @@ export const useAuthStore = create<AuthState>()(
             false,
             'auth/logout'
           )
+
+          // 清理依赖用户身份的菜单缓存，避免下次登录复用
+          queryClient.removeQueries({ queryKey: ['menus'] })
 
           // 如果之前选择了“仅本次登录”，在登出时清除持久化存储
           if (sessionStorage.getItem('auth-no-persist') === 'true') {

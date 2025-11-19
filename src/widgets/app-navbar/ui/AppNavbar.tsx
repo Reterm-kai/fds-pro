@@ -18,13 +18,14 @@ import {
   IconAlertCircle,
 } from '@tabler/icons-react'
 import { LinksGroup, ContactButton } from '@/shared/ui'
-import { useMenu } from '@/features/menu'
+import { useMenu, type MenuCacheScope } from '@/features/menu'
 import classes from './AppNavbar.module.css'
 
 interface AppNavbarProps {
   collapsed?: boolean
   onToggleCollapse?: () => void
   onLinkClick?: () => void
+  menuCacheScope?: MenuCacheScope
 }
 
 /**
@@ -35,11 +36,19 @@ export function AppNavbar({
   collapsed = false,
   onToggleCollapse,
   onLinkClick,
+  menuCacheScope,
 }: AppNavbarProps) {
   const theme = useMantineTheme()
   const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`)
 
-  const { data: menuData, isLoading, isError, refetch } = useMenu()
+  const {
+    data: menuData,
+    isLoading,
+    isError,
+    refetch,
+  } = useMenu({
+    cacheScope: menuCacheScope,
+  })
   const items = menuData ?? []
 
   // 渲染菜单项列表
@@ -146,18 +155,20 @@ export function AppNavbar({
       )
     }
 
-    return <div className={classes.collapsedIconsInner}>{renderMenuItems(true)}</div>
+    return (
+      <div className={classes.collapsedIconsInner}>{renderMenuItems(true)}</div>
+    )
   }
 
   return (
     <nav className={`${classes.navbar} ${collapsed ? classes.collapsed : ''}`}>
       {/* 展开状态的内容 */}
-      <ScrollArea className={classes.links}>{renderExpandedContent()}</ScrollArea>
+      <ScrollArea className={classes.links}>
+        {renderExpandedContent()}
+      </ScrollArea>
 
       {/* 收缩状态的图标 */}
-      <div className={classes.collapsedContent}>
-        {renderCollapsedContent()}
-      </div>
+      <div className={classes.collapsedContent}>{renderCollapsedContent()}</div>
 
       <div className={classes.footer}>
         {/* 收缩/展开切换按钮 - 固定在分界线,仅桌面端显示 */}

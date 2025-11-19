@@ -24,7 +24,7 @@ import classes from './Login.module.css'
  * 登录页面
  * 参考 Arco Design Pro 设计，支持用户名或邮箱登录
  */
-export default function LoginPage() {
+export function LoginPage() {
   const [rememberMe, setRememberMe] = useState(true)
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()

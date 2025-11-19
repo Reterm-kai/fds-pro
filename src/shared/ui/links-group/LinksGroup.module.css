@@ -316,6 +316,14 @@
   flex-shrink: 0;
 }
 
+.chevronOpened {
+  transform: rotate(-90deg);
+}
+
+.chevronClosed {
+  transform: none;
+}
+
 /* Popover 子菜单样式 */
 .popoverLink {
   font-weight: 500;

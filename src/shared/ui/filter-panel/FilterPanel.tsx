@@ -19,19 +19,20 @@ import {
 import { DateInput, DatePickerInput } from '@mantine/dates'
 import { Search, RotateCw, ChevronDown, ChevronUp } from 'lucide-react'
 import type { FilterFieldConfig, FilterPanelProps } from './types'
+import classes from './FilterPanel.module.css'
 
 /**
  * 渲染单个筛选字段
  */
-function renderField<T extends Record<string, any>>(
-  field: FilterFieldConfig,
+function renderField<T extends Record<string, unknown>>(
+  field: FilterFieldConfig<T>,
   values: T,
-  onChange: (name: keyof T, value: any) => void,
+  onChange: (name: keyof T, value: T[keyof T]) => void,
   loading?: boolean
 ) {
   const { name, label, type, placeholder, options, disabled, clearable } = field
 
-  const value = values[name]
+  const value = values[name as keyof T]
   const isDisabled =
     loading || (typeof disabled === 'function' ? disabled(values) : disabled)
 
@@ -51,8 +52,10 @@ function renderField<T extends Record<string, any>>(
       return (
         <TextInput
           {...baseProps}
-          value={value || ''}
-          onChange={e => onChange(name as keyof T, e.currentTarget.value)}
+          value={typeof value === 'string' ? value : ''}
+          onChange={e =>
+            onChange(name as keyof T, e.currentTarget.value as T[keyof T])
+          }
         />
       )
 
@@ -60,8 +63,8 @@ function renderField<T extends Record<string, any>>(
       return (
         <Select
           {...clearableProps}
-          value={value || null}
-          onChange={val => onChange(name as keyof T, val || '')}
+          value={typeof value === 'string' ? value : null}
+          onChange={val => onChange(name as keyof T, (val ?? '') as T[keyof T])}
           data={options || []}
         />
       )
@@ -70,8 +73,8 @@ function renderField<T extends Record<string, any>>(
       return (
         <MultiSelect
           {...clearableProps}
-          value={value || []}
-          onChange={val => onChange(name as keyof T, val)}
+          value={Array.isArray(value) ? (value as string[]) : []}
+          onChange={val => onChange(name as keyof T, val as T[keyof T])}
           data={options || []}
         />
       )
@@ -80,10 +83,13 @@ function renderField<T extends Record<string, any>>(
       return (
         <DateInput
           {...clearableProps}
-          value={value ? new Date(value) : null}
-          onChange={date =>
-            onChange(name as keyof T, date?.toISOString() || '')
-          }
+          value={typeof value === 'string' && value ? new Date(value) : null}
+          onChange={date => {
+            // DateInput onChange 接收 Date | null
+            const dateValue = date as Date | null
+            const dateString = dateValue ? dateValue.toISOString() : ''
+            onChange(name as keyof T, dateString as T[keyof T])
+          }}
           valueFormat="YYYY-MM-DD"
         />
       )
@@ -94,56 +100,81 @@ function renderField<T extends Record<string, any>>(
           {...clearableProps}
           type="range"
           value={
-            value
+            Array.isArray(value)
               ? [
-                  value[0] ? new Date(value[0]) : null,
-                  value[1] ? new Date(value[1]) : null,
+                  value[0]
+                    ? new Date(value[0] as string | number | Date)
+                    : null,
+                  value[1]
+                    ? new Date(value[1] as string | number | Date)
+                    : null,
                 ]
               : [null, null]
           }
           onChange={dates => {
+            const formatDate = (date: Date | string | null): string => {
+              if (!date) return ''
+              if (typeof date === 'string') return new Date(date).toISOString()
+              return date.toISOString()
+            }
             const range = dates
-              ? [dates[0]?.toISOString() || '', dates[1]?.toISOString() || '']
+              ? [formatDate(dates[0]), formatDate(dates[1])]
               : ['', '']
-            onChange(name as keyof T, range)
+            onChange(name as keyof T, range as T[keyof T])
           }}
           valueFormat="YYYY-MM-DD"
         />
       )
 
-    case 'number':
+    case 'number': {
+      const numValue = value as number | undefined
       return (
         <NumberInput
           {...baseProps}
-          value={value || ''}
-          onChange={val => onChange(name as keyof T, val)}
+          value={numValue}
+          onChange={val => {
+            onChange(name as keyof T, val as T[keyof T])
+          }}
         />
       )
+    }
 
-    case 'numberRange':
+    case 'numberRange': {
+      const rangeValue = (value as [number?, number?]) || [undefined, undefined]
       return (
         <Group gap="xs" grow>
           <NumberInput
             placeholder="最小值"
-            value={value?.[0] || ''}
-            onChange={val => onChange(name as keyof T, [val, value?.[1] || ''])}
+            value={rangeValue[0]}
+            onChange={val => {
+              onChange(
+                name as keyof T,
+                [val, rangeValue[1]] as unknown as T[keyof T]
+              )
+            }}
             disabled={isDisabled}
           />
           <NumberInput
             placeholder="最大值"
-            value={value?.[1] || ''}
-            onChange={val => onChange(name as keyof T, [value?.[0] || '', val])}
+            value={rangeValue[1]}
+            onChange={val => {
+              onChange(
+                name as keyof T,
+                [rangeValue[0], val] as unknown as T[keyof T]
+              )
+            }}
             disabled={isDisabled}
           />
         </Group>
       )
+    }
 
     default:
       return null
   }
 }
 
-export function FilterPanel<T extends Record<string, any>>({
+export function FilterPanel<T extends Record<string, unknown>>({
   fields,
   values,
   loading = false,
@@ -194,13 +225,7 @@ export function FilterPanel<T extends Record<string, any>>({
         {/* 操作按钮 */}
         {showActions && (
           <Grid.Col span={{ base: 12, md: 6, lg: 3 }}>
-            <Group
-              gap="xs"
-              style={{
-                height: '100%',
-                alignItems: 'flex-end',
-              }}
-            >
+            <Group gap="xs" className={classes.actionButtons}>
               <Button
                 leftSection={<Search size={16} />}
                 onClick={onSearch}

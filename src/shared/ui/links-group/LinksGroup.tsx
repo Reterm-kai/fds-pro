@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { IconChevronRight } from '@tabler/icons-react'
 import type { Icon as TablerIcon } from '@tabler/icons-react'
 import {
@@ -40,15 +40,8 @@ export function LinksGroup({
     hasLinks && links?.some(subLink => location.pathname === subLink.link)
 
   // 初始化时：如果有子菜单且当前路由匹配子菜单项，自动展开
-  const [opened, setOpened] = useState(
-    initiallyOpened || hasActiveChild || false
-  )
-
-  useEffect(() => {
-    if (hasActiveChild) {
-      setOpened(true)
-    }
-  }, [hasActiveChild])
+  const [userOpened, setUserOpened] = useState(initiallyOpened || false)
+  const opened = hasActiveChild ? true : userOpened
 
   // 精确匹配:只有当前路由完全匹配时才激活
   const isActive = link && location.pathname === link
@@ -170,10 +163,9 @@ export function LinksGroup({
       {hasLinks && (
         <Box className={classes.chevronWrapper}>
           <IconChevronRight
-            className={classes.chevron}
+            className={`${classes.chevron} ${opened ? classes.chevronOpened : classes.chevronClosed}`}
             stroke={1.5}
             size={16}
-            style={{ transform: opened ? 'rotate(-90deg)' : 'none' }}
           />
         </Box>
       )}
@@ -197,7 +189,7 @@ export function LinksGroup({
         </NavLink>
       ) : (
         <UnstyledButton
-          onClick={() => setOpened(o => !o)}
+          onClick={() => setUserOpened(o => !o)}
           className={`${classes.control} ${hasLinks ? classes.controlWithLinks : ''} ${
             isActive || hasActiveChild ? classes.active : ''
           }`}

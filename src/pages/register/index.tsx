@@ -319,5 +319,3 @@ export function RegisterPage() {
     </Flex>
   )
 }
-
-export default RegisterPage

@@ -4,12 +4,17 @@
 
 import type { ReactNode } from 'react'
 
+export type ColumnKey<T extends Record<string, unknown>> =
+  | keyof T
+  | 'actions'
+  | string
+
 /**
  * 列配置
  */
-export interface ColumnConfig<T> {
+export interface ColumnConfig<T extends Record<string, unknown>> {
   /** 列 key */
-  key: keyof T | 'actions' | string
+  key: ColumnKey<T>
 
   /** 列标题 */
   title: string
@@ -30,13 +35,17 @@ export interface ColumnConfig<T> {
   ellipsis?: boolean
 
   /** 自定义渲染 */
-  render?: (value: any, record: T, index: number) => ReactNode
+  render?: (
+    value: T[keyof T] | undefined,
+    record: T,
+    index: number
+  ) => ReactNode
 }
 
 /**
  * 表格行操作
  */
-export interface TableAction<T> {
+export interface TableAction<T extends Record<string, unknown>> {
   /** 操作 key */
   key: string
 
@@ -111,7 +120,7 @@ export interface SortConfig {
 /**
  * DataTable 组件属性
  */
-export interface DataTableProps<T> {
+export interface DataTableProps<T extends Record<string, unknown>> {
   /** 列配置 */
   columns: ColumnConfig<T>[]
 

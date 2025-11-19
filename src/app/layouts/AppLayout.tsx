@@ -1,5 +1,5 @@
 import { AppShell, Box } from '@mantine/core'
-import type { CSSProperties } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { useDisclosure } from '@mantine/hooks'
 import { RouteProgressBar } from '@/shared/ui'
 import { AppHeader } from '@/widgets/app-header'
@@ -10,13 +10,21 @@ import {
   useRouteSync,
   RefreshableOutlet,
 } from '@/widgets/multi-view'
+import { useAuth } from '@/features/auth'
+import type { MenuCacheScope } from '@/features/menu'
 
 /**
  * 路由同步包装组件
  * 用于在 MultiViewProvider 内部调用 useRouteSync
  */
-function RouteSyncWrapper({ children }: { children: React.ReactNode }) {
-  useRouteSync()
+function RouteSyncWrapper({
+  children,
+  cacheScope,
+}: {
+  children: ReactNode
+  cacheScope?: MenuCacheScope
+}) {
+  useRouteSync({ cacheScope })
   return <>{children}</>
 }
 
@@ -34,6 +42,8 @@ export function AppLayout() {
     useDisclosure()
   // 桌面端侧边栏收缩状态（本地，不持久化）
   const [desktopCollapsed, { toggle: toggleDesktop }] = useDisclosure()
+  const { user } = useAuth()
+  const menuCacheScope = user ? { userId: user.id } : undefined
 
   const mainStyle = {
     display: 'flex',
@@ -59,7 +69,7 @@ export function AppLayout() {
 
   return (
     <MultiViewProvider>
-      <RouteSyncWrapper>
+      <RouteSyncWrapper cacheScope={menuCacheScope}>
         <RouteProgressBar />
         <AppShell
           header={{ height: 60 }}
@@ -79,6 +89,7 @@ export function AppLayout() {
               collapsed={desktopCollapsed}
               onToggleCollapse={toggleDesktop}
               onLinkClick={closeMobile}
+              menuCacheScope={menuCacheScope}
             />
           </AppShell.Navbar>
 

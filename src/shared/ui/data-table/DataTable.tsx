@@ -15,8 +15,7 @@ import {
   Stack,
 } from '@mantine/core'
 import { IconArrowUp, IconArrowDown, IconArrowsSort } from '@tabler/icons-react'
-import { EmptyState } from '../empty-state'
-import { Pagination } from '../pagination'
+import { EmptyState, Pagination } from '@/shared/ui'
 import type { DataTableProps, ColumnConfig, TableAction } from './types'
 import classes from './DataTable.module.css'
 
@@ -41,7 +40,7 @@ function getSortIcon(
 /**
  * 渲染表格行操作
  */
-function renderActions<T>(
+function renderActions<T extends Record<string, unknown>>(
   actions: TableAction<T>[],
   record: T
 ): React.ReactNode {
@@ -88,7 +87,7 @@ function renderSkeleton(columnsCount: number, rowsCount: number = 10) {
       {Array.from({ length: rowsCount }).map((_, index) => (
         <Group key={index} gap="md" align="center">
           {Array.from({ length: columnsCount }).map((_, colIndex) => (
-            <Skeleton key={colIndex} h="lg" style={{ flex: 1 }} />
+            <Skeleton key={colIndex} h="lg" className={classes.skeletonItem} />
           ))}
         </Group>
       ))}
@@ -96,7 +95,7 @@ function renderSkeleton(columnsCount: number, rowsCount: number = 10) {
   )
 }
 
-export function DataTable<T extends Record<string, any>>({
+export function DataTable<T extends Record<string, unknown>>({
   columns,
   data,
   loading = false,
@@ -149,26 +148,42 @@ export function DataTable<T extends Record<string, any>>({
     ? (pagination.page - 1) * pagination.pageSize
     : 0
 
+  // 获取对齐方式的 CSS 类
+  const getAlignClass = (align?: 'left' | 'center' | 'right') => {
+    switch (align) {
+      case 'center':
+        return classes.alignCenter
+      case 'right':
+        return classes.alignRight
+      default:
+        return classes.alignLeft
+    }
+  }
+
   // 渲染表格头
   const renderTableHead = () => (
     <Table.Thead>
       <Table.Tr>
         {/* 序号列 */}
-        <Table.Th style={{ width: 60 }}>#</Table.Th>
+        <Table.Th className={classes.indexColumn}>#</Table.Th>
 
         {/* 数据列 */}
         {finalColumns.map(column => {
           const isSortable = column.sortable && sortable
           const isActionsColumn = column.key === 'actions'
 
+          const thClasses = [
+            isSortable ? classes.sortableHeader : '',
+            getAlignClass(column.align || 'left'),
+          ]
+            .filter(Boolean)
+            .join(' ')
+
           return (
             <Table.Th
               key={String(column.key)}
-              style={{
-                width: column.width,
-                textAlign: column.align || 'left',
-              }}
-              className={isSortable ? classes.sortableHeader : ''}
+              style={column.width ? { width: column.width } : undefined}
+              className={thClasses}
               onClick={
                 isSortable
                   ? () => sortable.onChange(String(column.key))
@@ -214,20 +229,27 @@ export function DataTable<T extends Record<string, any>>({
               return (
                 <Table.Td
                   key={String(column.key)}
-                  style={{ textAlign: column.align || 'center' }}
+                  className={getAlignClass(column.align || 'center')}
                 >
                   {renderActions(actions, record)}
                 </Table.Td>
               )
             }
 
-            const dataIndex = column.dataIndex || column.key
-            const value = record[dataIndex as keyof T]
+            const fallbackKey =
+              typeof column.key === 'string'
+                ? (column.key as keyof T)
+                : (undefined as keyof T | undefined)
+            const dataKey = column.dataIndex ?? fallbackKey
+            const value =
+              dataKey && dataKey in record
+                ? (record[dataKey] as T[keyof T])
+                : undefined
 
             return (
               <Table.Td
                 key={String(column.key)}
-                style={{ textAlign: column.align || 'left' }}
+                className={getAlignClass(column.align || 'left')}
               >
                 {column.render
                   ? column.render(value, record, index)
@@ -240,11 +262,21 @@ export function DataTable<T extends Record<string, any>>({
     </Table.Tbody>
   )
 
+  // 准备传递给 Pagination 的 props（排除 position）
+  const getPaginationProps = () => {
+    if (!pagination) return undefined
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { position, ...rest } = pagination
+    return rest
+  }
+
+  const paginationProps = getPaginationProps()
+
   return (
     <Stack gap="md">
       {/* 顶部分页 */}
-      {pagination && pagination.position === 'top' && (
-        <Pagination {...pagination} />
+      {pagination && pagination.position === 'top' && paginationProps && (
+        <Pagination {...paginationProps} />
       )}
 
       {/* 表格 */}
@@ -262,9 +294,8 @@ export function DataTable<T extends Record<string, any>>({
 
       {/* 底部分页 */}
       {pagination &&
-        (!pagination.position || pagination.position === 'bottom') && (
-          <Pagination {...pagination} />
-        )}
+        (!pagination.position || pagination.position === 'bottom') &&
+        paginationProps && <Pagination {...paginationProps} />}
     </Stack>
   )
 }

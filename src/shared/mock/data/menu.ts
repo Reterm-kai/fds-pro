@@ -5,7 +5,12 @@ export const menuData = [
     icon: 'IconGauge',
     initiallyOpened: true,
     children: [
-      { id: 'dashboard-workplace', name: '工作台', path: '/dashboard', order: 1 },
+      {
+        id: 'dashboard-workplace',
+        name: '工作台',
+        path: '/dashboard',
+        order: 1,
+      },
       {
         id: 'dashboard-monitor',
         name: '实时监控',
@@ -64,7 +69,12 @@ export const menuData = [
     icon: 'IconFileText',
     initiallyOpened: true,
     children: [
-      { id: 'profile-basic', name: '基础详情', path: '/profile/basic', order: 1 },
+      {
+        id: 'profile-basic',
+        name: '基础详情',
+        path: '/profile/basic',
+        order: 1,
+      },
     ],
     order: 5,
   },
@@ -74,7 +84,12 @@ export const menuData = [
     icon: 'IconChecklist',
     initiallyOpened: true,
     children: [
-      { id: 'result-success', name: '成功页', path: '/result/success', order: 1 },
+      {
+        id: 'result-success',
+        name: '成功页',
+        path: '/result/success',
+        order: 1,
+      },
       { id: 'result-error', name: '失败页', path: '/result/error', order: 2 },
     ],
     order: 6,
@@ -98,7 +113,12 @@ export const menuData = [
     initiallyOpened: true,
     children: [
       { id: 'user-profile', name: '个人资料', path: '/user/profile', order: 1 },
-      { id: 'user-security', name: '安全设置', path: '/user/security', order: 2 },
+      {
+        id: 'user-security',
+        name: '安全设置',
+        path: '/user/security',
+        order: 2,
+      },
     ],
     order: 8,
   },

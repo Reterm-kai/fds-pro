@@ -1,6 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
-import { useMenu, type MenuViewItem } from '@/features/menu'
+import {
+  useMenu,
+  type MenuViewItem,
+  type MenuCacheScope,
+} from '@/features/menu'
 import { useMultiView } from './useMultiView'
 
 function normalizeLink(path?: string) {
@@ -74,11 +78,16 @@ function generateDefaultTitle(path: string): string {
  * 路由与 Tab 同步 Hook
  * 监听路由变化，自动添加对应的 Tab
  */
-export function useRouteSync() {
+interface UseRouteSyncOptions {
+  cacheScope?: MenuCacheScope
+}
+
+export function useRouteSync(options?: UseRouteSyncOptions) {
   const location = useLocation()
   const { addView, views } = useMultiView()
-  const { data: menuData, isLoading } = useMenu()
-  const menuItems = menuData ?? []
+  const { cacheScope } = options ?? {}
+  const { data: menuData, isLoading } = useMenu({ cacheScope })
+  const menuItems = useMemo(() => menuData ?? [], [menuData])
 
   useEffect(() => {
     const currentPath = location.pathname

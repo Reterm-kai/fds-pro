@@ -1,40 +1,35 @@
-import { Menu, UnstyledButton, Avatar, Group, Text, rem } from '@mantine/core'
+import { Menu, UnstyledButton, Avatar, Group, Text } from '@mantine/core'
 import {
   IconSettings,
   IconUser,
   IconLogout,
   IconChevronDown,
 } from '@tabler/icons-react'
-import { useAuth } from '@/features/auth'
-import { useNavigate } from 'react-router-dom'
 import classes from './UserMenu.module.css'
+
+export interface UserMenuUser {
+  name: string
+  email: string
+  avatar?: string
+}
+
+interface UserMenuProps {
+  user: UserMenuUser
+  onLogout: () => Promise<void> | void
+  onProfile?: () => void
+  onSettings?: () => void
+}
 
 /**
  * 用户菜单组件
  * 显示当前登录用户的头像和昵称,点击展开下拉菜单
  */
-export function UserMenu() {
-  const { user, logout } = useAuth()
-  const navigate = useNavigate()
-
-  // 如果没有用户信息,不显示菜单
-  if (!user) {
-    return null
-  }
-
-  const handleLogout = async () => {
-    await logout()
-    navigate('/login')
-  }
-
-  const handleSettings = () => {
-    navigate('/settings')
-  }
-
-  const handleProfile = () => {
-    navigate('/profile')
-  }
-
+export function UserMenu({
+  user,
+  onLogout,
+  onProfile,
+  onSettings,
+}: UserMenuProps) {
   return (
     <Menu width={200} position="bottom-end" withArrow>
       <Menu.Target>
@@ -69,17 +64,12 @@ export function UserMenu() {
 
         <Menu.Divider />
 
-        <Menu.Item
-          leftSection={<IconUser style={{ width: rem(16), height: rem(16) }} />}
-          onClick={handleProfile}
-        >
+        <Menu.Item leftSection={<IconUser size={16} />} onClick={onProfile}>
           个人资料
         </Menu.Item>
         <Menu.Item
-          leftSection={
-            <IconSettings style={{ width: rem(16), height: rem(16) }} />
-          }
-          onClick={handleSettings}
+          leftSection={<IconSettings size={16} />}
+          onClick={onSettings}
         >
           账户设置
         </Menu.Item>
@@ -88,10 +78,8 @@ export function UserMenu() {
 
         <Menu.Item
           color="red"
-          leftSection={
-            <IconLogout style={{ width: rem(16), height: rem(16) }} />
-          }
-          onClick={handleLogout}
+          leftSection={<IconLogout size={16} />}
+          onClick={onLogout}
         >
           退出登录
         </Menu.Item>

@@ -54,7 +54,7 @@ export function EmptyState({
   // 渲染图标/图片
   const renderImage = () => {
     if (typeof image === 'string') {
-      return getPresetIcon(image, iconSize)
+      return getPresetIcon(image as EmptyStateImageType, iconSize)
     }
     return image
   }

@@ -24,3 +24,23 @@
   align-items: center;
   justify-content: center;
 }
+
+.skeletonItem {
+  flex: 1;
+}
+
+.indexColumn {
+  width: calc(var(--mantine-spacing-xl) * 2);
+}
+
+.alignLeft {
+  text-align: left;
+}
+
+.alignCenter {
+  text-align: center;
+}
+
+.alignRight {
+  text-align: right;
+}
