@@ -1,7 +1,6 @@
-import { Button, Container, Group, Text, Title } from '@mantine/core'
+import { Button, Container, Group, Paper, Text, Title } from '@mantine/core'
 import { IconHome } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
-import { PageContainer } from '@/shared/ui'
 import classes from '../ExceptionPage.module.css'
 
 export function Exception404Page() {
@@ -12,8 +11,8 @@ export function Exception404Page() {
   }
 
   return (
-    <PageContainer size="full">
-      <div className={classes.root}>
+    <div className={classes.root}>
+      <Paper className={classes.card} shadow="sm" radius="xl" component="section">
         <Container size="md" className={classes.inner}>
           <Text component="div" className={classes.code}>
             404
@@ -33,7 +32,7 @@ export function Exception404Page() {
             </Button>
           </Group>
         </Container>
-      </div>
-    </PageContainer>
+      </Paper>
+    </div>
   )
 }
