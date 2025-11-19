@@ -1,1 +1,0 @@
-export { useMenuData } from './useMenuData'

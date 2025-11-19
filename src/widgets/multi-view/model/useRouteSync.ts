@@ -1,8 +1,12 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { menuItems } from '@/shared/navigation/menu'
-import type { MenuItem } from '@/shared/navigation/types'
+import { useMenu, type MenuViewItem } from '@/features/menu'
 import { useMultiView } from './useMultiView'
+
+function normalizeLink(path?: string) {
+  if (!path) return undefined
+  return path.startsWith('/') ? path : `/${path}`
+}
 
 /**
  * 根据路径从菜单配置中查找对应的标题
@@ -10,16 +14,17 @@ import { useMultiView } from './useMultiView'
  * 1. 精确匹配：优先查找 path 完全匹配的菜单项
  * 2. 父级匹配：如果路径是某个父级菜单的子路径，返回父级菜单标题
  */
-function findMenuTitle(items: MenuItem[], path: string): string | null {
+function findMenuTitle(items: MenuViewItem[], path: string): string | null {
   // 第一遍：精确匹配
   for (const item of items) {
-    if (item.path === path) {
+    if (normalizeLink(item.link) === path) {
       return item.label
     }
-    if (item.children) {
-      const childTitle = findMenuTitle(item.children, path)
-      if (childTitle) {
-        return childTitle
+    if (item.links) {
+      for (const child of item.links) {
+        if (normalizeLink(child.link) === path) {
+          return child.label
+        }
       }
     }
   }
@@ -27,20 +32,15 @@ function findMenuTitle(items: MenuItem[], path: string): string | null {
   // 第二遍：检查是否为某个一级菜单的子路径
   // 例如：路径 /dashboard 应该匹配到 "仪表盘" 菜单下的第一个子菜单
   for (const item of items) {
-    if (item.children && item.children.length > 0) {
-      // 检查该一级菜单的所有子菜单路径
-      for (const child of item.children) {
-        if (child.path) {
-          // 获取子菜单路径的父级路径
-          const childPathSegments = child.path.split('/').filter(Boolean)
-          if (childPathSegments.length > 0) {
-            const parentPath = '/' + childPathSegments[0]
-            // 如果当前路径与父级路径匹配，使用一级菜单的标题
-            if (path === parentPath) {
-              return item.label
-            }
-          }
-        }
+    if (!item.links || item.links.length === 0) continue
+    for (const child of item.links) {
+      const normalized = normalizeLink(child.link)
+      if (!normalized) continue
+      const childSegments = normalized.split('/').filter(Boolean)
+      if (childSegments.length === 0) continue
+      const parentPath = `/${childSegments[0]}`
+      if (path === parentPath) {
+        return item.label
       }
     }
   }
@@ -77,6 +77,8 @@ function generateDefaultTitle(path: string): string {
 export function useRouteSync() {
   const location = useLocation()
   const { addView, views } = useMultiView()
+  const { data: menuData, isLoading } = useMenu()
+  const menuItems = menuData ?? []
 
   useEffect(() => {
     const currentPath = location.pathname
@@ -87,6 +89,10 @@ export function useRouteSync() {
       currentPath === '/register' ||
       currentPath === '/'
     ) {
+      return
+    }
+
+    if (isLoading && menuItems.length === 0) {
       return
     }
 
@@ -108,6 +114,5 @@ export function useRouteSync() {
 
     // 注意：不在这里调用 setActiveView，避免循环导航
     // activeView 状态会在 MultiViewContext 中自动更新
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname, addView])
+  }, [location.pathname, menuItems, isLoading, views, addView])
 }
