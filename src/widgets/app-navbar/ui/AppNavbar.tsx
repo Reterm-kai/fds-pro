@@ -187,23 +187,25 @@ export function AppNavbar({
           </ActionIcon>
         )}
 
-        {/* 展开状态的联系按钮 */}
-        <div className={classes.footerExpanded}>
-          <ContactButton />
-        </div>
+        <div className={classes.footerContactArea}>
+          {/* 展开状态的联系按钮 */}
+          <div className={classes.footerExpanded}>
+            <ContactButton />
+          </div>
 
-        {/* 收缩状态的联系图标 */}
-        <div className={classes.footerCollapsed}>
-          <Tooltip label="联系我们" position="right">
-            <ActionIcon
-              variant="gradient"
-              gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-              size="lg"
-              className={classes.contactIconButton}
-            >
-              <IconMail size={18} />
-            </ActionIcon>
-          </Tooltip>
+          {/* 收缩状态的联系图标 */}
+          <div className={classes.footerCollapsed}>
+            <Tooltip label="联系我们" position="right">
+              <ActionIcon
+                variant="gradient"
+                gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
+                size="md"
+                className={classes.contactIconButton}
+              >
+                <IconMail size={18} />
+              </ActionIcon>
+            </Tooltip>
+          </div>
         </div>
       </div>
     </nav>

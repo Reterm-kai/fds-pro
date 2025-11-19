@@ -1,20 +1,42 @@
-.button {
-  transition: transform 0.2s ease;
+.links {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mantine-spacing-md);
 }
 
-.button:hover {
-  transform: translateY(calc(var(--mantine-spacing-xs) * -0.2));
+.link {
+  display: inline-flex;
+  height: 100%;
+  align-items: center;
+  gap: calc(var(--mantine-spacing-xs) * 0.6);
+  color: var(--mantine-color-text);
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 500;
+  line-height: 1;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
-.contactItem {
-  padding: var(--mantine-spacing-xs);
-  border-radius: var(--mantine-radius-sm);
-  transition: background-color 0.2s ease;
+.link :global(svg) {
+  flex-shrink: 0;
 }
 
-.contactItem:hover {
-  background-color: light-dark(
-    var(--mantine-color-gray-0),
-    var(--mantine-color-dark-6)
-  );
+.label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link:hover,
+.link:focus-visible {
+  color: var(--mantine-color-blue-6);
+  transform: translateY(calc(var(--mantine-spacing-xs) * -0.15));
 }
