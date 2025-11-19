@@ -50,6 +50,13 @@ export function AppLayout() {
       'calc(var(--mantine-spacing-lg) * 1.85 + var(--mantine-spacing-md))',
   } satisfies CSSProperties
 
+  const navbarStyle = {
+    borderRight:
+      'calc(var(--mantine-spacing-xs) * 0.125) solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4))',
+    boxShadow: 'var(--mantine-shadow-sm)',
+    backgroundColor: 'var(--mantine-color-body)',
+  } satisfies CSSProperties
+
   return (
     <MultiViewProvider>
       <RouteSyncWrapper>
@@ -67,7 +74,7 @@ export function AppLayout() {
             <AppHeader opened={mobileOpened} toggle={toggleMobile} />
           </AppShell.Header>
 
-          <AppShell.Navbar withBorder={false}>
+          <AppShell.Navbar style={navbarStyle}>
             <AppNavbar
               collapsed={desktopCollapsed}
               onToggleCollapse={toggleDesktop}

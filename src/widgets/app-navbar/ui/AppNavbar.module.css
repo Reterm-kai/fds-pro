@@ -9,10 +9,6 @@
   will-change: width;
   /* 不裁剪超出的内容（切换按钮） */
   overflow: visible;
-  /* 加强右边界视觉效果 */
-  border-right: calc(var(--mantine-spacing-xs) * 0.125) solid
-    light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-  box-shadow: var(--mantine-shadow-sm);
 }
 
 /* 为主内容区域添加裁剪 */
