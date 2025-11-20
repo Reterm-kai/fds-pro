@@ -1,5 +1,5 @@
-import { Button, Container, Group, Paper, Text, Title } from '@mantine/core'
-import { IconHome } from '@tabler/icons-react'
+import { Button, Group, Stack, Text, Title } from '@mantine/core'
+import { IconFileOff, IconHome, IconArrowLeft } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import classes from '../ExceptionPage.module.css'
 
@@ -10,34 +10,40 @@ export function Exception404Page() {
     navigate('/dashboard')
   }
 
+  const handleGoBack = () => {
+    navigate(-1)
+  }
+
   return (
     <div className={classes.root}>
-      <Paper
-        className={classes.card}
-        shadow="sm"
-        radius="xl"
-        component="section"
-      >
-        <Container size="md" className={classes.inner}>
-          <Text component="div" className={classes.code}>
-            404
-          </Text>
+      <Stack gap="lg" align="center" className={classes.inner}>
+        <IconFileOff size={64} stroke={1.5} className={classes.icon} />
 
-          <Title order={2} className={classes.title}>
-            抱歉，您访问的页面不存在
-          </Title>
+        <Text component="div" className={classes.code}>
+          404
+        </Text>
 
-          <Text className={classes.description}>
-            可能是您输入了错误的地址，或者页面已被移动或删除。
-          </Text>
+        <Title order={2} className={classes.title}>
+          页面不存在
+        </Title>
 
-          <Group justify="center">
-            <Button leftSection={<IconHome />} onClick={handleGoHome}>
-              返回首页
-            </Button>
-          </Group>
-        </Container>
-      </Paper>
+        <Text className={classes.description}>
+          您访问的页面不存在或已被移除
+        </Text>
+
+        <Group justify="center" mt="md">
+          <Button
+            variant="default"
+            leftSection={<IconArrowLeft size={18} />}
+            onClick={handleGoBack}
+          >
+            返回上页
+          </Button>
+          <Button leftSection={<IconHome size={18} />} onClick={handleGoHome}>
+            返回首页
+          </Button>
+        </Group>
+      </Stack>
     </div>
   )
 }

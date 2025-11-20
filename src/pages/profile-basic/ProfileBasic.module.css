@@ -1,12 +1,199 @@
-.inner {
-  width: 100%;
-  margin-inline: auto;
+.root {
+  min-height: 100%;
+  box-sizing: border-box;
 }
 
-.header {
-  margin-bottom: var(--mantine-spacing-xl);
+.container {
+  max-width: 100%;
 }
 
-.mainGrid {
-  margin-top: var(--mantine-spacing-xl);
+/* 卡片分隔条 */
+.divider {
+  height: var(--mantine-spacing-md);
+  background: light-dark(
+    var(--mantine-color-gray-1),
+    var(--mantine-color-dark-7)
+  );
+}
+
+/* 卡片 */
+.card {
+  background: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-6)
+  );
+  padding: var(--mantine-spacing-lg);
+}
+
+.cardTitle {
+  font-size: var(--mantine-font-size-md);
+  font-weight: 600;
+  color: var(--mantine-color-text);
+  margin-bottom: var(--mantine-spacing-md);
+}
+
+/* 页面头部 */
+.pageTitle {
+  font-size: var(--mantine-font-size-lg);
+  font-weight: 600;
+  color: var(--mantine-color-text);
+  margin-bottom: var(--mantine-spacing-xs);
+}
+
+/* 头部网格布局 */
+.headerGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--mantine-spacing-md) var(--mantine-spacing-xl);
+}
+
+@media (max-width: 768px) {
+  .headerGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .headerGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.headerItem {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--mantine-spacing-xs) * 0.5);
+}
+
+.headerLabel {
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-dimmed);
+}
+
+.headerValue {
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-text);
+  font-weight: 500;
+}
+
+/* 统计项 */
+.statsItem {
+  text-align: right;
+}
+
+.statsLabel {
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-dimmed);
+  margin-bottom: calc(var(--mantine-spacing-xs) * 0.5);
+}
+
+.statsValue {
+  font-size: var(--mantine-font-size-xl);
+  font-weight: 700;
+  color: var(--mantine-color-text);
+}
+
+/* 流程进度 */
+.progressGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--mantine-spacing-md);
+  position: relative;
+}
+
+.progressGrid::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--mantine-spacing-xs) * 0.6);
+  left: calc(var(--mantine-spacing-xl) * 1.5);
+  right: calc(var(--mantine-spacing-xl) * 1.5);
+  height: calc(var(--mantine-spacing-xs) * 0.2);
+  background: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-4)
+  );
+}
+
+@media (max-width: 768px) {
+  .progressGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .progressGrid::before {
+    display: none;
+  }
+}
+
+.progressItem {
+  text-align: center;
+  position: relative;
+}
+
+.progressDot {
+  width: var(--mantine-spacing-sm);
+  height: var(--mantine-spacing-sm);
+  border-radius: 50%;
+  background: light-dark(
+    var(--mantine-color-gray-3),
+    var(--mantine-color-dark-4)
+  );
+  margin: 0 auto var(--mantine-spacing-sm);
+  position: relative;
+  z-index: 1;
+}
+
+.progressDotActive {
+  background: var(--mantine-color-blue-6);
+}
+
+.progressDotCompleted {
+  background: var(--mantine-color-blue-6);
+}
+
+.progressLabel {
+  font-size: var(--mantine-font-size-sm);
+  font-weight: 500;
+  color: var(--mantine-color-text);
+  margin-bottom: calc(var(--mantine-spacing-xs) * 0.5);
+}
+
+.progressMeta {
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-dimmed);
+}
+
+/* 信息网格 */
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--mantine-spacing-md) var(--mantine-spacing-xl);
+}
+
+@media (max-width: 768px) {
+  .infoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--mantine-spacing-xs) * 0.5);
+}
+
+.infoLabel {
+  font-size: var(--mantine-font-size-xs);
+  color: var(--mantine-color-dimmed);
+}
+
+.infoValue {
+  font-size: var(--mantine-font-size-sm);
+  color: var(--mantine-color-text);
+  font-weight: 500;
 }

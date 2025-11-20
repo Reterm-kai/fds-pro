@@ -1,5 +1,5 @@
-import { Button, Container, Group, Paper, Text, Title } from '@mantine/core'
-import { IconHome, IconRefresh } from '@tabler/icons-react'
+import { Button, Group, Stack, Text, Title } from '@mantine/core'
+import { IconServerOff, IconHome, IconRefresh } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import classes from '../ExceptionPage.module.css'
 
@@ -16,40 +16,34 @@ export function Exception500Page() {
 
   return (
     <div className={classes.root}>
-      <Paper
-        className={classes.card}
-        shadow="sm"
-        radius="xl"
-        component="section"
-      >
-        <Container size="md" className={classes.inner}>
-          <Text component="div" className={classes.code}>
-            500
-          </Text>
+      <Stack gap="lg" align="center" className={classes.inner}>
+        <IconServerOff size={64} stroke={1.5} className={classes.icon} />
 
-          <Title order={2} className={classes.title}>
-            抱歉，服务器出错了
-          </Title>
+        <Text component="div" className={classes.code}>
+          500
+        </Text>
 
-          <Text className={classes.description}>
-            服务器暂时出现了问题，请尝试刷新页面；如果问题仍然存在，请稍后重试或联系管理员。
-          </Text>
+        <Title order={2} className={classes.title}>
+          服务器错误
+        </Title>
 
-          <Group justify="center">
-            <Button leftSection={<IconRefresh />} onClick={handleRefresh}>
-              刷新页面
-            </Button>
+        <Text className={classes.description}>
+          服务器出现问题，请稍后重试或联系管理员
+        </Text>
 
-            <Button
-              variant="outline"
-              leftSection={<IconHome />}
-              onClick={handleGoHome}
-            >
-              返回首页
-            </Button>
-          </Group>
-        </Container>
-      </Paper>
+        <Group justify="center" mt="md">
+          <Button
+            variant="default"
+            leftSection={<IconRefresh size={18} />}
+            onClick={handleRefresh}
+          >
+            刷新页面
+          </Button>
+          <Button leftSection={<IconHome size={18} />} onClick={handleGoHome}>
+            返回首页
+          </Button>
+        </Group>
+      </Stack>
     </div>
   )
 }

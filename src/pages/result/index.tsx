@@ -3,22 +3,20 @@ import {
   Button,
   Container,
   Group,
-  Paper,
+  Stack,
   Stepper,
   Text,
-  ThemeIcon,
   Title,
 } from '@mantine/core'
 import {
   IconAlertCircle,
   IconArrowLeft,
-  IconArrowRight,
+  IconHome,
   IconCircleCheck,
   IconCircleX,
   IconRefresh,
 } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
-import { PageContainer } from '@/shared/ui'
 import classes from './ResultPage.module.css'
 
 type ResultStatus = 'success' | 'error'
@@ -39,7 +37,6 @@ function BaseResultPage({
   const navigate = useNavigate()
   const isSuccess = status === 'success'
   const Icon = isSuccess ? IconCircleCheck : IconCircleX
-  const color = isSuccess ? 'teal' : 'red'
 
   const handleGoDashboard = () => {
     navigate('/dashboard')
@@ -54,20 +51,14 @@ function BaseResultPage({
   }
 
   return (
-    <PageContainer size="full" className={classes.root}>
+    <div className={classes.root}>
       <Container size="lg" className={classes.inner}>
-        <Paper withBorder radius="lg" className={classes.card}>
-          <Group justify="center" className={classes.header}>
-            <ThemeIcon
-              radius="xl"
-              size="xl"
-              variant="light"
-              color={color}
-              className={classes.icon}
-            >
-              <Icon size={32} />
-            </ThemeIcon>
-          </Group>
+        <Stack gap="lg" align="center" className={classes.resultSection}>
+          <Icon
+            size={72}
+            stroke={1.5}
+            className={isSuccess ? classes.icon : classes.iconError}
+          />
 
           <Title order={2} className={classes.title}>
             {title}
@@ -75,50 +66,46 @@ function BaseResultPage({
 
           <Text className={classes.description}>{description}</Text>
 
-          <Group justify="center" className={classes.actions}>
+          <Group justify="center" mt="md">
             {isSuccess ? (
               <>
                 <Button
-                  color="blue"
-                  leftSection={<IconArrowRight size={16} />}
-                  onClick={handleGoDashboard}
-                >
-                  返回列表
-                </Button>
-
-                <Button
-                  variant="subtle"
-                  leftSection={<IconArrowLeft size={16} />}
+                  variant="default"
+                  leftSection={<IconArrowLeft size={18} />}
                   onClick={handleGoBack}
                 >
-                  返回上一页
+                  返回上页
+                </Button>
+                <Button
+                  leftSection={<IconHome size={18} />}
+                  onClick={handleGoDashboard}
+                >
+                  返回首页
                 </Button>
               </>
             ) : (
               <>
                 <Button
-                  color={color}
-                  leftSection={<IconRefresh size={16} />}
+                  variant="default"
+                  leftSection={<IconRefresh size={18} />}
                   onClick={handleRetry}
                 >
                   重试
                 </Button>
-
                 <Button
-                  variant="subtle"
-                  leftSection={<IconArrowLeft size={16} />}
+                  leftSection={<IconArrowLeft size={18} />}
                   onClick={handleGoBack}
                 >
-                  返回上一页
+                  返回上页
                 </Button>
               </>
             )}
           </Group>
-        </Paper>
+        </Stack>
 
         {footer}
       </Container>
-    </PageContainer>
+    </div>
   )
 }
 
@@ -129,12 +116,12 @@ export function ResultSuccessPage() {
     <BaseResultPage
       status="success"
       title="提交成功"
-      description="表单已成功提交，系统已完成处理。你可以在项目列表或详情页中查看本次操作结果。"
+      description="表单已成功提交，系统已完成处理"
       footer={
-        <Paper withBorder radius="md" className={classes.progressCard}>
-          <Group justify="space-between" className={classes.progressHeader}>
-            <Text className={classes.progressTitle}>当前进度</Text>
-            <Text className={classes.progressExtra}>
+        <div className={classes.footerCard}>
+          <Group justify="space-between" className={classes.footerHeader}>
+            <Text className={classes.footerTitle}>当前进度</Text>
+            <Text className={classes.footerExtra}>
               提交时间：2024-10-10 14:00:39
             </Text>
           </Group>
@@ -151,7 +138,7 @@ export function ResultSuccessPage() {
             <Stepper.Step label="安全测试" description="未开始" />
             <Stepper.Step label="正式上线" description="未开始" />
           </Stepper>
-        </Paper>
+        </div>
       }
     />
   )
@@ -162,12 +149,12 @@ export function ResultErrorPage() {
     <BaseResultPage
       status="error"
       title="提交失败"
-      description="提交未成功，请核对并修改以下信息后，再重新提交。"
+      description="请核对以下信息后重新提交"
       footer={
-        <Paper withBorder radius="md" className={classes.progressCard}>
-          <Group justify="space-between" className={classes.progressHeader}>
-            <Text className={classes.progressTitle}>失败原因</Text>
-            <Text className={classes.progressExtra}>
+        <div className={classes.footerCard}>
+          <Group justify="space-between" className={classes.footerHeader}>
+            <Text className={classes.footerTitle}>失败原因</Text>
+            <Text className={classes.footerExtra}>
               错误编号：REQ-20241010-0001
             </Text>
           </Group>
@@ -175,82 +162,55 @@ export function ResultErrorPage() {
           <Text className={classes.errorIntro}>您提交的内容有如下错误：</Text>
 
           <div className={classes.errorList}>
-            <Group
-              align="flex-start"
-              wrap="nowrap"
-              className={classes.errorItem}
-            >
-              <ThemeIcon
-                radius="xl"
-                size="sm"
-                variant="light"
-                color="red"
+            <div className={classes.errorItem}>
+              <IconAlertCircle
+                size={18}
                 className={classes.errorItemIcon}
-              >
-                <IconAlertCircle size={16} />
-              </ThemeIcon>
-
+                color="var(--mantine-color-red-6)"
+              />
               <div>
                 <Text className={classes.errorItemTitle}>
                   您没有此模块的操作权限
                 </Text>
                 <Text className={classes.errorItemDescription}>
-                  请联系管理员为你分配相应权限后，再重新提交。
+                  请联系管理员为您分配相应权限后再重新提交
                 </Text>
               </div>
-            </Group>
+            </div>
 
-            <Group
-              align="flex-start"
-              wrap="nowrap"
-              className={classes.errorItem}
-            >
-              <ThemeIcon
-                radius="xl"
-                size="sm"
-                variant="light"
-                color="red"
+            <div className={classes.errorItem}>
+              <IconAlertCircle
+                size={18}
                 className={classes.errorItemIcon}
-              >
-                <IconAlertCircle size={16} />
-              </ThemeIcon>
-
+                color="var(--mantine-color-red-6)"
+              />
               <div>
                 <Text className={classes.errorItemTitle}>
                   当前操作不符合业务审批流
                 </Text>
                 <Text className={classes.errorItemDescription}>
-                  请确认流程配置是否为最新版本，或与业务负责人确认审批路径后再尝试。
+                  请确认流程配置是否为最新版本，或与业务负责人确认审批路径
                 </Text>
               </div>
-            </Group>
+            </div>
 
-            <Group
-              align="flex-start"
-              wrap="nowrap"
-              className={classes.errorItem}
-            >
-              <ThemeIcon
-                radius="xl"
-                size="sm"
-                variant="light"
-                color="red"
+            <div className={classes.errorItem}>
+              <IconAlertCircle
+                size={18}
                 className={classes.errorItemIcon}
-              >
-                <IconAlertCircle size={16} />
-              </ThemeIcon>
-
+                color="var(--mantine-color-red-6)"
+              />
               <div>
                 <Text className={classes.errorItemTitle}>
                   提交内容包含不合法参数
                 </Text>
                 <Text className={classes.errorItemDescription}>
-                  请检查表单字段是否填写完整、格式是否正确（例如手机号、邮箱等），再重新提交。
+                  请检查表单字段是否填写完整、格式是否正确
                 </Text>
               </div>
-            </Group>
+            </div>
           </div>
-        </Paper>
+        </div>
       }
     />
   )

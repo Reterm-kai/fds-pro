@@ -58,3 +58,12 @@ export function saveMenuCache<T>(data: T, scope?: MenuCacheScope): void {
     // ignore write errors
   }
 }
+
+export function clearMenuCache(scope?: MenuCacheScope): void {
+  const cacheKey = createCacheKey(scope)
+  try {
+    sessionStorage.removeItem(cacheKey)
+  } catch {
+    // ignore remove errors
+  }
+}

@@ -47,7 +47,7 @@ export function AppNavbar({
     isLoading,
     isError,
     isFetching,
-    refetch,
+    reload,
   } = useMenu({
     cacheScope: menuCacheScope,
   })
@@ -69,7 +69,7 @@ export function AppNavbar({
 
   const shouldShowLoadingState = isLoading && !shouldShowErrorState
   const handleMenuReload = () => {
-    void refetch()
+    void reload()
   }
 
   // 渲染菜单项列表

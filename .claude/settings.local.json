@@ -16,7 +16,9 @@
       "Bash(find:*)",
       "mcp__serena__get_symbols_overview",
       "mcp__serena__activate_project",
-      "WebSearch"
+      "WebSearch",
+      "mcp__serena__list_dir",
+      "Bash(npx prettier:*)"
     ],
     "deny": [],
     "ask": []

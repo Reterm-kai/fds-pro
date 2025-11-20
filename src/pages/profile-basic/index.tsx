@@ -1,24 +1,7 @@
 import type { ReactNode } from 'react'
-import {
-  Badge,
-  Button,
-  Grid,
-  Group,
-  Paper,
-  Stack,
-  Text,
-  Timeline,
-  Title,
-} from '@mantine/core'
-import {
-  IconArrowLeft,
-  IconEdit,
-  IconPrinter,
-  IconReceipt2,
-  IconUser,
-} from '@tabler/icons-react'
+import { Badge, Button, Divider, Group, Tabs, Text } from '@mantine/core'
+import { IconDots } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
-import { PageContainer } from '@/shared/ui'
 import classes from './ProfileBasic.module.css'
 
 interface DetailItem {
@@ -26,23 +9,25 @@ interface DetailItem {
   value: ReactNode
 }
 
-/**
- * 基础详情页
- * 展示单条业务数据的关键信息和操作记录
- */
 export function ProfileBasicPage() {
   const navigate = useNavigate()
 
-  const basicInfo: DetailItem[] = [
-    { label: '订单编号', value: 'DD2024-0001' },
-    { label: '创建人', value: '王小明' },
-    { label: '所属项目', value: '企业中台管理系统' },
-    { label: '创建时间', value: '2024-10-10 14:00:39' },
-    { label: '最近更新', value: '2024-10-11 09:21:15' },
+  const userInfo: DetailItem[] = [
+    { label: '用户姓名', value: '付小小' },
+    { label: '会员卡号', value: '32943898021309809423' },
+    { label: '身份证', value: '3321944288191034921' },
+    { label: '联系方式', value: '18112345678' },
     {
-      label: '当前状态',
-      value: <Badge color="green">已完成</Badge>,
+      label: '联系地址',
+      value: '曲丽丽 18100000000 浙江省杭州市西湖区黄姑山路工专路交叉路口',
     },
+  ]
+
+  const groupInfo: DetailItem[] = [
+    { label: '某某数据', value: '725' },
+    { label: '更新时间', value: '2017-08-08' },
+    { label: '某某数据', value: '725' },
+    { label: '更新时间', value: '2017-08-08' },
   ]
 
   const handleBack = () => {
@@ -50,120 +35,149 @@ export function ProfileBasicPage() {
   }
 
   return (
-    <PageContainer size="full" variant="muted">
-      <div className={classes.inner}>
-        <Group justify="space-between" className={classes.header}>
-          <div>
-            <Title order={1} mb="xs">
-              基础详情
-            </Title>
-            <Text size="sm" c="dimmed">
-              用于展示单条业务数据的关键信息和操作记录，适合作为审批单、工单等详情页面模板。
-            </Text>
+    <div className={classes.root}>
+      <div className={classes.container}>
+        {/* 页面头部卡片 */}
+        <div className={classes.card}>
+          <Group justify="space-between" align="flex-start" mb="md">
+            <div>
+              <Text className={classes.pageTitle}>单号：234231029431</Text>
+              <Badge variant="light" color="blue" size="sm">
+                待审批
+              </Badge>
+            </div>
+            <Group gap="xs">
+              <Button variant="default" size="xs">
+                操作一
+              </Button>
+              <Button variant="default" size="xs">
+                操作二
+              </Button>
+              <Button variant="default" size="xs" px="xs">
+                <IconDots size={14} />
+              </Button>
+              <Button size="xs" onClick={handleBack}>
+                主操作
+              </Button>
+            </Group>
+          </Group>
+
+          <Divider mb="md" />
+
+          <div className={classes.headerGrid}>
+            <div className={classes.headerItem}>
+              <Text className={classes.headerLabel}>创建人</Text>
+              <Text className={classes.headerValue}>曲丽丽</Text>
+            </div>
+            <div className={classes.headerItem}>
+              <Text className={classes.headerLabel}>订购产品</Text>
+              <Text className={classes.headerValue}>XX 服务</Text>
+            </div>
+            <div className={classes.headerItem}>
+              <Text className={classes.headerLabel}>创建时间</Text>
+              <Text className={classes.headerValue}>2017-07-07</Text>
+            </div>
+            <div className={classes.headerItem}>
+              <Text className={classes.headerLabel}>关联单据</Text>
+              <Text className={classes.headerValue}>12421</Text>
+            </div>
+            <div className={classes.headerItem}>
+              <Text className={classes.headerLabel}>生效日期</Text>
+              <Text className={classes.headerValue}>
+                2017-07-07 ~ 2017-08-08
+              </Text>
+            </div>
+            <div className={classes.headerItem}>
+              <Text className={classes.headerLabel}>备注</Text>
+              <Text className={classes.headerValue}>请于两个工作日内确认</Text>
+            </div>
           </div>
 
-          <Group gap="xs">
-            <Button variant="default" leftSection={<IconPrinter size={16} />}>
-              打印
-            </Button>
-            <Button variant="outline" leftSection={<IconEdit size={16} />}>
-              编辑
-            </Button>
-            <Button
-              color="blue"
-              leftSection={<IconArrowLeft size={16} />}
-              onClick={handleBack}
-            >
-              返回上一页
-            </Button>
-          </Group>
-        </Group>
+          <Divider my="md" />
 
-        <Paper withBorder radius="md" p="xl" mb="xl">
-          <Group mb="lg" justify="space-between">
-            <Group gap="xs">
-              <IconReceipt2 size={20} />
-              <Text fw={500}>基本信息</Text>
-            </Group>
-            <Group gap="xs">
-              <Text size="sm" c="dimmed">
-                当前负责人
-              </Text>
-              <Group gap="xs">
-                <IconUser size={16} />
-                <Text size="sm">王小明</Text>
-              </Group>
-            </Group>
+          <Group justify="flex-end">
+            <div className={classes.statsItem}>
+              <Text className={classes.statsLabel}>订单金额</Text>
+              <Text className={classes.statsValue}>¥568.08</Text>
+            </div>
           </Group>
+        </div>
 
-          <Grid gutter="lg">
-            {basicInfo.map(item => (
-              <Grid.Col key={item.label} span={{ base: 12, sm: 6, md: 4 }}>
-                <Stack gap={4}>
-                  <Text size="xs" c="dimmed">
-                    {item.label}
-                  </Text>
-                  <Text size="sm" component="span">
-                    {item.value}
-                  </Text>
-                </Stack>
-              </Grid.Col>
+        <div className={classes.divider} />
+
+        {/* Tabs 卡片 */}
+        <div className={classes.card}>
+          <Tabs defaultValue="detail">
+            <Tabs.List>
+              <Tabs.Tab value="detail">详情</Tabs.Tab>
+              <Tabs.Tab value="rules">规则</Tabs.Tab>
+            </Tabs.List>
+          </Tabs>
+        </div>
+
+        <div className={classes.divider} />
+
+        {/* 流程进度卡片 */}
+        <div className={classes.card}>
+          <Text className={classes.cardTitle}>流程进度</Text>
+          <div className={classes.progressGrid}>
+            <div className={classes.progressItem}>
+              <div
+                className={`${classes.progressDot} ${classes.progressDotCompleted}`}
+              />
+              <Text className={classes.progressLabel}>创建项目</Text>
+              <Text className={classes.progressMeta}>曲丽丽</Text>
+              <Text className={classes.progressMeta}>2016-12-12 12:32</Text>
+            </div>
+            <div className={classes.progressItem}>
+              <div
+                className={`${classes.progressDot} ${classes.progressDotActive}`}
+              />
+              <Text className={classes.progressLabel}>部门初审</Text>
+              <Text className={classes.progressMeta}>周毛毛</Text>
+              <Text className={classes.progressMeta}>催一下</Text>
+            </div>
+            <div className={classes.progressItem}>
+              <div className={classes.progressDot} />
+              <Text className={classes.progressLabel}>财务复核</Text>
+            </div>
+            <div className={classes.progressItem}>
+              <div className={classes.progressDot} />
+              <Text className={classes.progressLabel}>完成</Text>
+            </div>
+          </div>
+        </div>
+
+        <div className={classes.divider} />
+
+        {/* 用户信息卡片 */}
+        <div className={classes.card}>
+          <Text className={classes.cardTitle}>用户信息</Text>
+          <div className={classes.infoGrid}>
+            {userInfo.map(item => (
+              <div key={item.label} className={classes.infoItem}>
+                <Text className={classes.infoLabel}>{item.label}</Text>
+                <Text className={classes.infoValue}>{item.value}</Text>
+              </div>
             ))}
-          </Grid>
-        </Paper>
+          </div>
+        </div>
 
-        <Grid gutter="xl" className={classes.mainGrid}>
-          <Grid.Col span={{ base: 12, md: 8 }}>
-            <Paper withBorder radius="md" p="xl">
-              <Text fw={500} mb="lg">
-                详细描述
-              </Text>
-              <Stack gap="sm">
-                <Text size="sm">
-                  这里展示的是基础详情页的示例文案，可用于说明当前订单或任务的背景、业务场景和重要信息摘要。
-                </Text>
-                <Text size="sm">
-                  在真实项目中，你可以根据实际业务字段，扩展更多描述内容，例如风险提示、关联资源、备注说明等，帮助使用者快速理解当前记录。
-                </Text>
-              </Stack>
-            </Paper>
-          </Grid.Col>
+        <div className={classes.divider} />
 
-          <Grid.Col span={{ base: 12, md: 4 }}>
-            <Paper withBorder radius="md" p="xl">
-              <Text fw={500} mb="lg">
-                操作记录
-              </Text>
-              <Timeline active={2} bulletSize={18} lineWidth={2}>
-                <Timeline.Item title="提交申请" bullet={<IconUser size={12} />}>
-                  <Text size="sm" c="dimmed">
-                    王小明 发起审批
-                  </Text>
-                  <Text size="xs" c="dimmed">
-                    2024-10-10 14:00:39
-                  </Text>
-                </Timeline.Item>
-                <Timeline.Item title="审批通过">
-                  <Text size="sm" c="dimmed">
-                    李主管 审批通过
-                  </Text>
-                  <Text size="xs" c="dimmed">
-                    2024-10-10 15:32:10
-                  </Text>
-                </Timeline.Item>
-                <Timeline.Item title="归档完成">
-                  <Text size="sm" c="dimmed">
-                    系统 自动归档
-                  </Text>
-                  <Text size="xs" c="dimmed">
-                    2024-10-11 09:21:15
-                  </Text>
-                </Timeline.Item>
-              </Timeline>
-            </Paper>
-          </Grid.Col>
-        </Grid>
+        {/* 信息组卡片 */}
+        <div className={classes.card}>
+          <Text className={classes.cardTitle}>信息组</Text>
+          <div className={classes.infoGrid}>
+            {groupInfo.map((item, index) => (
+              <div key={`${item.label}-${index}`} className={classes.infoItem}>
+                <Text className={classes.infoLabel}>{item.label}</Text>
+                <Text className={classes.infoValue}>{item.value}</Text>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-    </PageContainer>
+    </div>
   )
 }
