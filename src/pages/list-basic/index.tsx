@@ -21,6 +21,8 @@ import {
   showInfoNotification,
   FilterPanel,
   DataTable,
+  Section,
+  SectionList,
   type FilterFieldConfig,
   type ColumnConfig,
   type TableAction,
@@ -234,38 +236,25 @@ export function BasicListPage() {
 
   if (isError) {
     return (
-      <Stack
-        component="section"
-        gap="lg"
-        px="xl"
-        py="xl"
-        w="100%"
-        maw="calc(var(--mantine-spacing-xl) * 40)"
-        mx="auto"
-      >
-        <Alert
-          icon={<IconAlertCircle size={16} />}
-          title="加载失败"
-          color="red"
-          variant="light"
-        >
-          {error.message}
-        </Alert>
-      </Stack>
+      <SectionList direction="vertical">
+        <Section>
+          <Alert
+            icon={<IconAlertCircle size={16} />}
+            title="加载失败"
+            color="red"
+            variant="light"
+          >
+            {error.message}
+          </Alert>
+        </Section>
+      </SectionList>
     )
   }
 
   return (
-    <Stack
-      component="section"
-      gap="lg"
-      px="xl"
-      py="xl"
-      w="100%"
-      maw="calc(var(--mantine-spacing-xl) * 40)"
-      mx="auto"
-    >
-      <Stack gap="lg">
+    <SectionList direction="vertical">
+      {/* 页面头部 */}
+      <Section>
         <Group justify="space-between" align="flex-start">
           <div>
             <Title order={1}>基础列表</Title>
@@ -274,12 +263,12 @@ export function BasicListPage() {
             </Text>
           </div>
 
-          <Group gap="xs">
+          <Group gap="sm">
             <Button leftSection={<Plus size={16} />} onClick={handleCreate}>
               新建
             </Button>
             <Button
-              variant="outline"
+              variant="default"
               leftSection={<Upload size={16} />}
               onClick={handleImport}
             >
@@ -287,7 +276,10 @@ export function BasicListPage() {
             </Button>
           </Group>
         </Group>
+      </Section>
 
+      {/* 筛选区域 */}
+      <Section>
         <FilterPanel
           fields={filterFields}
           values={formState}
@@ -298,7 +290,10 @@ export function BasicListPage() {
           onSearch={handleSearch}
           onReset={handleReset}
         />
+      </Section>
 
+      {/* 数据表格 */}
+      <Section>
         <DataTable
           columns={columns}
           data={data?.list ?? []}
@@ -321,7 +316,7 @@ export function BasicListPage() {
           }}
           actions={actions}
         />
-      </Stack>
-    </Stack>
+      </Section>
+    </SectionList>
   )
 }

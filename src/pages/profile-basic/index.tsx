@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react'
-import { Badge, Button, Divider, Group, Tabs, Text } from '@mantine/core'
-import { IconArrowLeft } from '@tabler/icons-react'
+import { Badge, Button, Group, Tabs, Text } from '@mantine/core'
 import { useNavigate } from 'react-router-dom'
 import { Section, SectionList } from '@/shared/ui'
 import classes from './ProfileBasic.module.css'
@@ -39,31 +38,18 @@ export function ProfileBasicPage() {
     <SectionList direction="vertical">
       {/* 页面头部 */}
       <Section>
-        <Group justify="space-between" align="flex-start" mb="md">
+        <Group justify="space-between" align="center" mb="md">
           <Group gap="md" align="center">
-            <Button
-              variant="subtle"
-              color="gray"
-              size="compact-md"
-              px="xs"
-              onClick={handleBack}
-            >
-              <IconArrowLeft size={18} />
-            </Button>
-            <div>
-              <Text className={classes.pageTitle}>单号：234231029431</Text>
-              <Badge variant="light" color="blue" size="sm">
-                待审批
-              </Badge>
-            </div>
+            <Text className={classes.pageTitle}>单号：234231029431</Text>
+            <Badge variant="light" color="blue" size="sm">
+              待审批
+            </Badge>
           </Group>
           <Group gap="sm">
             <Button variant="default">取消流程</Button>
-            <Button>返回</Button>
+            <Button onClick={handleBack}>返回</Button>
           </Group>
         </Group>
-
-        <Divider mb="md" />
 
         <div className={classes.headerGrid}>
           <div className={classes.headerItem}>
@@ -87,19 +73,10 @@ export function ProfileBasicPage() {
             <Text className={classes.headerValue}>2017-07-07 ~ 2017-08-08</Text>
           </div>
           <div className={classes.headerItem}>
-            <Text className={classes.headerLabel}>备注</Text>
-            <Text className={classes.headerValue}>请于两个工作日内确认</Text>
-          </div>
-        </div>
-
-        <Divider my="md" />
-
-        <Group justify="flex-end">
-          <div className={classes.statsItem}>
-            <Text className={classes.statsLabel}>订单金额</Text>
+            <Text className={classes.headerLabel}>订单金额</Text>
             <Text className={classes.statsValue}>¥568.08</Text>
           </div>
-        </Group>
+        </div>
       </Section>
 
       {/* Tabs */}
