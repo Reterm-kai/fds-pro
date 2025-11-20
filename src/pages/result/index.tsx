@@ -1,20 +1,11 @@
 import type { ReactNode } from 'react'
-import {
-  Button,
-  Container,
-  Group,
-  Stack,
-  Stepper,
-  Text,
-  Title,
-} from '@mantine/core'
+import { Button, Group, Stack, Stepper, Text, Title } from '@mantine/core'
 import {
   IconAlertCircle,
   IconCircleCheck,
   IconCircleX,
 } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
-import { Section } from '@/shared/ui'
 import classes from './ResultPage.module.css'
 
 type ResultStatus = 'success' | 'error'
@@ -50,7 +41,7 @@ function BaseResultPage({
 
   return (
     <div className={classes.root}>
-      <Container size="lg" className={classes.inner}>
+      <div className={classes.container}>
         <Stack gap="lg" align="center" className={classes.resultSection}>
           <Icon
             size={72}
@@ -83,8 +74,8 @@ function BaseResultPage({
           </Group>
         </Stack>
 
-        {footer}
-      </Container>
+        {footer && <div className={classes.footer}>{footer}</div>}
+      </div>
     </div>
   )
 }
@@ -98,7 +89,7 @@ export function ResultSuccessPage() {
       title="提交成功"
       description="表单已成功提交，系统已完成处理"
       footer={
-        <Section variant="subtle">
+        <>
           <Group justify="space-between" className={classes.footerHeader}>
             <Text className={classes.footerTitle}>当前进度</Text>
             <Text className={classes.footerExtra}>
@@ -118,7 +109,7 @@ export function ResultSuccessPage() {
             <Stepper.Step label="安全测试" description="未开始" />
             <Stepper.Step label="正式上线" description="未开始" />
           </Stepper>
-        </Section>
+        </>
       }
     />
   )
@@ -131,7 +122,7 @@ export function ResultErrorPage() {
       title="提交失败"
       description="请核对以下信息后重新提交"
       footer={
-        <Section variant="subtle">
+        <>
           <Group justify="space-between" className={classes.footerHeader}>
             <Text className={classes.footerTitle}>失败原因</Text>
             <Text className={classes.footerExtra}>
@@ -190,7 +181,7 @@ export function ResultErrorPage() {
               </div>
             </div>
           </div>
-        </Section>
+        </>
       }
     />
   )

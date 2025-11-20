@@ -18,7 +18,11 @@
       "mcp__serena__activate_project",
       "WebSearch",
       "mcp__serena__list_dir",
-      "Bash(npx prettier:*)"
+      "Bash(npx prettier:*)",
+      "mcp__Playwright__browser_navigate",
+      "mcp__Playwright__browser_take_screenshot",
+      "mcp__Playwright__browser_evaluate",
+      "mcp__Playwright__browser_close"
     ],
     "deny": [],
     "ask": []

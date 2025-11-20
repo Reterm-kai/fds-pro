@@ -1,41 +1,40 @@
+/* 根容器 - 填充整个内容区域 */
 .root {
-  min-height: 100%;
-  width: 100%;
+  flex: 1;
+  margin-block: var(--mantine-spacing-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--mantine-spacing-xl);
-  box-sizing: border-box;
+  padding: var(--mantine-spacing-lg);
+  background: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-7)
+  );
 }
 
+/* 内部内容区域 */
 .inner {
-  max-width: calc(var(--mantine-spacing-xl) * 14);
   text-align: center;
 }
 
-.icon {
-  color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
-}
-
+/* 错误码 - 主视觉焦点 */
 .code {
-  font-size: calc(var(--mantine-spacing-xl) * 5);
-  font-weight: 900;
-  letter-spacing: calc(var(--mantine-spacing-xs) * -0.2);
-  color: light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
+  font-size: calc(var(--mantine-spacing-xl) * 4);
+  font-weight: 700;
+  color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
   line-height: 1;
   user-select: none;
 }
 
+/* 标题 */
 .title {
-  font-size: var(--mantine-font-size-xl);
-  font-weight: 700;
+  font-size: var(--mantine-font-size-lg);
+  font-weight: 500;
   color: var(--mantine-color-text);
 }
 
+/* 描述 */
 .description {
   font-size: var(--mantine-font-size-sm);
   color: var(--mantine-color-dimmed);
-  max-width: calc(var(--mantine-spacing-xl) * 12);
-  margin-left: auto;
-  margin-right: auto;
 }

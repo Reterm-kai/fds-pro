@@ -10,7 +10,6 @@ import { HomePage } from '@/pages/home'
 import { Placeholder } from '@/shared/ui'
 import { Exception403Page } from '@/pages/exception/403'
 import { Exception404Page } from '@/pages/exception/404'
-import { Exception405Page } from '@/pages/exception/405'
 import { Exception500Page } from '@/pages/exception/500'
 import { ResultErrorPage, ResultSuccessPage } from '@/pages/result'
 import { ProtectedRoute } from '@/features/auth'
@@ -214,11 +213,6 @@ export const protectedRoutes: AppRouteObject[] = [
             path: '404',
             element: <Exception404Page />,
             meta: { title: '404' },
-          },
-          {
-            path: '405',
-            element: <Exception405Page />,
-            meta: { title: '405' },
           },
           {
             path: '500',

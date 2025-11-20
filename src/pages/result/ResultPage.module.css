@@ -1,21 +1,35 @@
+/* 根容器 - 填充整个内容区域 */
 .root {
-  min-height: 100%;
-  height: 100%;
+  flex: 1;
+  margin-block: var(--mantine-spacing-lg);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--mantine-spacing-xl);
-  box-sizing: border-box;
+  padding: var(--mantine-spacing-lg);
+  background: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-7)
+  );
 }
 
-.inner {
+/* 内容容器 */
+.container {
   width: 100%;
   max-width: calc(var(--mantine-spacing-xl) * 28);
 }
 
+/* 结果区域 */
 .resultSection {
+  width: 100%;
   text-align: center;
-  margin-bottom: var(--mantine-spacing-xl);
+  padding-bottom: var(--mantine-spacing-xl);
+}
+
+/* 底部区域 */
+.footer {
+  padding-top: var(--mantine-spacing-lg);
+  border-top: calc(var(--mantine-spacing-xs) * 0.1) solid
+    light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
 }
 
 .icon {
