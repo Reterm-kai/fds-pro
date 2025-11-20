@@ -32,12 +32,10 @@ export function Exception500Page() {
         </Text>
 
         <Group justify="center" mt="md" gap="sm">
-          <Button variant="default" size="md" onClick={handleRefresh}>
+          <Button variant="default" onClick={handleRefresh}>
             刷新页面
           </Button>
-          <Button size="md" onClick={handleGoHome}>
-            返回首页
-          </Button>
+          <Button onClick={handleGoHome}>返回首页</Button>
         </Group>
       </Stack>
     </div>

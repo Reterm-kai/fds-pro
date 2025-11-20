@@ -126,8 +126,29 @@ export const theme = createTheme({
     },
     Button: {
       defaultProps: {
-        size: 'sm',
-        radius: 'sm',
+        radius: 0,
+      },
+      styles: {
+        root: {
+          height: rem(32),
+          paddingLeft: rem(16),
+          paddingRight: rem(16),
+          fontSize: rem(14),
+          fontWeight: 400,
+        },
+      },
+      vars: (theme, props) => {
+        if (props.variant === 'default') {
+          return {
+            root: {
+              '--button-bg': 'transparent',
+              '--button-hover-color': 'var(--mantine-color-text)',
+              '--button-bd':
+                'calc(var(--mantine-spacing-xs) * 0.1) solid light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-4))',
+            },
+          }
+        }
+        return { root: {} }
       },
     },
     TextInput: {

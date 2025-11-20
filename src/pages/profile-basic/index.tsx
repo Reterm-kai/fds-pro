@@ -58,10 +58,8 @@ export function ProfileBasicPage() {
             </div>
           </Group>
           <Group gap="sm">
-            <Button variant="default" size="md">
-              取消流程
-            </Button>
-            <Button size="md">返回</Button>
+            <Button variant="default">取消流程</Button>
+            <Button>返回</Button>
           </Group>
         </Group>
 

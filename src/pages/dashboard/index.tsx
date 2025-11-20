@@ -1,5 +1,4 @@
-import { Group, Paper, SimpleGrid, Text, ThemeIcon } from '@mantine/core'
-import { PageContainer } from '@/shared/ui'
+import { Group, Paper, SimpleGrid, Stack, Text, ThemeIcon } from '@mantine/core'
 import { DollarSign, ShoppingCart, TrendingUp, Users } from 'lucide-react'
 
 /**
@@ -20,7 +19,7 @@ export function DashboardPage() {
   ]
 
   return (
-    <PageContainer size="full">
+    <Stack component="section" gap="lg" px="xl" py="xl">
       <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="lg">
         {stats.map(stat => (
           <Paper key={stat.title} p="md" radius="md" withBorder>
@@ -40,6 +39,6 @@ export function DashboardPage() {
           </Paper>
         ))}
       </SimpleGrid>
-    </PageContainer>
+    </Stack>
   )
 }

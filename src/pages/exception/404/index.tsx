@@ -32,12 +32,10 @@ export function Exception404Page() {
         </Text>
 
         <Group justify="center" mt="md" gap="sm">
-          <Button variant="default" size="md" onClick={handleGoBack}>
+          <Button variant="default" onClick={handleGoBack}>
             返回上页
           </Button>
-          <Button size="md" onClick={handleGoHome}>
-            返回首页
-          </Button>
+          <Button onClick={handleGoHome}>返回首页</Button>
         </Group>
       </Stack>
     </div>

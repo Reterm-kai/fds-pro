@@ -1,5 +1,5 @@
+import { Stack } from '@mantine/core'
 import { UsersView } from '@/features/users'
-import { PageContainer } from '@/shared/ui'
 
 /**
  * 用户管理页面容器
@@ -7,8 +7,8 @@ import { PageContainer } from '@/shared/ui'
  */
 export function UsersPage() {
   return (
-    <PageContainer size="full">
+    <Stack component="section" gap="lg" px="xl" py="xl">
       <UsersView />
-    </PageContainer>
+    </Stack>
   )
 }

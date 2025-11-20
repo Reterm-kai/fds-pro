@@ -21,7 +21,6 @@ import {
   showInfoNotification,
   FilterPanel,
   DataTable,
-  PageContainer,
   type FilterFieldConfig,
   type ColumnConfig,
   type TableAction,
@@ -235,7 +234,15 @@ export function BasicListPage() {
 
   if (isError) {
     return (
-      <PageContainer size="lg" align="center">
+      <Stack
+        component="section"
+        gap="lg"
+        px="xl"
+        py="xl"
+        w="100%"
+        maw="calc(var(--mantine-spacing-xl) * 40)"
+        mx="auto"
+      >
         <Alert
           icon={<IconAlertCircle size={16} />}
           title="加载失败"
@@ -244,12 +251,20 @@ export function BasicListPage() {
         >
           {error.message}
         </Alert>
-      </PageContainer>
+      </Stack>
     )
   }
 
   return (
-    <PageContainer size="lg" align="center">
+    <Stack
+      component="section"
+      gap="lg"
+      px="xl"
+      py="xl"
+      w="100%"
+      maw="calc(var(--mantine-spacing-xl) * 40)"
+      mx="auto"
+    >
       <Stack gap="lg">
         <Group justify="space-between" align="flex-start">
           <div>
@@ -307,6 +322,6 @@ export function BasicListPage() {
           actions={actions}
         />
       </Stack>
-    </PageContainer>
+    </Stack>
   )
 }

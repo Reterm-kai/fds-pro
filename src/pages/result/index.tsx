@@ -66,21 +66,17 @@ function BaseResultPage({
           <Group justify="center" mt="md" gap="sm">
             {isSuccess ? (
               <>
-                <Button variant="default" size="md" onClick={handleGoBack}>
+                <Button variant="default" onClick={handleGoBack}>
                   返回上页
                 </Button>
-                <Button size="md" onClick={handleGoDashboard}>
-                  返回首页
-                </Button>
+                <Button onClick={handleGoDashboard}>返回首页</Button>
               </>
             ) : (
               <>
-                <Button variant="default" size="md" onClick={handleRetry}>
+                <Button variant="default" onClick={handleRetry}>
                   重试
                 </Button>
-                <Button size="md" onClick={handleGoBack}>
-                  返回上页
-                </Button>
+                <Button onClick={handleGoBack}>返回上页</Button>
               </>
             )}
           </Group>

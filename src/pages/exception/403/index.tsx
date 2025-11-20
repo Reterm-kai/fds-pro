@@ -28,9 +28,7 @@ export function Exception403Page() {
         </Text>
 
         <Group justify="center" mt="md" gap="sm">
-          <Button size="md" onClick={handleGoHome}>
-            返回首页
-          </Button>
+          <Button onClick={handleGoHome}>返回首页</Button>
         </Group>
       </Stack>
     </div>
