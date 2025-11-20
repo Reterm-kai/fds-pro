@@ -1,5 +1,5 @@
 import { Button, Group, Stack, Text, Title } from '@mantine/core'
-import { IconServerOff, IconHome, IconRefresh } from '@tabler/icons-react'
+import { IconServerOff } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import classes from '../ExceptionPage.module.css'
 
@@ -31,15 +31,11 @@ export function Exception500Page() {
           服务器出现问题，请稍后重试或联系管理员
         </Text>
 
-        <Group justify="center" mt="md">
-          <Button
-            variant="default"
-            leftSection={<IconRefresh size={18} />}
-            onClick={handleRefresh}
-          >
+        <Group justify="center" mt="md" gap="sm">
+          <Button variant="default" size="md" onClick={handleRefresh}>
             刷新页面
           </Button>
-          <Button leftSection={<IconHome size={18} />} onClick={handleGoHome}>
+          <Button size="md" onClick={handleGoHome}>
             返回首页
           </Button>
         </Group>

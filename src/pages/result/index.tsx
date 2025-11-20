@@ -10,11 +10,8 @@ import {
 } from '@mantine/core'
 import {
   IconAlertCircle,
-  IconArrowLeft,
-  IconHome,
   IconCircleCheck,
   IconCircleX,
-  IconRefresh,
 } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import classes from './ResultPage.module.css'
@@ -66,36 +63,22 @@ function BaseResultPage({
 
           <Text className={classes.description}>{description}</Text>
 
-          <Group justify="center" mt="md">
+          <Group justify="center" mt="md" gap="sm">
             {isSuccess ? (
               <>
-                <Button
-                  variant="default"
-                  leftSection={<IconArrowLeft size={18} />}
-                  onClick={handleGoBack}
-                >
+                <Button variant="default" size="md" onClick={handleGoBack}>
                   返回上页
                 </Button>
-                <Button
-                  leftSection={<IconHome size={18} />}
-                  onClick={handleGoDashboard}
-                >
+                <Button size="md" onClick={handleGoDashboard}>
                   返回首页
                 </Button>
               </>
             ) : (
               <>
-                <Button
-                  variant="default"
-                  leftSection={<IconRefresh size={18} />}
-                  onClick={handleRetry}
-                >
+                <Button variant="default" size="md" onClick={handleRetry}>
                   重试
                 </Button>
-                <Button
-                  leftSection={<IconArrowLeft size={18} />}
-                  onClick={handleGoBack}
-                >
+                <Button size="md" onClick={handleGoBack}>
                   返回上页
                 </Button>
               </>

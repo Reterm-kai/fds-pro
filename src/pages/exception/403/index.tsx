@@ -1,5 +1,5 @@
 import { Button, Group, Stack, Text, Title } from '@mantine/core'
-import { IconLock, IconHome } from '@tabler/icons-react'
+import { IconLock } from '@tabler/icons-react'
 import { useNavigate } from 'react-router-dom'
 import classes from '../ExceptionPage.module.css'
 
@@ -27,8 +27,8 @@ export function Exception403Page() {
           您没有权限访问此页面，请联系管理员获取访问权限
         </Text>
 
-        <Group justify="center" mt="md">
-          <Button leftSection={<IconHome size={18} />} onClick={handleGoHome}>
+        <Group justify="center" mt="md" gap="sm">
+          <Button size="md" onClick={handleGoHome}>
             返回首页
           </Button>
         </Group>

@@ -11,6 +11,7 @@ export * from './links-group'
 export * from './route-progress-bar'
 export * from './content-area'
 export * from './page-container'
+export * from './section-list'
 
 // 数据展示组件
 export * from './stats-grid'
