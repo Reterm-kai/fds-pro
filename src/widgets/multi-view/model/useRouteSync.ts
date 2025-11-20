@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
 import {
   useMenu,
@@ -6,6 +6,7 @@ import {
   type MenuCacheScope,
 } from '@/features/menu'
 import { useMultiView } from './useMultiView'
+import type { ViewPage } from './types'
 
 function normalizeLink(path?: string) {
   if (!path) return undefined
@@ -88,6 +89,11 @@ export function useRouteSync(options?: UseRouteSyncOptions) {
   const { cacheScope } = options ?? {}
   const { data: menuData, isLoading } = useMenu({ cacheScope })
   const menuItems = useMemo(() => menuData ?? [], [menuData])
+  const viewsRef = useRef<ViewPage[]>(views)
+
+  useEffect(() => {
+    viewsRef.current = views
+  }, [views])
 
   useEffect(() => {
     const currentPath = location.pathname
@@ -110,7 +116,7 @@ export function useRouteSync(options?: UseRouteSyncOptions) {
       findMenuTitle(menuItems, currentPath) || generateDefaultTitle(currentPath)
 
     // 检查是否已存在该 Tab
-    const existingView = views.find(view => view.path === currentPath)
+    const existingView = viewsRef.current.find(view => view.path === currentPath)
 
     if (!existingView) {
       // 添加新 Tab（所有 Tab 都可关闭）
@@ -123,5 +129,5 @@ export function useRouteSync(options?: UseRouteSyncOptions) {
 
     // 注意：不在这里调用 setActiveView，避免循环导航
     // activeView 状态会在 MultiViewContext 中自动更新
-  }, [location.pathname, menuItems, isLoading, views, addView])
+  }, [location.pathname, menuItems, isLoading, addView])
 }

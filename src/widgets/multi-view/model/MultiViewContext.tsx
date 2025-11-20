@@ -74,8 +74,8 @@ export function MultiViewProvider({ children }: MultiViewProviderProps) {
   // 关闭指定视图
   const closeView = useCallback(
     (path: string) => {
-      const view = views.find(v => v.path === path)
-      if (!view || !view.closable) {
+      const closingView = views.find(v => v.path === path)
+      if (!closingView?.closable) {
         return
       }
 
@@ -87,11 +87,15 @@ export function MultiViewProvider({ children }: MultiViewProviderProps) {
         return
       }
 
-      // 无论删除哪个视图，总是激活最后一个视图
-      const lastView = newViews[newViews.length - 1]
-      navigate(lastView.path)
+      const removedWasActive = activeView === path
+      const stillContainsActive = newViews.some(v => v.path === activeView)
+
+      if (removedWasActive || !stillContainsActive) {
+        const nextView = newViews[newViews.length - 1]
+        navigate(nextView.path)
+      }
     },
-    [views, navigate]
+    [views, activeView, navigate]
   )
 
   // 关闭其他视图
