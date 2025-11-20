@@ -11,7 +11,7 @@ import {
 } from '@tabler/icons-react'
 import type { MenuViewItem, RemoteMenuItem } from './types'
 
-const iconMap = {
+const iconMap: Record<string, typeof IconGauge> = {
   IconGauge,
   IconChartLine,
   IconTable,
@@ -21,7 +21,7 @@ const iconMap = {
   IconAlertCircle,
   IconUser,
   IconSettings,
-} satisfies Record<string, typeof IconGauge>
+}
 
 function normalizePath(path?: string): string | undefined {
   if (!path) return undefined

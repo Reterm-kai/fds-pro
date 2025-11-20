@@ -16,7 +16,12 @@ export function Exception500Page() {
 
   return (
     <div className={classes.root}>
-      <Paper className={classes.card} shadow="sm" radius="xl" component="section">
+      <Paper
+        className={classes.card}
+        shadow="sm"
+        radius="xl"
+        component="section"
+      >
         <Container size="md" className={classes.inner}>
           <Text component="div" className={classes.code}>
             500

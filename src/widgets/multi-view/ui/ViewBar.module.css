@@ -5,11 +5,11 @@
     var(--mantine-color-white),
     var(--mantine-color-dark-7)
   );
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: var(--mantine-z-index-app);
   box-shadow: var(--layout-surface-shadow);
   height: var(--view-bar-height, calc(var(--mantine-spacing-lg) * 1.75));
+  flex-shrink: 0;
 }
 
 .scrollButton {

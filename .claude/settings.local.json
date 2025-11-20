@@ -13,7 +13,10 @@
       "Bash(awk '{print $9, \"\"\"\"(\"\"\"\" $5 \"\"\"\")\"\"\"\"}')",
       "Bash(pnpm build:*)",
       "Bash(npx tsc:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "mcp__serena__get_symbols_overview",
+      "mcp__serena__activate_project",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

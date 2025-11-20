@@ -36,8 +36,16 @@ function RouteSyncWrapper({
  * - mobileOpened: 移动端侧边栏展开状态（本地状态，不持久化）
  * - desktopCollapsed: 桌面端侧边栏收缩状态（本地状态，不持久化）
  */
+/** Header 高度，基于 Mantine spacing 计算 (xl * 1.75 ≈ 56px) */
+const HEADER_HEIGHT = 'calc(var(--mantine-spacing-xl) * 1.75)'
+
+/** Navbar 展开宽度 */
+const NAVBAR_WIDTH_EXPANDED = 200
+
+/** Navbar 收缩宽度 */
+const NAVBAR_WIDTH_COLLAPSED = 50
+
 export function AppLayout() {
-  const headerHeight = 56
   // 移动端侧边栏状态（本地，不持久化）
   const [mobileOpened, { toggle: toggleMobile, close: closeMobile }] =
     useDisclosure()
@@ -48,7 +56,7 @@ export function AppLayout() {
 
   const appShellStyle = {
     height: '100vh',
-    overflow: 'hidden',
+    overflowX: 'hidden',
   } satisfies CSSProperties
 
   const mainStyle = {
@@ -56,12 +64,11 @@ export function AppLayout() {
     flexDirection: 'column',
     height: '100%',
     minHeight: 0,
-    overflow: 'hidden',
   } satisfies CSSProperties
 
   const navbarStyle = {
     borderRight:
-      'calc(var(--mantine-spacing-xs) * 0.125) solid var(--layout-divider-color)',
+      'calc(var(--mantine-spacing-xs) * 0.1) solid var(--layout-divider-color)',
     boxShadow: 'var(--layout-surface-shadow)',
     backgroundColor: 'var(--layout-surface-bg)',
   } satisfies CSSProperties
@@ -71,9 +78,11 @@ export function AppLayout() {
       <RouteSyncWrapper cacheScope={menuCacheScope}>
         <RouteProgressBar />
         <AppShell
-          header={{ height: headerHeight }}
+          header={{ height: HEADER_HEIGHT }}
           navbar={{
-            width: desktopCollapsed ? 50 : 200,
+            width: desktopCollapsed
+              ? NAVBAR_WIDTH_COLLAPSED
+              : NAVBAR_WIDTH_EXPANDED,
             breakpoint: 'sm',
             collapsed: { mobile: !mobileOpened, desktop: false },
           }}

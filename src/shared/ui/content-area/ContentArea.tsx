@@ -4,10 +4,12 @@ import classes from './ContentArea.module.css'
 
 export type ContentAreaProps = ComponentPropsWithoutRef<'div'>
 
-export function ContentArea({ className, children, ...others }: ContentAreaProps) {
-  const mergedClassName = [classes.root, className]
-    .filter(Boolean)
-    .join(' ')
+export function ContentArea({
+  className,
+  children,
+  ...others
+}: ContentAreaProps) {
+  const mergedClassName = [classes.root, className].filter(Boolean).join(' ')
 
   return (
     <div className={mergedClassName} {...others}>

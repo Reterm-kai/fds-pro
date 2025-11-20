@@ -175,7 +175,11 @@ export function ResultErrorPage() {
           <Text className={classes.errorIntro}>您提交的内容有如下错误：</Text>
 
           <div className={classes.errorList}>
-            <Group align="flex-start" wrap="nowrap" className={classes.errorItem}>
+            <Group
+              align="flex-start"
+              wrap="nowrap"
+              className={classes.errorItem}
+            >
               <ThemeIcon
                 radius="xl"
                 size="sm"
@@ -196,7 +200,11 @@ export function ResultErrorPage() {
               </div>
             </Group>
 
-            <Group align="flex-start" wrap="nowrap" className={classes.errorItem}>
+            <Group
+              align="flex-start"
+              wrap="nowrap"
+              className={classes.errorItem}
+            >
               <ThemeIcon
                 radius="xl"
                 size="sm"
@@ -217,7 +225,11 @@ export function ResultErrorPage() {
               </div>
             </Group>
 
-            <Group align="flex-start" wrap="nowrap" className={classes.errorItem}>
+            <Group
+              align="flex-start"
+              wrap="nowrap"
+              className={classes.errorItem}
+            >
               <ThemeIcon
                 radius="xl"
                 size="sm"

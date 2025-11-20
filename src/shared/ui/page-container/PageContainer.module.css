@@ -52,8 +52,6 @@
     var(--mantine-color-dark-7)
   );
   box-shadow: var(--mantine-shadow-xs);
-  border: calc(var(--mantine-spacing-xs) * 0.125) solid light-dark(
-      var(--mantine-color-gray-2),
-      var(--mantine-color-dark-5)
-    );
+  border: calc(var(--mantine-spacing-xs) * 0.125) solid
+    light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
 }

@@ -1,13 +1,5 @@
 import { useState } from 'react'
-import {
-  Title,
-  Text,
-  Stack,
-  Group,
-  Button,
-  Alert,
-  Badge,
-} from '@mantine/core'
+import { Title, Text, Stack, Group, Button, Alert, Badge } from '@mantine/core'
 import { IconAlertCircle, IconEye } from '@tabler/icons-react'
 import { Plus, Upload } from 'lucide-react'
 import { modals } from '@mantine/modals'
@@ -38,7 +30,7 @@ import {
 type SortField = NonNullable<ListParams['sortField']>
 type SortOrder = NonNullable<ListParams['sortOrder']>
 
-interface FilterFormState {
+interface FilterFormState extends Record<string, unknown> {
   code: string
   name: string
   contentType: ListContentType | ''
@@ -59,7 +51,7 @@ const initialFilterState: FilterFormState = {
 /**
  * 筛选字段配置 - 页面级配置
  */
-const filterFields: FilterFieldConfig[] = [
+const filterFields: FilterFieldConfig<FilterFormState>[] = [
   {
     name: 'code',
     label: '集合编号',
@@ -207,25 +199,25 @@ export function BasicListPage() {
     {
       key: 'contentType',
       title: '内容体裁',
-      render: value => (
+      render: (_, record) => (
         <Badge color="blue" variant="light">
-          {getContentTypeLabel(value)}
+          {getContentTypeLabel(record.contentType)}
         </Badge>
       ),
     },
     {
       key: 'strategy',
       title: '筛选方式',
-      render: value => getStrategyLabel(value),
+      render: (_, record) => getStrategyLabel(record.strategy),
     },
     { key: 'contentCount', title: '内容量', sortable: true },
     { key: 'createdAt', title: '创建时间', sortable: true },
     {
       key: 'status',
       title: '状态',
-      render: (value, record) => (
+      render: (_, record) => (
         <Badge color={getStatusColor(record.status)} variant="dot">
-          {getStatusLabel(value)}
+          {getStatusLabel(record.status)}
         </Badge>
       ),
     },

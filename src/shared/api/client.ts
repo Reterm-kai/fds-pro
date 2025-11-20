@@ -145,7 +145,11 @@ axiosInstance.interceptors.response.use(
  */
 async function request<T>(config: AxiosRequestConfig): Promise<T> {
   const response = await axiosInstance.request<ApiResponse<T>>(config)
-  return response.data.data
+  const { data } = response
+  if (data.data == null) {
+    throw new ApiError(data.code, data.msg || '响应数据为空')
+  }
+  return data.data
 }
 
 /** GET 请求 */

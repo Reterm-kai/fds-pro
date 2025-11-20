@@ -168,7 +168,7 @@ export function FormGroupPage() {
   }
 
   return (
-    <PageContainer size="full"  variant="muted">
+    <PageContainer size="full" variant="muted">
       <div className={classes.inner}>
         <Group justify="space-between" className={classes.header}>
           <div className={classes.headerTitle}>

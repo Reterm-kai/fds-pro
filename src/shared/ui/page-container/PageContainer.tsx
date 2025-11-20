@@ -7,9 +7,7 @@ type PageContainerSize = 'full' | 'lg' | 'md'
 type PageContainerVariant = 'default' | 'muted'
 type PageContainerAlign = 'left' | 'center'
 
-export interface PageContainerProps
-  extends BoxProps,
-    ElementProps<'section'> {
+export interface PageContainerProps extends BoxProps, ElementProps<'section'> {
   children: ReactNode
   size?: PageContainerSize
   align?: PageContainerAlign
@@ -37,9 +35,7 @@ export function PageContainer({
   contentClassName,
   ...others
 }: PageContainerProps) {
-  const rootClassName = [classes.root, className]
-    .filter(Boolean)
-    .join(' ')
+  const rootClassName = [classes.root, className].filter(Boolean).join(' ')
 
   const contentClasses = [
     classes.content,

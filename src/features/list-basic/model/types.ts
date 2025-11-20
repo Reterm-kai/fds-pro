@@ -9,7 +9,7 @@ export type ListStrategy = 'rules' | 'artificial'
 export type ListStatus = 'online' | 'offline'
 
 /** 列表项 */
-export interface ListItem {
+export interface ListItem extends Record<string, unknown> {
   id: number
   /** 集合编号 */
   code: string
