@@ -11,6 +11,28 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  scrollbar-width: thin;
+  scrollbar-color: light-dark(
+      var(--mantine-color-gray-2),
+      var(--mantine-color-dark-4)
+    )
+    transparent;
+}
+
+.root::-webkit-scrollbar {
+  width: var(--mantine-spacing-xs);
+}
+
+.root::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.root::-webkit-scrollbar-thumb {
+  background-color: light-dark(
+    var(--mantine-color-gray-2),
+    var(--mantine-color-dark-4)
+  );
+  border-radius: var(--mantine-radius-md);
 }
 
 .content {

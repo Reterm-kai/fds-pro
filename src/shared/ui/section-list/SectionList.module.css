@@ -11,13 +11,10 @@
   flex-direction: row;
 }
 
-/* 分隔条 */
+/* 分隔条 - 与 ContentArea padding 颜色一致 */
 .divider {
   flex-shrink: 0;
-  background: light-dark(
-    var(--mantine-color-gray-1),
-    var(--mantine-color-dark-7)
-  );
+  background: var(--layout-surface-bg);
 }
 
 .vertical .divider {
@@ -30,13 +27,21 @@
   height: auto;
 }
 
-/* Section 项 */
+/* Section 项 - 暗黑模式更深形成对比 */
 .section {
   background: light-dark(
     var(--mantine-color-white),
-    var(--mantine-color-dark-6)
+    var(--mantine-color-dark-7)
   );
   padding: var(--mantine-spacing-lg);
+}
+
+/* Section subtle 变体 - 浅灰背景 */
+.sectionSubtle {
+  background: light-dark(
+    var(--mantine-color-gray-0),
+    var(--mantine-color-dark-6)
+  );
 }
 
 .horizontal .section {

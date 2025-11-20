@@ -14,6 +14,8 @@ export interface SectionListProps {
 export interface SectionProps {
   /** 子元素 */
   children: ReactNode
+  /** 背景色变体：default 白色背景，subtle 浅灰背景 */
+  variant?: 'default' | 'subtle'
   /** 自定义类名 */
   className?: string
 }
@@ -39,8 +41,15 @@ export function SectionList({
   )
 }
 
-export function Section({ children, className }: SectionProps) {
+export function Section({
+  children,
+  variant = 'default',
+  className,
+}: SectionProps) {
+  const variantClass = variant === 'subtle' ? classes.sectionSubtle : ''
   return (
-    <div className={`${classes.section} ${className || ''}`}>{children}</div>
+    <div className={`${classes.section} ${variantClass} ${className || ''}`}>
+      {children}
+    </div>
   )
 }

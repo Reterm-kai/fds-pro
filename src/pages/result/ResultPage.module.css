@@ -40,15 +40,6 @@
   margin-right: auto;
 }
 
-.footerCard {
-  padding: var(--mantine-spacing-lg);
-  background-color: light-dark(
-    var(--mantine-color-gray-0),
-    var(--mantine-color-dark-6)
-  );
-  border-radius: var(--mantine-radius-md);
-}
-
 .footerHeader {
   margin-bottom: var(--mantine-spacing-md);
   padding-bottom: var(--mantine-spacing-sm);
