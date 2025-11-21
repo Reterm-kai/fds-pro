@@ -1,7 +1,6 @@
 /* 根容器 - 填充整个内容区域 */
 .root {
   flex: 1;
-  margin-block: var(--mantine-spacing-lg);
   display: flex;
   align-items: center;
   justify-content: center;
