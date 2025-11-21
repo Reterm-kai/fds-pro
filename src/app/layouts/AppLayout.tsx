@@ -7,6 +7,7 @@ import { AppNavbar } from '@/widgets/app-navbar'
 import {
   MultiViewProvider,
   ViewBar,
+  VIEW_BAR_HEIGHT,
   useRouteSync,
   RefreshableOutlet,
 } from '@/widgets/multi-view'
@@ -64,6 +65,7 @@ export function AppLayout() {
     flexDirection: 'column',
     height: '100%',
     minHeight: 0,
+    paddingTop: `calc(var(--app-shell-header-offset, 0rem) + var(--app-shell-padding) + ${VIEW_BAR_HEIGHT})`,
   } satisfies CSSProperties
 
   const navbarStyle = {
@@ -71,6 +73,21 @@ export function AppLayout() {
       'calc(var(--mantine-spacing-xs) * 0.1) solid var(--layout-divider-color)',
     boxShadow: 'var(--layout-surface-shadow)',
     backgroundColor: 'var(--layout-surface-bg)',
+  } satisfies CSSProperties
+
+  const viewBarSectionStyle = {
+    position: 'fixed',
+    top: 'calc(var(--app-shell-header-offset, 0rem) + var(--app-shell-padding))',
+    left: 0,
+    right: 0,
+    paddingInlineStart:
+      'calc(var(--app-shell-navbar-offset, 0rem) + var(--app-shell-padding))',
+    paddingInlineEnd:
+      'calc(var(--app-shell-aside-offset, 0rem) + var(--app-shell-padding))',
+    paddingTop: 'var(--app-shell-padding)',
+    paddingBottom: 0,
+    backgroundColor: 'var(--mantine-color-body)',
+    zIndex: 'var(--mantine-z-index-app)',
   } satisfies CSSProperties
 
   return (
@@ -102,8 +119,11 @@ export function AppLayout() {
             />
           </AppShell.Navbar>
 
+          <AppShell.Section style={viewBarSectionStyle}>
+            <ViewBar height={VIEW_BAR_HEIGHT} />
+          </AppShell.Section>
+
           <AppShell.Main style={mainStyle}>
-            <ViewBar />
             <ContentArea>
               <RefreshableOutlet />
             </ContentArea>

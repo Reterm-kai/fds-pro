@@ -5,5 +5,5 @@ export { useRouteSync } from './model/useRouteSync'
 export type { ViewPage, MultiViewContextValue } from './model/types'
 
 // UI
-export { ViewBar } from './ui/ViewBar'
+export { ViewBar, VIEW_BAR_HEIGHT } from './ui/ViewBar'
 export { RefreshableOutlet } from './ui/RefreshableOutlet'

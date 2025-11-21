@@ -21,7 +21,7 @@ interface ContextMenuState {
   viewPath: string
 }
 
-const DEFAULT_HEIGHT = 'calc(var(--mantine-spacing-lg) * 1.75)'
+export const VIEW_BAR_HEIGHT = 'calc(var(--mantine-spacing-lg) * 1.75)'
 
 interface ViewBarProps {
   /**
@@ -160,7 +160,7 @@ export function ViewBar({ height }: ViewBarProps = {}) {
     v => v.path !== contextMenu.viewPath && v.closable
   )
 
-  const barHeight = height ?? DEFAULT_HEIGHT
+  const barHeight = height ?? VIEW_BAR_HEIGHT
   const wrapperStyle = {
     '--view-bar-height': barHeight,
   } as CSSProperties
