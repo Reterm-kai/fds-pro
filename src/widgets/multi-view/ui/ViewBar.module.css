@@ -19,8 +19,19 @@
   box-shadow: var(--layout-surface-shadow);
   height: var(--view-bar-height, calc(var(--mantine-spacing-lg) * 1.75));
   flex-shrink: 0;
-  border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
-    var(--layout-divider-color);
+}
+
+/* 底部边线：使用伪元素实现连续边线，覆盖整个宽度 */
+.tabBarWrapper::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--mantine-spacing-xs) * 0.125);
+  background-color: var(--layout-divider-color);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* 滚动按钮

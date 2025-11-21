@@ -89,29 +89,30 @@ export function ViewBar({ height }: ViewBarProps = {}) {
 
     if (!activeTabElement) return
 
-    const containerRect = container.getBoundingClientRect()
-    const tabRect = activeTabElement.getBoundingClientRect()
+    // 获取 tab 相对于容器的位置
+    const tabLeft = activeTabElement.offsetLeft
+    const tabRight = tabLeft + activeTabElement.offsetWidth
+    const containerScrollLeft = container.scrollLeft
+    const containerWidth = container.clientWidth
 
-    // 检查 tab 是否在可视区域内
-    const isTabVisible =
-      tabRect.left >= containerRect.left && tabRect.right <= containerRect.right
+    // 添加边距，确保 tab 不会紧贴边缘
+    const padding = 12
 
-    if (!isTabVisible) {
-      // 计算需要滚动的距离
-      if (tabRect.left < containerRect.left) {
-        // tab 在左侧被遮挡，向左滚动
-        const scrollOffset =
-          activeTabElement.offsetLeft - container.offsetLeft - 8
-        container.scrollTo({ left: scrollOffset, behavior: 'smooth' })
-      } else {
-        // tab 在右侧被遮挡，向右滚动
-        const scrollOffset =
-          activeTabElement.offsetLeft +
-          activeTabElement.offsetWidth -
-          container.clientWidth +
-          8
-        container.scrollTo({ left: scrollOffset, behavior: 'smooth' })
-      }
+    // 检查 tab 是否被左侧遮挡
+    if (tabLeft < containerScrollLeft + padding) {
+      // 向左滚动，使 tab 左边缘可见
+      container.scrollTo({
+        left: Math.max(0, tabLeft - padding),
+        behavior: 'smooth',
+      })
+    }
+    // 检查 tab 是否被右侧遮挡
+    else if (tabRight > containerScrollLeft + containerWidth - padding) {
+      // 向右滚动，使 tab 右边缘可见
+      container.scrollTo({
+        left: tabRight - containerWidth + padding,
+        behavior: 'smooth',
+      })
     }
   }, [activeView])
 
