@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
 import { Modal, TextInput, Select, Button, Group, Stack } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { useCreateUser } from '@/features/users'
-import { useUpdateUser } from '@/features/users'
 import type { User, CreateUserParams } from '@/entities/user'
+import { useCreateUser } from '../api/useCreateUser'
+import { useUpdateUser } from '../api/useUpdateUser'
 import { showErrorNotification, showSuccessNotification } from '@/shared/ui'
 
 interface UserFormProps {
@@ -12,16 +12,20 @@ interface UserFormProps {
   user?: User | null
 }
 
+const ROLE_OPTIONS = [
+  { value: 'admin', label: '管理员' },
+  { value: 'user', label: '用户' },
+  { value: 'guest', label: '访客' },
+]
+
 /**
  * 用户创建/编辑表单
- * 根据是否传入 user 参数判断是创建还是编辑模式
  */
 export function UserForm({ opened, onClose, user }: UserFormProps) {
-  const isEditing = !!user
+  const isEditing = Boolean(user)
   const createUser = useCreateUser()
   const updateUser = useUpdateUser()
 
-  // 表单配置
   const form = useForm({
     initialValues: {
       name: '',
@@ -37,14 +41,13 @@ export function UserForm({ opened, onClose, user }: UserFormProps) {
     },
   })
 
-  // 编辑模式下填充表单
   useEffect(() => {
     if (user) {
       form.setValues({
         name: user.name,
         email: user.email,
         role: user.role,
-        password: '', // 编辑时不显示密码
+        password: '',
       })
     } else {
       form.reset()
@@ -52,25 +55,18 @@ export function UserForm({ opened, onClose, user }: UserFormProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
-  // 提交处理
   const handleSubmit = async (values: typeof form.values) => {
     try {
-      if (isEditing) {
-        // 编辑用户
+      if (isEditing && user) {
         await updateUser.mutateAsync({
-          id: user!.id,
-          data: {
-            name: values.name,
-            email: values.email,
-            role: values.role,
-          },
+          id: user.id,
+          data: { name: values.name, email: values.email, role: values.role },
         })
         showSuccessNotification({
           title: '更新成功',
           message: `用户 ${values.name} 已更新`,
         })
       } else {
-        // 创建用户
         const createData: CreateUserParams = {
           name: values.name,
           email: values.email,
@@ -93,7 +89,6 @@ export function UserForm({ opened, onClose, user }: UserFormProps) {
     }
   }
 
-  // 关闭时重置表单
   const handleClose = () => {
     onClose()
     form.reset()
@@ -132,11 +127,7 @@ export function UserForm({ opened, onClose, user }: UserFormProps) {
             placeholder="选择角色"
             required
             name="role"
-            data={[
-              { value: 'admin', label: '管理员' },
-              { value: 'user', label: '用户' },
-              { value: 'guest', label: '访客' },
-            ]}
+            data={ROLE_OPTIONS}
             {...form.getInputProps('role')}
           />
 

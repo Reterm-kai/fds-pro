@@ -24,7 +24,9 @@
       "mcp__Playwright__browser_evaluate",
       "mcp__Playwright__browser_close",
       "Bash(awk '{print $9, \"\"\"\"(\"\"\"\" $6, $7, $8 \"\"\"\")\"\"\"\"}')",
-      "mcp__serena__find_symbol"
+      "mcp__serena__find_symbol",
+      "mcp__serena__read_memory",
+      "mcp__serena__think_about_collected_information"
     ],
     "deny": [],
     "ask": []

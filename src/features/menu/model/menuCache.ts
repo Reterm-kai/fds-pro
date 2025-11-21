@@ -1,5 +1,7 @@
 const MENU_CACHE_PREFIX = 'fds-pro-menu-cache'
-export const MENU_CACHE_TTL = 60 * 1000 // 1 分钟
+
+/** 菜单缓存过期时间（1 分钟） */
+export const MENU_CACHE_TTL = 60 * 1000
 
 export interface MenuCacheScope {
   userId?: number | string
@@ -12,7 +14,7 @@ interface MenuCacheItem<T> {
   data: T
 }
 
-const createCacheKey = (scope?: MenuCacheScope) => {
+function createCacheKey(scope?: MenuCacheScope): string {
   const parts = [
     MENU_CACHE_PREFIX,
     scope?.userId ? `user-${scope.userId}` : 'user-anonymous',
@@ -22,6 +24,9 @@ const createCacheKey = (scope?: MenuCacheScope) => {
   return parts.join(':')
 }
 
+/**
+ * 从 sessionStorage 加载菜单缓存
+ */
 export function loadMenuCache<T>(
   scope?: MenuCacheScope
 ): MenuCacheItem<T> | undefined {
@@ -29,41 +34,43 @@ export function loadMenuCache<T>(
 
   try {
     const stored = sessionStorage.getItem(cacheKey)
-    if (!stored) {
-      return undefined
-    }
+    if (!stored) return undefined
+
     const parsed = JSON.parse(stored) as MenuCacheItem<T>
-    if (!parsed?.data || !parsed.timestamp) {
-      return undefined
-    }
+    if (!parsed?.data || !parsed.timestamp) return undefined
+
     if (Date.now() - parsed.timestamp > MENU_CACHE_TTL) {
       sessionStorage.removeItem(cacheKey)
       return undefined
     }
+
     return parsed
   } catch {
     return undefined
   }
 }
 
+/**
+ * 保存菜单缓存到 sessionStorage
+ */
 export function saveMenuCache<T>(data: T, scope?: MenuCacheScope): void {
   const cacheKey = createCacheKey(scope)
+
   try {
-    const payload: MenuCacheItem<T> = {
-      data,
-      timestamp: Date.now(),
-    }
+    const payload: MenuCacheItem<T> = { data, timestamp: Date.now() }
     sessionStorage.setItem(cacheKey, JSON.stringify(payload))
   } catch {
-    // ignore write errors
+    // 忽略写入错误
   }
 }
 
+/**
+ * 清除菜单缓存
+ */
 export function clearMenuCache(scope?: MenuCacheScope): void {
-  const cacheKey = createCacheKey(scope)
   try {
-    sessionStorage.removeItem(cacheKey)
+    sessionStorage.removeItem(createCacheKey(scope))
   } catch {
-    // ignore remove errors
+    // 忽略删除错误
   }
 }

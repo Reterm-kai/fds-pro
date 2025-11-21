@@ -12,6 +12,19 @@ interface UserListFiltersProps {
   onReset: () => void
 }
 
+const ROLE_OPTIONS = [
+  { value: '', label: '全部角色' },
+  { value: 'admin', label: '管理员' },
+  { value: 'user', label: '用户' },
+  { value: 'guest', label: '访客' },
+]
+
+const STATUS_OPTIONS = [
+  { value: '', label: '全部状态' },
+  { value: 'active', label: '在线' },
+  { value: 'inactive', label: '离线' },
+]
+
 /**
  * 用户列表筛选器组件
  */
@@ -41,12 +54,7 @@ export function UserListFilters({
           placeholder="角色"
           value={role}
           onChange={value => onRoleChange((value as User['role']) || '')}
-          data={[
-            { value: '', label: '全部角色' },
-            { value: 'admin', label: '管理员' },
-            { value: 'user', label: '用户' },
-            { value: 'guest', label: '访客' },
-          ]}
+          data={ROLE_OPTIONS}
           clearable
           w={{ base: '100%', sm: '9.375rem' }}
           miw="7.5rem"
@@ -56,11 +64,7 @@ export function UserListFilters({
           placeholder="状态"
           value={status}
           onChange={value => onStatusChange((value as User['status']) || '')}
-          data={[
-            { value: '', label: '全部状态' },
-            { value: 'active', label: '在线' },
-            { value: 'inactive', label: '离线' },
-          ]}
+          data={STATUS_OPTIONS}
           clearable
           w={{ base: '100%', sm: '9.375rem' }}
           miw="7.5rem"

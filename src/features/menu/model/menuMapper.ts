@@ -11,7 +11,7 @@ import {
 } from '@tabler/icons-react'
 import type { MenuViewItem, RemoteMenuItem } from './types'
 
-const iconMap: Record<string, typeof IconGauge> = {
+const ICON_MAP: Record<string, typeof IconGauge> = {
   IconGauge,
   IconChartLine,
   IconTable,
@@ -43,26 +43,17 @@ function mapLinks(children: RemoteMenuItem[] = []) {
     .filter(child => !child.hidden)
     .map(child => {
       const link = normalizePath(child.path)
-      if (!link) {
-        return null
-      }
-      return {
-        label: child.name,
-        link,
-      }
+      return link ? { label: child.name, link } : null
     })
-    .filter(Boolean) as { label: string; link: string }[]
+    .filter((item): item is { label: string; link: string } => item !== null)
 }
 
 function resolveIcon(iconName?: string) {
-  if (!iconName) return undefined
-  return iconMap[iconName]
+  return iconName ? ICON_MAP[iconName] : undefined
 }
 
 function transformItem(item: RemoteMenuItem): MenuViewItem | null {
-  if (item.hidden) {
-    return null
-  }
+  if (item.hidden) return null
 
   const links = mapLinks(item.children)
 
@@ -77,9 +68,7 @@ function transformItem(item: RemoteMenuItem): MenuViewItem | null {
   }
 
   const link = normalizePath(item.path)
-  if (!link) {
-    return null
-  }
+  if (!link) return null
 
   return {
     id: item.id,
@@ -94,5 +83,7 @@ function transformItem(item: RemoteMenuItem): MenuViewItem | null {
  * 将接口返回的菜单数据转换成导航栏使用的数据结构
  */
 export function transformMenuResponse(data: RemoteMenuItem[]): MenuViewItem[] {
-  return sortByOrder(data).map(transformItem).filter(Boolean) as MenuViewItem[]
+  return sortByOrder(data)
+    .map(transformItem)
+    .filter((item): item is MenuViewItem => item !== null)
 }

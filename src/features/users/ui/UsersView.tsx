@@ -3,16 +3,17 @@ import { Alert, Stack, Group, Button, Text } from '@mantine/core'
 import { AlertCircle, Plus } from 'lucide-react'
 import { modals } from '@mantine/modals'
 import type { User } from '@/entities/user'
-import { useUserList } from '@/features/users'
-import { useDeleteUser } from '@/features/users'
-import { UserListFilters } from '@/features/users'
+import { useUserList } from '../api/useUserList'
+import { useDeleteUser } from '../api/useDeleteUser'
+import { UserListFilters } from './UserListFilters'
 import { UserListTable } from './UserListTable'
-import { showErrorNotification, showSuccessNotification } from '@/shared/ui'
 import { UserForm } from './UserForm'
+import { showErrorNotification, showSuccessNotification } from '@/shared/ui'
+
+const PAGE_SIZE = 10
 
 /**
  * 用户管理主视图
- * 负责拉取数据、处理筛选和增删改交互
  */
 export function UsersView() {
   const [page, setPage] = useState(1)
@@ -21,11 +22,10 @@ export function UsersView() {
   const [status, setStatus] = useState<User['status'] | ''>('')
   const [formOpened, setFormOpened] = useState(false)
   const [editingUser, setEditingUser] = useState<User | null>(null)
-  const pageSize = 10
 
   const { data, isLoading, isError, error } = useUserList({
     page,
-    pageSize,
+    pageSize: PAGE_SIZE,
     ...(keyword && { keyword }),
     ...(role && { role }),
     ...(status && { status }),
@@ -67,11 +67,10 @@ export function UsersView() {
             title: '删除成功',
             message: `用户 ${user.name} 已删除`,
           })
-        } catch (deleteError) {
+        } catch (err) {
           showErrorNotification({
             title: '删除失败',
-            message:
-              deleteError instanceof Error ? deleteError.message : '操作失败',
+            message: err instanceof Error ? err.message : '操作失败',
           })
         }
       },
@@ -101,12 +100,12 @@ export function UsersView() {
         color="red"
         variant="light"
       >
-        {error.message ? error.message : '无法加载用户列表'}
+        {error.message || '无法加载用户列表'}
       </Alert>
     )
   }
 
-  const totalPages = data ? Math.ceil(data.total / pageSize) : 0
+  const totalPages = data ? Math.ceil(data.total / PAGE_SIZE) : 0
 
   return (
     <Stack gap="md">
@@ -127,11 +126,11 @@ export function UsersView() {
       />
 
       <UserListTable
-        users={data?.list || []}
+        users={data?.list ?? []}
         isLoading={isLoading}
         page={page}
         totalPages={totalPages}
-        total={data?.total || 0}
+        total={data?.total ?? 0}
         onPageChange={setPage}
         onEdit={handleEdit}
         onDelete={handleDelete}

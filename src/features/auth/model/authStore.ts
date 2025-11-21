@@ -8,7 +8,6 @@ import {
   login as apiLogin,
   register as apiRegister,
   logout as apiLogout,
-  getCurrentUser,
 } from '../api/authApi'
 
 interface AuthState {
@@ -16,6 +15,7 @@ interface AuthState {
   isAuthenticated: boolean
   isInitialized: boolean
   setUser: (user: User | null) => void
+  markInitialized: () => void
   login: (
     username: string,
     password: string,
@@ -27,7 +27,6 @@ interface AuthState {
     password: string
   }) => Promise<User>
   logout: () => Promise<void>
-  initialize: () => Promise<void>
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -40,6 +39,9 @@ export const useAuthStore = create<AuthState>()(
 
         setUser: user =>
           set({ user, isAuthenticated: Boolean(user) }, false, 'auth/setUser'),
+
+        markInitialized: () =>
+          set({ isInitialized: true }, false, 'auth/markInitialized'),
 
         login: async (username, password, rememberMe = true) => {
           try {
@@ -127,55 +129,6 @@ export const useAuthStore = create<AuthState>()(
             title: '退出成功',
             message: '您已安全退出登录',
           })
-        },
-
-        initialize: async () => {
-          // persist 中间件已恢复本地存储的 user / isAuthenticated
-          // 这里只负责校验当前登录态是否仍然有效
-          const currentState = useAuthStore.getState()
-
-          if (currentState.user) {
-            if (import.meta.env.DEV) {
-              // 开发环境下，MSW session 在刷新后会丢失
-              // 为避免频繁退出，这里直接信任本地缓存的用户信息
-              set(
-                { isInitialized: true },
-                false,
-                'auth/initialize/dev-skip-verify'
-              )
-              return
-            }
-
-            try {
-              const userData = await getCurrentUser()
-
-              set(
-                {
-                  user: userData,
-                  isAuthenticated: true,
-                  isInitialized: true,
-                },
-                false,
-                'auth/initialize'
-              )
-            } catch {
-              // Token 无效，清除本地状态
-              console.warn('[Auth] Token 校验失败，已清除本地认证状态')
-
-              set(
-                {
-                  user: null,
-                  isAuthenticated: false,
-                  isInitialized: true,
-                },
-                false,
-                'auth/initialize/invalid-token'
-              )
-            }
-          } else {
-            // 本地无用户信息，视为未登录但完成初始化
-            set({ isInitialized: true }, false, 'auth/initialize/no-user')
-          }
         },
       }),
       {

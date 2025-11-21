@@ -11,6 +11,10 @@ import {
   MENU_CACHE_TTL,
 } from '../model/menuCache'
 
+const PROACTIVE_REFRESH_MARGIN = 10 * 1000
+const REFRESH_RETRY_ATTEMPTS = 3
+const REFRESH_RETRY_DELAY = 2 * 1000
+
 const createMenuQueryKey = (scope?: MenuCacheScope) =>
   [
     'menus',
@@ -19,23 +23,21 @@ const createMenuQueryKey = (scope?: MenuCacheScope) =>
     scope?.locale ?? 'locale-default',
   ] as const
 
+const delay = (ms: number) =>
+  new Promise<void>(resolve => setTimeout(resolve, ms))
+
 interface UseMenuOptions {
   cacheScope?: MenuCacheScope
 }
 
-const PROACTIVE_REFRESH_MARGIN = 10 * 1000
-const REFRESH_RETRY_ATTEMPTS = 3
-const REFRESH_RETRY_DELAY = 2 * 1000
-
-const delay = (duration: number) =>
-  new Promise<void>(resolve => {
-    setTimeout(resolve, duration)
-  })
-
+/**
+ * 菜单数据 Hook
+ *
+ * 支持缓存、主动刷新和重试机制
+ */
 export function useMenu(options?: UseMenuOptions) {
   const { cacheScope } = options ?? {}
   const cachedMenu = loadMenuCache<RemoteMenuItem[]>(cacheScope)
-  const initialData = cachedMenu?.data
   const queryKey = createMenuQueryKey(cacheScope)
   const queryClient = useQueryClient()
 
@@ -47,7 +49,7 @@ export function useMenu(options?: UseMenuOptions) {
       return response
     },
     select: transformMenuResponse,
-    initialData,
+    initialData: cachedMenu?.data,
     initialDataUpdatedAt: cachedMenu?.timestamp,
     placeholderData: previousData => previousData,
     staleTime: 5 * 60 * 1000,
@@ -75,25 +77,16 @@ export function useMenu(options?: UseMenuOptions) {
   }, [refetch])
 
   useEffect(() => {
-    if (!cachedMenu?.timestamp) {
-      return
-    }
-    if (typeof window === 'undefined') {
-      return
-    }
+    if (!cachedMenu?.timestamp || typeof window === 'undefined') return
 
     const timeSinceCache = Date.now() - cachedMenu.timestamp
     const timeUntilExpiry = Math.max(0, MENU_CACHE_TTL - timeSinceCache)
-    const refreshDelay = Math.max(
-      0,
-      timeUntilExpiry - PROACTIVE_REFRESH_MARGIN
-    )
+    const refreshDelay = Math.max(0, timeUntilExpiry - PROACTIVE_REFRESH_MARGIN)
 
     let cancelled = false
 
     const triggerRefresh = () => {
-      if (cancelled) return
-      void refreshWithRetry()
+      if (!cancelled) void refreshWithRetry()
     }
 
     if (refreshDelay === 0) {
@@ -104,7 +97,6 @@ export function useMenu(options?: UseMenuOptions) {
     }
 
     const timerId = window.setTimeout(triggerRefresh, refreshDelay)
-
     return () => {
       cancelled = true
       window.clearTimeout(timerId)
@@ -120,8 +112,5 @@ export function useMenu(options?: UseMenuOptions) {
     })
   }
 
-  return {
-    ...query,
-    reload,
-  }
+  return { ...query, reload }
 }
