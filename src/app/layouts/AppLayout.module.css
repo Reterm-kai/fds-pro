@@ -22,8 +22,6 @@
   background-color: var(--layout-surface-bg);
   box-shadow: var(--layout-surface-shadow);
   z-index: var(--mantine-z-index-app);
-  border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
-    var(--layout-divider-color);
 }
 
 .main {

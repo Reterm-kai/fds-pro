@@ -19,6 +19,8 @@
   box-shadow: var(--layout-surface-shadow);
   height: var(--view-bar-height, calc(var(--mantine-spacing-lg) * 1.75));
   flex-shrink: 0;
+  border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
+    var(--layout-divider-color);
 }
 
 /* 滚动按钮
@@ -30,8 +32,6 @@
   width: calc(var(--mantine-spacing-xl) * 1.5);
   background-color: var(--layout-surface-elevated-bg);
   border: none;
-  border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
-    var(--layout-divider-color);
   color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
   cursor: pointer;
   transition: color 0.15s ease;
@@ -67,18 +67,6 @@
   display: none;
 }
 
-/* 底部边线：使用伪元素实现连续边线 */
-.tabBar::after {
-  content: '';
-  position: absolute;
-  inset-inline-start: var(--mantine-spacing-xs);
-  inset-inline-end: var(--mantine-spacing-xs);
-  bottom: 0;
-  height: calc(var(--mantine-spacing-xs) * 0.125);
-  background-color: var(--layout-divider-color);
-  pointer-events: none;
-  z-index: 0;
-}
 
 /* 标签项
    ========================================================================== */
@@ -99,10 +87,8 @@
   flex-shrink: 0;
   position: relative;
   z-index: 1;
-  /* 只有上、左、右边框，底部由 ::after 伪元素提供 */
   border: calc(var(--mantine-spacing-xs) * 0.125) solid
     var(--layout-divider-color);
-  border-bottom: none;
   margin-bottom: 0;
 }
 
@@ -120,11 +106,8 @@
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-3));
   font-weight: 500;
   border-color: var(--layout-divider-color);
-  /* 延伸到底部边线下方，遮盖底部边线 */
-  margin-bottom: calc(var(--mantine-spacing-xs) * -0.125);
-  padding-bottom: calc(
-    var(--mantine-spacing-xs) * 0.3 + var(--mantine-spacing-xs) * 0.125
-  );
+  /* 底部边框与背景色一致，遮盖底部边线 */
+  border-bottom-color: transparent;
 }
 
 .tabActive:hover {
