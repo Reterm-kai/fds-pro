@@ -38,27 +38,20 @@
   transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   /* 滚动条样式 */
   scrollbar-width: thin;
-  scrollbar-color: light-dark(
-      var(--mantine-color-gray-2),
-      var(--mantine-color-dark-4)
-    )
-    transparent;
-}
+  scrollbar-color: var(--layout-scrollbar-thumb) transparent;
 
-.collapsedContent::-webkit-scrollbar {
-  width: var(--mantine-spacing-xs);
-}
+  &::-webkit-scrollbar {
+    width: var(--layout-scrollbar-width-navbar);
+  }
 
-.collapsedContent::-webkit-scrollbar-track {
-  background: transparent;
-}
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 
-.collapsedContent::-webkit-scrollbar-thumb {
-  background-color: light-dark(
-    var(--mantine-color-gray-2),
-    var(--mantine-color-dark-4)
-  );
-  border-radius: var(--mantine-radius-md);
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--layout-scrollbar-thumb);
+    border-radius: var(--mantine-radius-md);
+  }
 }
 
 .navbar.collapsed .collapsedContent {
@@ -72,7 +65,7 @@
 .navbar.collapsed
   .links
   :global(.mantine-ScrollArea-scrollbar[data-orientation='vertical']) {
-  width: var(--mantine-spacing-xs);
+  width: var(--layout-scrollbar-width-navbar);
   background-color: transparent;
 }
 
@@ -80,7 +73,7 @@
 .navbar.collapsed
   .links
   :global(.mantine-ScrollArea-scrollbar[data-orientation='horizontal']) {
-  height: var(--mantine-spacing-xs);
+  height: var(--layout-scrollbar-width-navbar);
   background-color: transparent;
 }
 
@@ -88,22 +81,19 @@
 .navbar.collapsed
   .links
   :global(.mantine-ScrollArea-thumb[data-orientation='vertical']) {
-  min-height: calc(var(--mantine-spacing-lg) * 0.2);
+  min-height: calc(var(--mantine-spacing-lg) * 0.5);
 }
 
 .links :global(.mantine-ScrollArea-thumb[data-orientation='horizontal']),
 .navbar.collapsed
   .links
   :global(.mantine-ScrollArea-thumb[data-orientation='horizontal']) {
-  min-width: calc(var(--mantine-spacing-lg) * 0.2);
+  min-width: calc(var(--mantine-spacing-lg) * 0.5);
 }
 
 .links :global(.mantine-ScrollArea-thumb),
 .navbar.collapsed .links :global(.mantine-ScrollArea-thumb) {
-  background-color: light-dark(
-    var(--mantine-color-gray-2),
-    var(--mantine-color-dark-4)
-  );
+  background-color: var(--layout-scrollbar-thumb);
 }
 
 .linksInner {

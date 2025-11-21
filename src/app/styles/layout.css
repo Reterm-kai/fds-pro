@@ -1,16 +1,41 @@
 :root {
-  /* 布局表面背景色：使用 light-dark 实现自动主题切换 */
-  --layout-surface-bg: light-dark(
-    var(--mantine-color-gray-1),
-    var(--mantine-color-dark-6)
-  );
-  /* 布局分割线颜色 */
-  --layout-divider-color: light-dark(
-    var(--mantine-color-gray-3),
-    var(--mantine-color-dark-4)
-  );
-  /* 布局表面阴影 */
+  /* 布局表面阴影 - 不随主题变化 */
   --layout-surface-shadow: var(--mantine-shadow-sm);
+  /* 滚动条宽度 - 主内容区域 */
+  --layout-scrollbar-width: var(--mantine-spacing-xs);
+  /* 滚动条宽度 - 侧边栏 */
+  --layout-scrollbar-width-navbar: var(--mantine-spacing-xs);
+}
+
+:root,
+:root[data-mantine-color-scheme='light'] {
+  color-scheme: light;
+
+  /* 布局设计系统变量 - 浅色模式值 */
+  /* 布局表面背景色：用于选中状态、hover 状态等需要突出的区域 */
+  --layout-surface-bg: var(--mantine-color-gray-1);
+  /* 布局分割线颜色 */
+  --layout-divider-color: var(--mantine-color-gray-3);
+  /* 提升层级的背景（ContentArea、ViewBar 容器） */
+  --layout-surface-elevated-bg: var(--mantine-color-white);
+  /* 一般交互/未选中状态背景 */
+  --layout-surface-interactive-bg: var(--mantine-color-gray-0);
+  /* 选中状态背景 - 比交互状态稍深，区分选中效果 */
+  --layout-surface-selected-bg: var(--mantine-color-gray-1);
+  /* 滚动条滑块颜色 */
+  --layout-scrollbar-thumb: var(--mantine-color-gray-3);
+}
+
+:root[data-mantine-color-scheme='dark'] {
+  color-scheme: dark;
+
+  /* 布局设计系统变量 - 暗黑模式值 */
+  --layout-surface-bg: var(--mantine-color-dark-6);
+  --layout-divider-color: var(--mantine-color-dark-4);
+  --layout-surface-elevated-bg: var(--mantine-color-dark-6);
+  --layout-surface-interactive-bg: var(--mantine-color-dark-5);
+  --layout-surface-selected-bg: var(--mantine-color-dark-4);
+  --layout-scrollbar-thumb: var(--mantine-color-dark-4);
 }
 
 html {

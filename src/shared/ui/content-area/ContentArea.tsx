@@ -1,12 +1,13 @@
-import { ScrollArea } from '@mantine/core'
-import type { ComponentPropsWithoutRef } from 'react'
+import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import classes from './ContentArea.module.css'
 
-export type ContentAreaProps = ComponentPropsWithoutRef<typeof ScrollArea>
+export interface ContentAreaProps extends ComponentPropsWithoutRef<'div'> {
+  children?: ReactNode
+}
 
 /**
- * 主内容区域滚动容器，提供基础的滚动和布局功能。
- * 子组件自行控制间距和布局样式。
+ * 主内容区域容器，提供间隙和背景样式。
+ * 滚动功能由外层 Main 容器提供。
  */
 
 export function ContentArea({
@@ -15,17 +16,10 @@ export function ContentArea({
   ...others
 }: ContentAreaProps) {
   return (
-    <ScrollArea
-      classNames={{
-        root: [classes.root, className].filter(Boolean).join(' '),
-        viewport: classes.viewport,
-        scrollbar: classes.scrollbar,
-        thumb: classes.thumb,
-      }}
-      type="auto"
-      {...others}
-    >
-      <div className={classes.content}>{children}</div>
-    </ScrollArea>
+    <div className={[classes.root, className].filter(Boolean).join(' ')} {...others}>
+      <div className={classes.inner}>
+        <div className={classes.content}>{children}</div>
+      </div>
+    </div>
   )
 }

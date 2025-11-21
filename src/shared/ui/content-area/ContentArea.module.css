@@ -1,62 +1,28 @@
+/* 外层容器 - 间隙背景 */
 .root {
   flex: 1 1 0%;
-  height: 100%;
   min-height: 0;
-  padding-inline: var(--mantine-spacing-md);
+  /* 间隙：上下 20px (lg)，左右 16px (md) */
+  padding: var(--mantine-spacing-lg) var(--mantine-spacing-md);
   background: var(--layout-surface-bg);
-  box-shadow: var(--layout-surface-shadow);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
 
-.viewport {
-  flex: 1 1 auto;
-  border-radius: inherit;
-  height: 100%;
+/* 内层容器 - 实际内容区域 */
+.inner {
+  flex: 1 1 0%;
   min-height: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-/* 让 Mantine ScrollArea 内部的 content div 也能扩展 */
-.viewport > div {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.scrollbar {
-  background-color: transparent;
-}
-
-.scrollbar[data-orientation='vertical'] {
-  width: var(--mantine-spacing-xs);
-}
-
-.scrollbar[data-orientation='horizontal'] {
-  height: var(--mantine-spacing-xs);
-}
-
-.thumb {
-  background-color: light-dark(
-    var(--mantine-color-gray-2),
-    var(--mantine-color-dark-4)
-  );
+  background: var(--layout-surface-elevated-bg);
+  box-shadow: var(--layout-surface-shadow);
   border-radius: var(--mantine-radius-md);
-}
-
-.thumb[data-orientation='vertical'] {
-  min-height: calc(var(--mantine-spacing-lg) * 0.2);
-}
-
-.thumb[data-orientation='horizontal'] {
-  min-width: calc(var(--mantine-spacing-lg) * 0.2);
+  display: flex;
+  flex-direction: column;
 }
 
 .content {
   flex: 1 1 auto;
-  min-height: 100%;
   display: flex;
   flex-direction: column;
 }

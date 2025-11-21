@@ -37,4 +37,23 @@
       var(--mantine-spacing-lg) * 1.75
   );
   background-color: var(--layout-surface-bg);
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* 滚动条样式 - Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: var(--layout-scrollbar-thumb) transparent;
+
+  /* 滚动条样式 - Webkit (Chrome, Safari, Edge) */
+  &::-webkit-scrollbar {
+    width: var(--layout-scrollbar-width);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--layout-scrollbar-thumb);
+    border-radius: var(--mantine-radius-md);
+  }
 }

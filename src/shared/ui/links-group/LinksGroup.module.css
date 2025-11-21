@@ -21,7 +21,7 @@
   font-family: inherit;
 
   @mixin hover {
-    background-color: var(--layout-surface-bg);
+    background-color: var(--layout-surface-interactive-bg);
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
     box-shadow: var(--mantine-shadow-xs);
     transform: translateY(calc(var(--mantine-spacing-xs) * -0.25));
@@ -29,7 +29,7 @@
 
   /* 点击时立即显示蓝色激活效果 */
   &:active {
-    background-color: var(--layout-surface-bg);
+    background-color: var(--layout-surface-interactive-bg);
     color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
     box-shadow: var(--mantine-shadow-sm);
     transform: translateY(0);
@@ -39,7 +39,7 @@
 .control.active,
 .control[data-active] {
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  background-color: var(--layout-surface-bg);
+  background-color: var(--layout-surface-selected-bg);
   box-shadow: var(--mantine-shadow-sm);
   transform: none;
 }
@@ -55,7 +55,7 @@
 
 /* 有子菜单的父项点击时不显示蓝色,仅保持 hover 样式 - 必须在 .control:active 之后以覆盖 */
 .control.controlWithLinks:active {
-  background-color: var(--layout-surface-bg);
+  background-color: var(--layout-surface-interactive-bg);
   color: var(--mantine-color-text) !important;
   box-shadow: var(--mantine-shadow-xs);
   transform: translateY(0);
@@ -65,7 +65,7 @@
 .control.active:hover,
 .control[data-active]:hover {
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  background-color: var(--layout-surface-bg);
+  background-color: var(--layout-surface-selected-bg);
   box-shadow: var(--mantine-shadow-md);
   transform: translateY(calc(var(--mantine-spacing-xs) * -0.35));
 }
@@ -83,7 +83,7 @@
 .control[data-active]:active {
   /* 保持 hover 状态的视觉样式 */
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  background-color: var(--layout-surface-bg);
+  background-color: var(--layout-surface-selected-bg);
   box-shadow: var(--mantine-shadow-md);
   /* 只有 transform 回弹 */
   transform: translateY(0);
@@ -120,14 +120,14 @@
   font-family: inherit;
 
   @mixin hover {
-    background-color: var(--layout-surface-bg);
+    background-color: var(--layout-surface-interactive-bg);
     box-shadow: var(--mantine-shadow-xs);
     transform: translateX(calc(var(--mantine-spacing-xs) * -0.25));
   }
 
   /* 点击时立即显示激活效果 */
   &:active {
-    background-color: var(--layout-surface-bg);
+    background-color: var(--layout-surface-interactive-bg);
     color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
     box-shadow: var(--mantine-shadow-sm);
     transform: translateX(0);
@@ -136,7 +136,7 @@
 
 .collapsedControl.active,
 .collapsedControl[data-active] {
-  background-color: var(--layout-surface-bg);
+  background-color: var(--layout-surface-selected-bg);
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
   box-shadow: var(--mantine-shadow-sm);
   transform: none;
@@ -145,7 +145,7 @@
 /* 收缩模式激活状态 hover 效果 - 增强阴影 */
 .collapsedControl.active:hover,
 .collapsedControl[data-active]:hover {
-  background-color: var(--layout-surface-bg);
+  background-color: var(--layout-surface-selected-bg);
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
   box-shadow: var(--mantine-shadow-md);
   transform: translateX(calc(var(--mantine-spacing-xs) * -0.35));
@@ -155,7 +155,7 @@
 .collapsedControl.active:active,
 .collapsedControl[data-active]:active {
   /* 保持 hover 状态的视觉样式 */
-  background-color: var(--layout-surface-bg);
+  background-color: var(--layout-surface-selected-bg);
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
   box-shadow: var(--mantine-shadow-md);
   /* 只有 transform 回弹 */
@@ -219,13 +219,13 @@
   font-family: inherit;
 
   @mixin hover {
-    background-color: var(--layout-surface-bg);
+    background-color: var(--layout-surface-interactive-bg);
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   }
 
   /* 点击时立即显示激活效果 */
   &:active {
-    background-color: var(--layout-surface-bg);
+    background-color: var(--layout-surface-interactive-bg);
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
     transform: none;
   }
@@ -233,20 +233,20 @@
 
 .linkActive {
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  background-color: var(--layout-surface-bg);
+  background-color: var(--layout-surface-selected-bg);
 }
 
 /* 子菜单激活状态 hover 效果 - 保持不变 */
 .linkActive:hover {
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  background-color: var(--layout-surface-bg);
+  background-color: var(--layout-surface-selected-bg);
 }
 
 /* 子菜单激活状态点击效果 - 无视觉变化 */
 .linkActive:active {
   /* 保持激活状态的样式，点击时无任何视觉变化 */
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  background-color: var(--layout-surface-bg);
+  background-color: var(--layout-surface-selected-bg);
 }
 
 .chevronWrapper {
@@ -295,13 +295,13 @@
   font-family: inherit;
 
   @mixin hover {
-    background-color: var(--layout-surface-bg);
+    background-color: var(--layout-surface-interactive-bg);
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   }
 
   /* 点击时立即显示激活效果 */
   &:active {
-    background-color: var(--layout-surface-bg);
+    background-color: var(--layout-surface-interactive-bg);
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
     transform: none;
   }
@@ -309,20 +309,20 @@
 
 .popoverLinkActive {
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  background-color: var(--layout-surface-bg);
+  background-color: var(--layout-surface-selected-bg);
 }
 
 /* Popover 子菜单激活状态 hover 效果 - 保持不变 */
 .popoverLinkActive:hover {
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  background-color: var(--layout-surface-bg);
+  background-color: var(--layout-surface-selected-bg);
 }
 
 /* Popover 子菜单激活状态点击效果 - 无视觉变化 */
 .popoverLinkActive:active {
   /* 保持激活状态的样式，点击时无任何视觉变化 */
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
-  background-color: var(--layout-surface-bg);
+  background-color: var(--layout-surface-selected-bg);
 }
 
 .popoverTitle {
