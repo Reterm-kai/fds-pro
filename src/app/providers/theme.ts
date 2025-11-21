@@ -1,4 +1,9 @@
-import { createTheme, rem, type ButtonProps, type MantineTheme } from '@mantine/core'
+import {
+  createTheme,
+  rem,
+  type ButtonProps,
+  type MantineTheme,
+} from '@mantine/core'
 import {
   FIXED_FONT_SIZES,
   LINE_HEIGHTS,

@@ -116,7 +116,9 @@ export function useRouteSync(options?: UseRouteSyncOptions) {
       findMenuTitle(menuItems, currentPath) || generateDefaultTitle(currentPath)
 
     // 检查是否已存在该 Tab
-    const existingView = viewsRef.current.find(view => view.path === currentPath)
+    const existingView = viewsRef.current.find(
+      view => view.path === currentPath
+    )
 
     if (!existingView) {
       // 添加新 Tab（所有 Tab 都可关闭）

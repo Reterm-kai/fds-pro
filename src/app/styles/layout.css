@@ -1,34 +1,31 @@
 :root {
-  /* 默认沿用浅色，避免 Mantine data 属性尚未准备时颜色闪烁 */
-  --layout-surface-bg: var(--mantine-color-gray-1);
+  /* 布局表面背景色：使用 light-dark 实现自动主题切换 */
+  --layout-surface-bg: light-dark(
+    var(--mantine-color-gray-1),
+    var(--mantine-color-dark-6)
+  );
+  /* 布局分割线颜色 */
   --layout-divider-color: light-dark(
     var(--mantine-color-gray-3),
     var(--mantine-color-dark-4)
   );
+  /* 布局表面阴影 */
   --layout-surface-shadow: var(--mantine-shadow-sm);
 }
 
 html {
   height: 100%;
   overflow-x: hidden;
+  background-color: var(--layout-surface-bg);
 }
 
 body {
   height: 100%;
   margin: 0;
   overflow-x: hidden;
+  background-color: var(--layout-surface-bg);
 }
 
 #root {
   height: 100%;
-}
-
-:root[data-mantine-color-scheme='light'] {
-  --layout-surface-bg: var(--mantine-color-gray-1);
-  --layout-divider-color: var(--mantine-color-gray-3);
-}
-
-:root[data-mantine-color-scheme='dark'] {
-  --layout-surface-bg: var(--mantine-color-dark-6);
-  --layout-divider-color: var(--mantine-color-dark-4);
 }

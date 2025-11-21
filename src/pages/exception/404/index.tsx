@@ -22,9 +22,7 @@ export function Exception404Page() {
 
         <Text className={classes.title}>页面不存在</Text>
 
-        <Text className={classes.description}>
-          抱歉，您访问的页面不存在
-        </Text>
+        <Text className={classes.description}>抱歉，您访问的页面不存在</Text>
 
         <Group gap="sm" mt="sm">
           <Button variant="default" onClick={handleGoBack}>

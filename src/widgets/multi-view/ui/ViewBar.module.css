@@ -22,6 +22,8 @@
     var(--mantine-color-dark-7)
   );
   border: none;
+  border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
+    var(--layout-divider-color);
   color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
   cursor: pointer;
   transition: color 0.15s ease;
@@ -51,6 +53,8 @@
   flex: 1;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
+    var(--layout-divider-color);
 }
 
 .tabBar::-webkit-scrollbar {
@@ -96,7 +100,7 @@
   font-weight: 500;
   border-color: var(--layout-divider-color);
   border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
-    light-dark(var(--mantine-color-white), var(--mantine-color-dark-7));
+    var(--layout-surface-bg);
 }
 
 .tabActive:hover {

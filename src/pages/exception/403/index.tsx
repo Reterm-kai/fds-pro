@@ -18,9 +18,7 @@ export function Exception403Page() {
 
         <Text className={classes.title}>无访问权限</Text>
 
-        <Text className={classes.description}>
-          抱歉，您没有权限访问此页面
-        </Text>
+        <Text className={classes.description}>抱歉，您没有权限访问此页面</Text>
 
         <Button variant="default" onClick={handleGoHome} mt="sm">
           返回首页
