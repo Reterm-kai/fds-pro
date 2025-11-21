@@ -35,7 +35,7 @@ export function ProfileBasicPage() {
   }
 
   return (
-    <SectionList direction="vertical">
+    <SectionList direction="vertical" className={classes.root}>
       {/* 页面头部 */}
       <Section>
         <Group justify="space-between" align="center" mb="md">

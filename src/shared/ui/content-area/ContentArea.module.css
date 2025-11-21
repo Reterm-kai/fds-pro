@@ -1,6 +1,6 @@
 /* 外层容器 - 间隙背景 */
 .root {
-  flex: 1 1 0%;
+  flex: 1 1 0;
   min-height: 0;
   /* 间隙：上下 20px (lg)，左右 16px (md) */
   padding: var(--mantine-spacing-lg) var(--mantine-spacing-md);
@@ -12,8 +12,8 @@
 
 /* 内层容器 - 实际内容区域 */
 .inner {
-  flex: 1 1 0%;
-  min-height: 0;
+  flex: 0 1 auto;
+  min-height: 100%;
   background: var(--layout-surface-elevated-bg);
   box-shadow: var(--layout-surface-shadow);
   border-radius: 0;

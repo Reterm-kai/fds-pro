@@ -1,3 +1,8 @@
+/* 根容器 - 添加底部缝隙 */
+.root {
+  margin-bottom: var(--mantine-spacing-lg);
+}
+
 .cardTitle {
   font-size: var(--mantine-font-size-md);
   font-weight: 600;
