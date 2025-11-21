@@ -8,8 +8,6 @@ export interface ViewPage {
   title: string
   /** 是否可关闭（首页通常不可关闭） */
   closable: boolean
-  /** 刷新标记,用于触发页面刷新 */
-  refreshKey?: number
 }
 
 /**
@@ -28,8 +26,6 @@ export interface MultiViewContextValue {
   closeOtherViews: (path: string) => void
   /** 关闭所有可关闭的视图 */
   closeAllViews: () => void
-  /** 刷新指定视图 */
-  refreshView: (path: string) => void
   /** 设置激活的视图 */
   setActiveView: (path: string) => void
 }

@@ -129,15 +129,6 @@ export function MultiViewProvider({ children }: MultiViewProviderProps) {
     }
   }, [views, activeView, navigate])
 
-  // 刷新指定视图
-  const refreshView = useCallback((path: string) => {
-    setViews(prev =>
-      prev.map(view =>
-        view.path === path ? { ...view, refreshKey: Date.now() } : view
-      )
-    )
-  }, [])
-
   // 设置激活的视图
   const setActiveView = useCallback(
     (path: string) => {
@@ -153,7 +144,6 @@ export function MultiViewProvider({ children }: MultiViewProviderProps) {
     closeView,
     closeOtherViews,
     closeAllViews,
-    refreshView,
     setActiveView,
   }
 

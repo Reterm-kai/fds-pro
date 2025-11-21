@@ -165,31 +165,27 @@
   position: fixed;
   z-index: var(--mantine-z-index-popover);
   background-color: var(--layout-surface-elevated-bg);
-  border: calc(var(--mantine-spacing-xs) * 0.125) solid
+  border: calc(var(--mantine-spacing-xs) * 0.1) solid
     var(--layout-divider-color);
-  border-radius: var(--mantine-radius-md);
-  box-shadow: var(--mantine-shadow-md);
-  padding: calc(var(--mantine-spacing-xs) * 0.5);
-  min-width: calc(var(--mantine-spacing-xl) * 4.5);
+  border-radius: var(--mantine-radius-sm);
+  box-shadow: var(--mantine-shadow-sm);
+  padding: calc(var(--mantine-spacing-xs) * 0.3);
 }
 
 .contextMenuItem {
   display: flex;
   align-items: center;
-  gap: var(--mantine-spacing-xs);
-  padding: var(--mantine-spacing-xs) var(--mantine-spacing-sm);
-  font-size: var(--mantine-font-size-sm);
+  gap: calc(var(--mantine-spacing-xs) * 0.6);
+  padding: calc(var(--mantine-spacing-xs) * 0.5) calc(var(--mantine-spacing-xs) * 0.8);
+  font-size: var(--mantine-font-size-xs);
   color: var(--mantine-color-text);
-  border-radius: var(--mantine-radius-sm);
+  border-radius: var(--mantine-radius-xs);
   cursor: pointer;
   transition: background-color 0.15s ease;
 }
 
 .contextMenuItem:hover:not(.contextMenuItemDisabled) {
-  background-color: light-dark(
-    var(--mantine-color-gray-1),
-    var(--mantine-color-dark-6)
-  );
+  background-color: var(--layout-surface-interactive-bg);
 }
 
 .contextMenuItemDisabled {

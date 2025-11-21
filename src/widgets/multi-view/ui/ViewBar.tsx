@@ -2,7 +2,6 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import type { CSSProperties, MouseEvent } from 'react'
 import {
   X,
-  RefreshCw,
   XCircle,
   Trash2,
   ChevronLeft,
@@ -42,7 +41,6 @@ export function ViewBar({ height }: ViewBarProps = {}) {
     closeView,
     closeOtherViews,
     closeAllViews,
-    refreshView,
   } = useMultiView()
 
   const [contextMenu, setContextMenu] = useState<ContextMenuState>({
@@ -134,11 +132,6 @@ export function ViewBar({ height }: ViewBarProps = {}) {
     [closeView]
   )
 
-  const handleRefresh = useCallback(() => {
-    refreshView(contextMenu.viewPath)
-    closeContextMenu()
-  }, [contextMenu.viewPath, refreshView, closeContextMenu])
-
   const handleClose = useCallback(() => {
     closeView(contextMenu.viewPath)
     closeContextMenu()
@@ -216,11 +209,6 @@ export function ViewBar({ height }: ViewBarProps = {}) {
           className={classes.contextMenu}
           style={{ left: contextMenu.x, top: contextMenu.y }}
         >
-          <ContextMenuItem
-            icon={<RefreshCw size={12} />}
-            label="刷新"
-            onClick={handleRefresh}
-          />
           <ContextMenuItem
             icon={<X size={12} />}
             label="关闭"
