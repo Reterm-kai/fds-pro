@@ -16,7 +16,7 @@
   min-height: 0;
   background: var(--layout-surface-elevated-bg);
   box-shadow: var(--layout-surface-shadow);
-  border-radius: var(--mantine-radius-md);
+  border-radius: 0;
   display: flex;
   flex-direction: column;
 }

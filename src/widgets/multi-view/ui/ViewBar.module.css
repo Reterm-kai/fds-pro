@@ -111,8 +111,11 @@
 
 /* 激活状态标签 */
 .tabActive {
-  background-color: var(--layout-surface-selected-bg);
-  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
+  background-color: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-7)
+  );
+  color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-3));
   font-weight: 500;
   border-color: var(--layout-divider-color);
   /* 底部边框与背景色一致，遮盖底部边线 */
@@ -120,7 +123,10 @@
 }
 
 .tabActive:hover {
-  background-color: var(--layout-surface-selected-bg);
+  background-color: light-dark(
+    var(--mantine-color-white),
+    var(--mantine-color-dark-7)
+  );
 }
 
 /* 标签文本 */
