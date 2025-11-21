@@ -1,0 +1,40 @@
+.appShell {
+  height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--layout-surface-bg);
+}
+
+.navbar {
+  border-right: calc(var(--mantine-spacing-xs) * 0.125) solid
+    var(--layout-divider-color);
+  box-shadow: var(--layout-surface-shadow);
+  background-color: var(--layout-surface-bg);
+}
+
+.viewBarSection {
+  position: fixed;
+  top: var(--app-shell-header-offset, 0rem);
+  inset-inline-start: var(--app-shell-navbar-offset, 0rem);
+  inset-inline-end: var(--app-shell-aside-offset, 0rem);
+  padding-top: var(--app-shell-padding);
+  padding-inline: var(--app-shell-padding);
+  padding-bottom: 0;
+  background-color: var(--layout-surface-bg);
+  box-shadow: var(--layout-surface-shadow);
+  z-index: var(--mantine-z-index-app);
+  border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
+    var(--layout-divider-color);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  /* ViewBar 高度: lg * 1.75 ≈ 35px */
+  padding-top: calc(
+    var(--app-shell-header-offset, 0rem) + var(--app-shell-padding) +
+      var(--mantine-spacing-lg) * 1.75
+  );
+  background-color: var(--layout-surface-bg);
+}

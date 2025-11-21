@@ -1,3 +1,9 @@
+/* ==========================================================================
+   ViewBar - 多视图标签栏组件样式
+   ========================================================================== */
+
+/* 标签栏容器
+   ========================================================================== */
 .tabBarWrapper {
   display: flex;
   align-items: stretch;
@@ -12,6 +18,8 @@
   flex-shrink: 0;
 }
 
+/* 滚动按钮
+   ========================================================================== */
 .scrollButton {
   display: flex;
   align-items: center;
@@ -34,6 +42,8 @@
   color: light-dark(var(--mantine-color-gray-8), var(--mantine-color-dark-0));
 }
 
+/* 标签列表容器
+   ========================================================================== */
 .tabBar {
   display: flex;
   align-items: stretch;
@@ -46,21 +56,35 @@
   height: var(--view-bar-height, calc(var(--mantine-spacing-lg) * 1.75));
   min-height: var(--view-bar-height, calc(var(--mantine-spacing-lg) * 1.75));
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: hidden;
   gap: calc(var(--mantine-spacing-xs) * 0.4);
   user-select: none;
   position: relative;
   flex: 1;
+  /* 隐藏滚动条 */
   scrollbar-width: none;
   -ms-overflow-style: none;
-  border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
-    var(--layout-divider-color);
 }
 
 .tabBar::-webkit-scrollbar {
   display: none;
 }
 
+/* 底部边线：使用伪元素实现连续边线 */
+.tabBar::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: var(--mantine-spacing-xs);
+  inset-inline-end: var(--mantine-spacing-xs);
+  bottom: 0;
+  height: calc(var(--mantine-spacing-xs) * 0.125);
+  background-color: var(--layout-divider-color);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 标签项
+   ========================================================================== */
 .tab {
   display: flex;
   align-items: center;
@@ -69,7 +93,7 @@
   font-size: var(--mantine-font-size-xs);
   color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
   background-color: var(--layout-surface-bg);
-  border-radius: var(--mantine-radius-sm) var(--mantine-radius-sm) 0 0;
+  border-radius: 0;
   cursor: pointer;
   transition:
     background-color 0.15s ease,
@@ -77,10 +101,10 @@
   white-space: nowrap;
   flex-shrink: 0;
   position: relative;
+  z-index: 1;
   border: calc(var(--mantine-spacing-xs) * 0.125) solid
     var(--layout-divider-color);
-  border-bottom: none;
-  margin-bottom: calc(var(--mantine-spacing-xs) * -0.125);
+  margin-bottom: 0;
 }
 
 .tab:hover:not(.tabActive) {
@@ -91,6 +115,7 @@
   );
 }
 
+/* 激活状态标签 */
 .tabActive {
   background-color: light-dark(
     var(--mantine-color-white),
@@ -99,8 +124,8 @@
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-4));
   font-weight: 500;
   border-color: var(--layout-divider-color);
-  border-bottom: calc(var(--mantine-spacing-xs) * 0.125) solid
-    var(--layout-surface-bg);
+  /* 底部边框透明，与底部边线融合 */
+  border-bottom-color: transparent;
 }
 
 .tabActive:hover {
@@ -110,6 +135,7 @@
   );
 }
 
+/* 标签文本 */
 .tabLabel {
   flex: 1;
   overflow: hidden;
@@ -117,6 +143,7 @@
   min-width: 0;
 }
 
+/* 关闭按钮 */
 .closeButton {
   display: flex;
   align-items: center;
@@ -138,6 +165,8 @@
   opacity: 1;
 }
 
+/* 右键菜单
+   ========================================================================== */
 .contextMenu {
   position: fixed;
   z-index: var(--mantine-z-index-popover);
