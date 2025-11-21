@@ -1,5 +1,5 @@
 const MENU_CACHE_PREFIX = 'fds-pro-menu-cache'
-const CACHE_TTL = 1 * 60 * 1000 // 1 分钟
+export const MENU_CACHE_TTL = 60 * 1000 // 1 分钟
 
 export interface MenuCacheScope {
   userId?: number | string
@@ -36,7 +36,7 @@ export function loadMenuCache<T>(
     if (!parsed?.data || !parsed.timestamp) {
       return undefined
     }
-    if (Date.now() - parsed.timestamp > CACHE_TTL) {
+    if (Date.now() - parsed.timestamp > MENU_CACHE_TTL) {
       sessionStorage.removeItem(cacheKey)
       return undefined
     }
