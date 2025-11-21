@@ -134,11 +134,7 @@ export function ResultErrorPage() {
 
           <div className={classes.errorList}>
             <div className={classes.errorItem}>
-              <IconAlertCircle
-                size={18}
-                className={classes.errorItemIcon}
-                color="var(--mantine-color-red-6)"
-              />
+              <IconAlertCircle size={18} className={classes.errorItemIcon} />
               <div>
                 <Text className={classes.errorItemTitle}>
                   您没有此模块的操作权限
@@ -150,11 +146,7 @@ export function ResultErrorPage() {
             </div>
 
             <div className={classes.errorItem}>
-              <IconAlertCircle
-                size={18}
-                className={classes.errorItemIcon}
-                color="var(--mantine-color-red-6)"
-              />
+              <IconAlertCircle size={18} className={classes.errorItemIcon} />
               <div>
                 <Text className={classes.errorItemTitle}>
                   当前操作不符合业务审批流
@@ -166,11 +158,7 @@ export function ResultErrorPage() {
             </div>
 
             <div className={classes.errorItem}>
-              <IconAlertCircle
-                size={18}
-                className={classes.errorItemIcon}
-                color="var(--mantine-color-red-6)"
-              />
+              <IconAlertCircle size={18} className={classes.errorItemIcon} />
               <div>
                 <Text className={classes.errorItemTitle}>
                   提交内容包含不合法参数

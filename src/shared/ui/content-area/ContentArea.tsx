@@ -16,7 +16,10 @@ export function ContentArea({
   ...others
 }: ContentAreaProps) {
   return (
-    <div className={[classes.root, className].filter(Boolean).join(' ')} {...others}>
+    <div
+      className={[classes.root, className].filter(Boolean).join(' ')}
+      {...others}
+    >
       <div className={classes.inner}>
         <div className={classes.content}>{children}</div>
       </div>

@@ -1,12 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import type { CSSProperties, MouseEvent } from 'react'
-import {
-  X,
-  XCircle,
-  Trash2,
-  ChevronLeft,
-  ChevronRight,
-} from 'lucide-react'
+import { X, XCircle, Trash2, ChevronLeft, ChevronRight } from 'lucide-react'
 import { Box } from '@mantine/core'
 import { useMultiView } from '@/widgets/multi-view'
 import classes from './ViewBar.module.css'
@@ -82,6 +76,44 @@ export function ViewBar({ height }: ViewBarProps = {}) {
   useEffect(() => {
     checkScrollState()
   }, [views, checkScrollState])
+
+  // 当 activeView 变化时，滚动到对应的 tab
+  useEffect(() => {
+    const container = tabListRef.current
+    if (!container || !activeView) return
+
+    // 找到激活的 tab 元素
+    const activeTabElement = container.querySelector(
+      `[data-tab-path="${CSS.escape(activeView)}"]`
+    ) as HTMLElement
+
+    if (!activeTabElement) return
+
+    const containerRect = container.getBoundingClientRect()
+    const tabRect = activeTabElement.getBoundingClientRect()
+
+    // 检查 tab 是否在可视区域内
+    const isTabVisible =
+      tabRect.left >= containerRect.left && tabRect.right <= containerRect.right
+
+    if (!isTabVisible) {
+      // 计算需要滚动的距离
+      if (tabRect.left < containerRect.left) {
+        // tab 在左侧被遮挡，向左滚动
+        const scrollOffset =
+          activeTabElement.offsetLeft - container.offsetLeft - 8
+        container.scrollTo({ left: scrollOffset, behavior: 'smooth' })
+      } else {
+        // tab 在右侧被遮挡，向右滚动
+        const scrollOffset =
+          activeTabElement.offsetLeft +
+          activeTabElement.offsetWidth -
+          container.clientWidth +
+          8
+        container.scrollTo({ left: scrollOffset, behavior: 'smooth' })
+      }
+    }
+  }, [activeView])
 
   const scrollLeft = useCallback(() => {
     tabListRef.current?.scrollBy({ left: -SCROLL_DISTANCE, behavior: 'smooth' })
@@ -175,6 +207,7 @@ export function ViewBar({ height }: ViewBarProps = {}) {
           {views.map(view => (
             <div
               key={view.path}
+              data-tab-path={view.path}
               className={`${classes.tab} ${view.path === activeView ? classes.tabActive : ''}`}
               onClick={() => setActiveView(view.path)}
               onContextMenu={e => handleContextMenu(e, view.path)}

@@ -99,8 +99,10 @@
   flex-shrink: 0;
   position: relative;
   z-index: 1;
+  /* 只有上、左、右边框，底部由 ::after 伪元素提供 */
   border: calc(var(--mantine-spacing-xs) * 0.125) solid
     var(--layout-divider-color);
+  border-bottom: none;
   margin-bottom: 0;
 }
 
@@ -118,8 +120,11 @@
   color: light-dark(var(--mantine-color-blue-7), var(--mantine-color-blue-3));
   font-weight: 500;
   border-color: var(--layout-divider-color);
-  /* 底部边框与背景色一致，遮盖底部边线 */
-  border-bottom-color: transparent;
+  /* 延伸到底部边线下方，遮盖底部边线 */
+  margin-bottom: calc(var(--mantine-spacing-xs) * -0.125);
+  padding-bottom: calc(
+    var(--mantine-spacing-xs) * 0.3 + var(--mantine-spacing-xs) * 0.125
+  );
 }
 
 .tabActive:hover {
@@ -176,7 +181,8 @@
   display: flex;
   align-items: center;
   gap: calc(var(--mantine-spacing-xs) * 0.6);
-  padding: calc(var(--mantine-spacing-xs) * 0.5) calc(var(--mantine-spacing-xs) * 0.8);
+  padding: calc(var(--mantine-spacing-xs) * 0.5)
+    calc(var(--mantine-spacing-xs) * 0.8);
   font-size: var(--mantine-font-size-xs);
   color: var(--mantine-color-text);
   border-radius: var(--mantine-radius-xs);

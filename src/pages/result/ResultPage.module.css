@@ -96,6 +96,7 @@
 .errorItemIcon {
   flex-shrink: 0;
   margin-top: calc(var(--mantine-spacing-xs) * 0.3);
+  color: light-dark(var(--mantine-color-red-6), var(--mantine-color-red-4));
 }
 
 .errorItemTitle {
