@@ -1,0 +1,191 @@
+===========================
+ViewBar & Navbar 文件参考
+===========================
+
+【核心实现文件】
+
+ViewBar 组件实现：
+  /Users/gp3/web/fds-pro/src/widgets/multi-view/ui/ViewBar.tsx
+  - 259 行代码
+  - 功能：Tab 显示、切换、关闭、滚动、右键菜单
+  - 关键方法：setActiveView, closeView, checkScrollState, handleContextMenu
+  
+ViewBar 样式：
+  /Users/gp3/web/fds-pro/src/widgets/multi-view/ui/ViewBar.module.css
+  - 195 行代码
+  - 样式类：tabBar, tab, tabActive, scrollButton, contextMenu 等
+
+多视图状态管理（Provider）：
+  /Users/gp3/web/fds-pro/src/widgets/multi-view/model/MultiViewContext.tsx
+  - 156 行代码
+  - 功能：views 状态管理、localStorage 持久化、addView/closeView 等方法
+  - 关键变量：views, activeView (从 location.pathname 同步)
+
+路由同步 Hook：
+  /Users/gp3/web/fds-pro/src/widgets/multi-view/model/useRouteSync.ts
+  - 136 行代码
+  - 功能：监听路由变更、查找菜单标题、自动创建 Tab
+  - 关键函数：findMenuTitle, generateDefaultTitle
+
+多视图类型定义：
+  /Users/gp3/web/fds-pro/src/widgets/multi-view/model/types.ts
+  - 32 行代码
+  - 类型：ViewPage, MultiViewContextValue
+
+多视图 Hook 导出：
+  /Users/gp3/web/fds-pro/src/widgets/multi-view/model/useMultiView.ts
+  - 14 行代码
+  - 用于获取 MultiViewContext
+
+多视图 Context 定义：
+  /Users/gp3/web/fds-pro/src/widgets/multi-view/model/context.ts
+  - 10 行代码
+
+路由出口包装：
+  /Users/gp3/web/fds-pro/src/widgets/multi-view/ui/RefreshableOutlet.tsx
+  - 9 行代码
+  - 简单的 React Router Outlet 包装
+
+多视图公共 API：
+  /Users/gp3/web/fds-pro/src/widgets/multi-view/index.ts
+  - 10 行代码
+  - 导出：MultiViewProvider, useMultiView, useRouteSync, ViewBar 等
+
+----
+
+Navbar（侧边导航栏）实现：
+  /Users/gp3/web/fds-pro/src/widgets/app-navbar/ui/AppNavbar.tsx
+  - 247 行代码
+  - 功能：菜单渲染、展开/收缩状态、加载/错误处理
+  - 关键方法：renderMenuItems, renderExpandedContent, renderCollapsedContent
+
+Navbar 样式：
+  /Users/gp3/web/fds-pro/src/widgets/app-navbar/ui/AppNavbar.module.css
+  - 217 行代码
+  - 样式类：navbar, links, collapsedContent, footer, toggleButton 等
+
+菜单项组件：
+  /Users/gp3/web/fds-pro/src/shared/ui/links-group/LinksGroup.tsx
+  - 205 行代码
+  - 功能：菜单项渲染、激活检测、展开/收缩模式、子菜单处理
+  - 关键变量：isActive, hasActiveChild, opened
+
+菜单项样式：
+  /Users/gp3/web/fds-pro/src/shared/ui/links-group/LinksGroup.module.css
+  - 348 行代码
+  - 样式类：control, link, popoverLink, chevron, collapsedControl 等
+
+菜单查询 Hook：
+  /Users/gp3/web/fds-pro/src/features/menu/api/useMenu.ts
+  - 59 行代码
+  - 功能：GET /menus、数据转换、缓存、刷新
+  - 关键函数：useQuery, select: transformMenuResponse
+
+菜单类型定义：
+  /Users/gp3/web/fds-pro/src/features/menu/model/types.ts
+  - 36 行代码
+  - 类型：RemoteMenuItem, MenuViewItem
+
+菜单数据转换：
+  /Users/gp3/web/fds-pro/src/features/menu/model/menuMapper.ts
+  - 99 行代码
+  - 功能：后端菜单 → UI 菜单、排序、图标映射
+  - 关键函数：transformMenuResponse, transformItem, mapLinks, resolveIcon
+
+菜单缓存管理：
+  /Users/gp3/web/fds-pro/src/features/menu/model/menuCache.ts
+  - 功能：缓存保存/加载/清除
+
+菜单公共 API：
+  /Users/gp3/web/fds-pro/src/features/menu/index.ts
+  - 导出：useMenu, MenuViewItem 等
+
+----
+
+【集成点】
+
+应用主布局：
+  /Users/gp3/web/fds-pro/src/app/layouts/AppLayout.tsx
+  - 102 行代码
+  - 功能：整体布局、MultiViewProvider、RouteSyncWrapper、AppShell 结构
+  - 结构：
+    - MultiViewProvider (最外层)
+      - RouteSyncWrapper (useRouteSync)
+        - AppShell
+          - AppHeader (顶部)
+          - AppNavbar (侧边菜单)
+          - ViewBar (Tab 标签栏)
+          - RefreshableOutlet (页面内容)
+
+AppHeader：
+  /Users/gp3/web/fds-pro/src/widgets/app-header/...
+  - 与 ViewBar & Navbar 的集成点：onToggleCollapse, onLinkClick 回调
+
+---
+
+【使用的库和工具】
+
+React Router:
+  - useLocation() 获取当前路由
+  - navigate() 导航
+  - NavLink 菜单项渲染
+
+TanStack Query (React Query):
+  - useQuery 菜单查询
+  - useQueryClient 缓存管理
+
+Mantine UI:
+  - AppShell, ScrollArea, ActionIcon, HoverCard 等组件
+  - CSS 变量、设计系统
+
+Tabler Icons:
+  - 图标组件映射（IconGauge, IconChartLine 等）
+
+---
+
+【关键数据流】
+
+1. 初始化：
+   AppLayout → MultiViewProvider → RouteSyncWrapper → useRouteSync → useMenu
+
+2. 用户交互：
+   菜单项点击 → navigate() → location 变更 → useRouteSync → addView → ViewBar 渲染
+
+3. 激活同步：
+   location.pathname = 唯一真实来源 → 驱动 activeView → 驱动菜单激活 + Tab 高亮
+
+4. 状态持久化：
+   views 变更 → localStorage.setItem → 页面刷新恢复
+
+---
+
+【快速查找】
+
+查找 views 状态的使用：
+  grep -r "views" /Users/gp3/web/fds-pro/src/widgets/multi-view
+
+查找 activeView 的使用：
+  grep -r "activeView" /Users/gp3/web/fds-pro/src/widgets
+
+查找菜单激活逻辑：
+  grep -r "isActive" /Users/gp3/web/fds-pro/src/shared/ui/links-group
+
+查找路由同步：
+  grep -r "useRouteSync" /Users/gp3/web/fds-pro/src
+
+查找菜单查询：
+  grep -r "useMenu" /Users/gp3/web/fds-pro/src
+
+---
+
+【生成的文档】
+
+详细分析：
+  /Users/gp3/web/fds-pro/.claude/analysis-viewbar-navbar.md
+
+快速参考：
+  /Users/gp3/web/fds-pro/.claude/quick-reference-viewbar-navbar.md
+
+架构总结：
+  /Users/gp3/web/fds-pro/.claude/viewbar-navbar-summary.md
+
