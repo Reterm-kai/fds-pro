@@ -82,39 +82,47 @@ export function ViewBar({ height }: ViewBarProps = {}) {
     const container = tabListRef.current
     if (!container || !activeView) return
 
-    // 找到激活的 tab 元素
-    const activeTabElement = container.querySelector(
-      `[data-tab-path="${CSS.escape(activeView)}"]`
-    ) as HTMLElement
+    // 使用 requestAnimationFrame 确保 DOM 渲染完成
+    const frameId = requestAnimationFrame(() => {
+      const activeTabElement = container.querySelector(
+        `[data-tab-path="${CSS.escape(activeView)}"]`
+      ) as HTMLElement
 
-    if (!activeTabElement) return
+      if (!activeTabElement) return
 
-    // 获取 tab 相对于容器的位置
-    const tabLeft = activeTabElement.offsetLeft
-    const tabRight = tabLeft + activeTabElement.offsetWidth
-    const containerScrollLeft = container.scrollLeft
-    const containerWidth = container.clientWidth
+      // 获取 tab 相对于容器的位置
+      const tabLeft = activeTabElement.offsetLeft
+      const tabRight = tabLeft + activeTabElement.offsetWidth
+      const containerScrollLeft = container.scrollLeft
+      const containerWidth = container.clientWidth
 
-    // 添加边距，确保 tab 不会紧贴边缘
-    const padding = 12
+      // 滚动按钮宽度（与 CSS 保持一致）
+      const scrollButtonWidth = 38 // calc(var(--mantine-spacing-xl) * 1.2) ≈ 38px
 
-    // 检查 tab 是否被左侧遮挡
-    if (tabLeft < containerScrollLeft + padding) {
-      // 向左滚动，使 tab 左边缘可见
-      container.scrollTo({
-        left: Math.max(0, tabLeft - padding),
-        behavior: 'smooth',
-      })
-    }
-    // 检查 tab 是否被右侧遮挡
-    else if (tabRight > containerScrollLeft + containerWidth - padding) {
-      // 向右滚动，使 tab 右边缘可见
-      container.scrollTo({
-        left: tabRight - containerWidth + padding,
-        behavior: 'smooth',
-      })
-    }
-  }, [activeView])
+      // 计算可视区域边界（滚动按钮会遮挡的区域）
+      const visibleLeft = containerScrollLeft + scrollButtonWidth
+      const visibleRight = containerScrollLeft + containerWidth - scrollButtonWidth
+
+      // 检查 tab 是否被左侧遮挡
+      if (tabLeft < visibleLeft) {
+        // 滚动使 tab 左边缘紧贴左侧按钮
+        container.scrollTo({
+          left: tabLeft - scrollButtonWidth,
+          behavior: 'smooth',
+        })
+      }
+      // 检查 tab 是否被右侧遮挡
+      else if (tabRight > visibleRight) {
+        // 滚动使 tab 右边缘紧贴右侧按钮
+        container.scrollTo({
+          left: tabRight - containerWidth + scrollButtonWidth,
+          behavior: 'smooth',
+        })
+      }
+    })
+
+    return () => cancelAnimationFrame(frameId)
+  }, [activeView, views, canScrollLeft, canScrollRight])
 
   const scrollLeft = useCallback(() => {
     tabListRef.current?.scrollBy({ left: -SCROLL_DISTANCE, behavior: 'smooth' })
@@ -196,7 +204,7 @@ export function ViewBar({ height }: ViewBarProps = {}) {
       <Box className={classes.tabBarWrapper} style={wrapperStyle}>
         {canScrollLeft && (
           <button
-            className={classes.scrollButton}
+            className={`${classes.scrollButton} ${classes.scrollButtonLeft}`}
             onClick={scrollLeft}
             type="button"
           >
@@ -228,7 +236,7 @@ export function ViewBar({ height }: ViewBarProps = {}) {
 
         {canScrollRight && (
           <button
-            className={classes.scrollButton}
+            className={`${classes.scrollButton} ${classes.scrollButtonRight}`}
             onClick={scrollRight}
             type="button"
           >

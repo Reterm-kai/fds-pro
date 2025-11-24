@@ -37,16 +37,27 @@
 /* 滚动按钮
    ========================================================================== */
 .scrollButton {
+  position: absolute;
+  top: 0;
+  bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: calc(var(--mantine-spacing-xl) * 1.5);
+  width: calc(var(--mantine-spacing-xl) * 1.2);
   background-color: var(--layout-surface-elevated-bg);
   border: none;
   color: light-dark(var(--mantine-color-gray-6), var(--mantine-color-dark-2));
   cursor: pointer;
   transition: color 0.15s ease;
-  flex-shrink: 0;
+  z-index: 2;
+}
+
+.scrollButtonLeft {
+  left: 0;
+}
+
+.scrollButtonRight {
+  right: 0;
 }
 
 .scrollButton:hover {
@@ -72,6 +83,8 @@
   /* 隐藏滚动条 */
   scrollbar-width: none;
   -ms-overflow-style: none;
+  /* 为滚动按钮预留空间，避免遮挡 tab */
+  scroll-padding: 0 calc(var(--mantine-spacing-xl) * 1.2);
 }
 
 .tabBar::-webkit-scrollbar {
